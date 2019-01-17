@@ -1,505 +1,508 @@
-<app-mainmenus></app-mainmenus>
-<div class="page-wrapper">
-  <div class="container-fluid">
-    <div class="section-header">
-      <div class="row page-titles">
-        <div class="col-md-5 align-self-center">
-          <h4 class="">Income Source</h4>
+<div class="main-container">
+  <app-mainmenus></app-mainmenus>
+  <div class="page-wrapper">
+    <div class="container-fluid">
+      <div class="section-header">
+        <div class="row page-titles">
+          <div class="col-md-5 align-self-center">
+            <h4 class="">Income Source</h4>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="section-body">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-body wizard-content">
-              <form class="tab-wizard wizard-circle wizard clearfix">
-                <div class="steps clearfix">
-                  <ul class="nav " role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link active" id="personal-info-tab" href="#personal-info" data-toggle="tab" role="tab">
-                        Salary
-                        <span class="step-icon-wrap info">
-                          <span class="step-icon">
-                            <svg viewBox="0 -63 512 512" width="24px" height="24px" xmlns="http://www.w3.org/2000/svg">
-                              <path d="m497 0h-482c-8.285156 0-15 6.714844-15 15v356.539062c0 8.285157 6.714844 15 15 15h482c8.285156 0 15-6.714843 15-15v-356.539062c0-8.285156-6.714844-15-15-15zm-291.019531 356.539062h-115.917969v-51.476562c0-31.957031 26-57.957031 57.960938-57.957031 31.957031 0 57.957031 26 57.957031 57.957031zm-91.917969-173.253906c0-18.648437 15.234375-33.820312 33.957031-33.820312 18.726563 0 33.960938 15.171875 33.960938 33.820312 0 18.648438-15.234375 33.820313-33.960938 33.820313-18.722656 0-33.957031-15.171875-33.957031-33.820313zm367.9375 173.253906h-246.019531v-51.476562c0-32.316406-17.519531-60.613281-43.5625-75.902344 12.046875-11.613281 19.5625-27.882812 19.5625-45.875 0-35.191406-28.691407-63.820312-63.960938-63.820312-35.265625 0-63.960937 28.628906-63.960937 63.820312 0 17.992188 7.515625 34.261719 19.5625 45.875-26.039063 15.289063-43.5625 43.585938-43.5625 75.902344v51.476562h-30.058594v-262.742187h452zm0-292.742187h-452v-33.796875h452zm0 0"/>
-                              <path d="m289.421875 153.046875h148.332031c8.28125 0 15-6.71875 15-15 0-8.285156-6.71875-15-15-15h-148.332031c-8.28125 0-15 6.714844-15 15 0 8.28125 6.71875 15 15 15zm0 0"/>
-                              <path d="m289.421875 212.296875h148.332031c8.28125 0 15-6.71875 15-15 0-8.285156-6.71875-15-15-15h-148.332031c-8.28125 0-15 6.714844-15 15 0 8.28125 6.71875 15 15 15zm0 0"/>
-                              <path d="m289.421875 271.542969h148.332031c8.28125 0 15-6.714844 15-15 0-8.28125-6.71875-15-15-15h-148.332031c-8.28125 0-15 6.71875-15 15 0 8.285156 6.71875 15 15 15zm0 0"/>
-                              <path d="m289.421875 330.792969h148.332031c8.28125 0 15-6.714844 15-15 0-8.285157-6.71875-15-15-15h-148.332031c-8.28125 0-15 6.714843-15 15 0 8.285156 6.71875 15 15 15zm0 0"/>
-                            </svg>
-                          </span>
-                        </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="personal-address-tab" href="#personal-address" data-toggle="tab" role="tab">
-                        Other Income
-                        <span class="step-icon-wrap address">
-                          <span class="step-icon">
-                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" x="0px" y="0px"
-                               viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-                              <g>
-                                <path d="M437.02,330.98c-27.883-27.882-61.071-48.523-97.281-61.018C378.521,243.251,404,198.548,404,148
-                                  C404,66.393,337.607,0,256,0S108,66.393,108,148c0,50.548,25.479,95.251,64.262,121.962
-                                  c-36.21,12.495-69.398,33.136-97.281,61.018C26.629,379.333,0,443.62,0,512h40c0-119.103,96.897-216,216-216s216,96.897,216,216
-                                  h40C512,443.62,485.371,379.333,437.02,330.98z M256,256c-59.551,0-108-48.448-108-108S196.449,40,256,40
-                                  c59.551,0,108,48.448,108,108S315.551,256,256,256z"/>
-                              </g>
-                            </svg>
-                          </span>
-                        </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="personal-residency-tab" href="#personal-residency" data-toggle="tab" role="tab">
-                        House Property
-                        <span class="step-icon-wrap residency">
-                          <span class="step-icon">
-                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" x="0px" y="0px"
-                               viewBox="0 0 477 477" style="enable-background:new 0 0 477 477;" xml:space="preserve">
-                              <g>
-                                <path d="M238.4,0C133,0,47.2,85.8,47.2,191.2c0,12,1.1,24.1,3.4,35.9c0.1,0.7,0.5,2.8,1.3,6.4c2.9,12.9,7.2,25.6,12.8,37.7
-                                  c20.6,48.5,65.9,123,165.3,202.8c2.5,2,5.5,3,8.5,3s6-1,8.5-3c99.3-79.8,144.7-154.3,165.3-202.8c5.6-12.1,9.9-24.7,12.8-37.7
-                                  c0.8-3.6,1.2-5.7,1.3-6.4c2.2-11.8,3.4-23.9,3.4-35.9C429.6,85.8,343.8,0,238.4,0z M399.6,222.4c0,0.2-0.1,0.4-0.1,0.6
-                                  c-0.1,0.5-0.4,2-0.9,4.3c0,0.1,0,0.1,0,0.2c-2.5,11.2-6.2,22.1-11.1,32.6c-0.1,0.1-0.1,0.3-0.2,0.4
-                                  c-18.7,44.3-59.7,111.9-148.9,185.6c-89.2-73.7-130.2-141.3-148.9-185.6c-0.1-0.1-0.1-0.3-0.2-0.4c-4.8-10.4-8.5-21.4-11.1-32.6
-                                  c0-0.1,0-0.1,0-0.2c-0.6-2.3-0.8-3.8-0.9-4.3c0-0.2-0.1-0.4-0.1-0.7c-2-10.3-3-20.7-3-31.2c0-90.5,73.7-164.2,164.2-164.2
-                                  s164.2,73.7,164.2,164.2C402.6,201.7,401.6,212.2,399.6,222.4z"/>
-                                <path d="M238.4,71.9c-66.9,0-121.4,54.5-121.4,121.4s54.5,121.4,121.4,121.4s121.4-54.5,121.4-121.4S305.3,71.9,238.4,71.9z
-                                   M238.4,287.7c-52.1,0-94.4-42.4-94.4-94.4s42.4-94.4,94.4-94.4s94.4,42.4,94.4,94.4S290.5,287.7,238.4,287.7z"/>
-                              </g>
-                            </svg>
-                          </span>
-                        </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="personal-bank-tab" href="#personal-bank" data-toggle="tab" role="tab">
-                        Capital Gain
-                        <span class="step-icon-wrap bank">
-                          <span class="step-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-6 0 591 591.1795" width="24px" height="24px">
-                              <g id="surface1">
-                                <path d="M 10.964844 163.253906 C 10.75 164.421875 10.628906 165.605469 10.589844 166.789062 L 10.589844 191.101562 C 10.621094 201.121094 16.84375 210.078125 26.230469 213.597656 L 26.230469 249.371094 C 26.273438 261.347656 35.691406 271.191406 47.652344 271.757812 L 47.652344 478.425781 C 35.691406 478.996094 26.273438 488.839844 26.230469 500.8125 L 26.230469 536.480469 C 16.824219 540.09375 10.605469 549.117188 10.589844 559.1875 L 10.589844 582.96875 C 10.589844 587.402344 14.191406 591 18.625 591 L 560.390625 591 C 564.824219 591 568.421875 587.402344 568.421875 582.96875 L 568.421875 559.1875 C 568.40625 549.113281 562.1875 540.089844 552.785156 536.480469 L 552.785156 500.601562 C 552.742188 488.625 543.320312 478.78125 531.363281 478.214844 L 531.363281 271.757812 C 543.320312 271.191406 552.742188 261.347656 552.785156 249.371094 L 552.785156 213.597656 C 562.167969 210.078125 568.390625 201.121094 568.421875 191.101562 L 568.421875 166.949219 C 568.386719 165.765625 568.261719 164.582031 568.046875 163.414062 C 572.085938 165.203125 576.808594 163.382812 578.597656 159.34375 C 580.386719 155.308594 578.566406 150.585938 574.53125 148.792969 L 293.203125 0.929688 C 290.855469 -0.308594 288.050781 -0.308594 285.703125 0.929688 L 4.378906 148.632812 C 0.453125 150.707031 -1.050781 155.5625 1.015625 159.488281 C 2.90625 163.074219 7.171875 164.691406 10.964844 163.253906 Z M 42.296875 227.519531 L 42.296875 215.148438 L 134.945312 215.148438 L 134.945312 227.414062 Z M 248.589844 271.8125 L 248.589844 478.425781 C 236.628906 478.996094 227.210938 488.839844 227.167969 500.8125 L 227.167969 534.980469 L 150.902344 534.980469 L 150.902344 500.8125 C 150.859375 488.839844 141.441406 478.996094 129.480469 478.425781 L 129.480469 271.757812 C 141.441406 271.191406 150.859375 261.347656 150.902344 249.371094 L 150.902344 215.148438 L 227.058594 215.148438 L 227.058594 249.320312 C 227.078125 261.316406 236.503906 271.183594 248.484375 271.757812 Z M 243.234375 227.519531 L 243.234375 215.148438 L 335.886719 215.148438 L 335.886719 227.414062 Z M 449.53125 271.8125 L 449.53125 478.425781 C 437.570312 478.996094 428.148438 488.839844 428.105469 500.8125 L 428.105469 534.980469 L 351.84375 534.980469 L 351.84375 500.8125 C 351.800781 488.839844 342.378906 478.996094 330.421875 478.425781 L 330.421875 271.757812 C 342.378906 271.191406 351.800781 261.347656 351.84375 249.371094 L 351.84375 215.148438 L 428 215.148438 L 428 249.320312 C 428.015625 261.316406 437.441406 271.183594 449.421875 271.757812 Z M 444.175781 227.519531 L 444.175781 215.148438 L 536.824219 215.148438 L 536.824219 227.414062 Z M 536.824219 522.71875 L 536.824219 534.980469 L 444.066406 534.980469 L 444.066406 522.71875 Z M 335.886719 522.71875 L 335.886719 534.980469 L 243.128906 534.980469 L 243.128906 522.71875 Z M 256.515625 255.851562 L 249.554688 255.851562 C 246.003906 255.851562 243.128906 252.976562 243.128906 249.425781 L 243.128906 243.585938 L 335.777344 243.585938 L 335.777344 249.425781 C 335.777344 252.976562 332.902344 255.851562 329.351562 255.851562 Z M 314.410156 271.917969 L 314.410156 478.320312 L 264.550781 478.320312 L 264.550781 271.917969 C 264.550781 271.917969 314.410156 271.917969 314.410156 271.917969 Z M 256.515625 494.386719 L 329.351562 494.386719 C 332.902344 494.386719 335.777344 497.261719 335.777344 500.8125 L 335.777344 506.652344 L 243.128906 506.652344 L 243.128906 500.8125 C 243.128906 497.261719 246.003906 494.386719 249.554688 494.386719 Z M 134.839844 522.71875 L 134.839844 534.980469 L 42.1875 534.980469 L 42.1875 522.71875 Z M 42.1875 249.585938 L 42.1875 243.585938 L 134.839844 243.585938 L 134.839844 249.425781 C 134.839844 252.976562 131.964844 255.851562 128.410156 255.851562 L 48.453125 255.851562 C 44.945312 255.765625 42.15625 252.878906 42.1875 249.371094 Z M 113.417969 272.078125 L 113.417969 478.320312 L 63.609375 478.320312 L 63.609375 271.917969 Z M 42.1875 500.976562 C 42.1875 497.421875 45.0625 494.546875 48.613281 494.546875 L 128.410156 494.546875 C 131.964844 494.546875 134.839844 497.421875 134.839844 500.976562 L 134.839844 506.8125 L 42.1875 506.8125 Z M 552.355469 559.511719 L 552.355469 575.253906 L 26.550781 575.253906 L 26.550781 559.511719 C 26.550781 554.925781 30.265625 551.207031 34.851562 551.207031 L 544.054688 551.207031 C 548.574219 551.207031 552.269531 554.828125 552.355469 559.347656 C 552.355469 559.347656 552.355469 559.511719 552.355469 559.511719 Z M 536.71875 500.976562 L 536.71875 506.8125 L 444.066406 506.8125 L 444.066406 500.976562 C 444.066406 497.421875 446.941406 494.546875 450.492188 494.546875 L 530.453125 494.546875 C 533.878906 494.632812 536.632812 497.386719 536.71875 500.8125 Z M 465.488281 478.480469 L 465.488281 271.917969 L 515.347656 271.917969 L 515.347656 478.320312 Z M 536.71875 249.585938 C 536.71875 253.136719 533.84375 256.011719 530.292969 256.011719 L 450.546875 256.011719 C 446.996094 256.011719 444.121094 253.136719 444.121094 249.585938 L 444.121094 243.585938 L 536.769531 243.585938 Z M 289.453125 16.996094 L 528.683594 142.742188 L 50.222656 142.742188 Z M 26.550781 166.949219 C 26.550781 162.515625 30.148438 158.917969 34.582031 158.917969 L 544.324219 158.917969 C 548.757812 158.917969 552.355469 162.515625 552.355469 166.949219 L 552.355469 191.265625 C 552.355469 195.699219 548.757812 199.296875 544.324219 199.296875 L 34.582031 199.296875 C 30.148438 199.296875 26.550781 195.699219 26.550781 191.265625 Z M 26.550781 166.949219 " />
-                              </g>
-                            </svg>
-                          </span>
-                        </span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="tab-content tab-wizard-content">
-                  <div class="tab-pane fade show active" id="personal-info" role="tabpanel">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <div class="section-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body wizard-content">
+                <form class="tab-wizard wizard-circle wizard clearfix">
+                  <div class="steps clearfix">
+                    <ul class="nav " role="tablist">
                       <li class="nav-item">
-                        <a class="nav-link active" id="upload-tab" data-toggle="tab" href="#upload" role="tab"aria-selected="true">Upload</a>
+                        <a class="nav-link active" id="personal-info-tab" href="#personal-info" data-toggle="tab" role="tab">
+                          Salary
+                          <span class="step-icon-wrap info">
+                            <span class="step-icon">
+                              <svg viewBox="0 -63 512 512" width="24px" height="24px" xmlns="http://www.w3.org/2000/svg">
+                                <path d="m497 0h-482c-8.285156 0-15 6.714844-15 15v356.539062c0 8.285157 6.714844 15 15 15h482c8.285156 0 15-6.714843 15-15v-356.539062c0-8.285156-6.714844-15-15-15zm-291.019531 356.539062h-115.917969v-51.476562c0-31.957031 26-57.957031 57.960938-57.957031 31.957031 0 57.957031 26 57.957031 57.957031zm-91.917969-173.253906c0-18.648437 15.234375-33.820312 33.957031-33.820312 18.726563 0 33.960938 15.171875 33.960938 33.820312 0 18.648438-15.234375 33.820313-33.960938 33.820313-18.722656 0-33.957031-15.171875-33.957031-33.820313zm367.9375 173.253906h-246.019531v-51.476562c0-32.316406-17.519531-60.613281-43.5625-75.902344 12.046875-11.613281 19.5625-27.882812 19.5625-45.875 0-35.191406-28.691407-63.820312-63.960938-63.820312-35.265625 0-63.960937 28.628906-63.960937 63.820312 0 17.992188 7.515625 34.261719 19.5625 45.875-26.039063 15.289063-43.5625 43.585938-43.5625 75.902344v51.476562h-30.058594v-262.742187h452zm0-292.742187h-452v-33.796875h452zm0 0"/>
+                                <path d="m289.421875 153.046875h148.332031c8.28125 0 15-6.71875 15-15 0-8.285156-6.71875-15-15-15h-148.332031c-8.28125 0-15 6.714844-15 15 0 8.28125 6.71875 15 15 15zm0 0"/>
+                                <path d="m289.421875 212.296875h148.332031c8.28125 0 15-6.71875 15-15 0-8.285156-6.71875-15-15-15h-148.332031c-8.28125 0-15 6.714844-15 15 0 8.28125 6.71875 15 15 15zm0 0"/>
+                                <path d="m289.421875 271.542969h148.332031c8.28125 0 15-6.714844 15-15 0-8.28125-6.71875-15-15-15h-148.332031c-8.28125 0-15 6.71875-15 15 0 8.285156 6.71875 15 15 15zm0 0"/>
+                                <path d="m289.421875 330.792969h148.332031c8.28125 0 15-6.714844 15-15 0-8.285157-6.71875-15-15-15h-148.332031c-8.28125 0-15 6.714843-15 15 0 8.285156 6.71875 15 15 15zm0 0"/>
+                              </svg>
+                            </span>
+                          </span>
+                        </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="income-from-salary-tab" data-toggle="tab" href="#income-from-salary" role="tab" aria-selected="false">Income from Salary</a>
+                        <a class="nav-link" id="personal-address-tab" href="#personal-address" data-toggle="tab" role="tab">
+                          Other Income
+                          <span class="step-icon-wrap address">
+                            <span class="step-icon">
+                              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" x="0px" y="0px"
+                                 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                                <g>
+                                  <path d="M437.02,330.98c-27.883-27.882-61.071-48.523-97.281-61.018C378.521,243.251,404,198.548,404,148
+                                    C404,66.393,337.607,0,256,0S108,66.393,108,148c0,50.548,25.479,95.251,64.262,121.962
+                                    c-36.21,12.495-69.398,33.136-97.281,61.018C26.629,379.333,0,443.62,0,512h40c0-119.103,96.897-216,216-216s216,96.897,216,216
+                                    h40C512,443.62,485.371,379.333,437.02,330.98z M256,256c-59.551,0-108-48.448-108-108S196.449,40,256,40
+                                    c59.551,0,108,48.448,108,108S315.551,256,256,256z"/>
+                                </g>
+                              </svg>
+                            </span>
+                          </span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="personal-residency-tab" href="#personal-residency" data-toggle="tab" role="tab">
+                          House Property
+                          <span class="step-icon-wrap residency">
+                            <span class="step-icon">
+                              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" x="0px" y="0px"
+                                 viewBox="0 0 477 477" style="enable-background:new 0 0 477 477;" xml:space="preserve">
+                                <g>
+                                  <path d="M238.4,0C133,0,47.2,85.8,47.2,191.2c0,12,1.1,24.1,3.4,35.9c0.1,0.7,0.5,2.8,1.3,6.4c2.9,12.9,7.2,25.6,12.8,37.7
+                                    c20.6,48.5,65.9,123,165.3,202.8c2.5,2,5.5,3,8.5,3s6-1,8.5-3c99.3-79.8,144.7-154.3,165.3-202.8c5.6-12.1,9.9-24.7,12.8-37.7
+                                    c0.8-3.6,1.2-5.7,1.3-6.4c2.2-11.8,3.4-23.9,3.4-35.9C429.6,85.8,343.8,0,238.4,0z M399.6,222.4c0,0.2-0.1,0.4-0.1,0.6
+                                    c-0.1,0.5-0.4,2-0.9,4.3c0,0.1,0,0.1,0,0.2c-2.5,11.2-6.2,22.1-11.1,32.6c-0.1,0.1-0.1,0.3-0.2,0.4
+                                    c-18.7,44.3-59.7,111.9-148.9,185.6c-89.2-73.7-130.2-141.3-148.9-185.6c-0.1-0.1-0.1-0.3-0.2-0.4c-4.8-10.4-8.5-21.4-11.1-32.6
+                                    c0-0.1,0-0.1,0-0.2c-0.6-2.3-0.8-3.8-0.9-4.3c0-0.2-0.1-0.4-0.1-0.7c-2-10.3-3-20.7-3-31.2c0-90.5,73.7-164.2,164.2-164.2
+                                    s164.2,73.7,164.2,164.2C402.6,201.7,401.6,212.2,399.6,222.4z"/>
+                                  <path d="M238.4,71.9c-66.9,0-121.4,54.5-121.4,121.4s54.5,121.4,121.4,121.4s121.4-54.5,121.4-121.4S305.3,71.9,238.4,71.9z
+                                     M238.4,287.7c-52.1,0-94.4-42.4-94.4-94.4s42.4-94.4,94.4-94.4s94.4,42.4,94.4,94.4S290.5,287.7,238.4,287.7z"/>
+                                </g>
+                              </svg>
+                            </span>
+                          </span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="personal-bank-tab" href="#personal-bank" data-toggle="tab" role="tab">
+                          Capital Gain
+                          <span class="step-icon-wrap bank">
+                            <span class="step-icon">
+                              <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-6 0 591 591.1795" width="24px" height="24px">
+                                <g id="surface1">
+                                  <path d="M 10.964844 163.253906 C 10.75 164.421875 10.628906 165.605469 10.589844 166.789062 L 10.589844 191.101562 C 10.621094 201.121094 16.84375 210.078125 26.230469 213.597656 L 26.230469 249.371094 C 26.273438 261.347656 35.691406 271.191406 47.652344 271.757812 L 47.652344 478.425781 C 35.691406 478.996094 26.273438 488.839844 26.230469 500.8125 L 26.230469 536.480469 C 16.824219 540.09375 10.605469 549.117188 10.589844 559.1875 L 10.589844 582.96875 C 10.589844 587.402344 14.191406 591 18.625 591 L 560.390625 591 C 564.824219 591 568.421875 587.402344 568.421875 582.96875 L 568.421875 559.1875 C 568.40625 549.113281 562.1875 540.089844 552.785156 536.480469 L 552.785156 500.601562 C 552.742188 488.625 543.320312 478.78125 531.363281 478.214844 L 531.363281 271.757812 C 543.320312 271.191406 552.742188 261.347656 552.785156 249.371094 L 552.785156 213.597656 C 562.167969 210.078125 568.390625 201.121094 568.421875 191.101562 L 568.421875 166.949219 C 568.386719 165.765625 568.261719 164.582031 568.046875 163.414062 C 572.085938 165.203125 576.808594 163.382812 578.597656 159.34375 C 580.386719 155.308594 578.566406 150.585938 574.53125 148.792969 L 293.203125 0.929688 C 290.855469 -0.308594 288.050781 -0.308594 285.703125 0.929688 L 4.378906 148.632812 C 0.453125 150.707031 -1.050781 155.5625 1.015625 159.488281 C 2.90625 163.074219 7.171875 164.691406 10.964844 163.253906 Z M 42.296875 227.519531 L 42.296875 215.148438 L 134.945312 215.148438 L 134.945312 227.414062 Z M 248.589844 271.8125 L 248.589844 478.425781 C 236.628906 478.996094 227.210938 488.839844 227.167969 500.8125 L 227.167969 534.980469 L 150.902344 534.980469 L 150.902344 500.8125 C 150.859375 488.839844 141.441406 478.996094 129.480469 478.425781 L 129.480469 271.757812 C 141.441406 271.191406 150.859375 261.347656 150.902344 249.371094 L 150.902344 215.148438 L 227.058594 215.148438 L 227.058594 249.320312 C 227.078125 261.316406 236.503906 271.183594 248.484375 271.757812 Z M 243.234375 227.519531 L 243.234375 215.148438 L 335.886719 215.148438 L 335.886719 227.414062 Z M 449.53125 271.8125 L 449.53125 478.425781 C 437.570312 478.996094 428.148438 488.839844 428.105469 500.8125 L 428.105469 534.980469 L 351.84375 534.980469 L 351.84375 500.8125 C 351.800781 488.839844 342.378906 478.996094 330.421875 478.425781 L 330.421875 271.757812 C 342.378906 271.191406 351.800781 261.347656 351.84375 249.371094 L 351.84375 215.148438 L 428 215.148438 L 428 249.320312 C 428.015625 261.316406 437.441406 271.183594 449.421875 271.757812 Z M 444.175781 227.519531 L 444.175781 215.148438 L 536.824219 215.148438 L 536.824219 227.414062 Z M 536.824219 522.71875 L 536.824219 534.980469 L 444.066406 534.980469 L 444.066406 522.71875 Z M 335.886719 522.71875 L 335.886719 534.980469 L 243.128906 534.980469 L 243.128906 522.71875 Z M 256.515625 255.851562 L 249.554688 255.851562 C 246.003906 255.851562 243.128906 252.976562 243.128906 249.425781 L 243.128906 243.585938 L 335.777344 243.585938 L 335.777344 249.425781 C 335.777344 252.976562 332.902344 255.851562 329.351562 255.851562 Z M 314.410156 271.917969 L 314.410156 478.320312 L 264.550781 478.320312 L 264.550781 271.917969 C 264.550781 271.917969 314.410156 271.917969 314.410156 271.917969 Z M 256.515625 494.386719 L 329.351562 494.386719 C 332.902344 494.386719 335.777344 497.261719 335.777344 500.8125 L 335.777344 506.652344 L 243.128906 506.652344 L 243.128906 500.8125 C 243.128906 497.261719 246.003906 494.386719 249.554688 494.386719 Z M 134.839844 522.71875 L 134.839844 534.980469 L 42.1875 534.980469 L 42.1875 522.71875 Z M 42.1875 249.585938 L 42.1875 243.585938 L 134.839844 243.585938 L 134.839844 249.425781 C 134.839844 252.976562 131.964844 255.851562 128.410156 255.851562 L 48.453125 255.851562 C 44.945312 255.765625 42.15625 252.878906 42.1875 249.371094 Z M 113.417969 272.078125 L 113.417969 478.320312 L 63.609375 478.320312 L 63.609375 271.917969 Z M 42.1875 500.976562 C 42.1875 497.421875 45.0625 494.546875 48.613281 494.546875 L 128.410156 494.546875 C 131.964844 494.546875 134.839844 497.421875 134.839844 500.976562 L 134.839844 506.8125 L 42.1875 506.8125 Z M 552.355469 559.511719 L 552.355469 575.253906 L 26.550781 575.253906 L 26.550781 559.511719 C 26.550781 554.925781 30.265625 551.207031 34.851562 551.207031 L 544.054688 551.207031 C 548.574219 551.207031 552.269531 554.828125 552.355469 559.347656 C 552.355469 559.347656 552.355469 559.511719 552.355469 559.511719 Z M 536.71875 500.976562 L 536.71875 506.8125 L 444.066406 506.8125 L 444.066406 500.976562 C 444.066406 497.421875 446.941406 494.546875 450.492188 494.546875 L 530.453125 494.546875 C 533.878906 494.632812 536.632812 497.386719 536.71875 500.8125 Z M 465.488281 478.480469 L 465.488281 271.917969 L 515.347656 271.917969 L 515.347656 478.320312 Z M 536.71875 249.585938 C 536.71875 253.136719 533.84375 256.011719 530.292969 256.011719 L 450.546875 256.011719 C 446.996094 256.011719 444.121094 253.136719 444.121094 249.585938 L 444.121094 243.585938 L 536.769531 243.585938 Z M 289.453125 16.996094 L 528.683594 142.742188 L 50.222656 142.742188 Z M 26.550781 166.949219 C 26.550781 162.515625 30.148438 158.917969 34.582031 158.917969 L 544.324219 158.917969 C 548.757812 158.917969 552.355469 162.515625 552.355469 166.949219 L 552.355469 191.265625 C 552.355469 195.699219 548.757812 199.296875 544.324219 199.296875 L 34.582031 199.296875 C 30.148438 199.296875 26.550781 195.699219 26.550781 191.265625 Z M 26.550781 166.949219 " />
+                                </g>
+                              </svg>
+                            </span>
+                          </span>
+                        </a>
                       </li>
                     </ul>
-                    <div class="tab-content" id="myTabContent">
-                      <div class="tab-pane fade show active" id="upload" role="tabpanel">
-                        <div class="row form-group mb-0">
-                          <div class="col">
-                            <h6>Select your Form 16 document</h6>
+                  </div>
+                  <div class="tab-content tab-wizard-content">
+                    <div class="tab-pane fade show active" id="personal-info" role="tabpanel">
+                      <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                          <a class="nav-link active" id="upload-tab" data-toggle="tab" href="#upload" role="tab"aria-selected="true">Upload</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="income-from-salary-tab" data-toggle="tab" href="#income-from-salary" role="tab" aria-selected="false">Income from Salary</a>
+                        </li>
+                      </ul>
+                      <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="upload" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Select your Form 16 document</h6>
+                            </div>
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-6">
-                            <div class="form-group">
-                              <div class="input-group custom-file-wrap">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">Choose File</span>
-                                </div>
-                                <div class="custom-file">
-                                  <input type="file" class="custom-file-input" id="inputGroupFile01">
-                                  <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group">
+                                <div class="input-group custom-file-wrap">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">Choose File</span>
+                                  </div>
+                                  <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="inputGroupFile01">
+                                    <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div class="col-4">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="">
-                              <label for="">Enter Document Password</label>
+                            <div class="col-4">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">Enter Document Password</label>
+                              </div>
                             </div>
-                          </div>
-                          <div class="col">
-                            <div class="form-group">
-                              <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="tab-pane fade" id="income-from-salary" role="tabpanel">
-                        <div class="row form-group mb-0">
-                          <div class="col">
-                            <h6>Income Chargeable under the head 'Salaries'</h6>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="">
-                              <label for="">Name of the Employer <span class="text-danger required">*</span></label>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="form-group floating-label customDropdown">
-                              <select id="select2" name="select2" class="form-control">
-                                <option value=""></option>
-                                <option value="savings">Savings</option>
-                                <option value="current">Current</option>
-                              </select>
-                              <label for="select2">Employer Type/Category <span class="text-danger required">*</span></label>
+                            <div class="col">
+                              <div class="form-group">
+                                <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                              </div>
                             </div>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col-6">
-                            <div class="form-group mb-0">
-                              <div class=" floating-label">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">₹</div>
-                                  </div>
-                                  <input type="text" class="form-control" id="" placeholder="">
-                                  <label for="">Salary <span class="text-danger required">*</span></label>
-                                </div>
-                              </div>
+                        <div class="tab-pane fade" id="income-from-salary" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Income Chargeable under the head 'Salaries'</h6>
                             </div>
-                              <small>(Excluding all exempt/ non-exempt allowances, perquisites & profit in lieu of salary as they are shown separately below)</small>
                           </div>
-                        </div>
-                        <div class="row form-group">
-                          <div class="col">
-                            <h6>Allowances exempt under section 10 </h6><small>(Not to be included in 7 below)</small>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">Name of the Employer <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group floating-label customDropdown">
+                                <select id="select2" name="select2" class="form-control">
+                                  <option value=""></option>
+                                  <option value="savings">Savings</option>
+                                  <option value="current">Current</option>
+                                </select>
+                                <label for="select2">Employer Type/Category <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                        <div class="assetsLists">
-                          <article>
-                            <div class="row form-group floating-label">
-                              <label for="" class="col-sm-8 col-form-label">Travel concession/assistance received   
-                                <small class="d-block">[sec. 10(5)]</small>
-                              </label>
-                              <div class="col-sm-4">
-                                <div class="input-group position-relative">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">₹</div>
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group mb-0">
+                                <div class=" floating-label">
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for="">Salary <span class="text-danger required">*</span></label>
                                   </div>
-                                  <input type="text" class="form-control" id="" placeholder="">
-                                  <label for=""></label>
                                 </div>
                               </div>
+                                <small>(Excluding all exempt/ non-exempt allowances, perquisites & profit in lieu of salary as they are shown separately below)</small>
                             </div>
-                            <div class="row form-group floating-label">
-                              <label for="" class="col-sm-8 col-form-label">Tax paid by employer on non-monetary perquisite  
-                                <small class="d-block">[sec. 10(10CC)]</small>
-                              </label>
-                              <div class="col-sm-4">
-                                <div class="input-group position-relative">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">₹</div>
+                          </div>
+                          <div class="row form-group">
+                            <div class="col">
+                              <h6>Allowances exempt under section 10 </h6><small>(Not to be included in 7 below)</small>
+                            </div>
+                          </div>
+                          <div class="assetsLists">
+                            <article>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Travel concession/assistance received   
+                                  <small class="d-block">[sec. 10(5)]</small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
                                   </div>
-                                  <input type="text" class="form-control" id="" placeholder="">
-                                  <label for=""></label>
                                 </div>
                               </div>
-                            </div>
-                            <div class="row form-group floating-label">
-                              <label for="" class="col-sm-8 col-form-label">Allowance to meet expenditure incurred on house rent 
-                                <small class="d-block">[sec. 10(13A)]</small>
-                              </label>
-                              <div class="col-sm-4">
-                                <div class="input-group position-relative">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">₹</div>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Tax paid by employer on non-monetary perquisite  
+                                  <small class="d-block">[sec. 10(10CC)]</small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
                                   </div>
-                                  <input type="text" class="form-control" id="" placeholder="">
-                                  <label for=""></label>
                                 </div>
                               </div>
-                            </div>
-                            <div class="row form-group floating-label">
-                              <label for="" class="col-sm-8 col-form-label">Allowances not exempt
-                                <small class="d-block">(refer Form 16 from employer)</small>
-                              </label>
-                              <div class="col-sm-4">
-                                <div class="input-group position-relative">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">₹</div>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Allowance to meet expenditure incurred on house rent 
+                                  <small class="d-block">[sec. 10(13A)]</small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
                                   </div>
-                                  <input type="text" class="form-control" id="" placeholder="">
-                                  <label for=""></label>
                                 </div>
                               </div>
-                            </div>
-                            <div class="row form-group floating-label">
-                              <label for="" class="col-sm-8 col-form-label">Value of perquisites 
-                                <small class="d-block">(refer Form 16 from employer)</small>
-                              </label>
-                              <div class="col-sm-4">
-                                <div class="input-group position-relative">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">₹</div>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Allowances not exempt
+                                  <small class="d-block">(refer Form 16 from employer)</small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
                                   </div>
-                                  <input type="text" class="form-control" id="" placeholder="">
-                                  <label for=""></label>
                                 </div>
                               </div>
-                            </div>
-                            <div class="row form-group floating-label">
-                              <label for="" class="col-sm-8 col-form-label">Profits in lieu of salary 
-                                <small class="d-block">(refer Form 16 from employer)</small>
-                              </label>
-                              <div class="col-sm-4">
-                                <div class="input-group position-relative">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">₹</div>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Value of perquisites 
+                                  <small class="d-block">(refer Form 16 from employer)</small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
                                   </div>
-                                  <input type="text" class="form-control" id="" placeholder="">
-                                  <label for=""></label>
                                 </div>
                               </div>
-                            </div>
-                            <div class="row form-group floating-label">
-                              <label for="" class="col-sm-8 col-form-label">Deduction u/s 16
-                                <small class="d-block">(Entertainment allowance by Government and tax on employment)</small>
-                              </label>
-                              <div class="col-sm-4">
-                                <div class="input-group position-relative">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">₹</div>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Profits in lieu of salary 
+                                  <small class="d-block">(refer Form 16 from employer)</small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
                                   </div>
-                                  <input type="text" class="form-control" id="" placeholder="">
-                                  <label for=""></label>
                                 </div>
                               </div>
-                            </div>
-                            <div class="row form-group floating-label">
-                              <label for="" class="col-sm-8 col-form-label">TAN of the Employer <span class="text-danger required">*</span>
-                                <small class="d-block">In your Form-16, find this under Part-A - TAN of Deductor</small>
-                              </label>
-                              <div class="col-sm-4">
-                                <div class="input-group position-relative">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">₹</div>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Deduction u/s 16
+                                  <small class="d-block">(Entertainment allowance by Government and tax on employment)</small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
                                   </div>
-                                  <input type="text" class="form-control" id="" placeholder="">
-                                  <label for=""></label>
                                 </div>
                               </div>
-                            </div>
-                            <div class="row form-group floating-label">
-                              <label for="" class="col-sm-8 col-form-label">Tax Deducted at source on Salary <span class="text-danger required">*</span>
-                                <small class="d-block">In your Form-16, find this under Part-A: Total of Amount of tax deposited / Remitted</small>
-                              </label>
-                              <small></small>
-                              <div class="col-sm-4">
-                                <div class="input-group position-relative">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">₹</div>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">TAN of the Employer <span class="text-danger required">*</span>
+                                  <small class="d-block">In your Form-16, find this under Part-A - TAN of Deductor</small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
                                   </div>
-                                  <input type="text" class="form-control" id="" placeholder="">
-                                  <label for=""></label>
                                 </div>
                               </div>
-                            </div>
-                          </article>
-                          <table class="table table-bordered">
-                            <thead class="thead-light">
-                              <tr>
-                                <th scope="col">Sl.No</th>
-                                <th scope="col">Employer Name</th>
-                                <th scope="col">Employer TAN</th>
-                                <th scope="col">Salary Paid</th>
-                                <th scope="col">Tax Deducted</th>
-                                <th scope="col">Actions</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Test</td>
-                                <td>MUMI12525D</td>
-                                <td>₹ 12,22,233</td>
-                                <td>₹ 12,22,233</td>
-                                <td>
-                                  <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-pencil"></i> Edit</a>
-                                  <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-trash"></i> Delete</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Test</td>
-                                <td>MUMI12525D</td>
-                                <td>₹ 12,22,233</td>
-                                <td>₹ 12,22,233</td>
-                                <td>
-                                  <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-pencil"></i> Edit</a>
-                                  <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-trash"></i> Delete</a>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Tax Deducted at source on Salary <span class="text-danger required">*</span>
+                                  <small class="d-block">In your Form-16, find this under Part-A: Total of Amount of tax deposited / Remitted</small>
+                                </label>
+                                <small></small>
+                                <div class="col-sm-4">
+                                  <div class="input-group position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </article>
+                            <table class="table table-bordered">
+                              <thead class="thead-light">
+                                <tr>
+                                  <th scope="col">Sl.No</th>
+                                  <th scope="col">Employer Name</th>
+                                  <th scope="col">Employer TAN</th>
+                                  <th scope="col">Salary Paid</th>
+                                  <th scope="col">Tax Deducted</th>
+                                  <th scope="col">Actions</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <th scope="row">1</th>
+                                  <td>Test</td>
+                                  <td>MUMI12525D</td>
+                                  <td>₹ 12,22,233</td>
+                                  <td>₹ 12,22,233</td>
+                                  <td>
+                                    <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-pencil"></i> Edit</a>
+                                    <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-trash"></i> Delete</a>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th scope="row">1</th>
+                                  <td>Test</td>
+                                  <td>MUMI12525D</td>
+                                  <td>₹ 12,22,233</td>
+                                  <td>₹ 12,22,233</td>
+                                  <td>
+                                    <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-pencil"></i> Edit</a>
+                                    <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-trash"></i> Delete</a>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
 
 
-                        <div class="row">
-                          <div class="col-6">
-                            <button type="button" class="btn btn-outline-primary btn-sm">Add Bank <i class="fas fa-plus mx-2"></i></button>
+                          <div class="row">
+                            <div class="col-6">
+                              <button type="button" class="btn btn-outline-primary btn-sm">Add Bank <i class="fas fa-plus mx-2"></i></button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="form-actions d-flex">
-                      <div class="left mr-auto">
-                        <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
+                      <div class="form-actions d-flex">
+                        <div class="left mr-auto">
+                          <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
+                        </div>
+                        <div class="right ml-auto">
+                          <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
+                          <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>
+                          <button type="button" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
+                        </div>
                       </div>
-                      <div class="right ml-auto">
-                        <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
-                        <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>
-                        <button type="button" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                    <div class="tab-pane fade" id="personal-address" role="tabpanel">
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group floating-label">
+                            <input type="text" class="form-control" id="">
+                            <label for="">Date of Birth <span class="text-danger required">*</span></label>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group floating-label customDropdown">
+                            <select id="select2" name="select2" class="form-control">
+                              <option value=""></option>
+                              <option value="1">Male</option>
+                              <option value="2">Female</option>
+                              <option value="3">Others</option>
+                            </select>
+                            <label for="select2">Gender</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-actions d-flex">
+                        <div class="left mr-auto">
+                          <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
+                        </div>
+                        <div class="right ml-auto">
+                          <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
+                          <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>
+                          <button type="button" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="personal-residency" role="tabpanel">
+                      2
+                    </div>
+                    <div class="tab-pane fade" id="personal-bank" role="tabpanel">
+                      <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                          <a class="nav-link active" id="primary-bank-account-tab" data-toggle="tab" href="#primary-bank-account" role="tab"aria-selected="true">Primary Bank Account</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="all-other-bank-accounts-tab" data-toggle="tab" href="#all-other-bank-accounts" role="tab" aria-selected="false">All Other Bank Accounts</a>
+                        </li>
+                      </ul>
+                      <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="primary-bank-account" role="tabpanel">
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">First Name <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group floating-label customDropdown">
+                                <select id="select2" name="select2" class="form-control">
+                                  <option value=""></option>
+                                  <option value="savings">Savings</option>
+                                  <option value="current">Current</option>
+                                </select>
+                                <label for="select2">Account Type</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">Last Name <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">Father's Name <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="all-other-bank-accounts" role="tabpanel">
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">First Name <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group floating-label customDropdown">
+                                <select id="select2" name="select2" class="form-control">
+                                  <option value=""></option>
+                                  <option value="savings">Savings</option>
+                                  <option value="current">Current</option>
+                                </select>
+                                <label for="select2">Account Type</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">Last Name <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">Father's Name <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-6">
+                              <button type="button" class="btn btn-outline-primary btn-sm">Add Bank <i class="fas fa-plus mx-2"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-actions d-flex">
+                        <div class="left mr-auto">
+                          <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
+                        </div>
+                        <div class="right ml-auto">
+                          <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
+                          <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>
+                          <button type="button" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div class="tab-pane fade" id="personal-address" role="tabpanel">
-                    <div class="row">
-                      <div class="col">
-                        <div class="form-group floating-label">
-                          <input type="text" class="form-control" id="">
-                          <label for="">Date of Birth <span class="text-danger required">*</span></label>
-                        </div>
-                      </div>
-                      <div class="col">
-                        <div class="form-group floating-label customDropdown">
-                          <select id="select2" name="select2" class="form-control">
-                            <option value=""></option>
-                            <option value="1">Male</option>
-                            <option value="2">Female</option>
-                            <option value="3">Others</option>
-                          </select>
-                          <label for="select2">Gender</label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-actions d-flex">
-                      <div class="left mr-auto">
-                        <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
-                      </div>
-                      <div class="right ml-auto">
-                        <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
-                        <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>
-                        <button type="button" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade" id="personal-residency" role="tabpanel">
-                    2
-                  </div>
-                  <div class="tab-pane fade" id="personal-bank" role="tabpanel">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                      <li class="nav-item">
-                        <a class="nav-link active" id="primary-bank-account-tab" data-toggle="tab" href="#primary-bank-account" role="tab"aria-selected="true">Primary Bank Account</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="all-other-bank-accounts-tab" data-toggle="tab" href="#all-other-bank-accounts" role="tab" aria-selected="false">All Other Bank Accounts</a>
-                      </li>
-                    </ul>
-                    <div class="tab-content" id="myTabContent">
-                      <div class="tab-pane fade show active" id="primary-bank-account" role="tabpanel">
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="">
-                              <label for="">First Name <span class="text-danger required">*</span></label>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="form-group floating-label customDropdown">
-                              <select id="select2" name="select2" class="form-control">
-                                <option value=""></option>
-                                <option value="savings">Savings</option>
-                                <option value="current">Current</option>
-                              </select>
-                              <label for="select2">Account Type</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="">
-                              <label for="">Last Name <span class="text-danger required">*</span></label>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="">
-                              <label for="">Father's Name <span class="text-danger required">*</span></label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="tab-pane fade" id="all-other-bank-accounts" role="tabpanel">
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="">
-                              <label for="">First Name <span class="text-danger required">*</span></label>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="form-group floating-label customDropdown">
-                              <select id="select2" name="select2" class="form-control">
-                                <option value=""></option>
-                                <option value="savings">Savings</option>
-                                <option value="current">Current</option>
-                              </select>
-                              <label for="select2">Account Type</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="">
-                              <label for="">Last Name <span class="text-danger required">*</span></label>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="">
-                              <label for="">Father's Name <span class="text-danger required">*</span></label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-6">
-                            <button type="button" class="btn btn-outline-primary btn-sm">Add Bank <i class="fas fa-plus mx-2"></i></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-actions d-flex">
-                      <div class="left mr-auto">
-                        <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
-                      </div>
-                      <div class="right ml-auto">
-                        <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
-                        <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>
-                        <button type="button" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

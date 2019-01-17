@@ -194,6 +194,7 @@ a:hover{text-decoration:none;}
 .wizard-content .wizard > .steps > ul > li:last-child a::after {content:none}
 .wizard-content .wizard > .steps > ul > li a.active{cursor:default;}
 .tab-wizard-content .tab-pane{padding:20px 0;}
+.tab-wizard-content .form-actions .right .btn{margin-left:3px;}
 .tab-wizard-content .form-actions .btn i{font-size:14px;}
 
 /* Tabs */

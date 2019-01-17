@@ -1,123 +1,126 @@
-<app-mainmenus></app-mainmenus>
-<div class="page-wrapper">
-  <div class="container-fluid">
-    <div class="section-header">
-      <div class="row page-titles">
-        <div class="col-md-5 align-self-center">
-          <h4 class="">Basic Information </h4>
+<div class="main-container">
+  <app-mainmenus></app-mainmenus>
+  <div class="page-wrapper">
+    <div class="container-fluid">
+      <div class="section-header">
+        <div class="row page-titles">
+          <div class="col-md-5 align-self-center">
+            <h4 class="">Basic Information </h4>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="section-body">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-body wizard-content">
-              <form class="">
-                <div class="row form-group">
-                  <div class="col-12">
-                    <label class="control-label">Do you have Income from Salary?</label>
-                  </div>
-                  <div class="col">
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="salary-yes" name="salary" class="custom-control-input">
-                      <label class="custom-control-label" for="salary-yes">Yes</label>
+      <div class="section-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body wizard-content">
+                <form class="">
+                  <div class="row form-group">
+                    <div class="col-12">
+                      <label class="control-label">Do you have Income from Salary?</label>
                     </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="salary-no" name="salary" class="custom-control-input">
-                      <label class="custom-control-label" for="salary-no">No</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="row form-group">
-                  <div class="col-12">
-                    <label class="control-label">Do you have Income from Other Sources? (e.g. Interest Income, Royalty Income etc.)?</label>
-                  </div>
-                  <div class="col">
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="otherSource-yes" name="otherSource" class="custom-control-input">
-                      <label class="custom-control-label" for="otherSource-yes">Yes</label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="otherSource-no" name="otherSource" class="custom-control-input">
-                      <label class="custom-control-label" for="otherSource-no">No</label>
+                    <div class="col">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="salary-yes" name="salary" class="custom-control-input">
+                        <label class="custom-control-label" for="salary-yes">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="salary-no" name="salary" class="custom-control-input">
+                        <label class="custom-control-label" for="salary-no">No</label>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="row form-group">
-                  <div class="col-12">
-                    <label class="control-label">Do you paid any Interest on Self occupied house property?</label>
-                  </div>
-                  <div class="col">
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="interest-yes" name="interest" class="custom-control-input">
-                      <label class="custom-control-label" for="interest-yes">Yes</label>
+                  <div class="row form-group">
+                    <div class="col-12">
+                      <label class="control-label">Do you have Income from Other Sources? (e.g. Interest Income, Royalty Income etc.)?</label>
                     </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="interest-no" name="interest" class="custom-control-input">
-                      <label class="custom-control-label" for="interest-no">No</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="row form-group">
-                  <div class="col-12">
-                    <label class="control-label">Do you have Income/losses from rental property? </label>
-                  </div>
-                  <div class="col">
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="rentalLoss-yes" name="rentalLoss" class="custom-control-input">
-                      <label class="custom-control-label" for="rentalLoss-yes">Yes</label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="rentalLoss-no" name="rentalLoss" class="custom-control-input">
-                      <label class="custom-control-label" for="rentalLoss-no">No</label>
+                    <div class="col">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="otherSource-yes" name="otherSource" class="custom-control-input">
+                        <label class="custom-control-label" for="otherSource-yes">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="otherSource-no" name="otherSource" class="custom-control-input">
+                        <label class="custom-control-label" for="otherSource-no">No</label>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="row form-group">
-                  <div class="col-12">
-                    <label class="control-label">Do you have any Income/losses from Capital gains?</label>
-                  </div>
-                  <div class="col">
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="capitalGain-yes" name="capitalGain" class="custom-control-input">
-                      <label class="custom-control-label" for="capitalGain-yes">Yes</label>
+                  <div class="row form-group">
+                    <div class="col-12">
+                      <label class="control-label">Do you paid any Interest on Self occupied house property?</label>
                     </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="capitalGain-no" name="capitalGain" class="custom-control-input">
-                      <label class="custom-control-label" for="capitalGain-no">No</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="row form-group">
-                  <div class="col-12">
-                    <label class="control-label">Do you have any deductions? (e.g Tax Investments and other Deductions)</label>
-                  </div>
-                  <div class="col">
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="deduction-yes" name="deduction" class="custom-control-input">
-                      <label class="custom-control-label" for="deduction-yes">Yes</label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="deduction-no" name="deduction" class="custom-control-input">
-                      <label class="custom-control-label" for="deduction-no">No</label>
+                    <div class="col">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="interest-yes" name="interest" class="custom-control-input">
+                        <label class="custom-control-label" for="interest-yes">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="interest-no" name="interest" class="custom-control-input">
+                        <label class="custom-control-label" for="interest-no">No</label>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="form-actions d-flex">
-                  <div class="left mr-auto">
-                    <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
+                  <div class="row form-group">
+                    <div class="col-12">
+                      <label class="control-label">Do you have Income/losses from rental property? </label>
+                    </div>
+                    <div class="col">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="rentalLoss-yes" name="rentalLoss" class="custom-control-input">
+                        <label class="custom-control-label" for="rentalLoss-yes">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="rentalLoss-no" name="rentalLoss" class="custom-control-input">
+                        <label class="custom-control-label" for="rentalLoss-no">No</label>
+                      </div>
+                    </div>
                   </div>
-                  <div class="right ml-auto">
-                    <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
-                    <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>
-                    <button type="button" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
+                  <div class="row form-group">
+                    <div class="col-12">
+                      <label class="control-label">Do you have any Income/losses from Capital gains?</label>
+                    </div>
+                    <div class="col">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="capitalGain-yes" name="capitalGain" class="custom-control-input">
+                        <label class="custom-control-label" for="capitalGain-yes">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="capitalGain-no" name="capitalGain" class="custom-control-input">
+                        <label class="custom-control-label" for="capitalGain-no">No</label>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </form>
+                  <div class="row form-group">
+                    <div class="col-12">
+                      <label class="control-label">Do you have any deductions? (e.g Tax Investments and other Deductions)</label>
+                    </div>
+                    <div class="col">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="deduction-yes" name="deduction" class="custom-control-input">
+                        <label class="custom-control-label" for="deduction-yes">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="deduction-no" name="deduction" class="custom-control-input">
+                        <label class="custom-control-label" for="deduction-no">No</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-actions d-flex">
+                    <div class="left mr-auto">
+                      <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
+                    </div>
+                    <div class="right ml-auto">
+                      <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
+                      <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>
+                      <button type="button" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

@@ -1,97 +1,99 @@
-<app-mainmenus></app-mainmenus>
- 
-<div class="page-wrapper">
-  <div class="container-fluid">
-    <div class="section-header">
-      <div class="row page-titles">
-        <div class="col-md-5 align-self-center">
-          <h4 class="">Tax Period</h4>
+<div class="main-container">
+  <app-mainmenus></app-mainmenus>
+  <div class="page-wrapper">
+    <div class="container-fluid">
+      <div class="section-header">
+        <div class="row page-titles">
+          <div class="col-md-5 align-self-center">
+            <h4 class="">Tax Period</h4>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="section-body">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-body wizard-content">
-              <form class="clearfix">
-                <div class="row">
-                  <div class="col-4">
-                    <div class="form-group floating-label customDropdown">
-                      <select id="select2" name="select2" class="form-control">
-                        <option value=""></option>
-                        <option value="2">2018-2019</option>
-                      </select>
-                      <label for="select2">Select Assessment Year</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="row form-group">
-                  <div class="col-12">
-                    <label class="control-label">Do you want to upload prefilled xml?</label>
-                  </div>
-                  <div class="col">
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="salary-yes" name="salary" class="custom-control-input" checked>
-                      <label class="custom-control-label" for="salary-yes">Yes</label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="salary-no" name="salary" class="custom-control-input">
-                      <label class="custom-control-label" for="salary-no">No</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="row form-group mb-0">
-                  <div class="col">
-                    <h6>Upload Prefilled XML
-                      <span class="d-inline-block">
-                        <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal">
-                          <span class="badge badge-info rounded-circle">
-                            <i class="fas fa-info"></i>
-                          </span>
-                        </a>
-                      </span>
-                    </h6>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-6">
-                    <div class="form-group">
-                      <div class="input-group custom-file-wrap">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">Choose File</span>
-                        </div>
-                        <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="inputGroupFile01">
-                          <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
-                        </div>
+      <div class="section-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body wizard-content">
+                <form class="clearfix">
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="form-group floating-label customDropdown">
+                        <select id="select2" name="select2" class="form-control">
+                          <option value=""></option>
+                          <option value="2">2018-2019</option>
+                        </select>
+                        <label for="select2">Select Assessment Year</label>
                       </div>
                     </div>
                   </div>
-                  <div class="col-4">
-                    <div class="form-group floating-label">
-                      <input type="text" class="form-control" id="">
-                      <label for="">Enter Document Password</label>
+                  <div class="row form-group">
+                    <div class="col-12">
+                      <label class="control-label">Do you want to upload prefilled xml?</label>
+                    </div>
+                    <div class="col">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="salary-yes" name="salary" class="custom-control-input" checked>
+                        <label class="custom-control-label" for="salary-yes">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="salary-no" name="salary" class="custom-control-input">
+                        <label class="custom-control-label" for="salary-no">No</label>
+                      </div>
                     </div>
                   </div>
-                  <div class="col">
-                    <div class="form-group">
-                      <button type="button" class="btn btn-danger">Upload</button>
+                  <div class="row form-group mb-0">
+                    <div class="col">
+                      <h6>Upload Prefilled XML
+                        <span class="d-inline-block">
+                          <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal">
+                            <span class="badge badge-info rounded-circle">
+                              <i class="fas fa-info"></i>
+                            </span>
+                          </a>
+                        </span>
+                      </h6>
                     </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col form-group">
-                    <p class="small-txt text-justify">Assessment Year (AY) 2018-2019 means you would be filing your tax return for the Financial Year (FY) 2017-18.<br><br> In case you earn income from salary or house property or capital gains or other sources and your total income exceeds INR 2,50,000, you are required to pay income tax on your total income and file your tax return accordingly. Further, in case you hold any foreign asset and you are a Resident and Ordinarily Resident then also you are required to file your India tax return.<br> If you do not have taxable income but tax is deducted at source, a tax return could be filed to claim it as refund</p>
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="form-group">
+                        <div class="input-group custom-file-wrap">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Choose File</span>
+                          </div>
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputGroupFile01">
+                            <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group floating-label">
+                        <input type="text" class="form-control" id="">
+                        <label for="">Enter Document Password</label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <button type="button" class="btn btn-danger">Upload</button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div class="form-actions d-flex">
-                  <button type="button" class="btn btn-primary btn-lg">Start Filing</button>
-                </div>
-              </form>
+                  <div class="row">
+                    <div class="col form-group">
+                      <p class="small-txt text-justify">Assessment Year (AY) 2018-2019 means you would be filing your tax return for the Financial Year (FY) 2017-18.<br><br> In case you earn income from salary or house property or capital gains or other sources and your total income exceeds INR 2,50,000, you are required to pay income tax on your total income and file your tax return accordingly. Further, in case you hold any foreign asset and you are a Resident and Ordinarily Resident then also you are required to file your India tax return.<br> If you do not have taxable income but tax is deducted at source, a tax return could be filed to claim it as refund</p>
+                    </div>
+                  </div>
+                  <div class="form-actions d-flex">
+                    <button type="button" class="btn btn-primary btn-lg">Start Filing</button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
