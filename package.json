@@ -2,9 +2,13 @@
   "name": "eazytaxin",
   "version": "0.0.0",
   "scripts": {
-    "start": "concurrently \"npm run serve-api\" \"npm run serve\"",
-    "serve": "ng serve --port 4200 --proxy-config proxy.config.json",
-    "serve-api": "nodemon server.js --watch server"
+    "ng": "ng",
+    "start": "node server.js",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "postinstall": "ng build --output-path dist"
   },
   "private": true,
   "dependencies": {
