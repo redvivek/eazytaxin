@@ -2,13 +2,9 @@
   "name": "eazytaxin",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "node server.js",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "postinstall": "ng build --output-path dist"
+    "start": "concurrently \"npm run serve-api\" \"npm run serve\"",
+    "serve": "ng serve --port 4200 --proxy-config proxy.config.json",
+    "serve-api": "nodemon server.js --watch server"
   },
   "private": true,
   "dependencies": {
@@ -23,8 +19,10 @@
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
     "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
     "core-js": "^2.5.4",
     "express": "^4.16.4",
+    "mysql": "^2.16.0",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"

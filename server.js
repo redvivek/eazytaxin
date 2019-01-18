@@ -1,7 +1,12 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-//var mongodb = require("mongodb");
-//var ObjectID = mongodb.ObjectID;
+var mysql = require('mysql');
+/*var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'dbuser',
+  password : 's3kreee7',
+  database : 'my_db'
+});*/
 
 var CONTACTS_COLLECTION = "contacts";
 
@@ -12,29 +17,18 @@ app.use(bodyParser.json());
 var distDir = __dirname + "/dist/";
 app.use(express.static(distDir));
 
-// Create a database variable outside of the database connection callback to reuse the connection pool in your app.
-var db;
-
+/*connection.connect();
 // Connect to the database before starting the application server.
-/*mongodb.MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/test", function (err, client) {
-  if (err) {
-    console.log(err);
-    process.exit(1);
-  }
+connection.query('SELECT 1 + 1 AS solution', function (err, rows, fields) {
+  if (err) throw err
 
-  // Save database object from the callback for reuse.
-  db = client.db();
-  console.log("Database connection ready");
+  console.log('The solution is: ', rows[0].solution)
+});
 
-  // Initialize the app.
-  var server = app.listen(process.env.PORT || 3000, function () {
-    var port = server.address().port;
-    console.log("App now running on port", port);
-  });
-});*/
+connection.end();*/
 
 // Initialize the app.
-var server = app.listen(process.env.PORT || 4000, function () {
+var server = app.listen(process.env.PORT || 3000, function () {
     var port = server.address().port;
     console.log("App now running on port", port);
 });
