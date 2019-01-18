@@ -22,19 +22,6 @@
     "@angular/platform-browser": "~7.2.1",
     "@angular/platform-browser-dynamic": "~7.2.1",
     "@angular/router": "~7.2.1",
-    "body-parser": "^1.18.3",
-    "concurrently": "^4.1.0",
-    "core-js": "^2.5.4",
-    "express": "^4.16.4",
-    "http-errors": "^1.7.1",
-    "morgan": "^1.9.1",
-    "mysql": "^2.16.0",
-    "rxjs": "~6.3.3",
-    "serve-favicon": "^2.5.0",
-    "tslib": "^1.9.0",
-    "zone.js": "~0.8.26"
-  },
-  "devDependencies": {
     "@angular-devkit/build-angular": "^0.12.2",
     "@angular/language-service": "~7.2.1",
     "@types/jasmine": "~2.8.8",
@@ -52,6 +39,20 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.12.1",
-    "typescript": "3.1.6"
+    "typescript": "3.1.6",
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
+    "core-js": "^2.5.4",
+    "express": "^4.16.4",
+    "http-errors": "^1.7.1",
+    "morgan": "^1.9.1",
+    "mysql": "^2.16.0",
+    "rxjs": "~6.3.3",
+    "serve-favicon": "^2.5.0",
+    "tslib": "^1.9.0",
+    "zone.js": "~0.8.26"
+  },
+  "devDependencies": {
+    
   }
 }
