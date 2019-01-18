@@ -24,9 +24,9 @@ import {BaseModule} from './base/base.module';
         BrowserModule,
         ReactiveFormsModule,
         HttpClientModule,
-        TaxfillingModule,
         BaseModule,
-        routing
+        routing,
+        TaxfillingModule
     ],
     declarations: [
         AppComponent,

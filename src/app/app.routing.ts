@@ -13,7 +13,7 @@ const appRoutes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'forgotpassword', component: ForgotpasswordComponent },
     { path: 'resetpassword', component: ResetpasswordComponent },
-    { path: 'taxfilling', loadChildren: './taxfilling/taxfilling.module#TaxFillingModule'},
+    { path: 'taxfilling', loadChildren: './taxfilling/taxfilling.module#TaxfillingModule'},
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

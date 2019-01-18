@@ -2,6 +2,16 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
 
+# update packages if installed packages are old
+
+npm i -g npm-check-updates
+ncu -u
+npm install
+
+# For typescript compatiable to angular cli
+
+npm i typescript@3.1.6 --save-dev --save-exact
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
