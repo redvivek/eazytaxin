@@ -37,26 +37,30 @@ export class RegisterComponent implements OnInit {
                 //Validators.minLength(8), 
                 Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
             ]],
-            cPassword: ['', [
-                Validators.required,
-            ]],
+            cPassword: ['', Validators.required],
             terms: ['', Validators.required],
             
-        },{validator: this.validatePasswords}
+        },{validator: this.checkIfMatchingPasswords('nPassword','cPassword')}
         );
     }
     
-    /*private checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+    private checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
         return (group: FormGroup) => {
-          const passwordInput = group.controls[passwordKey],
-            passwordConfirmationInput = group.controls[passwordConfirmationKey];
+            const passwordInput = group.controls[passwordKey];
+            const passwordConfirmationInput = group.controls[passwordConfirmationKey];
+            
+            if (passwordConfirmationInput.errors && !passwordConfirmationInput.errors.notEquivalent) {
+                // return if another validator has already found an error on the matchingControl
+                return;
+            }
+            
           if (passwordInput.value !== passwordConfirmationInput.value) {
             return passwordConfirmationInput.setErrors({notEquivalent: true});
           } else {
             return passwordConfirmationInput.setErrors(null);
           }
         };
-    }*/
+    }
     
     validatePasswords(formGroup: FormGroup): any {
         const password = formGroup.controls['nPassword'];
@@ -90,6 +94,7 @@ export class RegisterComponent implements OnInit {
         }
 
         this.loading = true;
+        console.log('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value))
         this.userService.register(this.registerForm.value)
             .pipe(first())
             .subscribe(
