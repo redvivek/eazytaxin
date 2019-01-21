@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
         this.registerForm = this.formBuilder.group({
             panNumber: ['', Validators.required],
             emailId: ['', Validators.required],
-            nPassword: ['', Validators.required,Validators.minLength(8)],
+            nPassword: ['', [Validators.required,Validators.minLength(8)]],
             cPassword: ['', [Validators.required, Validators.minLength(8)]],
             terms: ['', Validators.required],
         });
