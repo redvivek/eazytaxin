@@ -46,29 +46,47 @@
         <form class="form-horizontal form-material" id="registerForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <h3 class="form-title text-center m-b-20">Sign Up</h3>
           <div class="form-group floating-label">
-            <input type="text" class="form-control" id="">
+            <input type="text" class="form-control" id="panNumber" formControlName="panNumber" [ngClass]="{ 'is-invalid': submitted && f.panNumber.errors }">
+            <div *ngIf="submitted && f.panNumber.errors" class="invalid-feedback">
+                <div *ngIf="f.panNumber.errors.required">Pan Number is required</div>
+            </div>
             <label for="">Pan Number</label>
           </div>
           <div class="form-group floating-label">
-            <input type="text" class="form-control" id="">
+            <input type="text" class="form-control" id="emailId" formControlName="emailId" [ngClass]="{ 'is-invalid': submitted && f.emailId.errors }">
+            <div *ngIf="submitted && f.emailId.errors" class="invalid-feedback">
+                <div *ngIf="f.emailId.errors.required">Email Id is required</div>
+            </div>
             <label for="">Email</label>
           </div>
           <div class="form-group floating-label">
-            <input type="text" class="form-control" id="">
+            <input type="password" class="form-control" id="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                <div *ngIf="f.password.errors.required">Password is required</div>
+                <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
+            </div>
             <label for="">Password</label>
           </div>
           <div class="form-group floating-label mb-3">
-            <input type="text" class="form-control" id="">
+            <input type="text" class="form-control" id="cPassword" formControlName="cPassword" [ngClass]="{ 'is-invalid': submitted && f.cPassword.errors }">
             <label for="">Confirm Password</label>
+            <div *ngIf="submitted && f.cPassword.errors" class="invalid-feedback">
+                <div *ngIf="f.cPassword.errors.required">Re-Enter Password your password</div>
+                <div *ngIf="f.cPassword.errors.minlength">Password must be at least 8 characters</div>
+            </div>
           </div>
           <div class="form-group option-row">
             <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="terms">
+              <input type="checkbox" class="custom-control-input" id="terms" formControlName="terms" [ngClass]="{ 'is-invalid': submitted && f.terms.errors }">
+              <div *ngIf="submitted && f.terms.errors" class="invalid-feedback">
+                <div *ngIf="f.terms.errors.required">Please accept terms and condition</div>
+              </div>
               <label class="custom-control-label md" for="terms">I agree to <a href="terms-conditions.html" target="_blank">Terms & Conditions</a></label>
             </div>
           </div>
           <div class="form-actions">
-            <button class="btn btn-primary btn-block btn-lg" type="submit">Create an Account</button>
+            <button [disabled]="loading" class="btn btn-primary btn-block btn-lg" type="submit">Create an Account</button>
+            <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
             <div class="options text-center mb-0">
               <h4 class="mb-0">Already have an account?
                 <a class="link highlight" routerLink="/login" title="">Sign In</a>
