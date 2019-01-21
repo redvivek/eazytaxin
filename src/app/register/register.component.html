@@ -33,7 +33,7 @@
             <label for="">Confirm Password</label>
             <div *ngIf="submitted && f.cPassword.errors" class="invalid-feedback">
                 <div *ngIf="f.cPassword.errors.required">Re-Enter Password your password</div>
-                <div *ngIf="f.cPassword.errors.minlength">Password must be at least 8 characters</div>
+                <div *ngIf="f.cPassword.errors.notEquivalent">Passwords did not match</div>
             </div>
             <label for="">Confirm Password</label>
           </div>

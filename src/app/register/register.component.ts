@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 
 import { AlertService, UserService, AuthenticationService } from '@app/_services';
 
+
 @Component({templateUrl: 'register.component.html'})
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
@@ -29,7 +30,7 @@ export class RegisterComponent implements OnInit {
             //panNumber: ['', Validators.required],
             emailId: ['', [
                 Validators.required,
-                Validators.pattern("^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$")
+                Validators.pattern('^[a-zA-Z0–9_.+-]+@[a-zA-Z0–9-]+.[a-zA-Z0–9-.]+$')
             ]],
             nPassword: ['', [
                 Validators.required,
@@ -37,11 +38,24 @@ export class RegisterComponent implements OnInit {
                 Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
             ]],
             cPassword: ['', [
-                Validators.required, 
-                Validators.minLength(8)
+                Validators.required,
             ]],
             terms: ['', Validators.required],
-        });
+            
+        },{validator: this.checkIfMatchingPasswords('password', 'repeat')}
+        );
+    }
+    
+    private checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+        return (group: FormGroup) => {
+          const passwordInput = group.controls[passwordKey],
+            passwordConfirmationInput = group.controls[passwordConfirmationKey];
+          if (passwordInput.value !== passwordConfirmationInput.value) {
+            return passwordConfirmationInput.setErrors({notEquivalent: true});
+          } else {
+            return passwordConfirmationInput.setErrors(null);
+          }
+        };
     }
 
     // convenience getter for easy access to form fields
@@ -67,13 +81,5 @@ export class RegisterComponent implements OnInit {
                     this.alertService.error(error);
                     this.loading = false;
                 });
-    }
-    
-    //Custom Validator for Password matching
-    checkPasswords(group: FormGroup) { // here we have the 'passwords' group
-      let pass = group.controls.password.value;
-      let confirmPass = group.controls.confirmPass.value;
-    
-      return pass === confirmPass ? null : { notSame: true }     
     }
 }
