@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
         this.registerForm = this.formBuilder.group({
             panNumber: ['', Validators.required],
             emailId: ['', Validators.required],
-            password: ['', Validators.required,Validators.minLength(8)],
+            npassword: ['', Validators.required,Validators.minLength(8)],
             cPassword: ['', [Validators.required, Validators.minLength(8)]],
             terms: ['', Validators.required],
         });
