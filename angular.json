@@ -23,16 +23,16 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/css/bootstrap.min.css"
-              "src/assets/css/main.css"
-              "src/assets/css/fontawesome.css"
+              "src/assets/css/bootstrap.min.css",
+              "src/assets/css/main.css",
+              "src/assets/css/fontawesome.css",
               "src/styles.css"
             ],
             "scripts": [
-              "src/assets/js/jquery-3.3.1.min.js"
-              "src/assets/js/popper.min.js"
-              "src/assets/js/waves.min.js"
-              "src/assets/js/bootstrap.min.js"
+              "src/assets/js/jquery-3.3.1.min.js",
+              "src/assets/js/popper.min.js",
+              "src/assets/js/waves.min.js",
+              "src/assets/js/bootstrap.min.js",
               "src/assets/js/extmain.js"
             ]
           },
