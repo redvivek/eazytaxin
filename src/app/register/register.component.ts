@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
             ]],
             terms: ['', Validators.required],
             
-        },{validator: this.checkIfMatchingPasswords('password', 'repeat')}
+        },{validator: this.checkIfMatchingPasswords('nPassword', 'cPassword')}
         );
     }
     
