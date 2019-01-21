@@ -10,25 +10,31 @@ var apiRouter = require('./api/routes/api.routes');
 
 var app = express();
 
-const corsOptions = {
-  //origin: 'http://localhost:4200',
-  optionsSuccessStatus: 200
-}
-
-
-app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'dist/eazytaxin')));
-app.use('/', express.static(path.join(__dirname, 'dist/eazytaxin')));
 
+const corsOptions = {
+  //origin: 'http://localhost:4200',
+  optionsSuccessStatus: 200
+}
+app.use(cors(corsOptions));
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+
+app.use(express.static(path.join(__dirname, 'dist/index.html')));
+app.use('/', express.static(path.join(__dirname, 'dist/index.html')));
+// Catch all other routes and return the index file
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/index.html'));
+});
+
+
+
 
 app.use('/api', apiRouter);
 
