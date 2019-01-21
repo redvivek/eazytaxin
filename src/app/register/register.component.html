@@ -4,17 +4,18 @@
       <div class="card-body">
         <form class="form-horizontal form-material" id="registerForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <h3 class="form-title text-center m-b-20">Sign Up</h3>
-          <div class="form-group floating-label">
+          <!--<div class="form-group floating-label">
             <input type="text" class="form-control" id="panNumber" formControlName="panNumber" [ngClass]="{ 'is-invalid': submitted && f.panNumber.errors }">
             <div *ngIf="submitted && f.panNumber.errors" class="invalid-feedback">
                 <div *ngIf="f.panNumber.errors.required">Pan Number is required</div>
             </div>
             <label for="">Pan Number</label>
-          </div>
+          </div>-->
           <div class="form-group floating-label">
-            <input type="text" class="form-control" id="emailId" formControlName="emailId" [ngClass]="{ 'is-invalid': submitted && f.emailId.errors }">
+            <input type="text" class="form-control" id="emailId" formControlName="emailId" [ngClass]="{ 'is-invalid': submitted && f.emailId.errors}">
             <div *ngIf="submitted && f.emailId.errors" class="invalid-feedback">
                 <div *ngIf="f.emailId.errors.required">Email Id is required</div>
+                <div *ngIf="f.emailId.errors.pattern">Email Id is invalid</div>
             </div>
             <label for="">Email</label>
           </div>
@@ -22,7 +23,8 @@
             <input type="password" class="form-control" id="nPassword" formControlName="nPassword" [ngClass]="{ 'is-invalid': submitted && f.nPassword.errors }">
             <div *ngIf="submitted && f.nPassword.errors" class="invalid-feedback">
                 <div *ngIf="f.nPassword.errors.required">Password is required</div>
-                <div *ngIf="f.nPassword.errors.minlength">Password must be at least 8 characters</div>
+                <!--<div *ngIf="f.nPassword.errors.minlength">Password must be at least 8 characters</div>-->
+                <div *ngIf="f.nPassword.errors.pattern">Password must be at least 8 characters with 1 numeric, uppercase and special character</div>
             </div>
             <label for="">Password</label>
           </div>
@@ -33,6 +35,7 @@
                 <div *ngIf="f.cPassword.errors.required">Re-Enter Password your password</div>
                 <div *ngIf="f.cPassword.errors.minlength">Password must be at least 8 characters</div>
             </div>
+            <label for="">Confirm Password</label>
           </div>
           <div class="form-group option-row">
             <div class="custom-control custom-checkbox">

@@ -26,10 +26,20 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
-            panNumber: ['', Validators.required],
-            emailId: ['', Validators.required],
-            nPassword: ['', [Validators.required,Validators.minLength(8)]],
-            cPassword: ['', [Validators.required, Validators.minLength(8)]],
+            //panNumber: ['', Validators.required],
+            emailId: ['', [
+                Validators.required,
+                Validators.pattern("^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$")
+            ]],
+            nPassword: ['', [
+                Validators.required,
+                //Validators.minLength(8), 
+                Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+            ]],
+            cPassword: ['', [
+                Validators.required, 
+                Validators.minLength(8)
+            ]],
             terms: ['', Validators.required],
         });
     }
@@ -57,5 +67,13 @@ export class RegisterComponent implements OnInit {
                     this.alertService.error(error);
                     this.loading = false;
                 });
+    }
+    
+    //Custom Validator for Password matching
+    checkPasswords(group: FormGroup) { // here we have the 'passwords' group
+      let pass = group.controls.password.value;
+      let confirmPass = group.controls.confirmPass.value;
+    
+      return pass === confirmPass ? null : { notSame: true }     
     }
 }
