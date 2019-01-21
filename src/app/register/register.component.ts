@@ -42,11 +42,11 @@ export class RegisterComponent implements OnInit {
             ]],
             terms: ['', Validators.required],
             
-        },{validator: this.checkIfMatchingPasswords('nPassword', 'cPassword')}
+        },{validator: this.validatePasswords}
         );
     }
     
-    private checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+    /*private checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
         return (group: FormGroup) => {
           const passwordInput = group.controls[passwordKey],
             passwordConfirmationInput = group.controls[passwordConfirmationKey];
@@ -56,6 +56,26 @@ export class RegisterComponent implements OnInit {
             return passwordConfirmationInput.setErrors(null);
           }
         };
+    }*/
+    
+    validatePasswords(formGroup: FormGroup): any {
+        const password = formGroup.controls['nPassword'];
+        const confirmPassword = formGroup.controls['cPassword'];
+    
+        // don't validate
+        if (password.pristine || confirmPassword.pristine) {
+          return null;
+        }
+    
+        formGroup.markAsTouched();
+    
+        if (password.value === confirmPassword.value) {
+          return null;
+        }
+    
+        return confirmPassword.setErrors({
+          notEqual: true
+        });
     }
 
     // convenience getter for easy access to form fields
