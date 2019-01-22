@@ -28,14 +28,6 @@ app.use(function(req, res, next) {
 
 app.use(express.static(path.join(__dirname, 'dist/eazytaxin')));
 app.use('/', express.static(path.join(__dirname, 'dist/eazytaxin')));
-// Catch all other routes and return the index file
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/eazytaxin'));
-});
-
-
-
-
 app.use('/api', apiRouter);
 
 // force: true will drop the table if it already exists
