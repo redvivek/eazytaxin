@@ -3,7 +3,7 @@ const Users = db.Userinfo;
  
 // Post a Customer
 exports.create = (req, res) => {	
-	// Save to MySQL database
+		//Save to MySQL database
     /*let inputData = req.body;
 	Users.create(inputData).then(result => {		
 		// Send created customer to client
@@ -25,6 +25,19 @@ exports.findById = (req, res) => {
 	Customer.findById(req.params.customerId).then(customer => {
 		res.json(customer);
 	})
+};
+
+// Find if email is already registered
+exports.isEmailRegisterd = (req, res) => {	
+	Users.findById(req.params.customerId).then(customer => {
+		res.json(customer);
+	})
+
+	/*{
+		"statusCode": 400,
+		"error": "Bad Request",
+		"message": "Email address already registerd"
+		}*/
 };
  
 // Update a Customer

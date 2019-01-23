@@ -1,5 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
@@ -26,5 +27,19 @@ export class UserService {
 
     delete(id: number) {
         return this.http.delete(`${environment.apiUrl}/users/${id}`);
+    }
+
+    checkUserByEmailId(emailid: string){
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(`${environment.apiUrl}/users/isEmailRegisterd`, JSON.stringify({ email: emailid }), { headers: headers })
+            .map((response: Response) => response.json())
+            .catch(this.handleError);
+    }
+
+    private handleError(error: any) {
+        console.log(error);
+        return Observable.throw(error.json());
+        ;
     }
 }

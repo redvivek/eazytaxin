@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup,FormControl, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AlertService, UserService, AuthenticationService } from '@app/_services';
@@ -26,14 +26,16 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log("^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+)\\.([a-zA-Z]{2,5})$");
-        console.log("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}");
+        //console.log("^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+)\\.([a-zA-Z]{2,5})$");
+        //console.log("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}");
         this.registerForm = this.formBuilder.group({
             //panNumber: ['', Validators.required],
             emailId: ['', [
                 Validators.required,
                 Validators.pattern("^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+)\\.([a-zA-Z]{2,5})$")
-            ]],
+            ],
+            this.existingEmailIdValidator.bind(this), //check existing email id in database
+            ],
             nPassword: ['', [
                 Validators.required,
                 //Validators.minLength(8), 
@@ -45,7 +47,20 @@ export class RegisterComponent implements OnInit {
         },{validator: this.checkIfMatchingPasswords('nPassword','cPassword')}
         );
     }
+
+    //Validation to check if email already exisits or not
+    private existingEmailIdValidator(control: FormControl) {
+        const q = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                this.userService.checkUserByEmailId(control.value).subscribe(() => {
+                resolve(null);
+                }, () => { resolve({ 'isEmailUnique': true }); });
+            }, 1000);
+        });
+        return q;
+    }
     
+    //validation to check passwords match or not
     private checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
         return (group: FormGroup) => {
             const passwordInput = group.controls[passwordKey];

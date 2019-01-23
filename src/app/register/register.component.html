@@ -16,6 +16,7 @@
             <div *ngIf="submitted && f.emailId.errors" class="invalid-feedback">
                 <div *ngIf="f.emailId.errors.required">Email Id is required</div>
                 <div *ngIf="f.emailId.errors.pattern">Email Id is invalid</div>
+                <div *ngIf="f.emailId.errors.isEmailUnique">Email Id is already registered</div>
             </div>
             <label for="">Email</label>
           </div>
