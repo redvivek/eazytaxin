@@ -26,16 +26,18 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log("^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+)\\.([a-zA-Z]{2,5})$");
+        console.log("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}");
         this.registerForm = this.formBuilder.group({
             //panNumber: ['', Validators.required],
             emailId: ['', [
                 Validators.required,
-                Validators.pattern('^[a-zA-Z0–9_.+-]+@[a-zA-Z0–9-]+.[a-zA-Z0–9-.]+$')
+                Validators.pattern("^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+)\\.([a-zA-Z]{2,5})$")
             ]],
             nPassword: ['', [
                 Validators.required,
                 //Validators.minLength(8), 
-                Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+                Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}")
             ]],
             cPassword: ['', Validators.required],
             terms: ['', Validators.required],
@@ -62,25 +64,6 @@ export class RegisterComponent implements OnInit {
         };
     }
     
-    validatePasswords(formGroup: FormGroup): any {
-        const password = formGroup.controls['nPassword'];
-        const confirmPassword = formGroup.controls['cPassword'];
-    
-        // don't validate
-        if (password.pristine || confirmPassword.pristine) {
-          return null;
-        }
-    
-        formGroup.markAsTouched();
-    
-        if (password.value === confirmPassword.value) {
-          return null;
-        }
-    
-        return confirmPassword.setErrors({
-          notEqual: true
-        });
-    }
 
     // convenience getter for easy access to form fields
     get f() { return this.registerForm.controls; }
