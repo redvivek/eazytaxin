@@ -18,7 +18,7 @@
                   <div class="steps clearfix">
                     <ul class="nav " role="tablist">
                       <li class="nav-item">
-                        <a class="nav-link active" id="personal-info-tab" href="#personal-info" data-toggle="tab" role="tab">
+                        <a class="nav-link active" id="personal-details-basic-tab" href="#personal-details-basic" data-toggle="tab" role="tab">
                           Basic Information 
                           <span class="step-icon-wrap info">
                             <span class="step-icon">
@@ -34,7 +34,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="personal-address-tab" href="#personal-address" data-toggle="tab" role="tab">
+                        <a class="nav-link" id="personal-details-personal-tab" href="#personal-details-personal" data-toggle="tab" role="tab">
                           Personal Information
                           <span class="step-icon-wrap address">
                             <span class="step-icon">
@@ -53,7 +53,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="personal-residency-tab" href="#personal-residency" data-toggle="tab" role="tab">
+                        <a class="nav-link" id="personal-details-address-tab" href="#personal-details-address" data-toggle="tab" role="tab">
                           Address
                           <span class="step-icon-wrap residency">
                             <span class="step-icon">
@@ -76,7 +76,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="personal-bank-tab" href="#personal-bank" data-toggle="tab" role="tab">
+                        <a class="nav-link" id="personal-details-bank-tab" href="#personal-details-bank" data-toggle="tab" role="tab">
                           Bank Details
                           <span class="step-icon-wrap bank">
                             <span class="step-icon">
@@ -90,7 +90,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="personal-assests-tab" href="#personal-assests" data-toggle="tab" role="tab">
+                        <a class="nav-link" id="personal-details-assests-tab" href="#personal-details-assests" data-toggle="tab" role="tab">
                           Assests & Liabilities
                           <span class="step-icon-wrap assets">
                             <span class="step-icon">
@@ -201,10 +201,10 @@
                     </ul>
                   </div>
                   <div class="tab-content tab-wizard-content">
-                    <div class="tab-pane fade show active" id="personal-info" role="tabpanel">
+                    <div class="tab-pane fade show active" id="personal-details-basic" role="tabpanel">
                       <div class="row form-group">
                         <div class="col-12">
-                          <label class="control-label">Do you have Income from Salary?</label>
+                          <label class="control-label">Were you present in India for more than 181 days between 1 April 2017 and 31 March 2018?</label>
                         </div>
                         <div class="col">
                           <div class="custom-control custom-radio custom-control-inline">
@@ -219,7 +219,7 @@
                       </div>
                       <div class="row form-group">
                         <div class="col-12">
-                          <label class="control-label">Do you have Income from Other Sources? (e.g. Interest Income, Royalty Income etc.)?</label>
+                          <label class="control-label">Are you a citizen of India who has left India between 1 April 2017 and 31 March 2018 for the purpose of employment outside India?</label>
                         </div>
                         <div class="col">
                           <div class="custom-control custom-radio custom-control-inline">
@@ -234,7 +234,7 @@
                       </div>
                       <div class="row form-group">
                         <div class="col-12">
-                          <label class="control-label">Do you paid any Interest on Self occupied house property?</label>
+                          <label class="control-label">Are you a citizen of India or a person of Indian origin who, being outside of India, comes on a visit to India between 1 April 2017 and 31 March 2018?</label>
                         </div>
                         <div class="col">
                           <div class="custom-control custom-radio custom-control-inline">
@@ -249,7 +249,7 @@
                       </div>
                       <div class="row form-group">
                         <div class="col-12">
-                          <label class="control-label">Do you have Income/losses from rental property? </label>
+                          <label class="control-label">Were you present in India for more than 59 days between 1 April 2017 and 31 March 2018? AND were you present in India for more than 364 days between 1 April 2013 and 31 March 2017?</label>
                         </div>
                         <div class="col">
                           <div class="custom-control custom-radio custom-control-inline">
@@ -262,48 +262,8 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row form-group">
-                        <div class="col-12">
-                          <label class="control-label">Do you have any Income/losses from Capital gains?</label>
-                        </div>
-                        <div class="col">
-                          <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="capitalGain-yes" name="capitalGain" class="custom-control-input">
-                            <label class="custom-control-label" for="capitalGain-yes">Yes</label>
-                          </div>
-                          <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="capitalGain-no" name="capitalGain" class="custom-control-input">
-                            <label class="custom-control-label" for="capitalGain-no">No</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row form-group">
-                        <div class="col-12">
-                          <label class="control-label">Do you have any deductions? (e.g Tax Investments and other Deductions)</label>
-                        </div>
-                        <div class="col">
-                          <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="deduction-yes" name="deduction" class="custom-control-input">
-                            <label class="custom-control-label" for="deduction-yes">Yes</label>
-                          </div>
-                          <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="deduction-no" name="deduction" class="custom-control-input">
-                            <label class="custom-control-label" for="deduction-no">No</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-actions d-flex">
-                        <div class="left mr-auto">
-                          <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
-                        </div>
-                        <div class="right ml-auto">
-                          <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
-                          <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>
-                          <button type="button" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
-                        </div>
-                      </div>
                     </div>
-                    <div class="tab-pane fade" id="personal-address" role="tabpanel">
+                    <div class="tab-pane fade" id="personal-details-personal" role="tabpanel">
                       <div class="row">
                         <div class="col">
                           <div class="form-group floating-label">
@@ -415,18 +375,8 @@
                           </div>
                         </div>
                       </div>
-                      <div class="form-actions d-flex">
-                        <div class="left mr-auto">
-                          <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
-                        </div>
-                        <div class="right ml-auto">
-                          <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
-                          <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>
-                          <button type="button" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
-                        </div>
-                      </div>
                     </div>
-                    <div class="tab-pane fade" id="personal-residency" role="tabpanel">
+                    <div class="tab-pane fade" id="personal-details-address" role="tabpanel">
                       <div class="row">
                         <div class="col">
                           <div class="form-group floating-label">
@@ -477,18 +427,8 @@
                           </div>
                         </div>
                       </div>
-                      <div class="form-actions d-flex">
-                        <div class="left mr-auto">
-                          <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
-                        </div>
-                        <div class="right ml-auto">
-                          <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
-                          <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>
-                          <button type="button" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
-                        </div>
-                      </div>
                     </div>
-                    <div class="tab-pane fade" id="personal-bank" role="tabpanel">
+                    <div class="tab-pane fade" id="personal-details-bank" role="tabpanel">
                       <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                           <a class="nav-link active" id="primary-bank-account-tab" data-toggle="tab" href="#primary-bank-account" role="tab"aria-selected="true">Primary Bank Account</a>
@@ -572,18 +512,8 @@
                           </div>
                         </div>
                       </div>
-                      <div class="form-actions d-flex">
-                        <div class="left mr-auto">
-                          <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
-                        </div>
-                        <div class="right ml-auto">
-                          <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
-                          <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>
-                          <button type="button" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
-                        </div>
-                      </div>
                     </div>
-                    <div class="tab-pane fade" id="personal-assests" role="tabpanel">
+                    <div class="tab-pane fade" id="personal-details-assests" role="tabpanel">
                       <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                           <a class="nav-link active" id="immovable-assets-tab" data-toggle="tab" href="#immovable-assets" role="tab" aria-selected="true">Immovable Assets</a>
@@ -898,7 +828,8 @@
                             <div class="col">
                               <div class="form-group floating-label customDropdown">
                                 <select id="select2" name="select2" class="form-control">
-                                  <option value=""></option><option value="1243">Andhra Pradesh</option><option value="1244">Arunachal Pradesh</option><option value="1235">Assam</option><option value="1245">Bihar</option><option value="1246">Chhattisgarh</option><option value="1241">Delhi</option><option value="1236">Goa</option><option value="1247">Gujarat</option><option value="1248">Haryana</option><option value="1249">Himachal Pradesh</option><option value="1250">Jammu and Kashmir</option><option value="1251">Jharkhand</option><option value="1252">Karnataka</option><option value="1253">Kerala</option><option value="1237">Madhya Pradesh</option><option value="1254">Maharashtra</option><option value="1238">Manipur</option><option value="1239">Meghalaya</option><option value="1240">Mizoram</option><option value="1255">Nagaland</option><option value="1256">Odisha</option><option value="1257">Punjab</option><option value="1258">Rajasthan</option><option value="1242">Sikkim</option><option value="1259">Tamil Nadu</option><option value="1261">Telangana</option><option value="1262">Tripura</option><option value="1263">Union Territory of Andaman and Nicobar Islands</option><option value="1265">Union Territory of Dadra and Nagar Haveli</option><option value="1266">Union Territory of Daman and Diu</option><option value="1267">Union Territory of Lakshadweep</option><option value="1268">Union Territory of Puducherry</option><option value="1269">Uttar Pradesh</option><option value="1260">Uttarakhand</option><option value="1270">West Bengal</option>
+                                  <option value=""></option>
+                                  <option value="1243">Andhra Pradesh</option><option value="1244">Arunachal Pradesh</option><option value="1235">Assam</option><option value="1245">Bihar</option><option value="1246">Chhattisgarh</option><option value="1241">Delhi</option><option value="1236">Goa</option><option value="1247">Gujarat</option><option value="1248">Haryana</option><option value="1249">Himachal Pradesh</option><option value="1250">Jammu and Kashmir</option><option value="1251">Jharkhand</option><option value="1252">Karnataka</option><option value="1253">Kerala</option><option value="1237">Madhya Pradesh</option><option value="1254">Maharashtra</option><option value="1238">Manipur</option><option value="1239">Meghalaya</option><option value="1240">Mizoram</option><option value="1255">Nagaland</option><option value="1256">Odisha</option><option value="1257">Punjab</option><option value="1258">Rajasthan</option><option value="1242">Sikkim</option><option value="1259">Tamil Nadu</option><option value="1261">Telangana</option><option value="1262">Tripura</option><option value="1263">Union Territory of Andaman and Nicobar Islands</option><option value="1265">Union Territory of Dadra and Nagar Haveli</option><option value="1266">Union Territory of Daman and Diu</option><option value="1267">Union Territory of Lakshadweep</option><option value="1268">Union Territory of Puducherry</option><option value="1269">Uttar Pradesh</option><option value="1260">Uttarakhand</option><option value="1270">West Bengal</option>
                                 </select>
                                 <label for="">State <span class="text-danger required">*</span></label>
                               </div>
@@ -913,7 +844,7 @@
                           <div class="row">
                             <div class="col-6">
                               <div class="form-group floating-label">
-                                <div class="input-group">
+                                <div class="input-group prepend">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">₹</div>
                                   </div>
@@ -951,7 +882,7 @@
                               <div class="row form-group floating-label">
                                 <label for="" class="col-sm-8 col-form-label">Jewellery, bullion etc.</label>
                                 <div class="col-sm-4">
-                                  <div class="input-group position-relative">
+                                  <div class="input-group prepend position-relative">
                                     <div class="input-group-prepend">
                                       <div class="input-group-text">₹</div>
                                     </div>
@@ -963,7 +894,7 @@
                               <div class="row form-group floating-label">
                                 <label for="" class="col-sm-8 col-form-label">Archaeological collections, drawings, painting, sculpture or any work of art</label>
                                 <div class="col-sm-4">
-                                  <div class="input-group position-relative">
+                                  <div class="input-group prepend position-relative">
                                     <div class="input-group-prepend">
                                       <div class="input-group-text">₹</div>
                                     </div>
@@ -975,7 +906,7 @@
                               <div class="row form-group floating-label">
                                 <label for="" class="col-sm-8 col-form-label">Vehicles, yachts, boats and aircrafts</label>
                                 <div class="col-sm-4">
-                                  <div class="input-group position-relative">
+                                  <div class="input-group prepend position-relative">
                                     <div class="input-group-prepend">
                                       <div class="input-group-text">₹</div>
                                     </div>
@@ -994,7 +925,7 @@
                               <div class="row form-group floating-label">
                                 <label for="" class="col-sm-8 col-form-label">(a) Bank (including all deposits)</label>
                                 <div class="col-sm-4">
-                                  <div class="input-group position-relative">
+                                  <div class="input-group prepend position-relative">
                                     <div class="input-group-prepend">
                                       <div class="input-group-text">₹</div>
                                     </div>
@@ -1006,7 +937,7 @@
                               <div class="row form-group floating-label">
                                 <label for="" class="col-sm-8 col-form-label">(b) Shares and securities</label>
                                 <div class="col-sm-4">
-                                  <div class="input-group position-relative">
+                                  <div class="input-group prepend position-relative">
                                     <div class="input-group-prepend">
                                       <div class="input-group-text">₹</div>
                                     </div>
@@ -1018,7 +949,7 @@
                               <div class="row form-group floating-label">
                                 <label for="" class="col-sm-8 col-form-label">(c) Insurance policies</label>
                                 <div class="col-sm-4">
-                                  <div class="input-group position-relative">
+                                  <div class="input-group prepend position-relative">
                                     <div class="input-group-prepend">
                                       <div class="input-group-text">₹</div>
                                     </div>
@@ -1030,7 +961,7 @@
                               <div class="row form-group floating-label">
                                 <label for="" class="col-sm-8 col-form-label">(d) Loans and advances given</label>
                                 <div class="col-sm-4">
-                                  <div class="input-group position-relative">
+                                  <div class="input-group prepend position-relative">
                                     <div class="input-group-prepend">
                                       <div class="input-group-text">₹</div>
                                     </div>
@@ -1042,7 +973,7 @@
                               <div class="row form-group floating-label">
                                 <label for="" class="col-sm-8 col-form-label">(e) Cash in hand</label>
                                 <div class="col-sm-4">
-                                  <div class="input-group position-relative">
+                                  <div class="input-group prepend position-relative">
                                     <div class="input-group-prepend">
                                       <div class="input-group-text">₹</div>
                                     </div>
@@ -1071,7 +1002,7 @@
                           <div class="row">
                             <div class="col-6">
                               <div class="form-group">
-                                <div class="input-group custom-file-wrap">
+                                <div class="input-group prepend custom-file-wrap">
                                   <div class="input-group-prepend">
                                     <span class="input-group-text">Choose File</span>
                                   </div>
@@ -1096,16 +1027,16 @@
                           </div>
                         </div>
                       </div>
-                      <div class="form-actions d-flex">
-                        <div class="left mr-auto">
-                          <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
-                        </div>
-                        <div class="right ml-auto">
-                          <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
-                          <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>
-                          <button type="button" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
-                        </div>
-                      </div>
+                    </div>
+                  </div>
+                  <div class="form-actions d-flex">
+                    <div class="left mr-auto">
+                      <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
+                    </div>
+                    <div class="right ml-auto">
+                      <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
+                      <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>
+                      <button type="button" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
                     </div>
                   </div>
                 </form>
