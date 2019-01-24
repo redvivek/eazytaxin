@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup,FormControl, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AlertService, UserService, AuthenticationService } from '@app/_services';
+import { User } from '@app/_models';
 
 
 @Component({templateUrl: 'register.component.html'})
@@ -26,16 +27,20 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
+        //console.log("^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+)\\.([a-zA-Z]{2,5})$");
+        //console.log("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}");
         this.registerForm = this.formBuilder.group({
             //panNumber: ['', Validators.required],
             emailId: ['', [
                 Validators.required,
-                Validators.pattern('^[a-zA-Z0–9_.+-]+@[a-zA-Z0–9-]+.[a-zA-Z0–9-.]+$')
-            ]],
+                Validators.pattern("^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+)\\.([a-zA-Z]{2,5})$")
+            ],
+            this.existingEmailIdValidator.bind(this), //check existing email id in database
+            ],
             nPassword: ['', [
                 Validators.required,
                 //Validators.minLength(8), 
-                Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+                Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}")
             ]],
             cPassword: ['', Validators.required],
             terms: ['', Validators.required],
@@ -43,7 +48,20 @@ export class RegisterComponent implements OnInit {
         },{validator: this.checkIfMatchingPasswords('nPassword','cPassword')}
         );
     }
+
+    //Validation to check if email already exisits or not
+    private existingEmailIdValidator(control: FormControl) {
+        const q = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                this.userService.checkUserByEmailId(control.value).subscribe(() => {
+                resolve(null);
+                }, () => { resolve({ 'isEmailUnique': true }); });
+            }, 1000);
+        });
+        return q;
+    }
     
+    //validation to check passwords match or not
     private checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
         return (group: FormGroup) => {
             const passwordInput = group.controls[passwordKey];
@@ -62,25 +80,6 @@ export class RegisterComponent implements OnInit {
         };
     }
     
-    validatePasswords(formGroup: FormGroup): any {
-        const password = formGroup.controls['nPassword'];
-        const confirmPassword = formGroup.controls['cPassword'];
-    
-        // don't validate
-        if (password.pristine || confirmPassword.pristine) {
-          return null;
-        }
-    
-        formGroup.markAsTouched();
-    
-        if (password.value === confirmPassword.value) {
-          return null;
-        }
-    
-        return confirmPassword.setErrors({
-          notEqual: true
-        });
-    }
 
     // convenience getter for easy access to form fields
     get f() { return this.registerForm.controls; }

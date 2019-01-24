@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     Password: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: true
     },
     Hashkey: {
       type: DataTypes.STRING(50),
@@ -26,11 +26,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     PanNumber: {
       type: DataTypes.STRING(10),
-      allowNull: false
+      allowNull: true
     },
     EmailId: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: true
     },
     Status: {
       type: DataTypes.ENUM('Active','Disabled','Delete'),
@@ -45,16 +45,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(2),
       allowNull: false,
       defaultValue: '0'
-    },
-    CreatedDate: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
-    },
-    ModifiedDate: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
     SelectedPaymentPlan: {
       type: DataTypes.INTEGER(3),

@@ -26,6 +26,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+// <<<<<<< HEAD
 app.use(express.static(path.join(__dirname, 'dist/index.html')));
 app.use('/', express.static(path.join(__dirname, 'dist/index.html')));
 // Catch all other routes and return the index file
@@ -36,6 +37,10 @@ app.use('/', express.static(path.join(__dirname, 'dist/index.html')));
 
 
 
+// =======
+// app.use(express.static(path.join(__dirname, 'dist/eazytaxin')));
+// app.use('/', express.static(path.join(__dirname, 'dist/eazytaxin')));
+// >>>>>>> 081bc28852e5634b30603ff2efe94f0913f78b9d
 app.use('/api', apiRouter);
 
 // force: true will drop the table if it already exists
