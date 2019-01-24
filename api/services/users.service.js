@@ -47,7 +47,8 @@ exports.create = (req, res) => {
 		// Send created customer to client
 		res.json(result);
     });
-    //res.json({"Success":"API successful"});
+	//res.json({"Success":"API successful"});
+	//http://www.tothenew.com/blog/nodejs-with-mysql/
 };
 
 

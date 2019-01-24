@@ -1,5 +1,7 @@
 export class User {
     emailId: string;
-    Password: string;
+    nPassword: string;
+    cPassword: string;
+    terms: string;
     token: string;
 }
