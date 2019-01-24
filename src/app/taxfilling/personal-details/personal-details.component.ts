@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, FormControl , Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
+import { Basicinfostep1, Personalinfo, Address, Bankdetail, Assetsliabilities } from '@app/_models';
 
 @Component({
   selector: 'app-personal-details',
@@ -9,8 +13,6 @@ export class PersonalDetailsComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  	
-  }
+  ngOnInit() { }
 
 }
