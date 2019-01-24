@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup,FormControl, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AlertService, UserService, AuthenticationService } from '@app/_services';
+import { User } from '@app/_models';
 
 
 @Component({templateUrl: 'register.component.html'})

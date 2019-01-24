@@ -1,6 +1,9 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
+//import 'rxjs/add/operators/catch';
 
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
@@ -18,7 +21,14 @@ export class UserService {
     }
 
     register(user: User) {
-        return this.http.post(`${environment.apiUrl}/users/register`, user);
+        //return this.http.post(`${environment.apiUrl}/users/register`, user);
+        var headers = new HttpHeaders();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(`${environment.apiUrl}/users/register`, user, { headers: headers })
+            .pipe(
+            map((response: Response) => response.json()),
+            catchError (this.handleError)
+            )
     }
 
     update(user: User) {
@@ -30,11 +40,14 @@ export class UserService {
     }
 
     checkUserByEmailId(emailid: string){
-        var headers = new Headers();
+        //console.log("Email" + emailid);
+        var headers = new HttpHeaders();
         headers.append('Content-Type', 'application/json');
-        return this.http.post(`${environment.apiUrl}/users/isEmailRegisterd`, JSON.stringify({ email: emailid }), { headers: headers })
-            .map((response: Response) => response.json())
-            .catch(this.handleError);
+        return this.http.post(`${environment.apiUrl}/users/isEmailRegisterd`, { email: emailid }, { headers: headers })
+            .pipe(
+            map((response: Response) => response.json()),
+            catchError (this.handleError)
+            )
     }
 
     private handleError(error: any) {
