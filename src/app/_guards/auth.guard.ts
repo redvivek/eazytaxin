@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
         const currentUser = this.authenticationService.currentUserValue;
         if (currentUser) {
             // authorised so return true
-            console.log("Current user "+JSON.stringify(currentUser));
+            //console.log("Current user "+JSON.stringify(currentUser));
             return true;
         }
 
@@ -27,7 +27,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
         const currentUser = this.authenticationService.currentUserValue;
         if (currentUser) {
             // authorised so return true
-            console.log("Current user "+JSON.stringify(currentUser));
+            //console.log("Current user "+JSON.stringify(currentUser));
             return true;
         }
 
