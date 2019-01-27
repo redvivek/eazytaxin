@@ -2,6 +2,7 @@
   <div class="login-register">
     <div class="login-box card">
       <div class="card-body">
+        <alert></alert>
         <form class="form-horizontal form-material" id="registerForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <h3 class="form-title text-center m-b-20">Sign Up</h3>
           <!--<div class="form-group floating-label">
@@ -16,7 +17,7 @@
             <div *ngIf="submitted && f.emailId.errors" class="invalid-feedback">
                 <div *ngIf="f.emailId.errors.required">Email Id is required</div>
                 <div *ngIf="f.emailId.errors.pattern">Email Id is invalid</div>
-                <div *ngIf="f.emailId.errors.isEmailUnique">Email Id is already registered</div>
+                <!--<div *ngIf="f.emailId.errors.isEmailUnique">Email Id is already registered</div>-->
             </div>
             <label for="">Email</label>
           </div>

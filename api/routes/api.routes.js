@@ -8,8 +8,8 @@ route.get('/', function(req, res, next) {
   res.send('Express RESTful API');
 });
 route.post('/users/register', userService.create);
-route.post('/users/isEmailRegisterd',userService.isEmailRegisterd);
-//route.post('/users/login', userService.authenticateUser);
+//route.post('/users/isEmailRegisterd',userService.isEmailRegisterd);
+route.post('/users/authenticate', userService.authenticateUser);
 
 
 /**

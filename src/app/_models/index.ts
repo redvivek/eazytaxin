@@ -1,4 +1,5 @@
 ﻿export * from './user';
+export * from './newuser';
 export * from './address';
 export * from './bankdetail';
 export * from './basicinfo';

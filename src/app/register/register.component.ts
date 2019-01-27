@@ -4,8 +4,6 @@ import { FormBuilder, FormGroup,FormControl, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AlertService, UserService, AuthenticationService } from '@app/_services';
-import { User } from '@app/_models';
-
 
 @Component({templateUrl: 'register.component.html'})
 export class RegisterComponent implements OnInit {
@@ -35,7 +33,7 @@ export class RegisterComponent implements OnInit {
                 Validators.required,
                 Validators.pattern("^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+)\\.([a-zA-Z]{2,5})$")
             ],
-            this.existingEmailIdValidator.bind(this), //check existing email id in database
+            //this.existingEmailIdValidator.bind(this), //check existing email id in database
             ],
             nPassword: ['', [
                 Validators.required,
@@ -93,14 +91,20 @@ export class RegisterComponent implements OnInit {
         }
 
         this.loading = true;
-        console.log('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value))
+        console.log('Input Values :-)\n\n' + JSON.stringify(this.registerForm.value))
         this.userService.register(this.registerForm.value)
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/login']);
-                },
+                        console.log("Response" + JSON.stringify(data));
+                        if(data['Message'] == 'Invalid Username'){
+                            this.alertService.error('Username/Email is already registered');
+                            this.loading = false;
+                        }else if(data['Message'] == 'Successful Request'){
+                            this.alertService.success('Registration successful', true);
+                            this.router.navigate(['/login']); 
+                        }
+                    },
                 error => {
                     this.alertService.error(error);
                     this.loading = false;

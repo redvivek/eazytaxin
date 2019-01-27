@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 
 import { AuthenticationService } from './_services';
 import { User } from './_models';
-import { HeaderComponent } from './base/header/header.component';
 
 @Component({ 
     selector: 'app', 
@@ -19,8 +18,8 @@ export class AppComponent {
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     }
 
-    logout() {
+    /*logout() {
         this.authenticationService.logout();
         this.router.navigate(['/login']);
-    }
+    }*/
 }
