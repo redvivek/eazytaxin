@@ -8,12 +8,24 @@ import {ForgotpasswordComponent} from './forgotpassword';
 import {ResetpasswordComponent} from './resetpassword';
 
 const appRoutes: Routes = [
-    { path: '', component: LoginComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'forgotpassword', component: ForgotpasswordComponent },
     { path: 'resetpassword', component: ResetpasswordComponent },
-    { path: 'taxfilling', loadChildren: './taxfilling/taxfilling.module#TaxfillingModule'},
+    {
+        path: '',
+        canActivate: [ AuthGuard ],
+        children: [
+          {
+             path: 'taxfilling',
+             loadChildren: './taxfilling/taxfilling.module#TaxfillingModule'
+          },
+          {
+             path: 'dashboard',
+             component: HomeComponent
+          }
+        ]		
+     },
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

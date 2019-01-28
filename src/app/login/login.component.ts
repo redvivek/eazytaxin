@@ -51,10 +51,19 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.router.navigate([this.returnUrl]);
+                    console.log("Response"+JSON.stringify(data));
+                    if(data['Message'] == 'Invalid User'){
+                        this.alertService.error('Username or Password is invalid');
+                        this.loading = false;
+                    }else if(data['Message'] == 'Valid User'){
+                        this.alertService.success('Login successful', true);
+                        this.router.navigate([this.returnUrl]);
+                        this.loading = false;
+                    }    
                 },
                 error => {
-                    this.alertService.error(error);
+                    console.log("Login error"+JSON.stringify(error));
+                    this.alertService.error('Username or Password is invalid');
                     this.loading = false;
                 });
     }

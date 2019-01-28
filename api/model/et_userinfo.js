@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  const Userinfo =  sequelize.define('et_userinfo', {
+  return sequelize.define('et_userinfo', {
     UserId: {
       type: DataTypes.INTEGER(8),
       allowNull: false,
@@ -13,15 +13,16 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     Username: {
-      type: DataTypes.STRING(10),
-      allowNull: false
+      type: DataTypes.STRING(50),
+      allowNull: false,
+      unique: true
     },
     Password: {
       type: DataTypes.STRING(50),
       allowNull: true
     },
     Hashkey: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(150),
       allowNull: false
     },
     PanNumber: {
@@ -61,11 +62,17 @@ module.exports = function(sequelize, DataTypes) {
     LastSelectedPlan: {
       type: DataTypes.INTEGER(3),
       allowNull: true
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: true
     }
-  }, 
-  {
+  }, {
     tableName: 'et_userinfo'
   });
-
-  return Userinfo;
 };

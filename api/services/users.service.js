@@ -1,5 +1,11 @@
+var config = require('../config/consts.json');
+var bcrypt = require('bcryptjs');
+var jwt = require('jsonwebtoken');
 const db = require('../config/dbConfig');
+var dateTime = require('node-datetime');
+
 const Users = db.Userinfo;
+const sequelize = db.sequelize;
  
 // Find if email is already registered
 exports.isEmailRegisterd = (req, res) => {
@@ -26,30 +32,112 @@ exports.isEmailRegisterd = (req, res) => {
 };
 
 
-// Post a Customer
+/*****Function for user registeration*/
+/* Input Parms: {"emailId":"value","nPassword":"value","cPassword":"value","terms":value}
+*/
 exports.create = (req, res) => {	
 	let userParam = req.body;
-	// set user object to userParam without the cleartext password
-	var user = _.omit(userParam, 'nPassword','cPassword','terms');
+	console.log("Request Object: "+JSON.stringify(userParam));
 
-	user.RoleId = 2;
-	user.Username = userParam.emailId;
-	user.EmailId = userParam.emailId;
-
-	// add hashed password to user object
-	user.Hashkey = bcrypt.hashSync(userParam.nPassword, 10);
-
-	//let usernm = user.emailId;
-	//let password = user.nPassword;
-	console.log("Request: "+JSON.stringify(user));
-	//Save to MySQL database
-	Users.create(user).then(result => {		
-		// Send created customer to client
-		res.json(result);
-    });
-	//res.json({"Success":"API successful"});
-	//http://www.tothenew.com/blog/nodejs-with-mysql/
+	/*Check for existing user */
+	let email = userParam.emailId;
+	console.log("Request: "+email);
+	Users.findOne(
+		{ where: {Username: email} }
+	)
+	.then(function (user) {
+		if (user) {
+			res.json({"statusCode": 200,"Message": "Invalid Username"});
+		} else {
+			//res.status(200);
+			//Save to et_userinfo table */
+			sequelize.query("INSERT INTO `et_userinfo`(RoleId,Username,EmailId,Password,Hashkey) VALUES (?,?,?,?,?)",{
+				replacements: [2,userParam.emailId,userParam.emailId,userParam.nPassword,bcrypt.hashSync(userParam.nPassword, 10)],
+				type: sequelize.QueryTypes.INSERT 
+			}).then(result => {		
+				res.json({"statusCode": 200,"Message": "Successful Request"});
+			})
+			.catch(function (err) {
+				console.log("Error "+err);
+				res.status(400).send(err);
+			});
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
 };
+
+/*****Function for user authentication*/
+/* Input Parms:
+***Response Json : 
+*/
+exports.authenticateUser = (req, res) => {	
+	let userParam = req.body;
+	console.log("Request Object: "+JSON.stringify(userParam));
+
+	/*Check for existing user */
+	let email = userParam.username;
+	let pwd = userParam.password;
+
+	var dt = dateTime.create();
+	var formatted = dt.format('Y-m-d H:M:S');
+	Users.findOne(
+		{ where: 
+			{
+				Username: email,
+			}
+		}
+	)
+	.then(function (user) {
+		if (user && bcrypt.compareSync(pwd, user.Hashkey)) {
+			const token = jwt.sign({ sub: user.UserId}, config.secret);
+			let resBody = {
+				userid: user.UserId,
+				username: user.Username,
+				email:user.EmailId,
+				token: token
+			};
+
+
+			//update last login timestamp to et_userinfo table */
+			sequelize.query("UPDATE `et_userinfo` SET LastLoginTime = ? , UpdatedAt = ? WHERE  UserId = ? ",{
+				replacements: [formatted ,formatted,user.UserId],
+				type: sequelize.QueryTypes.UPDATE 
+			}).then(result => {		
+				console.log("Login time updated successfully");
+			})
+			.catch(function (err) {
+				console.log("Login time updatation failed");
+			});
+
+
+			res.json({"statusCode": 200,"Message": "Valid User","body":resBody});
+			
+		} else {
+			//update invalid login attempt count to et_userinfo table */
+
+			let invalidlogincnt = user.InvalidLoginCounts +1;
+			
+			sequelize.query("UPDATE `et_userinfo` SET InvalidLoginCounts = ? , UpdatedAt = ? WHERE  UserId = ? ",{
+				replacements: [invalidlogincnt ,formatted,user.UserId],
+				type: sequelize.QueryTypes.UPDATE 
+			}).then(result => {		
+				console.log("Invalid login count updated successfully");
+			})
+			.catch(function (err) {
+				console.log("Invalid login count updatation failed");
+			});
+			res.json({"statusCode": 401,"Message": "Invalid User"});
+		}
+	})
+	.catch(function (err) {
+		//console.log("Error "+err);
+		res.json({"statusCode": 401,"Message": "Invalid User"});
+	});
+};
+
 
 
 

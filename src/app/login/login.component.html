@@ -2,12 +2,13 @@
   <div class="login-register">
     <div class="login-box card">
       <div class="card-body">
+          <alert></alert>
         <form class="form-horizontal form-material" id="loginform" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <h3 class="form-title text-center m-b-20">Sign In</h3>
 
           <div class="form-group floating-label">
             <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-            <label for="username">PAN Number</label>
+            <label for="username">Username/Email ID</label>
             <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
                 <div *ngIf="f.username.errors.required">Username is required</div>
             </div>
