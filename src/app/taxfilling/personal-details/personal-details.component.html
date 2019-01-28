@@ -14,11 +14,11 @@
           <div class="col-12">
             <div class="card">
               <div class="card-body wizard-content">
-                <form class="tab-wizard wizard-circle wizard clearfix">
+                <form class="tab-wizard wizard-circle wizard clearfix" id="registerForm1" (ngSubmit)="onSubmit()">
                   <div class="steps clearfix">
                     <ul class="nav " role="tablist">
                       <li class="nav-item">
-                        <a class="nav-link active" id="personal-details-basic-tab" href="#personal-details-basic" data-toggle="tab" role="tab">
+                        <a class="nav-link " [class.active]="step1 == true" (click)="select_form_step('step1')" id="personal-details-basic-tab" href="#personal-details-basic1" data-toggle="tab" role="tab">
                           Basic Information 
                           <span class="step-icon-wrap info">
                             <span class="step-icon">
@@ -34,7 +34,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="personal-details-personal-tab" href="#personal-details-personal" data-toggle="tab" role="tab">
+                        <a class="nav-link " [class.active]="step2 == true" (click)="select_form_step('step2')" id="personal-details-personal-tab" href="#personal-details-personal1" data-toggle="tab" role="tab">
                           Personal Information
                           <span class="step-icon-wrap address">
                             <span class="step-icon">
@@ -53,7 +53,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="personal-details-address-tab" href="#personal-details-address" data-toggle="tab" role="tab">
+                        <a class="nav-link " [class.active]="step3 == true" (click)="select_form_step('step3')" id="personal-details-address-tab" href="#personal-details-address1" data-toggle="tab" role="tab">
                           Address
                           <span class="step-icon-wrap residency">
                             <span class="step-icon">
@@ -76,7 +76,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="personal-details-bank-tab" href="#personal-details-bank" data-toggle="tab" role="tab">
+                        <a class="nav-link " [class.active]="step4 == true" (click)="select_form_step('step4')" id="personal-details-bank-tab" href="#personal-details-bank1" data-toggle="tab" role="tab">
                           Bank Details
                           <span class="step-icon-wrap bank">
                             <span class="step-icon">
@@ -90,7 +90,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="personal-details-assests-tab" href="#personal-details-assests" data-toggle="tab" role="tab">
+                        <a class="nav-link " [class.active]="step5 == true" (click)="select_form_step('step5')" id="personal-details-assests-tab" href="#personal-details-assests1" data-toggle="tab" role="tab">
                           Assests & Liabilities
                           <span class="step-icon-wrap assets">
                             <span class="step-icon">
@@ -201,7 +201,7 @@
                     </ul>
                   </div>
                   <div class="tab-content tab-wizard-content">
-                    <div class="tab-pane fade show active" id="personal-details-basic" role="tabpanel">
+                    <div class="tab-pane fade " id="personal-details-basic" role="tabpanel" [ngClass]="{ 'show': step1 == true , 'active': step1 == true }">
                       <div class="row form-group">
                         <div class="col-12">
                           <label class="control-label">Were you present in India for more than 181 days between 1 April 2017 and 31 March 2018?</label>
@@ -263,7 +263,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane fade" id="personal-details-personal" role="tabpanel">
+                    <div class="tab-pane fade " id="personal-details-personal" role="tabpanel" [ngClass]="{ 'show': step2 == true , 'active': step2 == true }">
                         <div class="row">
                           <div class="col">
                             <div class="form-group floating-label">
@@ -376,7 +376,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="personal-details-address" role="tabpanel">
+                    <div class="tab-pane fade " id="personal-details-address" role="tabpanel" [ngClass]="{ 'show': step3 == true , 'active': step3 == true }">
                       <div class="row">
                         <div class="col">
                           <div class="form-group floating-label">
@@ -428,17 +428,17 @@
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane fade" id="personal-details-bank" role="tabpanel">
+                    <div class="tab-pane fade" id="personal-details-bank" role="tabpanel" [ngClass]="{ 'show': step4 == true , 'active': step4 == true }">
                       <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                          <a class="nav-link active" id="primary-bank-account-tab" data-toggle="tab" href="#primary-bank-account" role="tab"aria-selected="true">Primary Bank Account</a>
+                          <a class="nav-link " id="primary-bank-account-tab" data-toggle="tab" href="#primary-bank-account1" (click)="select_step4_subpart_form('Primary_Bank_Account')" [class.active]="step4_primary_bank_acc == true" role="tab"aria-selected="true">Primary Bank Account</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="all-other-bank-accounts-tab" data-toggle="tab" href="#all-other-bank-accounts" role="tab" aria-selected="false">All Other Bank Accounts</a>
+                          <a class="nav-link " id="all-other-bank-accounts-tab" data-toggle="tab" href="#all-other-bank-accounts1" (click)="select_step4_subpart_form('All_Other_Bank_Account')" [class.active]="step4_all_other_bank_acc == true" role="tab" aria-selected="false">All Other Bank Accounts</a>
                         </li>
                       </ul>
                       <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="primary-bank-account" role="tabpanel">
+                        <div class="tab-pane fade " id="primary-bank-account" role="tabpanel" [ngClass]="{ 'show': step4_primary_bank_acc == true , 'active': step4_primary_bank_acc == true }">
                           <div class="row">
                             <div class="col">
                               <div class="form-group floating-label">
@@ -472,7 +472,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="tab-pane fade" id="all-other-bank-accounts" role="tabpanel">
+                        <div class="tab-pane fade " id="all-other-bank-accounts" role="tabpanel" [ngClass]="{ 'show': step4_all_other_bank_acc == true , 'active': step4_all_other_bank_acc == true }">
                           <div class="row">
                             <div class="col">
                               <div class="form-group floating-label">
@@ -513,20 +513,20 @@
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane fade" id="personal-details-assests" role="tabpanel">
+                    <div class="tab-pane fade" id="personal-details-assests" role="tabpanel" [ngClass]="{ 'show': step5 == true , 'active': step5 == true }">
                       <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                          <a class="nav-link active" id="immovable-assets-tab" data-toggle="tab" href="#immovable-assets" role="tab" aria-selected="true">Immovable Assets</a>
+                          <a class="nav-link " id="immovable-assets-tab" (click)="select_step5_subform_part('immovable')" [class.active]="step5_immovable == true" data-toggle="tab" href="#immovable-assets1" role="tab" aria-selected="true">Immovable Assets</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="movable-assets-tab" data-toggle="tab" href="#movable-assets" role="tab" aria-selected="false">Movable Assets</a>
+                          <a class="nav-link " id="movable-assets-tab" (click)="select_step5_subform_part('movable')" [class.active]="step5_movable == true" data-toggle="tab" href="#movable-assets1" role="tab" aria-selected="false">Movable Assets</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="foreign-assets-tab" data-toggle="tab" href="#foreign-assets" role="tab" aria-selected="false">Foreign Assets</a>
+                          <a class="nav-link " id="foreign-assets-tab" (click)="select_step5_subform_part('foreign')" [class.active]="step5_foreign == true" data-toggle="tab" href="#foreign-assets1" role="tab" aria-selected="false">Foreign Assets</a>
                         </li>
                       </ul>
                       <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="immovable-assets" role="tabpanel">
+                        <div class="tab-pane fade " id="immovable-assets" role="tabpanel" [ngClass]="{ 'show': step5_immovable == true , 'active': step5_immovable == true }">
                           <div class="row">
                             <div class="alert alert-primary" role="alert">
                               Assets and Liability at the end of the year (applicable in a case where total income exceeds ₹50 lakh)
@@ -868,7 +868,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="tab-pane fade" id="movable-assets" role="tabpanel">
+                        <div class="tab-pane fade " id="movable-assets" role="tabpanel" [ngClass]="{ 'show': step5_movable == true , 'active': step5_movable == true }">
                           <div class="assetsLists">
                             <article>
                               <div class="row form-group mb-0">
@@ -993,7 +993,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="tab-pane fade" id="foreign-assets" role="tabpanel">
+                        <div class="tab-pane fade " id="foreign-assets" role="tabpanel" [ngClass]="{ 'show': step5_foreign == true , 'active': step5_foreign == true }">
                           <div class="row form-group mb-0">
                             <div class="col">
                               <h6>Upload Foreign Assets Details</h6>
@@ -1032,11 +1032,15 @@
                   <div class="form-actions d-flex">
                     <div class="left mr-auto">
                       <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
+                      <!-- <button type="button" class="btn btn-secondary btn-lg" disabled="" (click)="on_reset_click()">Reset</button> -->
                     </div>
                     <div class="right ml-auto">
-                      <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
-                      <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>
-                      <button type="button" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
+                      <button type="button" class="btn btn-secondary btn-lg" (click)="on_previous_click()"><i class="fas fa-arrow-left"></i> Previous</button>
+                      <!-- <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button> -->
+                      <!-- <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button> -->
+                      <button type="button" class="btn btn-primary btn-lg" (click)="on_skip_click()">Skip <i class="fas fa-arrow-right"></i></button>
+                      <button type="button" class="btn btn-primary btn-lg" (click)="on_next_click()">Next <i class="fas fa-arrow-right"></i></button>
+                      <!-- <button type="button" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button> -->
                     </div>
                   </div>
                 </form>
