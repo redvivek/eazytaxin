@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl , Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import { Basicinfostep1, Personalinfo, Address, Bankdetail, Assetsliabilities } from '@app/_models';
+import { Basicinfostep1, Personaldetails, Addressdetails, Bankdetails, Assetsliabilities } from '@app/_models';
 
 @Component({
   selector: 'app-personal-details',
@@ -13,8 +13,8 @@ export class PersonalDetailsComponent implements OnInit {
   registerForm1: FormGroup;
   loading = false;
   submitted = false;
-  step1:boolean = true;
-  step2:boolean = false;
+  // step1:boolean = false;
+  step2:boolean = true;
   step3:boolean = false;
   step4:boolean = false;
   step5:boolean = false;
@@ -63,79 +63,79 @@ export class PersonalDetailsComponent implements OnInit {
   }
   on_next_click(){
     if (this.step5 == true) {
-      this.step1 = false;
+      // this.step1 = false;
       this.step2 = false;
       this.step3 = false;
       this.step4 = false;
       this.step5 = true;
     }
     if (this.step4 == true) {
-      this.step1 = false;
+      // this.step1 = false;
       this.step2 = false;
       this.step3 = false;
       this.step4 = false;
       this.step5 = true;
     }
     if (this.step3 == true) {
-      this.step1 = false;
+      // this.step1 = false;
       this.step2 = false;
       this.step3 = false;
       this.step4 = true;
       this.step5 = false;
     }
     if (this.step2 == true) {
-      this.step1 = false;
+      // this.step1 = false;
       this.step2 = false;
       this.step3 = true;
       this.step4 = false;
       this.step5 = false;
     }
-    if (this.step1 == true) {
-      this.step1 = false;
-      this.step2 = true;
-      this.step3 = false;
-      this.step4 = false;
-      this.step5 = false;
-    }
+    // if (this.step1 == true) {
+    //   this.step1 = false;
+    //   this.step2 = true;
+    //   this.step3 = false;
+    //   this.step4 = false;
+    //   this.step5 = false;
+    // }
   }
   on_previous_click(){
-    if (this.step1 == true) {
-      this.step1 = true;
-      this.step2 = false;
-      this.step3 = false;
-      this.step4 = false;
-      this.step5 = false;
-    }
+    // if (this.step1 == true) {
+    //   this.step1 = true;
+    //   this.step2 = false;
+    //   this.step3 = false;
+    //   this.step4 = false;
+    //   this.step5 = false;
+    // }
     if (this.step2 == true) {
-      this.step1 = true;
-      this.step2 = false;
+      // this.step1 = true;
+      this.step2 = true;
       this.step3 = false;
       this.step4 = false;
       this.step5 = false;
     }
     if (this.step3 == true) {
-      this.step1 = false;
+      // this.step1 = false;
       this.step2 = true;
       this.step3 = false;
       this.step4 = false;
       this.step5 = false;
     }
     if (this.step4 == true) {
-      this.step1 = false;
+      // this.step1 = false;
       this.step2 = false;
       this.step3 = true;
       this.step4 = false;
       this.step5 = false;
     }
     if (this.step5 == true) {
-      this.step1 = false;
+      // this.step1 = false;
       this.step2 = false;
       this.step3 = false;
       this.step4 = true;
       this.step5 = false;
     }
   }
-  on_skip_click(){
+  /*on_skip_click(){
     if (this.step5 == true) {
       this.step1 = false;
       this.step2 = false;
@@ -171,7 +171,7 @@ export class PersonalDetailsComponent implements OnInit {
       this.step4 = false;
       this.step5 = false;
     }
-  }
+  }*/
   on_reset_click(){
     // if (this.step1 == true) {
     // }
@@ -185,36 +185,36 @@ export class PersonalDetailsComponent implements OnInit {
     // }
   }
   select_form_step(a){
-    if(a == 'step1'){
-      this.step1 = true;
-      this.step2 = false;
-      this.step3 = false;
-      this.step4 = false;
-      this.step5 = false;
-    }
+    // if(a == 'step1'){
+    //   this.step1 = true;
+    //   this.step2 = false;
+    //   this.step3 = false;
+    //   this.step4 = false;
+    //   this.step5 = false;
+    // }
     if(a == 'step2'){
-      this.step1 = false;
+      // this.step1 = false;
       this.step2 = true;
       this.step3 = false;
       this.step4 = false;
       this.step5 = false;
     }
     if(a == 'step3'){
-      this.step1 = false;
+      // this.step1 = false;
       this.step2 = false;
       this.step3 = true;
       this.step4 = false;
       this.step5 = false;
     }
     if(a == 'step4'){
-      this.step1 = false;
+      // this.step1 = false;
       this.step2 = false;
       this.step3 = false;
       this.step4 = true;
       this.step5 = false;
     }
     if(a == 'step5'){
-      this.step1 = false;
+      // this.step1 = false;
       this.step2 = false;
       this.step3 = false;
       this.step4 = false;

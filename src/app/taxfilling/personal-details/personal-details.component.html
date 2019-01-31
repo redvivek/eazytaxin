@@ -17,7 +17,7 @@
                 <form class="tab-wizard wizard-circle wizard clearfix" id="registerForm1" (ngSubmit)="onSubmit()">
                   <div class="steps clearfix">
                     <ul class="nav " role="tablist">
-                      <li class="nav-item">
+                      <!--<li class="nav-item">
                         <a class="nav-link " [class.active]="step1 == true" (click)="select_form_step('step1')" id="personal-details-basic-tab" href="#personal-details-basic1" data-toggle="tab" role="tab">
                           Basic Information 
                           <span class="step-icon-wrap info">
@@ -32,7 +32,7 @@
                             </span>
                           </span>
                         </a>
-                      </li>
+                      </li>-->
                       <li class="nav-item">
                         <a class="nav-link " [class.active]="step2 == true" (click)="select_form_step('step2')" id="personal-details-personal-tab" href="#personal-details-personal1" data-toggle="tab" role="tab">
                           Personal Information
@@ -201,7 +201,7 @@
                     </ul>
                   </div>
                   <div class="tab-content tab-wizard-content">
-                    <div class="tab-pane fade " id="personal-details-basic" role="tabpanel" [ngClass]="{ 'show': step1 == true , 'active': step1 == true }">
+                    <!--<div class="tab-pane fade " id="personal-details-basic" role="tabpanel" [ngClass]="{ 'show': step1 == true , 'active': step1 == true }">
                       <div class="row form-group">
                         <div class="col-12">
                           <label class="control-label">Were you present in India for more than 181 days between 1 April 2017 and 31 March 2018?</label>
@@ -262,18 +262,18 @@
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div>-->
                     <div class="tab-pane fade " id="personal-details-personal" role="tabpanel" [ngClass]="{ 'show': step2 == true , 'active': step2 == true }">
                         <div class="row">
                           <div class="col">
                             <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="first_name" formControlName="first_name" [ngClass]="{ 'is-invalid': submitted && f.first_name.errors}">
+                              <input type="text" class="form-control" id="Firstname" formControlName="Firstname" [ngClass]="{ 'is-invalid': submitted && f.Firstname.errors}">
                               <label for="">First Name <span class="text-danger required">*</span></label>
                             </div>
                           </div>
                           <div class="col">
                             <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="middle_name" formControlName="middle_name" [ngClass]="{ 'is-invalid': submitted && f.middle_name.errors}">
+                              <input type="text" class="form-control" id="Middlename" formControlName="Middlename" [ngClass]="{ 'is-invalid': submitted && f.Middlename.errors}">
                               <label for="">Middle Name</label>
                             </div>
                           </div>
@@ -281,13 +281,13 @@
                         <div class="row">
                           <div class="col">
                             <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="last_name" formControlName="last_name" [ngClass]="{ 'is-invalid': submitted && f.last_name.errors}">
+                              <input type="text" class="form-control" id="Lastname" formControlName="Lastname" [ngClass]="{ 'is-invalid': submitted && f.Lastname.errors}">
                               <label for="">Last Name <span class="text-danger required">*</span></label>
                             </div>
                           </div>
                           <div class="col">
                             <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="father_name" formControlName="father_name" [ngClass]="{ 'is-invalid': submitted && f.father_name.errors}">
+                              <input type="text" class="form-control" id="Fathername" formControlName="Fathername" [ngClass]="{ 'is-invalid': submitted && f.Fathername.errors}">
                               <label for="">Father's Name <span class="text-danger required">*</span></label>
                             </div>
                           </div>
@@ -295,13 +295,13 @@
                         <div class="row">
                           <div class="col">
                             <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors}">
+                              <input type="text" class="form-control" id="EmailId" formControlName="EmailId" [ngClass]="{ 'is-invalid': submitted && f.EmailId.errors}">
                               <label for="">Email ID <span class="text-danger required">*</span></label>
                             </div>
                           </div>
                           <div class="col">
                             <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="mob_no" formControlName="mob_no" [ngClass]="{ 'is-invalid': submitted && f.mob_no.errors}">
+                              <input type="text" class="form-control" id="MobileNo" formControlName="MobileNo" [ngClass]="{ 'is-invalid': submitted && f.MobileNo.errors}">
                               <label for="">Mobile No. </label>
                             </div>
                           </div>
@@ -309,13 +309,13 @@
                         <div class="row">
                           <div class="col">
                             <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="sec_mob_no" formControlName="sec_mob_no" [ngClass]="{ 'is-invalid': submitted && f.sec_mob_no.errors}">
+                              <input type="text" class="form-control" id="AltMobileNo" formControlName="AltMobileNo" [ngClass]="{ 'is-invalid': submitted && f.AltMobileNo.errors}">
                               <label for="">Secondary Mobile No. <span class="text-danger required">*</span></label>
                             </div>
                           </div>
                           <div class="col">
                             <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="landline_no" formControlName="landline_no" [ngClass]="{ 'is-invalid': submitted && f.landline_no.errors}">
+                              <input type="text" class="form-control" id="landlineNo" formControlName="landlineNo" [ngClass]="{ 'is-invalid': submitted && f.landlineNo.errors}">
                               <label for="">Landline No <span class="text-danger required">*</span></label>
                             </div>
                           </div>
@@ -323,13 +323,13 @@
                         <div class="row">
                           <div class="col">
                             <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="dob" formControlName="dob" [ngClass]="{ 'is-invalid': submitted && f.dob.errors}">
+                              <input type="text" class="form-control" id="DateOfBirth" formControlName="DateOfBirth" [ngClass]="{ 'is-invalid': submitted && f.DateOfBirth.errors}">
                               <label for="">Date of Birth <span class="text-danger required">*</span></label>
                             </div>
                           </div>
                           <div class="col">
                             <div class="form-group floating-label customDropdown">
-                              <select id="select2" name="select2" class="form-control" formControlName="gender">
+                              <select id="select2" name="select2" class="form-control" formControlName="Gender">
                                 <option value=""></option>
                                 <option value="1">Male</option>
                                 <option value="2">Female</option>
@@ -342,13 +342,13 @@
                         <div class="row">
                           <div class="col">
                             <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="employer_name" formControlName="employer_name" [ngClass]="{ 'is-invalid': submitted && f.employer_name.errors}">
+                              <input type="text" class="form-control" id="EmployerName" formControlName="EmployerName" [ngClass]="{ 'is-invalid': submitted && f.EmployerName.errors}">
                               <label for="">Employer Name <span class="text-danger required">*</span></label>
                             </div>
                           </div>
                           <div class="col">
                             <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="employer_type" formControlName="employer_type" [ngClass]="{ 'is-invalid': submitted && f.employer_type.errors}">
+                              <input type="text" class="form-control" id="EmployerType" formControlName="EmployerType" [ngClass]="{ 'is-invalid': submitted && f.EmployerType.errors}">
                               <label for="">Employer Type <span class="text-danger required">*</span></label>
                             </div>
                           </div>
@@ -356,13 +356,13 @@
                         <div class="row">
                           <div class="col">
                             <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="pan_number" formControlName="pan_number" [ngClass]="{ 'is-invalid': submitted && f.pan_number.errors}">
+                              <input type="text" class="form-control" id="PanNumber" formControlName="PanNumber" [ngClass]="{ 'is-invalid': submitted && f.PanNumber.errors}">
                               <label for="">PAN Card Number <span class="text-danger required">*</span></label>
                             </div>
                           </div>
                           <div class="col">
                             <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="aadhar_number" formControlName="aadhar_number" [ngClass]="{ 'is-invalid': submitted && f.aadhar_number.errors}">
+                              <input type="text" class="form-control" id="AadharNumber" formControlName="AadharNumber" [ngClass]="{ 'is-invalid': submitted && f.AadharNumber.errors}">
                               <label for="">Aadhaar Card Number / Enrollment ID</label>
                             </div>
                           </div>
@@ -370,7 +370,7 @@
                         <div class="row">
                           <div class="col-6">
                             <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="passport_number" formControlName="passport_number" [ngClass]="{ 'is-invalid': submitted && f.passport_number.errors}">
+                              <input type="text" class="form-control" id="PassportNumber" formControlName="PassportNumber" [ngClass]="{ 'is-invalid': submitted && f.PassportNumber.errors}">
                               <label for="">Passport Number (If available)</label>
                             </div>
                           </div>
@@ -380,13 +380,13 @@
                       <div class="row">
                         <div class="col">
                           <div class="form-group floating-label">
-                            <input type="text" class="form-control" id="flat_number" formControlName="flat_number" [ngClass]="{ 'is-invalid': submitted && f.flat_number.errors}">
+                            <input type="text" class="form-control" id="Flatno_Blockno" formControlName="Flatno_Blockno" [ngClass]="{ 'is-invalid': submitted && f.Flatno_Blockno.errors}">
                             <label for="">Flat / Door / Block No. <span class="text-danger required">*</span></label>
                           </div>
                         </div>
                         <div class="col">
                           <div class="form-group floating-label">
-                            <input type="text" class="form-control" id="building" formControlName="building" [ngClass]="{ 'is-invalid': submitted && f.building.errors}">
+                            <input type="text" class="form-control" id="Building_Village_Premises" formControlName="Building_Village_Premises" [ngClass]="{ 'is-invalid': submitted && f.Building_Village_Premises.errors}">
                             <label for="">Premises / Building / Village</label>
                           </div>
                         </div>
@@ -394,13 +394,13 @@
                       <div class="row">
                         <div class="col">
                           <div class="form-group floating-label">
-                            <input type="text" class="form-control" id="road" formControlName="road" [ngClass]="{ 'is-invalid': submitted && f.road.errors}">
+                            <input type="text" class="form-control" id="Road_Street_PO" formControlName="Road_Street_PO" [ngClass]="{ 'is-invalid': submitted && f.Road_Street_PO.errors}">
                             <label for="">Road / Street / Post Office <span class="text-danger required">*</span></label>
                           </div>
                         </div>
                         <div class="col">
                           <div class="form-group floating-label">
-                            <input type="text" class="form-control" id="area" formControlName="area" [ngClass]="{ 'is-invalid': submitted && f.area.errors}">
+                            <input type="text" class="form-control" id="Area_Locality" formControlName="Area_Locality" [ngClass]="{ 'is-invalid': submitted && f.Area_Locality.errors}">
                             <label for="">Area / Locality <span class="text-danger required">*</span></label>
                           </div>
                         </div>
@@ -408,13 +408,13 @@
                       <div class="row">
                         <div class="col">
                           <div class="form-group floating-label">
-                            <input type="number" class="form-control" id="pincode" formControlName="pincode" [ngClass]="{ 'is-invalid': submitted && f.pincode.errors}">
+                            <input type="number" class="form-control" id="Pincode" formControlName="Pincode" [ngClass]="{ 'is-invalid': submitted && f.Pincode.errors}">
                             <label for="">Pin Code <span class="text-danger required">*</span></label>
                           </div>
                         </div>
                         <div class="col">
                           <div class="form-group floating-label">
-                            <input type="text" class="form-control" id="city" formControlName="city" [ngClass]="{ 'is-invalid': submitted && f.city.errors}">
+                            <input type="text" class="form-control" id="City_Town_District" formControlName="City_Town_District" [ngClass]="{ 'is-invalid': submitted && f.City_Town_District.errors}">
                             <label for="">Town / City / District </label>
                           </div>
                         </div>
@@ -422,7 +422,7 @@
                       <div class="row">
                         <div class="col-6">
                           <div class="form-group floating-label">
-                            <input type="text" class="form-control" id="state" formControlName="state" [ngClass]="{ 'is-invalid': submitted && f.state.errors}">
+                            <input type="text" class="form-control" id="State" formControlName="State" [ngClass]="{ 'is-invalid': submitted && f.State.errors}">
                             <label for="">State <span class="text-danger required">*</span></label>
                           </div>
                         </div>
@@ -442,13 +442,13 @@
                           <div class="row">
                             <div class="col">
                               <div class="form-group floating-label">
-                                <input type="text" class="form-control" id="first_name" formControlName="first_name" [ngClass]="{ 'is-invalid': submitted && f.first_name.errors}">
-                                <label for="">First Name <span class="text-danger required">*</span></label>
+                                <input type="text" class="form-control" id="AccountNumber" formControlName="AccountNumber" [ngClass]="{ 'is-invalid': submitted && f.AccountNumber.errors}">
+                                <label for="">Account Number <span class="text-danger required">*</span></label>
                               </div>
                             </div>
                             <div class="col">
                               <div class="form-group floating-label customDropdown">
-                                <select id="select2" name="select2" class="form-control" formControlName="acc_type">
+                                <select id="select2" name="select2" class="form-control" formControlName="AccountType">
                                   <option value=""></option>
                                   <option value="savings">Savings</option>
                                   <option value="current">Current</option>
@@ -460,14 +460,14 @@
                           <div class="row">
                             <div class="col">
                               <div class="form-group floating-label">
-                                <input type="text" class="form-control" id="last_name" formControlName="last_name" [ngClass]="{ 'is-invalid': submitted && f.last_name.errors}">
-                                <label for="">Last Name <span class="text-danger required">*</span></label>
+                                <input type="text" class="form-control" id="BankName" formControlName="BankName" [ngClass]="{ 'is-invalid': submitted && f.BankName.errors}">
+                                <label for="">Bank Name <span class="text-danger required">*</span></label>
                               </div>
                             </div>
                             <div class="col">
                               <div class="form-group floating-label">
-                                <input type="text" class="form-control" id="father_name" formControlName="father_name" [ngClass]="{ 'is-invalid': submitted && f.father_name.errors}">
-                                <label for="">Father's Name <span class="text-danger required">*</span></label>
+                                <input type="text" class="form-control" id="IFSCCode" formControlName="IFSCCode" [ngClass]="{ 'is-invalid': submitted && f.IFSCCode.errors}">
+                                <label for="">IFSC Code <span class="text-danger required">*</span></label>
                               </div>
                             </div>
                           </div>
@@ -476,13 +476,13 @@
                           <div class="row">
                             <div class="col">
                               <div class="form-group floating-label">
-                                <input type="text" class="form-control" id="first_name" formControlName="first_name" [ngClass]="{ 'is-invalid': submitted && f.first_name.errors}">
-                                <label for="">First Name <span class="text-danger required">*</span></label>
+                                <input type="text" class="form-control" id="AccountNumber" formControlName="AccountNumber" [ngClass]="{ 'is-invalid': submitted && f.AccountNumber.errors}">
+                                <label for="">Account Number <span class="text-danger required">*</span></label>
                               </div>
                             </div>
                             <div class="col">
                               <div class="form-group floating-label customDropdown">
-                                <select id="select2" name="select2" class="form-control" formControlName="acc_type">
+                                <select id="select2" name="select2" class="form-control" formControlName="AccountType">
                                   <option value=""></option>
                                   <option value="savings">Savings</option>
                                   <option value="current">Current</option>
@@ -494,14 +494,14 @@
                           <div class="row">
                             <div class="col">
                               <div class="form-group floating-label">
-                                <input type="text" class="form-control" id="last_name" formControlName="last_name" [ngClass]="{ 'is-invalid': submitted && f.last_name.errors}">
-                                <label for="">Last Name <span class="text-danger required">*</span></label>
+                                <input type="text" class="form-control" id="BankName" formControlName="BankName" [ngClass]="{ 'is-invalid': submitted && f.BankName.errors}">
+                                <label for="">Bank Name <span class="text-danger required">*</span></label>
                               </div>
                             </div>
                             <div class="col">
                               <div class="form-group floating-label">
-                                <input type="text" class="form-control" id="father_name" formControlName="father_name" [ngClass]="{ 'is-invalid': submitted && f.father_name.errors}">
-                                <label for="">Father's Name <span class="text-danger required">*</span></label>
+                                <input type="text" class="form-control" id="IFSCCode" formControlName="IFSCCode" [ngClass]="{ 'is-invalid': submitted && f.IFSCCode.errors}">
+                                <label for="">IFSC Code <span class="text-danger required">*</span></label>
                               </div>
                             </div>
                           </div>
@@ -1038,7 +1038,7 @@
                       <button type="button" class="btn btn-secondary btn-lg" (click)="on_previous_click()"><i class="fas fa-arrow-left"></i> Previous</button>
                       <!-- <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button> -->
                       <!-- <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button> -->
-                      <button type="button" class="btn btn-primary btn-lg" (click)="on_skip_click()">Skip <i class="fas fa-arrow-right"></i></button>
+                      <!-- <button type="button" class="btn btn-primary btn-lg" (click)="on_skip_click()">Skip <i class="fas fa-arrow-right"></i></button> -->
                       <button type="button" class="btn btn-primary btn-lg" (click)="on_next_click()">Next <i class="fas fa-arrow-right"></i></button>
                       <!-- <button type="button" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button> -->
                     </div>
