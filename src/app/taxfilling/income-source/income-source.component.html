@@ -18,7 +18,7 @@
                   <div class="steps clearfix">
                     <ul class="nav " role="tablist">
                       <li class="nav-item">
-                        <a class="nav-link " id="personal-info-tab" href="#personal-info" data-toggle="tab" role="tab">
+                        <a class="nav-link " id="income-salary-tab" href="#income-salary" data-toggle="tab" role="tab">
                           Salary
                           <span class="step-icon-wrap info">
                             <span class="step-icon">
@@ -34,7 +34,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="personal-address-tab" href="#personal-address" data-toggle="tab" role="tab">
+                        <a class="nav-link active" id="income-other-tab" href="#income-other" data-toggle="tab" role="tab">
                           Other Income
                           <span class="step-icon-wrap address">
                             <span class="step-icon">
@@ -53,7 +53,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link active" id="personal-residency-tab" href="#personal-residency" data-toggle="tab" role="tab">
+                        <a class="nav-link " id="income-house-property-tab" href="#income-house-property" data-toggle="tab" role="tab">
                           House Property
                           <span class="step-icon-wrap residency">
                             <span class="step-icon">
@@ -76,7 +76,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="personal-bank-tab" href="#personal-bank" data-toggle="tab" role="tab">
+                        <a class="nav-link" id="income-capital-gain-tab" href="#income-capital-gain" data-toggle="tab" role="tab">
                           Capital Gain
                           <span class="step-icon-wrap bank">
                             <span class="step-icon">
@@ -92,17 +92,17 @@
                     </ul>
                   </div>
                   <div class="tab-content tab-wizard-content">
-                    <div class="tab-pane fade  " id="personal-info" role="tabpanel">
-                      <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <div class="tab-pane fade " id="income-salary" role="tabpanel">
+                      <ul class="nav nav-tabs" id="" role="tablist">
                         <li class="nav-item">
-                          <a class="nav-link active" id="upload-tab" data-toggle="tab" href="#upload" role="tab"aria-selected="true">Upload</a>
+                          <a class="nav-link active" id="income-salary-upload-tab" data-toggle="tab" href="#income-salary-upload" role="tab"aria-selected="true">Upload</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" id="income-from-salary-tab" data-toggle="tab" href="#income-from-salary" role="tab" aria-selected="false">Income from Salary</a>
                         </li>
                       </ul>
                       <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="upload" role="tabpanel">
+                        <div class="tab-pane fade show active" id="income-salary-upload" role="tabpanel">
                           <div class="row form-group mb-0">
                             <div class="col">
                               <h6>Select your Form 16 document</h6>
@@ -355,28 +355,337 @@
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane fade" id="personal-address" role="tabpanel">
-                      <div class="row">
-                        <div class="col">
-                          <div class="form-group floating-label">
-                            <input type="text" class="form-control" id="">
-                            <label for="">Date of Birth <span class="text-danger required">*</span></label>
+                    <div class="tab-pane fade" id="income-other" role="tabpanel">
+                      <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                          <a class="nav-link active" id="income-other-upload-tab" data-toggle="tab" href="#income-other-upload" role="tab" aria-selected="true">Upload</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="income-other-interest-income-tab" data-toggle="tab" href="#income-other-interest-income" role="tab" aria-selected="false">Interest Income</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="income-other-others-tab" data-toggle="tab" href="#income-other-others" role="tab" aria-selected="false">Other Income</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="income-other-exempt-tab" data-toggle="tab" href="#income-other-exempt" role="tab" aria-selected="false">Exempt Income</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="income-other-agriculture-tab" data-toggle="tab" href="#income-other-agriculture" role="tab" aria-selected="false">Agriculture Income</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="income-other-dependent-tab" data-toggle="tab" href="#income-other-dependent" role="tab" aria-selected="false">Dependent Income</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="income-other-pf-tab" data-toggle="tab" href="#income-other-pf" role="tab" aria-selected="false">PF Withdrawl income & Tax Rate</a>
+                        </li>
+                      </ul>
+                      <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="income-other-upload" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Select your Form 16 document</h6>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group">
+                                <div class="input-group prepend custom-file-wrap">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">Choose File</span>
+                                  </div>
+                                  <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="inputGroupFile01">
+                                    <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-4">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">Enter Document Password</label>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group">
+                                <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                        <div class="col">
-                          <div class="form-group floating-label customDropdown">
-                            <select id="select2" name="select2" class="form-control">
-                              <option value=""></option>
-                              <option value="1">Male</option>
-                              <option value="2">Female</option>
-                              <option value="3">Others</option>
-                            </select>
-                            <label for="select2">Gender</label>
+                        <div class="tab-pane fade" id="income-other-interest-income" role="tabpanel">
+                          <div class="assetsLists">
+                            <article>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Interest Income from Savings Bank and Post Office deposits
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group prepend position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Other Interest Income: From Fixed Deposits etc
+                                  <small class="d-block">Interest from sweep accounts converted to FDs also specified here</small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group prepend position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </article>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="income-other-others" role="tabpanel">
+                          <div class="assetsLists">
+                            <article>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Any Other Income <span class="text-danger required">*</span>
+                                  <small class="d-block">Report any other income which is not part of Income from Salary, House Property or Capital Gain. Gifts can be declared as Income here</small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group prepend position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </article>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="income-other-exempt" role="tabpanel">
+                          <div class="assetsLists">
+                            <article>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Dividend earned <span class="text-danger required">*</span>
+                                  <small class="d-block">Dividend from shares. Income earned on investments in Mutual Funds, ULIPs, UTI. </small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group prepend position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Exempt Interest Income <span class="text-danger required">*</span>
+                                  <small class="d-block">Example: Interest earned on PPF</small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group prepend position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Other Miscellaneous Exempt Income <span class="text-danger required">*</span>
+                                  <small class="d-block">Specify any other exempt income</small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group prepend position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Nature of Exempt Income <span class="text-danger required">*</span>
+                                  <small class="d-block">Specify nature of other exempt income</small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group prepend position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </article>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="income-other-agriculture" role="tabpanel">
+                          <div class="assetsLists">
+                            <article>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Gross Agricultural Income Receipt <span class="text-danger required">*</span>
+                                  <small class="d-block">Specify gross agricultural income</small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group prepend position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Expenditure On Agriculture <span class="text-danger required">*</span>
+                                  <small class="d-block">Specify expenditure on agriculture sources</small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group prepend position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Unabsorbed Agriculture Loss <span class="text-danger required">*</span>
+                                  <small class="d-block">Specify unabsorbed agriculture loss</small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group prepend position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </article>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="income-other-dependent" role="tabpanel">
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group mb-0">
+                                <div class=" floating-label">
+                                  <div class="input-group prepend">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for="">Amount <span class="text-danger required">*</span></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">Name of Person <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group floating-label customDropdown">
+                                <select id="" name="" class="form-control">
+                                  <option value=""></option>
+                                  <option value="1">Spouse</option>
+                                  <option value="2">Dependent 1</option>
+                                  <option value="3">Dependent 2</option>
+                                  <option value="4">Dependent 3</option>
+                                  <option value="5">Dependent 4</option>
+                                </select>
+                                <label for="">Relationship <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group floating-label customDropdown">
+                                <select id="" name="" class="form-control">
+                                  <option value=""></option>
+                                  <option value="1">Interest</option>
+                                  <option value="2">Dividend</option>
+                                  <option value="3">Other Source</option>
+                                </select>
+                                <label for="">Nature of Income <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="assetsLists">
+                            <table class="table table-bordered">
+                              <thead class="thead-light">
+                                <tr>
+                                  <th scope="col">Sl.No</th>
+                                  <th scope="col">Amount</th>
+                                  <th scope="col">Name of Person</th>
+                                  <th scope="col">Relationship</th>
+                                  <th scope="col">Nature of Income</th>
+                                  <th scope="col">Actions</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <th scope="row">1</th>
+                                  <td>₹ 12,22,233</td>
+                                  <td>Test</td>
+                                  <td>Spouse</td>
+                                  <td>Interest</td>
+                                  <td>
+                                    <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-pencil"></i> Edit</a>
+                                    <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-trash"></i> Delete</a>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="income-other-pf" role="tabpanel">
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group mb-0">
+                                <div class=" floating-label">
+                                  <div class="input-group prepend">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for="">PF Amount <span class="text-danger required">*</span></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group floating-label customDropdown">
+                                <select id="" name="" class="form-control">
+                                  <option value=""></option>
+                                  <option value="10.0">10</option>
+                                  <option value="12.5">12.5</option>
+                                  <option value="15.0">15</option>
+                                  <option value="20.0">20</option>
+                                  <option value="30.0">30</option>
+                                  <option value="50.0">50</option>
+                                </select>
+                                <label for="">Tax Rate <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane fade show active" id="personal-residency" role="tabpanel">
+                    <div class="tab-pane fade show active" id="income-house-property" role="tabpanel">
                       <ul class="nav nav-tabs scrollingTabs" id="myTab" role="tablist">
                         <li class="nav-item">
                           <a class="nav-link active" id="house-property-upload-tab" data-toggle="tab" href="#house-property-upload" role="tab"aria-selected="true">Upload</a>
@@ -839,9 +1148,9 @@
                               <div class="form-group floating-label customDropdown">
                                 <select id="IncomeSourcesDetails_PropertyAddressDetails_PropertyType" name="select2" class="form-control">
                                   <option value=""></option>
-                                  <option value="1">Self Occupied</option>
-                                  <option value="2">Rented</option>
-                                  <option value="3">Vacant</option>>
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>>
                                 </select>
                                 <label for="">Choose Property <span class="text-danger required">*</span></label>
                               </div>
@@ -853,7 +1162,7 @@
                                     <div class="input-group-text">₹</div>
                                   </div>
                                   <input type="text" class="form-control" id="" placeholder="">
-                                  <label for="">Interest Paid on Loan for Property</label>
+                                  <label for="">Interest Paid on Loan for Property <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
                             </div>
@@ -861,8 +1170,13 @@
                           <div class="row">
                             <div class="col">
                               <div class="form-group floating-label">
-                                <input type="text" class="form-control" id="">
-                                <label for="">Date of Property Acquisition / Construction <span class="text-danger required">*</span></label>
+                                <div class="input-group append">
+                                  <input type="text" class="form-control" id="" placeholder="">
+                                  <div class="input-group-append">
+                                    <div class="input-group-text"><i class="far fa-calendar"></i></div>
+                                  </div>
+                                  <label for="">Date of Property Acquisition / Construction </label>
+                                </div>
                               </div>
                             </div>
                             <div class="col">
@@ -879,7 +1193,7 @@
                           </div>
                           <div class="row">
                             <div class="form-group">
-                              <div class="col"><h6>Details of Immovable Assets</h6></div>
+                              <div class="col"><h6>You may upload housing loan interest certificate here (optional)</h6></div>
                             </div>
                           </div>
                           <div class="row form-group mb-0">
@@ -913,24 +1227,42 @@
                               </div>
                             </div>
                           </div>
-
                           <table class="table table-bordered">
                             <thead class="thead-light">
                               <tr>
-                                <th scope="col">Sl.No</th>
-                                <th scope="col">Property</th>
-                                <th scope="col">Actions</th>
+                                <th scope="col" width="70">Sl.No</th>
+                                <th scope="col">File Name</th>
+                                <th scope="col" width="120">Actions</th>
                               </tr>
                             </thead>
                             <tbody>
                               <tr>
                                 <th scope="row">1</th>
-                                <td>fasdfafda,Maharashtra</td>
+                                <td><a target="_blank" href="javascript:void(0);">dummy-doc.pdf</a></td>
                                 <td>
-                                  <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-pencil"></i> Edit</a>
                                   <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-trash"></i> Delete</a>
                                 </td>
                               </tr>
+                            </tbody>
+                          </table>
+                          <div class="row">
+                            <div class="col-6 form-group">
+                              <button type="button" class="btn btn-outline-primary btn-sm">Add Interest Paid <i class="fas fa-plus mx-2"></i></button>
+                            </div>
+                          </div>
+                          <div class="row">
+                              <div class="col"><h6>Property List</h6></div>
+                          </div>
+                          <p class="mb-1">Properties having housing loan</p>
+                          <table class="table table-bordered">
+                            <thead class="thead-light">
+                              <tr>
+                                <th scope="col" width="70">Sl.No</th>
+                                <th scope="col">Property</th>
+                                <th scope="col" width="160">Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody>
                               <tr>
                                 <th scope="row">1</th>
                                 <td>fasdfafda,Maharashtra</td>
@@ -950,7 +1282,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane fade" id="personal-bank" role="tabpanel">
+                    <div class="tab-pane fade" id="income-capital-gain" role="tabpanel">
                       <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                           <a class="nav-link active" id="primary-bank-account-tab" data-toggle="tab" href="#primary-bank-account" role="tab"aria-selected="true">Primary Bank Account</a>
