@@ -5,4 +5,5 @@ export * from './bankdetails';
 export * from './basicinfo';
 export * from './personaldetails';
 export * from './basicinfostep1';
-export * from './assetsliabilities';
+export * from './assetsliabilitiesdetails';
+export * from './immovableassetsdetails';

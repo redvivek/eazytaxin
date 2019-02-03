@@ -5,6 +5,6 @@ export class Addressdetails {
     Area_Locality: string;
     City_Town_District:string;
     State: string;
-    //Country:string;
+    Country:string;
     Pincode:number;
 }

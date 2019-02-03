@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl , Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import { Basicinfostep1, Personaldetails, Addressdetails, Bankdetails, Assetsliabilities } from '@app/_models';
+import { Basicinfostep1, Personaldetails, Addressdetails, Bankdetails, Immovableassetsdetails, Assetsliabilitiesdetails } from '@app/_models';
 
 @Component({
   selector: 'app-personal-details',
@@ -10,7 +10,7 @@ import { Basicinfostep1, Personaldetails, Addressdetails, Bankdetails, Assetslia
   styleUrls: ['./personal-details.component.css']
 })
 export class PersonalDetailsComponent implements OnInit {
-  registerForm1: FormGroup;
+  personal_details: FormGroup;
   loading = false;
   submitted = false;
   // step1:boolean = false;
@@ -30,26 +30,49 @@ export class PersonalDetailsComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    // this.registerForm1 = this.formBuilder.group({
-    //   emailId: ['', Validators.required ],
-    //   nPassword: ['', Validators.required ],
-    //   cPassword: ['', Validators.required],
-    //   terms: ['', Validators.required]
-    // });
+    this.personal_details = this.formBuilder.group({
+      Firstname: ['', Validators.required ],
+      Lastname: ['', Validators.required ],
+      EmailId: ['', [
+                Validators.required,
+                Validators.pattern("^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+)\\.([a-zA-Z]{2,5})$")
+               ], ],
+      Fathername: ['', Validators.required ],
+      MobileNo: ['', Validators.required ],
+      DateOfBirth: ['', Validators.required ],
+      Gender: ['', Validators.required ],
+      EmployerName: ['', Validators.required ],
+      EmployerType: ['', Validators.required ],
+      PanNumber: ['', Validators.required ],
+      Flatno_Blockno: ['', Validators.required ],
+      Pincode: ['', Validators.required ],
+      City_Town_District: ['', Validators.required ],
+      State: ['', Validators.required ],
+      Country: ['', Validators.required ],
+      AccountNumber: ['', Validators.required ],
+      BankName: ['', Validators.required ],
+      IFSCCode: ['', Validators.required ],
+      Description: ['', Validators.required ],
+      FlatNo: ['', Validators.required ],
+      PremiseName: ['', Validators.required ],
+      StreetName: ['', Validators.required ],
+      AreaLocality: ['', Validators.required ],
+      immovable_State: ['', Validators.required ],
+    });
   }
-  get f() { return this.registerForm1.controls; }
+  get f() { return this.personal_details.controls; }
 
   onSubmit() {
       this.submitted = true;
 
       // stop here if form is invalid
-      if (this.registerForm1.invalid) {
+      if (this.personal_details.invalid) {
           return;
       }
 
       this.loading = true;
-      console.log('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm1.value))
-      // this.userService.register(this.registerForm.value)
+      console.log('SUCCESS!! :-)\n\n' + JSON.stringify(this.personal_details.value))
+      // this.userService.register(this.personal_details.value)
       //     .pipe(first())
       //     .subscribe(
       //         data => {
