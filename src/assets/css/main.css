@@ -193,9 +193,12 @@ a:hover{text-decoration:none;}
 .wizard-content .wizard > .steps > ul > li:first-child a::before,
 .wizard-content .wizard > .steps > ul > li:last-child a::after {content:none}
 .wizard-content .wizard > .steps > ul > li a.active{cursor:default;}
+.tab-wizard .form-actions .right .btn{margin-left:5px;}
 .tab-wizard-content .tab-pane{padding:20px 0;}
 .tab-wizard-content .form-actions .right .btn{margin-left:3px;}
 .tab-wizard-content .form-actions .btn i{font-size:14px;}
+
+.table td .btn{padding: 2px 8px; font-size: 12px; margin: 0 2px;}
 
 /* Tabs */
 .nav-tabs .nav-item{margin-bottom:0; margin-right:20px;}
@@ -225,13 +228,18 @@ a:hover{text-decoration:none;}
 .floating-label .form-control:focus ~ label,
 .floating-label .form-control.dirty ~ label {top: 0px; font-size: 12px !important; }
 /* input-group */
-.floating-label .input-group{position:static; padding-left:20px;}
+.floating-label .input-group.prepend{position:static; padding-left:20px;}
 .floating-label .input-group-prepend{position:absolute; left:0;}
-.floating-label .input-group-text{background-color:transparent; border:none; border-bottom:1px solid #707070; border-radius:0; -webkit-border-radius:0; min-width:20px; padding-left:0; padding-right:0;}
+.floating-label .input-group.prepend .form-control ~ label{padding-left:20px;}
+
+.floating-label .input-group.append{position:static; padding-right:20px;}
+.floating-label .input-group-append{position:absolute; right:0;}
+.floating-label .input-group.append .form-control ~ label{padding-right:20px;}
+
+.floating-label .input-group-text{background-color:transparent; border:none; border-bottom:1px solid #707070; border-radius:0; -webkit-border-radius:0; min-width:20px; min-height:37px; padding-left:0; padding-right:0;}
 .floating-label .input-group > .custom-file .custom-file-input:focus ~ .custom-file-label, 
 .floating-label .input-group > .custom-select:focus, 
 .floating-label .input-group > .form-control:focus{z-index:inherit;}
-.floating-label .input-group .form-control ~ label{padding-left:20px;}
 
 
 /* Custom Dropdown */
