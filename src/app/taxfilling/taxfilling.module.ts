@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FileSelectDirective } from 'ng2-file-upload';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import {TaxfillingRoutingModule} from './taxfilling-routing.module';
 import { TaxPeriodComponent } from './tax-period';
 import { BasicInformationComponent } from './basic-information';
@@ -22,9 +24,12 @@ import { PaymentsComponent } from './payments';
     TaxesPaidComponent, 
     ReviewdetailsComponent, 
     PaymentsComponent,
+    FileSelectDirective
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     TaxfillingRoutingModule
   ]
 })

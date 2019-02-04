@@ -10,7 +10,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     UserId: {
       type: DataTypes.INTEGER(10),
-      allowNull: false
+      allowNull: false,
+      primaryKey: true
     },
     AppRefNo: {
       type: DataTypes.STRING(10),
@@ -18,7 +19,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     AssesmentYear: {
       type: DataTypes.STRING(15),
-      allowNull: false
+      allowNull: false,
+      primaryKey: true
     },
     XmlUploadFlag: {
       type: DataTypes.INTEGER(1),

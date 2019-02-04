@@ -9,16 +9,16 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true
     },
     DeductionType: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.STRING(30),
       allowNull: false,
       unique: true
     },
     DeductionDesc: {
       type: DataTypes.STRING(100),
-      allowNull: false
+      allowNull: true
     },
-    ParentType: {
-      type: DataTypes.INTEGER(3),
+    Category: {
+      type: DataTypes.STRING(15),
       allowNull: false
     },
     Status: {

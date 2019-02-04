@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(10),
       allowNull: false
     },
-    26AS_UploadFlag: {
+    AS_UploadFlag: {
       type: DataTypes.INTEGER(1),
       allowNull: false,
       defaultValue: '0'

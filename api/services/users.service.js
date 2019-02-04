@@ -24,7 +24,7 @@ exports.isEmailRegisterd = (req, res) => {
 				res.status(400).send(err);
 		});
 
-	/*{
+		/*{
 		"statusCode": 400,
 		"error": "Bad Request",
 		"message": "Email address already registerd"
@@ -138,42 +138,38 @@ exports.authenticateUser = (req, res) => {
 	});
 };
 
-
-
-
- 
-// Fetch all Customers
+// Fetch all Users
 exports.findAll = (req, res) => {
-	Customer.findAll().then(customers => {
+	Users.findAll().then(users => {
 	  // Send all customers to Client
-	  res.json(customers);
+	  res.json(users);
 	});
 };
  
-// Find a Customer by Id
+// Find a User by Id
 exports.findById = (req, res) => {	
-	Customer.findById(req.params.customerId).then(customer => {
-		res.json(customer);
+	Users.findById(req.params.userId).then(user => {
+		res.json(user);
 	})
 };
  
-// Update a Customer
+// Update the user profile
 exports.update = (req, res) => {
-	let customer = req.body;
-	let id = req.body.id;
-	Customer.update(customer, 
-					 { where: {id: id} }
+	let inputuser = req.body;
+	let id = req.body.userId;
+	Users.update(inputuser, 
+					 { where: {userId: id} }
 				   ).then(() => {
-						 res.status(200).json({msg:"updated successfully a customer with id = " + id});
+						 res.status(200).json({msg:"updated successfully a user with id = " + id});
 				   });	
 };
  
 // Delete a Customer by Id
-exports.delete = (req, res) => {
+/*exports.delete = (req, res) => {
 	const id = req.params.customerId;
 	Customer.destroy({
 	  where: { id: id }
 	}).then(() => {
 	  res.status(200).json({msg:'deleted successfully a customer with id = ' + id});
 	});
-};
+};*/

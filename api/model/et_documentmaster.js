@@ -9,11 +9,11 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true
     },
     DocName: {
-      type: DataTypes.STRING(15),
+      type: DataTypes.STRING(25),
       allowNull: false
     },
     DocCategory: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.STRING(25),
       allowNull: false,
       unique: true
     },

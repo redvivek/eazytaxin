@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     DeductionTypes: {
-      type: DataTypes.ENUM('Main','Others'),
+      type: DataTypes.ENUM('Primary','Others'),
       allowNull: false
     },
     DeductionCategory: {
@@ -26,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     DeductionSubCategory: {
       type: DataTypes.INTEGER(3),
-      allowNull: false
+      allowNull: true
     },
     DeductionAmount: {
       type: DataTypes.FLOAT,

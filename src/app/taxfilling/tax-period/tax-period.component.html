@@ -14,35 +14,41 @@
           <div class="col-12">
             <div class="card">
               <div class="card-body wizard-content">
-                <form class="clearfix">
+                <form class="clearfix" id="taxPeriodForm" [formGroup]="taxPeriodForm" (ngSubmit)="onSubmit()">
+                  
                   <div class="row">
                     <div class="col-4">
                       <div class="form-group floating-label customDropdown">
-                        <select id="select2" name="select2" class="form-control">
-                          <option value=""></option>
-                          <option value="2">2019-2020</option>
-                          <option value="2">2018-2019</option>
-                          <option value="2">2017-2018</option>
+                        <select name="taxperiod" class="form-control" id="taxperiod" formControlName="taxperiod" [(ngModel)]='taxperiod' [ngClass]="{ 'is-invalid': submitted && f.taxperiod.errors}">
+                            <option [value]="taxperiod" *ngFor="let taxperiod of taxperiods">{{taxperiod}}</option>
                         </select>
-                        <label for="select2">Select Assessment Year</label>
+                        <label for="taxperiod">Select Assessment Year</label>
+                        <div *ngIf="submitted && f.taxperiod.errors" class="invalid-feedback">
+                            <div *ngIf="f.taxperiod.errors.required">Please select tax period</div>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  
                   <div class="row form-group">
                     <div class="col-12">
                       <label class="control-label">Do you want to upload prefilled xml?</label>
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="salary-yes" name="salary" class="custom-control-input" checked>
-                        <label class="custom-control-label" for="salary-yes">Yes</label>
+                        <input type="radio" class="custom-control-input" id="xmluploadYes" value="1" formControlName="xmluploadflag" [ngClass]="{ 'is-invalid': submitted && f.xmluploadflag.errors}" >
+                        <label class="custom-control-label" for="xmluploadYes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="salary-no" name="salary" class="custom-control-input">
-                        <label class="custom-control-label" for="salary-no">No</label>
+                        <input type="radio" class="custom-control-input" id="xmluploadNo" value="0" formControlName="xmluploadflag" [ngClass]="{ 'is-invalid': submitted && f.xmluploadflag.errors}">
+                        <label class="custom-control-label" for="xmluploadNo">No</label>
+                        <div *ngIf="submitted && f.xmluploadflag.errors" class="invalid-feedback">
+                            <div *ngIf="f.xmluploadflag.errors.required">Prefilled XML upload option not selected</div>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  
                   <div class="row form-group mb-0">
                     <div class="col">
                       <h6>Upload Prefilled XML
@@ -58,14 +64,17 @@
                   </div>
                   <div class="row">
                     <div class="col-6">
-                      <div class="form-group">
+                      <div class="form-group" >
                         <div class="input-group custom-file-wrap">
                           <div class="input-group-prepend">
                             <span class="input-group-text">Choose File</span>
                           </div>
                           <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="inputGroupFile01">
-                            <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
+                            <input type="file" accept=".xml" ng2FileSelect [uploader]="uploader" class="form-control custom-file-input" id="uploadPreFillXMLFile" formControlName="uploadPreFillXMLFile" [ngClass]="{ 'is-invalid': submitted && f.uploadPreFillXMLFile.errors}">
+                            <label class="custom-file-label" for="uploadPreFillXMLFile">No File Chosen</label>
+                          </div>
+                          <div *ngIf="submitted && f.uploadPreFillXMLFile.errors" class="invalid-feedback">
+                            <div *ngIf="f.uploadPreFillXMLFile.errors.required">Please upload the prefilled xml file</div>
                           </div>
                         </div>
                       </div>
@@ -75,20 +84,23 @@
                         <input type="text" class="form-control" id="">
                         <label for="">Enter Document Password</label>
                       </div>
-                    </div>-->
+                    </div>
                     <div class="col">
                       <div class="form-group">
-                        <button type="button" class="btn btn-danger">Upload</button>
+                        <button type="button" class="btn btn-danger" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">Upload</button>
                       </div>
-                    </div>
+                    </div>-->
                   </div>
+                  
+                  
                   <div class="row">
                     <div class="col form-group">
                       <p class="small-txt text-justify">Assessment Year (AY) 2018-2019 means you would be filing your tax return for the Financial Year (FY) 2017-18.<br><br> In case you earn income from salary or house property or capital gains or other sources and your total income exceeds INR 2,50,000, you are required to pay income tax on your total income and file your tax return accordingly. Further, in case you hold any foreign asset and you are a Resident and Ordinarily Resident then also you are required to file your India tax return.<br> If you do not have taxable income but tax is deducted at source, a tax return could be filed to claim it as refund</p>
                     </div>
                   </div>
                   <div class="form-actions d-flex">
-                    <button type="button" class="btn btn-primary btn-lg">Start Filing</button>
+                    <button [disabled]="loading" type="submit" class="btn btn-primary btn-lg">Start Filing</button>
+                    <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                   </div>
                 </form>
               </div>

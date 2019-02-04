@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
       unique: true
     },
     StateName: {
-      type: DataTypes.STRING(15),
+      type: DataTypes.STRING(30),
       allowNull: false
     },
     CountryCode: {
