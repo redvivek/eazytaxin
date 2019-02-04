@@ -18,7 +18,6 @@ export class TaxPeriodComponent implements OnInit {
 
   taxperiods = ['2019-2020', '2018-2019', '2017-2018'];
 
-  public uploader: FileUploader = new FileUploader({url: URL, itemAlias: 'xml'});
 
 
   constructor(
@@ -37,7 +36,6 @@ export class TaxPeriodComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.uploader.onAfterAddingFile = (uploadPreFillXMLFile) => { uploadPreFillXMLFile.withCredentials = false; };
     this.taxPeriodForm = this.formBuilder.group({
         taxperiod: ['', Validators.required],
         xmluploadflag : ['0',Validators.required],

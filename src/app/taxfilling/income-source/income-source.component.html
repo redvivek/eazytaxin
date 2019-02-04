@@ -309,6 +309,11 @@
                                   </div>
                                 </div>
                               </div>
+                              <div class="row mt-4">
+                                <div class="col-6">
+                                  <button type="button" class="btn btn-outline-primary btn-sm">Add Income <i class="fas fa-plus mx-2"></i></button>
+                                </div>
+                              </div>
                             </article>
                             <table class="table table-bordered">
                               <thead class="thead-light">
@@ -318,7 +323,7 @@
                                   <th scope="col">Employer TAN</th>
                                   <th scope="col">Salary Paid</th>
                                   <th scope="col">Tax Deducted</th>
-                                  <th scope="col">Actions</th>
+                                  <th scope="col" width="160">Actions</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -346,11 +351,6 @@
                                 </tr>
                               </tbody>
                             </table>
-                          </div>
-                          <div class="row">
-                            <div class="col-6">
-                              <button type="button" class="btn btn-outline-primary btn-sm">Add Bank <i class="fas fa-plus mx-2"></i></button>
-                            </div>
                           </div>
                         </div>
                       </div>
@@ -1049,7 +1049,7 @@
                                 <th scope="col">Employer TAN</th>
                                 <th scope="col">Salary Paid</th>
                                 <th scope="col">Tax Deducted</th>
-                                <th scope="col">Actions</th>
+                                <th scope="col" width="160">Actions</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -1251,7 +1251,7 @@
                             </div>
                           </div>
                           <div class="row">
-                              <div class="col"><h6>Property List</h6></div>
+                            <div class="col"><h6>Property List</h6></div>
                           </div>
                           <p class="mb-1">Properties having housing loan</p>
                           <table class="table table-bordered">
@@ -1275,94 +1275,269 @@
                           </table>
                         </div>
                         <div class="tab-pane fade" id="property-ownership" role="tabpanel">
-                          xxx
-                        </div>
-                        <div class="tab-pane fade" id="unrealized-rent" role="tabpanel">
-                          xxx
-                        </div>
-                      </div>
-                    </div>
-                    <div class="tab-pane fade" id="income-capital-gain" role="tabpanel">
-                      <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                          <a class="nav-link active" id="primary-bank-account-tab" data-toggle="tab" href="#primary-bank-account" role="tab"aria-selected="true">Primary Bank Account</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" id="all-other-bank-accounts-tab" data-toggle="tab" href="#all-other-bank-accounts" role="tab" aria-selected="false">All Other Bank Accounts</a>
-                        </li>
-                      </ul>
-                      <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="primary-bank-account" role="tabpanel">
                           <div class="row">
-                            <div class="col">
-                              <div class="form-group floating-label">
-                                <input type="text" class="form-control" id="">
-                                <label for="">First Name <span class="text-danger required">*</span></label>
-                              </div>
-                            </div>
                             <div class="col">
                               <div class="form-group floating-label customDropdown">
-                                <select id="select2" name="select2" class="form-control">
+                                <select id="IncomeSourcesDetails_PropertyAddressDetails_PropertyType" name="select2" class="form-control">
                                   <option value=""></option>
-                                  <option value="savings">Savings</option>
-                                  <option value="current">Current</option>
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>>
                                 </select>
-                                <label for="select2">Account Type</label>
+                                <label for="">Choose Property <span class="text-danger required">*</span></label>
                               </div>
                             </div>
+                            <div class="col">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">Your ownership share of the Property (Percentage %) <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col"><h6>Co-Owner Details</h6></div>
                           </div>
                           <div class="row">
                             <div class="col">
                               <div class="form-group floating-label">
                                 <input type="text" class="form-control" id="">
-                                <label for="">Last Name <span class="text-danger required">*</span></label>
+                                <label for="">Name <span class="text-danger required">*</span></label>
                               </div>
                             </div>
                             <div class="col">
                               <div class="form-group floating-label">
                                 <input type="text" class="form-control" id="">
-                                <label for="">Father's Name <span class="text-danger required">*</span></label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="tab-pane fade" id="all-other-bank-accounts" role="tabpanel">
-                          <div class="row">
-                            <div class="col">
-                              <div class="form-group floating-label">
-                                <input type="text" class="form-control" id="">
-                                <label for="">First Name <span class="text-danger required">*</span></label>
-                              </div>
-                            </div>
-                            <div class="col">
-                              <div class="form-group floating-label customDropdown">
-                                <select id="select2" name="select2" class="form-control">
-                                  <option value=""></option>
-                                  <option value="savings">Savings</option>
-                                  <option value="current">Current</option>
-                                </select>
-                                <label for="select2">Account Type</label>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col">
-                              <div class="form-group floating-label">
-                                <input type="text" class="form-control" id="">
-                                <label for="">Last Name <span class="text-danger required">*</span></label>
-                              </div>
-                            </div>
-                            <div class="col">
-                              <div class="form-group floating-label">
-                                <input type="text" class="form-control" id="">
-                                <label for="">Father's Name <span class="text-danger required">*</span></label>
+                                <label for="">PAN No. <span class="text-danger required">*</span></label>
                               </div>
                             </div>
                           </div>
                           <div class="row">
                             <div class="col-6">
-                              <button type="button" class="btn btn-outline-primary btn-sm">Add Bank <i class="fas fa-plus mx-2"></i></button>
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">% Share <span class="text-danger required">*</span></label>
+                              </div>
                             </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-6 form-group">
+                              <button type="button" class="btn btn-outline-primary btn-sm">Add <i class="fas fa-plus mx-2"></i></button>
+                            </div>
+                          </div>
+                          <table class="table table-bordered">
+                            <thead class="thead-light">
+                              <tr>
+                                <th scope="col" width="70">Sl.No</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">PAN No.</th>
+                                <th scope="col">% Share</th>
+                                <th scope="col" width="160">Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>dasdsad</td>
+                                <td>ASDFC3232C</td>
+                                <td>1.00</td>
+                                <td>
+                                  <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-pencil"></i> Edit</a>
+                                  <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-trash"></i> Delete</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>dasdsad</td>
+                                <td>ASDFC3232C</td>
+                                <td>1.00</td>
+                                <td>
+                                  <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-pencil"></i> Edit</a>
+                                  <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-trash"></i> Delete</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>dasdsad</td>
+                                <td>ASDFC3232C</td>
+                                <td>1.00</td>
+                                <td>
+                                  <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-pencil"></i> Edit</a>
+                                  <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-trash"></i> Delete</a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div class="row">
+                            <div class="col"><h6>Property List</h6></div>
+                          </div>
+                          <table class="table table-bordered">
+                            <thead class="thead-light">
+                              <tr>
+                                <th scope="col" width="70">Sl.No</th>
+                                <th scope="col">Property</th>
+                                <th scope="col">No. of Co-Owners</th>
+                                <th scope="col" width="160">Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>fasdfafda</td>
+                                <td>3</td>
+                                <td>
+                                  <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-pencil"></i> Edit</a>
+                                  <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-trash"></i> Delete</a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div class="tab-pane fade" id="unrealized-rent" role="tabpanel">
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">Name of the Employer <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group floating-label customDropdown">
+                                <select id="select2" name="select2" class="form-control">
+                                  <option value=""></option>
+                                  <option value="savings">Savings</option>
+                                  <option value="current">Current</option>
+                                </select>
+                                <label for="select2">Choose Property <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group mb-0">
+                                <div class=" floating-label">
+                                  <div class="input-group prepend">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for="">Unrealized Rent Amount <span class="text-danger required">*</span></label>
+                                  </div>
+                                </div>
+                              </div>
+                              <small>Unrealized Rent and Arrears of Rent received during the year under section 25A after deducting 30%</small>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-6 form-group">
+                              <button type="button" class="btn btn-outline-primary btn-sm">Add Unrealised Rent <i class="fas fa-plus mx-2"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="income-capital-gain" role="tabpanel">
+                      <div class="row form-group mb-0">
+                        <div class="col">
+                          <h6>Did you sell any asset (shares, property, house, land, building, etc) between the period of April 1, 2017 to March 31, 2018? </h6>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-4">
+                          <div class="form-group">
+                            <label for="" class="mb-0 mt-2">1. Detail of Sale of Shares/Debentures</label>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group">
+                            <div class="input-group prepend custom-file-wrap">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">Choose File</span>
+                              </div>
+                              <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile01">
+                                <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-4">
+                          <div class="form-group">
+                            <label for="" class="mb-0 mt-2">2. Detail of Sale of Land or Building</label>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group">
+                            <div class="input-group prepend custom-file-wrap">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">Choose File</span>
+                              </div>
+                              <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile01">
+                                <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-4">
+                          <div class="form-group">
+                            <label for="" class="mb-0 mt-2">3. Detail of Sale of Any Other Asset</label>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group">
+                            <div class="input-group prepend custom-file-wrap">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">Choose File</span>
+                              </div>
+                              <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile01">
+                                <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-4">
+                          <div class="form-group">
+                            <label for="" class="mb-0 mt-2">4. Detail of Sale of Mutual Funds</label>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group">
+                            <div class="input-group prepend custom-file-wrap">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">Choose File</span>
+                              </div>
+                              <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile01">
+                                <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
                           </div>
                         </div>
                       </div>

@@ -18,7 +18,7 @@
                   <div class="steps clearfix">
                     <ul class="nav " role="tablist">
                       <li class="nav-item">
-                        <a class="nav-link " [class.active]="step2 == true" (click)="select_form_step('step2')" id="personal-details-personal-tab" href="#personal-details-personal1" data-toggle="tab" role="tab">
+                        <a class="nav-link active" [class.active]="step2 == true" (click)="select_form_step('step2')" id="personal-details-personal-tab" href="#personal-details-personal1" data-toggle="tab" role="tab">
                           Personal Information
                           <span class="step-icon-wrap address">
                             <span class="step-icon">
@@ -37,7 +37,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link " [class.active]="step3 == true" (click)="select_form_step('step3')" id="personal-details-address-tab" href="#personal-details-address1" data-toggle="tab" role="tab">
+                        <a class="nav-link " [class.active]="step3 == true" (click)="select_form_step('step3')" id="personal-details-address-tab" href="#personal-details-address" data-toggle="tab" role="tab">
                           Address
                           <span class="step-icon-wrap residency">
                             <span class="step-icon">
@@ -60,7 +60,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link " [class.active]="step4 == true" (click)="select_form_step('step4')" id="personal-details-bank-tab" href="#personal-details-bank1" data-toggle="tab" role="tab">
+                        <a class="nav-link " [class.active]="step4 == true" (click)="select_form_step('step4')" id="personal-details-bank-tab" href="#personal-details-bank" data-toggle="tab" role="tab">
                           Bank Details
                           <span class="step-icon-wrap bank">
                             <span class="step-icon">
@@ -74,7 +74,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link " [class.active]="step5 == true" (click)="select_form_step('step5')" id="personal-details-assests-tab" href="#personal-details-assests1" data-toggle="tab" role="tab">
+                        <a class="nav-link " [class.active]="step5 == true" (click)="select_form_step('step5')" id="personal-details-assests-tab" href="#personal-details-assests" data-toggle="tab" role="tab">
                           Assests & Liabilities
                           <span class="step-icon-wrap assets">
                             <span class="step-icon">
@@ -186,147 +186,147 @@
                   </div>
                   <div class="tab-content tab-wizard-content">
                     <div class="tab-pane fade " id="personal-details-personal" role="tabpanel" [ngClass]="{ 'show': step2 == true , 'active': step2 == true }">
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="Firstname" formControlName="Firstname" [ngClass]="{ 'is-invalid': submitted && f.Firstname.errors}">
-                                <div *ngIf="submitted && f.Firstname.errors" class="invalid-feedback">
-                                    <div *ngIf="f.Firstname.errors.required">First Name is required</div>
-                                </div>
-                              <label for="">First Name <span class="text-danger required">*</span></label>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="Middlename" formControlName="Middlename">
-                              <label for="">Middle Name</label>
-                            </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group floating-label">
+                            <input type="text" class="form-control" id="Firstname" formControlName="Firstname" [ngClass]="{ 'is-invalid': submitted && f.Firstname.errors}">
+                              <div *ngIf="submitted && f.Firstname.errors" class="invalid-feedback">
+                                  <div *ngIf="f.Firstname.errors.required">First Name is required</div>
+                              </div>
+                            <label for="">First Name <span class="text-danger required">*</span></label>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="Lastname" formControlName="Lastname" [ngClass]="{ 'is-invalid': submitted && f.Lastname.errors}">
-                                <div *ngIf="submitted && f.Lastname.errors" class="invalid-feedback">
-                                    <div *ngIf="f.Lastname.errors.required">Last Name is required</div>
-                                </div>
-                              <label for="">Last Name <span class="text-danger required">*</span></label>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="Fathername" formControlName="Fathername" [ngClass]="{ 'is-invalid': submitted && f.Fathername.errors}">
-                                <div *ngIf="submitted && f.Fathername.errors" class="invalid-feedback">
-                                    <div *ngIf="f.Fathername.errors.required">Father Name is required</div>
-                                </div>
-                              <label for="">Father's Name <span class="text-danger required">*</span></label>
-                            </div>
+                        <div class="col">
+                          <div class="form-group floating-label">
+                            <input type="text" class="form-control" id="Middlename" formControlName="Middlename">
+                            <label for="">Middle Name</label>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="EmailId" formControlName="EmailId" [ngClass]="{ 'is-invalid': submitted && f.EmailId.errors}">
-                                <div *ngIf="submitted && f.EmailId.errors" class="invalid-feedback">
-                                    <div *ngIf="f.EmailId.errors.required">Email Id is required</div>
-                                    <div *ngIf="f.EmailId.errors.pattern">Email Id is invalid</div>
-                                    <!--<div *ngIf="f.EmailId.errors.isEmailUnique">Email Id is already registered</div>-->
-                                </div>
-                              <label for="">Email ID <span class="text-danger required">*</span></label>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="MobileNo" formControlName="MobileNo" [ngClass]="{ 'is-invalid': submitted && f.MobileNo.errors}">
-                                <div *ngIf="submitted && f.MobileNo.errors" class="invalid-feedback">
-                                    <div *ngIf="f.MobileNo.errors.required">Mobile Number is required</div>
-                                    <!-- <div *ngIf="f.MobileNo.errors.pattern">Email Id is invalid</div> -->
-                                </div>
-                              <label for="">Mobile No. <span class="text-danger required">*</span></label>
-                            </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group floating-label">
+                            <input type="text" class="form-control" id="Lastname" formControlName="Lastname" [ngClass]="{ 'is-invalid': submitted && f.Lastname.errors}">
+                              <div *ngIf="submitted && f.Lastname.errors" class="invalid-feedback">
+                                  <div *ngIf="f.Lastname.errors.required">Last Name is required</div>
+                              </div>
+                            <label for="">Last Name <span class="text-danger required">*</span></label>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="AltMobileNo" formControlName="AltMobileNo">
-                              <label for="">Secondary Mobile No. </label>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="landlineNo" formControlName="landlineNo">
-                              <label for="">Landline No </label>
-                            </div>
+                        <div class="col">
+                          <div class="form-group floating-label">
+                            <input type="text" class="form-control" id="Fathername" formControlName="Fathername" [ngClass]="{ 'is-invalid': submitted && f.Fathername.errors}">
+                              <div *ngIf="submitted && f.Fathername.errors" class="invalid-feedback">
+                                  <div *ngIf="f.Fathername.errors.required">Father Name is required</div>
+                              </div>
+                            <label for="">Father's Name <span class="text-danger required">*</span></label>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="DateOfBirth" formControlName="DateOfBirth" [ngClass]="{ 'is-invalid': submitted && f.DateOfBirth.errors}">
-                                <div *ngIf="submitted && f.DateOfBirth.errors" class="invalid-feedback">
-                                    <div *ngIf="f.DateOfBirth.errors.required">Date of Birth is required</div>
-                                </div>
-                              <label for="">Date of Birth <span class="text-danger required">*</span></label>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="form-group floating-label customDropdown">
-                              <select id="select2" name="select2" class="form-control" formControlName="Gender">
-                                <option value=""></option>
-                                <option value="1">Male</option>
-                                <option value="2">Female</option>
-                                <option value="3">Others</option>
-                              </select>
-                              <label for="select2">Gender</label>
-                            </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group floating-label">
+                            <input type="text" class="form-control" id="EmailId" formControlName="EmailId" [ngClass]="{ 'is-invalid': submitted && f.EmailId.errors}">
+                              <div *ngIf="submitted && f.EmailId.errors" class="invalid-feedback">
+                                  <div *ngIf="f.EmailId.errors.required">Email Id is required</div>
+                                  <div *ngIf="f.EmailId.errors.pattern">Email Id is invalid</div>
+                                  <!--<div *ngIf="f.EmailId.errors.isEmailUnique">Email Id is already registered</div>-->
+                              </div>
+                            <label for="">Email ID <span class="text-danger required">*</span></label>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="EmployerName" formControlName="EmployerName" [ngClass]="{ 'is-invalid': submitted && f.EmployerName.errors}">
-                                <div *ngIf="submitted && f.EmployerName.errors" class="invalid-feedback">
-                                    <div *ngIf="f.EmployerName.errors.required">Employer Name is required</div>
-                                </div>
-                              <label for="">Employer Name <span class="text-danger required">*</span></label>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="EmployerType" formControlName="EmployerType" [ngClass]="{ 'is-invalid': submitted && f.EmployerType.errors}">
-                                <div *ngIf="submitted && f.EmployerType.errors" class="invalid-feedback">
-                                    <div *ngIf="f.EmployerType.errors.required">Employer Type is required</div>
-                                </div>
-                              <label for="">Employer Type <span class="text-danger required">*</span></label>
-                            </div>
+                        <div class="col">
+                          <div class="form-group floating-label">
+                            <input type="text" class="form-control" id="MobileNo" formControlName="MobileNo" [ngClass]="{ 'is-invalid': submitted && f.MobileNo.errors}">
+                              <div *ngIf="submitted && f.MobileNo.errors" class="invalid-feedback">
+                                  <div *ngIf="f.MobileNo.errors.required">Mobile Number is required</div>
+                                  <!-- <div *ngIf="f.MobileNo.errors.pattern">Email Id is invalid</div> -->
+                              </div>
+                            <label for="">Mobile No. <span class="text-danger required">*</span></label>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="PanNumber" formControlName="PanNumber" [ngClass]="{ 'is-invalid': submitted && f.PanNumber.errors}">
-                                <div *ngIf="submitted && f.PanNumber.errors" class="invalid-feedback">
-                                    <div *ngIf="f.PanNumber.errors.required">PAN Card Number is required</div>
-                                </div>
-                              <label for="">PAN Card Number <span class="text-danger required">*</span></label>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="AadharNumber" formControlName="AadharNumber">
-                              <label for="">Aadhaar Card Number / Enrollment ID</label>
-                            </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group floating-label">
+                            <input type="text" class="form-control" id="AltMobileNo" formControlName="AltMobileNo">
+                            <label for="">Secondary Mobile No. </label>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col-6">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="PassportNumber" formControlName="PassportNumber">
-                              <label for="">Passport Number (If available)</label>
-                            </div>
+                        <div class="col">
+                          <div class="form-group floating-label">
+                            <input type="text" class="form-control" id="landlineNo" formControlName="landlineNo">
+                            <label for="">Landline No </label>
                           </div>
                         </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group floating-label">
+                            <input type="text" class="form-control" id="DateOfBirth" formControlName="DateOfBirth" [ngClass]="{ 'is-invalid': submitted && f.DateOfBirth.errors}">
+                              <div *ngIf="submitted && f.DateOfBirth.errors" class="invalid-feedback">
+                                  <div *ngIf="f.DateOfBirth.errors.required">Date of Birth is required</div>
+                              </div>
+                            <label for="">Date of Birth <span class="text-danger required">*</span></label>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group floating-label customDropdown">
+                            <select id="select2" name="select2" class="form-control" formControlName="Gender">
+                              <option value=""></option>
+                              <option value="1">Male</option>
+                              <option value="2">Female</option>
+                              <option value="3">Others</option>
+                            </select>
+                            <label for="select2">Gender</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group floating-label">
+                            <input type="text" class="form-control" id="EmployerName" formControlName="EmployerName" [ngClass]="{ 'is-invalid': submitted && f.EmployerName.errors}">
+                              <div *ngIf="submitted && f.EmployerName.errors" class="invalid-feedback">
+                                  <div *ngIf="f.EmployerName.errors.required">Employer Name is required</div>
+                              </div>
+                            <label for="">Employer Name <span class="text-danger required">*</span></label>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group floating-label">
+                            <input type="text" class="form-control" id="EmployerType" formControlName="EmployerType" [ngClass]="{ 'is-invalid': submitted && f.EmployerType.errors}">
+                              <div *ngIf="submitted && f.EmployerType.errors" class="invalid-feedback">
+                                  <div *ngIf="f.EmployerType.errors.required">Employer Type is required</div>
+                              </div>
+                            <label for="">Employer Type <span class="text-danger required">*</span></label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group floating-label">
+                            <input type="text" class="form-control" id="PanNumber" formControlName="PanNumber" [ngClass]="{ 'is-invalid': submitted && f.PanNumber.errors}">
+                              <div *ngIf="submitted && f.PanNumber.errors" class="invalid-feedback">
+                                  <div *ngIf="f.PanNumber.errors.required">PAN Card Number is required</div>
+                              </div>
+                            <label for="">PAN Card Number <span class="text-danger required">*</span></label>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group floating-label">
+                            <input type="text" class="form-control" id="AadharNumber" formControlName="AadharNumber">
+                            <label for="">Aadhaar Card Number / Enrollment ID</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-group floating-label">
+                            <input type="text" class="form-control" id="PassportNumber" formControlName="PassportNumber">
+                            <label for="">Passport Number (If available)</label>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <div class="tab-pane fade " id="personal-details-address" role="tabpanel" [ngClass]="{ 'show': step3 == true , 'active': step3 == true }">
                       <div class="row">
@@ -406,14 +406,14 @@
                     <div class="tab-pane fade" id="personal-details-bank" role="tabpanel" [ngClass]="{ 'show': step4 == true , 'active': step4 == true }">
                       <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                          <a class="nav-link " id="primary-bank-account-tab" data-toggle="tab" href="#primary-bank-account1" (click)="select_step4_subpart_form('Primary_Bank_Account')" [class.active]="step4_primary_bank_acc == true" role="tab"aria-selected="true">Primary Bank Account</a>
+                          <a class="nav-link active" id="primary-bank-account-tab" data-toggle="tab" href="#primary-bank-account" (click)="select_step4_subpart_form('Primary_Bank_Account')" [class.active]="step4_primary_bank_acc == true" role="tab"aria-selected="true">Primary Bank Account</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link " id="all-other-bank-accounts-tab" data-toggle="tab" href="#all-other-bank-accounts1" (click)="select_step4_subpart_form('All_Other_Bank_Account')" [class.active]="step4_all_other_bank_acc == true" role="tab" aria-selected="false">All Other Bank Accounts</a>
+                          <a class="nav-link " id="all-other-bank-accounts-tab" data-toggle="tab" href="#all-other-bank-accounts" (click)="select_step4_subpart_form('All_Other_Bank_Account')" [class.active]="step4_all_other_bank_acc == true" role="tab" aria-selected="false">All Other Bank Accounts</a>
                         </li>
                       </ul>
                       <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade " id="primary-bank-account" role="tabpanel" [ngClass]="{ 'show': step4_primary_bank_acc == true , 'active': step4_primary_bank_acc == true }">
+                        <div class="tab-pane fade active show" id="primary-bank-account" role="tabpanel" [ngClass]="{ 'show': step4_primary_bank_acc == true , 'active': step4_primary_bank_acc == true }">
                           <div class="row">
                             <div class="col">
                               <div class="form-group floating-label">
@@ -509,17 +509,17 @@
                     <div class="tab-pane fade" id="personal-details-assests" role="tabpanel" [ngClass]="{ 'show': step5 == true , 'active': step5 == true }">
                       <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                          <a class="nav-link " id="immovable-assets-tab" (click)="select_step5_subform_part('immovable')" [class.active]="step5_immovable == true" data-toggle="tab" href="#immovable-assets1" role="tab" aria-selected="true">Immovable Assets</a>
+                          <a class="nav-link active" id="immovable-assets-tab" (click)="select_step5_subform_part('immovable')" [class.active]="step5_immovable == true" data-toggle="tab" href="#immovable-assets" role="tab" aria-selected="true">Immovable Assets</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link " id="movable-assets-tab" (click)="select_step5_subform_part('movable')" [class.active]="step5_movable == true" data-toggle="tab" href="#movable-assets1" role="tab" aria-selected="false">Movable Assets</a>
+                          <a class="nav-link " id="movable-assets-tab" (click)="select_step5_subform_part('movable')" [class.active]="step5_movable == true" data-toggle="tab" href="#movable-assets" role="tab" aria-selected="false">Movable Assets</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link " id="foreign-assets-tab" (click)="select_step5_subform_part('foreign')" [class.active]="step5_foreign == true" data-toggle="tab" href="#foreign-assets1" role="tab" aria-selected="false">Foreign Assets</a>
+                          <a class="nav-link " id="foreign-assets-tab" (click)="select_step5_subform_part('foreign')" [class.active]="step5_foreign == true" data-toggle="tab" href="#foreign-assets" role="tab" aria-selected="false">Foreign Assets</a>
                         </li>
                       </ul>
                       <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade " id="immovable-assets" role="tabpanel" [ngClass]="{ 'show': step5_immovable == true , 'active': step5_immovable == true }">
+                        <div class="tab-pane fade active show" id="immovable-assets" role="tabpanel" [ngClass]="{ 'show': step5_immovable == true , 'active': step5_immovable == true }">
                           <div class="row">
                             <div class="alert alert-primary" role="alert">
                               Assets and Liability at the end of the year (applicable in a case where total income exceeds ₹50 lakh)
