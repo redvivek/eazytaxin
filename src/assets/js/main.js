@@ -32,3 +32,7 @@ $(document).delegate('.modal-backdrop', "click", function (e) {
 $(document).delegate('.sidebartoggler', "click", function (e) { 
   $('body').toggleClass("left-sidebar-hide");
 });
+
+$('.scrollTabs').scrollingTabs({
+  bootstrapVersion: 4
+});

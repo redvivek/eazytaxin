@@ -201,7 +201,7 @@ a:hover{text-decoration:none;}
 .table td .btn{padding: 2px 8px; font-size: 12px; margin: 0 2px;}
 
 /* Tabs */
-.nav-tabs .nav-item{margin-bottom:0; margin-right:20px;}
+.nav-tabs .nav-item{margin-bottom:0; padding-right:20px;}
 .nav-tabs .nav-link{border:none; border-bottom:2px solid transparent; padding:0 20px 3px; color:#a5a5a5;}
 .nav-tabs .nav-item:first-child .nav-link{padding-left:0;}
 .nav-tabs .nav-item.show .nav-link,
@@ -224,17 +224,16 @@ a:hover{text-decoration:none;}
 .form-group .form-control:focus ~ label {color: #0095e3; opacity: 1; }
 .form-group .form-control:focus ~ label::after,
 .form-group .form-control:focus ~ .form-control-line::after {visibility: visible; width: 100%; left: 0; }
-.floating-label .form-control ~ label {top:25px; font-size:16px; }
+.floating-label .form-control ~ label {top:25px; font-size:16px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; padding-right:30px;}
 .floating-label .form-control:focus ~ label,
 .floating-label .form-control.dirty ~ label {top: 0px; font-size: 12px !important; }
 /* input-group */
 .floating-label .input-group.prepend{position:static; padding-left:20px;}
 .floating-label .input-group-prepend{position:absolute; left:0;}
-.floating-label .input-group.prepend .form-control ~ label{padding-left:20px;}
+.floating-label .input-group.prepend .form-control ~ label{padding-left:20px; padding-right:0;}
 
 .floating-label .input-group.append{position:static; padding-right:20px;}
 .floating-label .input-group-append{position:absolute; right:0;}
-.floating-label .input-group.append .form-control ~ label{padding-right:20px;}
 
 .floating-label .input-group-text{background-color:transparent; border:none; border-bottom:1px solid #707070; border-radius:0; -webkit-border-radius:0; min-width:20px; min-height:37px; padding-left:0; padding-right:0;}
 .floating-label .input-group > .custom-file .custom-file-input:focus ~ .custom-file-label, 
@@ -296,6 +295,7 @@ a:hover{text-decoration:none;}
 .assetsLists article{margin-bottom:45px;}
 .assetsLists article:last-child{margin-bottom:0;}
 .assetsLists .form-group{padding-top:0; margin-bottom:15px;}
+.assetsLists .form-group.customDropdown{padding-top:16px; margin-bottom:30px;}
 .assetsLists .form-group .col-form-label{padding-top:15px; padding-bottom:0;}
 
 /* Login Register */
@@ -309,3 +309,28 @@ a:hover{text-decoration:none;}
 .login-box .form-actions .options h4{font-size:18px; font-weight:400;}
 .login-box .form-actions .btn{font-size:16px; padding:12px;}
 .login-box .form-actions .info{margin-top:20px; font-size:10px;}
+
+
+/**
+ * jquery-bootstrap-scrolling-tabs
+ * @version v2.4.0
+ * @link https://github.com/mikejacobson/jquery-bootstrap-scrolling-tabs
+ * @author Mike Jacobson <michaeljjacobson1@gmail.com>
+ * @license MIT License, http://www.opensource.org/licenses/MIT
+ */
+ .scrtabs-tab-container *{box-sizing:border-box;}
+ .scrtabs-tab-container{height:25px;}
+  .scrtabs-tab-container .tab-content{clear:left;}
+ .scrtabs-tab-container.scrtabs-bootstrap4 .scrtabs-tabs-movable-container > .navbar-nav{-ms-flex-direction:row;flex-direction:row;}
+ .scrtabs-tabs-fixed-container{float:left;height:25px;overflow:hidden;width:100%;}
+ .scrtabs-tabs-movable-container{position:relative;}
+  .scrtabs-tabs-movable-container .tab-content{display:none;}
+ .scrtabs-tab-container.scrtabs-rtl .scrtabs-tabs-movable-container > ul.nav-tabs{padding-right:0;}
+ .scrtabs-tab-scroll-arrow{border:1px solid #dddddd;border-top:none;color:#428bca;display:none;float:left;font-size:12px;height:25px;margin-bottom:-1px;padding-left:2px;width:20px;}
+  .scrtabs-tab-scroll-arrow:hover{background-color:#eeeeee;}
+ .scrtabs-tab-scroll-arrow,
+ .scrtabs-tab-scroll-arrow .scrtabs-click-target{cursor:pointer;}
+ .scrtabs-tab-scroll-arrow.scrtabs-with-click-target{cursor:default;}
+ .scrtabs-tab-scroll-arrow.scrtabs-disable,.scrtabs-tab-scroll-arrow.scrtabs-disable .scrtabs-click-target{color:#ddd;cursor:default;}
+ .scrtabs-tab-scroll-arrow.scrtabs-disable:hover{background-color:initial;}
+ .scrtabs-tabs-fixed-container ul.nav-tabs > li{white-space:nowrap;}
