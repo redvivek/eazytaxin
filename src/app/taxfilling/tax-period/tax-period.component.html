@@ -42,8 +42,9 @@
                       <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" class="custom-control-input" id="xmluploadNo" value="0" formControlName="xmluploadflag" [ngClass]="{ 'is-invalid': submitted && f.xmluploadflag.errors}">
                         <label class="custom-control-label" for="xmluploadNo">No</label>
+
                         <div *ngIf="submitted && f.xmluploadflag.errors" class="invalid-feedback">
-                            <div *ngIf="f.xmluploadflag.errors.required">Prefilled XML upload option not selected</div>
+                          <div *ngIf="f.xmluploadflag.errors.required">Please choose prefill xml upload option</div>
                         </div>
                       </div>
                     </div>
@@ -72,24 +73,29 @@
                           <div class="custom-file">
                             <input type="file" accept=".xml" ng2FileSelect [uploader]="uploader" class="form-control custom-file-input" id="uploadPreFillXMLFile" formControlName="uploadPreFillXMLFile" [ngClass]="{ 'is-invalid': submitted && f.uploadPreFillXMLFile.errors}">
                             <label class="custom-file-label" for="uploadPreFillXMLFile">No File Chosen</label>
-                          </div>
-                          <div *ngIf="submitted && f.uploadPreFillXMLFile.errors" class="invalid-feedback">
-                            <div *ngIf="f.uploadPreFillXMLFile.errors.required">Please upload the prefilled xml file</div>
+                            <div *ngIf="submitted && f.uploadPreFillXMLFile.errors" class="invalid-feedback">
+                              <div *ngIf="f.uploadPreFillXMLFile.errors.required">Please upload the prefilled xml file</div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <!--<div class="col-4">
-                      <div class="form-group floating-label">
-                        <input type="text" class="form-control" id="">
-                        <label for="">Enter Document Password</label>
-                      </div>
-                    </div>
                     <div class="col">
                       <div class="form-group">
-                        <button type="button" class="btn btn-danger" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">Upload</button>
+                        <button type="button" class="btn btn-danger" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" >Upload</button>
                       </div>
-                    </div>-->
+                    </div>
+                    
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <div>
+                          File upload progress:
+                          <div class="progress" style="">
+                              <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                          </div>
+                      </div>
+                    </div>
                   </div>
                   
                   

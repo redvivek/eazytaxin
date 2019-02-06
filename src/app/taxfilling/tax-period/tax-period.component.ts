@@ -1,9 +1,11 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup,FormControl, Validators } from '@angular/forms';
-import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
-
+import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { environment } from '@environments/environment';
 import { AlertService, UserService,AuthenticationService } from '@app/_services';
+
+const URL = `${environment.apiUrl}/tax/uploadxml`;
 
 @Component({
   selector: 'app-tax-period',
@@ -17,7 +19,10 @@ export class TaxPeriodComponent implements OnInit {
 
 
   taxperiods = ['2019-2020', '2018-2019', '2017-2018'];
-
+  public uploader: FileUploader = new FileUploader({
+    url: URL, 
+    itemAlias: 'uploadPreFillXMLFile'
+  });
 
 
   constructor(
@@ -26,7 +31,6 @@ export class TaxPeriodComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private userService: UserService,
     private alertService: AlertService,
-    private cd: ChangeDetectorRef
   )
   {
       // redirect to login if not logged in
@@ -38,32 +42,29 @@ export class TaxPeriodComponent implements OnInit {
   ngOnInit() {
     this.taxPeriodForm = this.formBuilder.group({
         taxperiod: ['', Validators.required],
-        xmluploadflag : ['0',Validators.required],
+        xmluploadflag : ['',Validators.required],
         uploadPreFillXMLFile : [null,Validators.required]
     });
+    
+    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+    this.uploader.onBuildItemForm = (fileItem: any, form: any) => {
+      form.append('AppRefNo', 'abcd123'); //note comma separating key and value
+      form.append('UserId', this.authenticationService.currentUserValue.userid);
+      form.append('AssesmentYear', '2019-2020');
+      form.append('XmlUploadFlag', 1);
+      form.append('ApplicationStatus', 'Initiated');
+      form.append('DocCategory', 'PreUpload');
+     };
+    
 
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+          console.log('ImageUpload:uploaded:', item, status, response);
+          alert('File uploaded successfully');
+      };
   }
 
   // convenience getter for easy access to form fields
   get f() { return this.taxPeriodForm.controls; }
-
-  onFileChange(event) {
-    const reader = new FileReader();
- 
-    if(event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
-  
-      reader.onload = () => {
-        this.taxPeriodForm.patchValue({
-          uploadPreFillXMLFile: reader.result
-       });
-      
-        // need to run CD since file load runs outside of zone
-        this.cd.markForCheck();
-      };
-    }
-  }
 
   onSubmit() {
       this.submitted = true;

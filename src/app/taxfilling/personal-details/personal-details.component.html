@@ -14,7 +14,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-body wizard-content">
-                <form class="tab-wizard wizard-circle wizard clearfix" id="personal_details" (ngSubmit)="onSubmit()">
+                <form class="tab-wizard wizard-circle wizard clearfix" id="personalDetailsForm" [formGroup]="personalDetailsForm" (ngSubmit)="onSubmit()">
                   <div class="steps clearfix">
                     <ul class="nav " role="tablist">
                       <li class="nav-item">

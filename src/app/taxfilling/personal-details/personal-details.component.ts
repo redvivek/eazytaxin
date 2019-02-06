@@ -10,7 +10,7 @@ import { Basicinfostep1, Personaldetails, Addressdetails, Bankdetails, Immovable
   styleUrls: ['./personal-details.component.css']
 })
 export class PersonalDetailsComponent implements OnInit {
-  personal_details: FormGroup;
+  personalDetailsForm: FormGroup;
   loading = false;
   submitted = false;
   // step1:boolean = false;
@@ -30,48 +30,71 @@ export class PersonalDetailsComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.personal_details = this.formBuilder.group({
+    this.personalDetailsForm = this.formBuilder.group({
       Firstname: ['', Validators.required ],
       Lastname: ['', Validators.required ],
+      Middlename:[''],
       EmailId: ['', [
                 Validators.required,
                 Validators.pattern("^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+)\\.([a-zA-Z]{2,5})$")
                ], ],
       Fathername: ['', Validators.required ],
       MobileNo: ['', Validators.required ],
+      AltMobileNo:[''],
+      landlineNo:[''],
       DateOfBirth: ['', Validators.required ],
       Gender: ['', Validators.required ],
       EmployerName: ['', Validators.required ],
       EmployerType: ['', Validators.required ],
       PanNumber: ['', Validators.required ],
+      AadharNumber:[''],
+      PassportNumber:[''],
       Flatno_Blockno: ['', Validators.required ],
+      Building_Village_Premises:[''],
+      Road_Street_PO:[''],
+      Area_Locality:[''],
       Pincode: ['', Validators.required ],
       City_Town_District: ['', Validators.required ],
       State: ['', Validators.required ],
       Country: ['', Validators.required ],
       AccountNumber: ['', Validators.required ],
+      AccountType:[''],
       BankName: ['', Validators.required ],
       IFSCCode: ['', Validators.required ],
+      immovable_assets:[''],
       Description: ['', Validators.required ],
       FlatNo: ['', Validators.required ],
       PremiseName: ['', Validators.required ],
       StreetName: ['', Validators.required ],
       AreaLocality: ['', Validators.required ],
       immovable_State: ['', Validators.required ],
+      country:[''],
+      cost_purchase_price:[''],
+      liabilities_in_relation_immovable_assets:[''],
+      MovJwellaryItemsAmount:[''],
+      MovCraftItemsAmount:[''],
+      MovConveninceItemsAmount:[''],
+      MovFABankAmount:[''],
+      MovFASharesAmount:[''],
+      MovFAInsAmount:[''],
+      MovFALoansGivenAmount:[''],
+      MovInHandCashAmount:[''],
+      TotalLiability:[''],
+      inputGroupFile01:[''] 
     });
   }
-  get f() { return this.personal_details.controls; }
+  get f() { return this.personalDetailsForm.controls; }
 
   onSubmit() {
       this.submitted = true;
 
       // stop here if form is invalid
-      if (this.personal_details.invalid) {
+      if (this.personalDetailsForm.invalid) {
           return;
       }
 
       this.loading = true;
-      console.log('SUCCESS!! :-)\n\n' + JSON.stringify(this.personal_details.value))
+      console.log('SUCCESS!! :-)\n\n' + JSON.stringify(this.personalDetailsForm.value))
       // this.userService.register(this.personal_details.value)
       //     .pipe(first())
       //     .subscribe(

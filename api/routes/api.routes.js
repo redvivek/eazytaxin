@@ -27,8 +27,8 @@ route.get('/masters/deductiontypes', masterService.fetchAllDeductionTypes);*/
 
 
 //API routes for taxfilling module
-/*route.post('/tax/uploadxml', taxService.uploadPrefilledXML);
-route.get('/tax/appDetails', taxService.fetchApplicationDetailByAppId);
+route.post('/tax/uploadxml', taxService.uploadPrefilledXML);
+/*route.get('/tax/appDetails', taxService.fetchApplicationDetailByAppId);
 
 route.post('/tax/createApplication', taxService.createApplication);
 route.post('/tax/saveBasicInfo', taxService.saveBasicInfoByAppId);
