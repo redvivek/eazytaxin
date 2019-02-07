@@ -71,6 +71,8 @@ a:hover{text-decoration:none;}
 
 
 .card {border:none;}
+.card .card-header{background-color:transparent; border-bottom:none; padding-top:20px; padding-bottom:0;}
+.card .card-title{margin-bottom:0;}
 
 /*Left Sidebar*/
 .sidebar-nav{padding-top:30px;}
@@ -341,3 +343,16 @@ a:hover{text-decoration:none;}
 .stats .key{font-size:14px; margin-bottom:3px;}
 .stats .value{font-size:24px; font-weight:500;}
 .stats .value .inr{color:#0095e3; margin-right:5px;}
+
+.user-avatar{background-color:#aeb3d0; width:50px; height:50px; overflow:hidden;}
+.user-avatar.lg{width:120px; height:120px;}
+.user-avatar svg{margin-bottom:2px;}
+
+
+/* Dashboard */
+.dashboard .user-info{font-size:16px;}
+.dashboard .user-info .user-name{font-size:30px;}
+.dashboard .user-info .user-avatar{width:120px; margin-right:20px;}
+.dashboard .user-info .row{margin-bottom:5px;}
+.dashboard .user-info .key{width:70px;}
+.dashboard .user-info .value{font-weight:400;}
