@@ -47,6 +47,8 @@ a:hover{text-decoration:none;}
 
 .page-titles{padding:30px 0;}
 .page-titles h4{font-size:30px; font-weight:500;}
+.page-titles h4 small{font-size:18px; font-weight:100;}
+.page-titles .col-right .customDropdown{margin:-16px 0 0;}
 
 
 /* Header */
@@ -70,7 +72,8 @@ a:hover{text-decoration:none;}
 .overlay{opacity:.3; z-index:48;}
 
 
-.card {border:none;}
+.card {border:none; border-radius:0;}
+.card.cardShadow{box-shadow:0px 3px 7px rgba(0,0,0,.11);}
 .card .card-header{background-color:transparent; border-bottom:none; padding-top:20px; padding-bottom:0;}
 .card .card-title{margin-bottom:0;}
 
@@ -348,11 +351,25 @@ a:hover{text-decoration:none;}
 .user-avatar.lg{width:120px; height:120px;}
 .user-avatar svg{margin-bottom:2px;}
 
+.table td, 
+.table th{vertical-align:middle;} 
+.table th{font-weight:normal;} 
+.table.px-0 td, 
+.table.px-0 th{padding-left:0; padding-right:0;}
 
 /* Dashboard */
-.dashboard .user-info{font-size:16px;}
+.dashboard .card{margin-bottom:20px;}
+.dashboard .page-titles{padding-bottom:10px;}
+.dashboard {font-size:16px;}
 .dashboard .user-info .user-name{font-size:30px;}
 .dashboard .user-info .user-avatar{width:120px; margin-right:20px;}
 .dashboard .user-info .row{margin-bottom:5px;}
 .dashboard .user-info .key{width:70px;}
-.dashboard .user-info .value{font-weight:400;}
+.dashboard .user-info .value{font-weight:500;}
+.dashboard .table tr:first-child th,
+.dashboard .table tr:first-child td{border-top:none;}
+.dashboard .table .badge{display:inline-block; margin-right:5px; margin-left:0; min-width:10px; width:10px; height:10px; border-radius:100em;}
+.dashboard .table .icon{margin-right:5px;}
+.dashboard .table td{font-size:12px;}
+.dashboard .yearlySumCard{min-height:289px;}
+.dashboard .yearlySumTable td .btn{padding:6px 12px;}
