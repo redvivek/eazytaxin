@@ -15,7 +15,9 @@ const sequelize = new Sequelize(env.database, env.username, env.password, {
   define: {
     //prevent sequelize from pluralizing table names
     freezeTableName: true
-  }
+  },
+  // disable logging; default: console.log
+  logging: true
 });
  
 const db = {};

@@ -9,13 +9,13 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true
     },
     StageName: {
-      type: DataTypes.STRING(15),
+      type: DataTypes.STRING(25),
       allowNull: false,
       unique: true
     },
     StageParentId: {
       type: DataTypes.INTEGER(2),
-      allowNull: false
+      allowNull: true
     },
     Description: {
       type: DataTypes.STRING(100),

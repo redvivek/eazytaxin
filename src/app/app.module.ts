@@ -10,15 +10,19 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent }  from './app.component';
 import { routing }        from './app.routing';
 
-import { AlertComponent } from './_components';
+import {BaseModule} from './base/base.module';
+import{ SharedModule } from './shared.module';
+import { TaxfillingModule } from './taxfilling/taxfilling.module';
+
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
 import { ForgotpasswordComponent } from './forgotpassword';
 import { ResetpasswordComponent } from './resetpassword';
-import { TaxfillingModule } from './taxfilling/taxfilling.module';
-import {BaseModule} from './base/base.module';
+
+import { DashboardComponent } from './dashboard';
+import { PricingComponent } from './pricing';
 
 @NgModule({
     imports: [
@@ -27,16 +31,18 @@ import {BaseModule} from './base/base.module';
         HttpClientModule,
         BaseModule,
         routing,
-        TaxfillingModule
+        TaxfillingModule,
+        SharedModule
     ],
     declarations: [
         AppComponent,
-        AlertComponent,
         HomeComponent,
         LoginComponent,
         RegisterComponent,
         ForgotpasswordComponent ,
         ResetpasswordComponent,
+        DashboardComponent,
+        PricingComponent,
     ],
         
     providers: [

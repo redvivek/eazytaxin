@@ -8,6 +8,7 @@
             <h4 class="">Basic Information </h4>
           </div>
         </div>
+        <alert></alert>
       </div>
       <div class="section-body">
         <div class="row">
@@ -21,12 +22,15 @@
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="salary-yes" name="salary" class="custom-control-input">
-                        <label class="custom-control-label" for="salary-yes">Yes</label>
+                        <input type="radio" id="salaryyes" class="custom-control-input" value="1" formControlName="incomeFromSalary" [ngClass]="{ 'is-invalid': submitted && f.incomeFromSalary.errors}">
+                        <label class="custom-control-label" for="salaryyes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="salary-no" name="salary" class="custom-control-input">
-                        <label class="custom-control-label" for="salary-no">No</label>
+                        <input type="radio" id="salaryno" class="custom-control-input" value="0" formControlName="incomeFromSalary" [ngClass]="{ 'is-invalid': submitted && f.incomeFromSalary.errors}">
+                        <label class="custom-control-label" for="salaryno">No</label>
+                      </div>
+                      <div *ngIf="submitted && f.incomeFromSalary.errors" class="invalid-feedback">
+                        <div *ngIf="f.incomeFromSalary.errors.required">Please choose one option</div>
                       </div>
                     </div>
                   </div>
@@ -36,12 +40,15 @@
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="otherSource-yes" name="otherSource" class="custom-control-input">
-                        <label class="custom-control-label" for="otherSource-yes">Yes</label>
+                        <input type="radio" id="otherSourceyes" class="custom-control-input" value="1" formControlName="incomeFromOtherSources" [ngClass]="{ 'is-invalid': submitted && f.incomeFromOtherSources.errors}">
+                        <label class="custom-control-label" for="otherSourceyes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="otherSource-no" name="otherSource" class="custom-control-input">
-                        <label class="custom-control-label" for="otherSource-no">No</label>
+                        <input type="radio" id="otherSourceno" class="custom-control-input" value="0" formControlName="incomeFromOtherSources" [ngClass]="{ 'is-invalid': submitted && f.incomeFromOtherSources.errors}">
+                        <label class="custom-control-label" for="otherSourceno">No</label>
+                      </div>
+                      <div *ngIf="submitted && f.incomeFromOtherSources.errors" class="invalid-feedback">
+                          <div *ngIf="f.incomeFromOtherSources.errors.required">Please choose one option</div>
                       </div>
                     </div>
                   </div>
@@ -51,12 +58,15 @@
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="interest-yes" name="interest" class="custom-control-input">
-                        <label class="custom-control-label" for="interest-yes">Yes</label>
+                        <input type="radio" id="interestyes" class="custom-control-input" value="1" formControlName="selfOccupiedProp" [ngClass]="{ 'is-invalid': submitted && f.selfOccupiedProp.errors}">
+                        <label class="custom-control-label" for="interestyes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="interest-no" name="interest" class="custom-control-input">
-                        <label class="custom-control-label" for="interest-no">No</label>
+                        <input type="radio" id="interestno" class="custom-control-input" value="0" formControlName="selfOccupiedProp" [ngClass]="{ 'is-invalid': submitted && f.selfOccupiedProp.errors}">
+                        <label class="custom-control-label" for="interestno">No</label>
+                      </div>
+                      <div *ngIf="submitted && f.selfOccupiedProp.errors" class="invalid-feedback">
+                          <div *ngIf="f.selfOccupiedProp.errors.required">Please choose one option</div>
                       </div>
                     </div>
                   </div>
@@ -66,12 +76,15 @@
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="rentalLoss-yes" name="rentalLoss" class="custom-control-input">
-                        <label class="custom-control-label" for="rentalLoss-yes">Yes</label>
+                        <input type="radio" id="rentalLossyes" class="custom-control-input" value="1" formControlName="rentalProperty" [ngClass]="{ 'is-invalid': submitted && f.rentalProperty.errors}">
+                        <label class="custom-control-label" for="rentalLossyes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="rentalLoss-no" name="rentalLoss" class="custom-control-input">
-                        <label class="custom-control-label" for="rentalLoss-no">No</label>
+                        <input type="radio" id="rentalLossno" class="custom-control-input" value="0" formControlName="rentalProperty" [ngClass]="{ 'is-invalid': submitted && f.rentalProperty.errors}">
+                        <label class="custom-control-label" for="rentalLossno">No</label>
+                      </div>
+                      <div *ngIf="submitted && f.rentalProperty.errors" class="invalid-feedback">
+                          <div *ngIf="f.rentalProperty.errors.required">Please choose one option</div>
                       </div>
                     </div>
                   </div>
@@ -81,12 +94,15 @@
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="capitalGain-yes" name="capitalGain" class="custom-control-input">
-                        <label class="custom-control-label" for="capitalGain-yes">Yes</label>
+                        <input type="radio" id="capitalGainyes" class="custom-control-input" value="1" formControlName="incomeFromCapitals" [ngClass]="{ 'is-invalid': submitted && f.incomeFromCapitals.errors}">
+                        <label class="custom-control-label" for="capitalGainyes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="capitalGain-no" name="capitalGain" class="custom-control-input">
-                        <label class="custom-control-label" for="capitalGain-no">No</label>
+                        <input type="radio" id="capitalGainno" class="custom-control-input" value="0" formControlName="incomeFromCapitals" [ngClass]="{ 'is-invalid': submitted && f.incomeFromCapitals.errors}">
+                        <label class="custom-control-label" for="capitalGainno">No</label>
+                      </div>
+                      <div *ngIf="submitted && f.incomeFromCapitals.errors" class="invalid-feedback">
+                          <div *ngIf="f.incomeFromCapitals.errors.required">Please choose one option</div>
                       </div>
                     </div>
                   </div>
@@ -96,72 +112,87 @@
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="deduction-yes" name="deduction" class="custom-control-input">
-                        <label class="custom-control-label" for="deduction-yes">Yes</label>
+                        <input type="radio" id="deductionyes" class="custom-control-input" value="1" formControlName="deductionsFlag" [ngClass]="{ 'is-invalid': submitted && f.deductionsFlag.errors}">
+                        <label class="custom-control-label" for="deductionyes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="deduction-no" name="deduction" class="custom-control-input">
-                        <label class="custom-control-label" for="deduction-no">No</label>
+                        <input type="radio" id="deductionno" class="custom-control-input" value="0" formControlName="deductionsFlag" [ngClass]="{ 'is-invalid': submitted && f.deductionsFlag.errors}">
+                        <label class="custom-control-label" for="deductionno">No</label>
                       </div>
-                    </div>
-                  </div>
-                  <div class="row form-group">
-                    <div class="col-12">
-                      <label class="control-label">Were you present in India for more than 181 days between 1 April 2017 and 31 March 2018?</label>
-                    </div>
-                    <div class="col">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="salary-yes" name="salary" class="custom-control-input" >
-                        <label class="custom-control-label" for="salary-yes">Yes</label>
-                      </div>
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="salary-no" name="salary" class="custom-control-input" >
-                        <label class="custom-control-label" for="salary-no">No</label>
+                      <div *ngIf="submitted && f.deductionsFlag.errors" class="invalid-feedback">
+                          <div *ngIf="f.deductionsFlag.errors.required">Please choose one option</div>
                       </div>
                     </div>
                   </div>
                   <div class="row form-group">
                     <div class="col-12">
-                      <label class="control-label">Are you a citizen of India who has left India between 1 April 2017 and 31 March 2018 for the purpose of employment outside India?</label>
+                      <label class="control-label">Were you present in India for more than 181 days between 1 April 2018 and 31 March 2019?</label>
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="otherSource-yes" name="otherSource" class="custom-control-input" >
-                        <label class="custom-control-label" for="otherSource-yes">Yes</label>
+                        <input type="radio" id="residentIndianYes" class="custom-control-input" value="1" formControlName="residentIndianFlag" [ngClass]="{ 'is-invalid': submitted && f.residentIndianFlag.errors}" >
+                        <label class="custom-control-label" for="residentIndianYes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="otherSource-no" name="otherSource" class="custom-control-input" >
-                        <label class="custom-control-label" for="otherSource-no">No</label>
+                        <input type="radio" id="residentIndianNo" class="custom-control-input" value="0" formControlName="residentIndianFlag" [ngClass]="{ 'is-invalid': submitted && f.residentIndianFlag.errors}" >
+                        <label class="custom-control-label" for="residentIndianNo">No</label>
+                      </div>
+                      <div *ngIf="submitted && f.residentIndianFlag.errors" class="invalid-feedback">
+                          <div *ngIf="f.residentIndianFlag.errors.required">Please choose one option</div>
                       </div>
                     </div>
                   </div>
                   <div class="row form-group">
                     <div class="col-12">
-                      <label class="control-label">Are you a citizen of India or a person of Indian origin who, being outside of India, comes on a visit to India between 1 April 2017 and 31 March 2018?</label>
+                      <label class="control-label">Are you a citizen of India who has left India between 1 April 2018 and 31 March 2019 for the purpose of employment outside India?</label>
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="interest-yes" name="interest" class="custom-control-input" >
-                        <label class="custom-control-label" for="interest-yes">Yes</label>
+                        <input type="radio" id="nonResidentIndianYes" class="custom-control-input" value="1" formControlName="nonResidentIndianFlag" [ngClass]="{ 'is-invalid': submitted && f.nonResidentIndianFlag.errors}" >
+                        <label class="custom-control-label" for="nonResidentIndianYes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="interest-no" name="interest" class="custom-control-input" >
-                        <label class="custom-control-label" for="interest-no">No</label>
+                        <input type="radio" id="nonResidentIndianNo" class="custom-control-input" value="0" formControlName="nonResidentIndianFlag" [ngClass]="{ 'is-invalid': submitted && f.nonResidentIndianFlag.errors}" >
+                        <label class="custom-control-label" for="nonResidentIndianNo">No</label>
+                      </div>
+                      <div *ngIf="submitted && f.nonResidentIndianFlag.errors" class="invalid-feedback">
+                          <div *ngIf="f.nonResidentIndianFlag.errors.required">Please choose one option</div>
                       </div>
                     </div>
                   </div>
                   <div class="row form-group">
                     <div class="col-12">
-                      <label class="control-label">Were you present in India for more than 59 days between 1 April 2017 and 31 March 2018? AND were you present in India for more than 364 days between 1 April 2013 and 31 March 2017?</label>
+                      <label class="control-label">Are you a citizen of India or a person of Indian origin who, being outside of India, comes on a visit to India between 1 April 2018 and 31 March 2019?</label>
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="rentalLoss-yes" name="rentalLoss" class="custom-control-input" >
-                        <label class="custom-control-label" for="rentalLoss-yes">Yes</label>
+                        <input type="radio" id="ociResidentIndianYes" class="custom-control-input" value="1" formControlName="ociResidentIndianFlag" [ngClass]="{ 'is-invalid': submitted && f.ociResidentIndianFlag.errors}">
+                        <label class="custom-control-label" for="ociResidentIndianYes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="rentalLoss-no" name="rentalLoss" class="custom-control-input" >
-                        <label class="custom-control-label" for="rentalLoss-no">No</label>
+                        <input type="radio" id="ociResidentIndianYes" class="custom-control-input" value="0" formControlName="ociResidentIndianFlag" [ngClass]="{ 'is-invalid': submitted && f.ociResidentIndianFlag.errors}">
+                        <label class="custom-control-label" for="ociResidentIndianYes">No</label>
+                      </div>
+                      <div *ngIf="submitted && f.ociResidentIndianFlag.errors" class="invalid-feedback">
+                          <div *ngIf="f.ociResidentIndianFlag.errors.required">Please choose one option</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-12">
+                      <label class="control-label">Were you present in India for more than 59 days between 1 April 2018 and 31 March 2019? AND were you present in India for more than 364 days between 1 April 2018 and 31 March 2019?</label>
+                    </div>
+                    <div class="col">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="presentIndiaYes" class="custom-control-input" value="1" formControlName="presentIndiaFlag" [ngClass]="{ 'is-invalid': submitted && f.presentIndiaFlag.errors}" >
+                        <label class="custom-control-label" for="presentIndiaYes">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="presentIndiaNo" class="custom-control-input" value="0" formControlName="presentIndiaFlag" [ngClass]="{ 'is-invalid': submitted && f.presentIndiaFlag.errors}" >
+                        <label class="custom-control-label" for="presentIndiaNo">No</label>
+                      </div>
+                      <div *ngIf="submitted && f.presentIndiaFlag.errors" class="invalid-feedback">
+                          <div *ngIf="f.presentIndiaFlag.errors.required">Please choose one option</div>
                       </div>
                     </div>
                   </div>
@@ -171,7 +202,7 @@
                     </div>
                     <div class="right ml-auto">
                       <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
-                      <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>
+                      <!--<button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>-->
                       <button [disabled]="loading" type="submit" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
                       <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                     </div>

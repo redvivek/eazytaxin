@@ -19,9 +19,9 @@ export class LoginComponent implements OnInit {
         private authenticationService: AuthenticationService,
         private alertService: AlertService
     ) {
-        // redirect to home if already logged in
+        // redirect to dashboard if already logged in
         if (this.authenticationService.currentUserValue) { 
-            this.router.navigate(['/']);
+            this.router.navigate(['/dashboard']);
         }
     }
 
@@ -48,23 +48,23 @@ export class LoginComponent implements OnInit {
 
         this.loading = true;
         this.authenticationService.login(this.f.username.value, this.f.password.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    console.log("Response"+JSON.stringify(data));
-                    if(data['Message'] == 'Invalid User'){
-                        this.alertService.error('Username or Password is invalid');
-                        this.loading = false;
-                    }else if(data['Message'] == 'Valid User'){
-                        this.alertService.success('Login successful', true);
-                        this.router.navigate([this.returnUrl]);
-                        this.loading = false;
-                    }    
-                },
-                error => {
-                    console.log("Login error"+JSON.stringify(error));
+        .pipe(first())
+        .subscribe(
+            data => {
+                console.log("Response"+JSON.stringify(data));
+                if(data['Message'] == 'Invalid User'){
                     this.alertService.error('Username or Password is invalid');
                     this.loading = false;
-                });
+                }else if(data['Message'] == 'Valid User'){
+                    this.alertService.success('Login successful', true);
+                    this.router.navigate([this.returnUrl]);
+                    this.loading = false;
+                }    
+            },
+            error => {
+                console.log("Login error"+JSON.stringify(error));
+                this.alertService.error('Username or Password is invalid');
+                this.loading = false;
+            });
     }
 }

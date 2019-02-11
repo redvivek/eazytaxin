@@ -89,8 +89,7 @@ exports.authenticateUser = (req, res) => {
 				Username: email,
 			}
 		}
-	)
-	.then(function (user) {
+	).then(function (user) {
 		if (user && bcrypt.compareSync(pwd, user.Hashkey)) {
 			const token = jwt.sign({ sub: user.UserId}, config.secret);
 			let resBody = {

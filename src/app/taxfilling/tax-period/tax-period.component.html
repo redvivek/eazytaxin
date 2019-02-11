@@ -8,6 +8,7 @@
             <h4 class="">Tax Period</h4>
           </div>
         </div>
+        <alert></alert>
       </div>
       <div class="section-body">
         <div class="row">
@@ -19,7 +20,7 @@
                   <div class="row">
                     <div class="col-4">
                       <div class="form-group floating-label customDropdown">
-                        <select name="taxperiod" class="form-control" id="taxperiod" formControlName="taxperiod" [(ngModel)]='taxperiod' [ngClass]="{ 'is-invalid': submitted && f.taxperiod.errors}">
+                        <select name="taxperiod" class="form-control" id="taxperiod" formControlName="taxperiod" [ngClass]="{ 'is-invalid': submitted && f.taxperiod.errors}">
                             <option [value]="taxperiod" *ngFor="let taxperiod of taxperiods">{{taxperiod}}</option>
                         </select>
                         <label for="taxperiod">Select Assessment Year</label>
@@ -50,7 +51,7 @@
                     </div>
                   </div>
                   
-                  <div class="row form-group mb-0">
+                  <div class="row form-group mb-0" *ngIf="showUploadField">
                     <div class="col">
                       <h6>Upload Prefilled XML
                         <span class="d-inline-block">
@@ -63,7 +64,7 @@
                       </h6>
                     </div>
                   </div>
-                  <div class="row">
+                  <div class="row" *ngIf="showUploadField">
                     <div class="col-6">
                       <div class="form-group" >
                         <div class="input-group custom-file-wrap">
@@ -87,7 +88,7 @@
                     </div>
                     
                   </div>
-                  <div class="row">
+                  <div class="row" *ngIf="showUploadField">
                     <div class="col-6">
                       <div>
                           File upload progress:
@@ -101,11 +102,11 @@
                   
                   <div class="row">
                     <div class="col form-group">
-                      <p class="small-txt text-justify">Assessment Year (AY) 2018-2019 means you would be filing your tax return for the Financial Year (FY) 2017-18.<br><br> In case you earn income from salary or house property or capital gains or other sources and your total income exceeds INR 2,50,000, you are required to pay income tax on your total income and file your tax return accordingly. Further, in case you hold any foreign asset and you are a Resident and Ordinarily Resident then also you are required to file your India tax return.<br> If you do not have taxable income but tax is deducted at source, a tax return could be filed to claim it as refund</p>
+                      <p class="small-txt text-justify">Assessment Year (AY) 2019-2020 means you would be filing your tax return for the Financial Year (FY) 2018-19.<br><br> In case you earn income from salary or house property or capital gains or other sources and your total income exceeds INR 2,50,000, you are required to pay income tax on your total income and file your tax return accordingly. Further, in case you hold any foreign asset and you are a Resident and Ordinarily Resident then also you are required to file your India tax return.<br> If you do not have taxable income but tax is deducted at source, a tax return could be filed to claim it as refund</p>
                     </div>
                   </div>
                   <div class="form-actions d-flex">
-                    <button [disabled]="loading" type="submit" class="btn btn-primary btn-lg">Start Filing</button>
+                    <button [disabled]="loading" type="submit" class="btn btn-primary btn-lg">Next</button>
                     <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                   </div>
                 </form>

@@ -28,7 +28,7 @@ route.get('/masters/deductiontypes', masterService.fetchAllDeductionTypes);*/
 
 //API routes for taxfilling module
 route.post('/tax/uploadxml', taxService.uploadPrefilledXML);
-/*route.get('/tax/appDetails', taxService.fetchApplicationDetailByAppId);
+route.post('/tax/appMainDetails', taxService.fetchApplicationMainByAppId);
 
 route.post('/tax/createApplication', taxService.createApplication);
 route.post('/tax/saveBasicInfo', taxService.saveBasicInfoByAppId);
@@ -36,7 +36,7 @@ route.post('/tax/savePersonalInfo', taxService.savePersonalInfoByAppId);
 route.post('/tax/saveAddressInfo', taxService.saveAddressInfoByAppId);
 route.post('/tax/saveBankDetails', taxService.saveBankDetailsByAppId);
 route.post('/tax/saveAssestsInfo', taxService.saveAssestsInfoByAppId);
-route.post('/tax/saveSalaryIncome', taxService.saveSalIncomeInfoByAppId);
+/*route.post('/tax/saveSalaryIncome', taxService.saveSalIncomeInfoByAppId);
 route.post('/tax/saveOtherIncome', taxService.saveOthIncomeInfoByAppId);
 route.post('/tax/saveHouseIncome', taxService.saveHouseIncomeInfoByAppId);
 route.post('/tax/saveRentalIncome', taxService.saveRentalIncomeInfoByAppId);

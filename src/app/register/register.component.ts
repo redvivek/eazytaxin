@@ -93,21 +93,21 @@ export class RegisterComponent implements OnInit {
         this.loading = true;
         console.log('Input Values :-)\n\n' + JSON.stringify(this.registerForm.value))
         this.userService.register(this.registerForm.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                        console.log("Response" + JSON.stringify(data));
-                        if(data['Message'] == 'Invalid Username'){
-                            this.alertService.error('Username/Email is already registered');
-                            this.loading = false;
-                        }else if(data['Message'] == 'Successful Request'){
-                            this.alertService.success('Registration successful', true);
-                            this.router.navigate(['/login']); 
-                        }
-                    },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+        .pipe(first())
+        .subscribe(
+            data => {
+                    console.log("Response" + JSON.stringify(data));
+                    if(data['Message'] == 'Invalid Username'){
+                        this.alertService.error('Username/Email is already registered');
+                        this.loading = false;
+                    }else if(data['Message'] == 'Successful Request'){
+                        this.alertService.success('Registration successful', true);
+                        this.router.navigate(['/login']); 
+                    }
+                },
+            error => {
+                this.alertService.error(error);
+                this.loading = false;
+            });
     }
 }

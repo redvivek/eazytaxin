@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidemenus',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidemenusComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+  ) { }
 
   ngOnInit() {
+  }
+
+  goHome(){
+    this.router.navigate(['/home']);
+  }
+
+  goPlans(){
+    this.router.navigate(['/plans']);
+  }
+
+  goTaxFilling(){
+    this.router.navigate(['/taxfilling']);
   }
 
 }

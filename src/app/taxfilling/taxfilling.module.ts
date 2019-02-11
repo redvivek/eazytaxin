@@ -13,6 +13,8 @@ import { MainmenusComponent } from './mainmenus';
 import { ReviewdetailsComponent } from './reviewdetails';
 import { PaymentsComponent } from './payments';
 
+import{ SharedModule } from '../shared.module';
+
 @NgModule({
   declarations: [
     MainmenusComponent,
@@ -24,13 +26,14 @@ import { PaymentsComponent } from './payments';
     TaxesPaidComponent, 
     ReviewdetailsComponent, 
     PaymentsComponent,
-    FileSelectDirective
+    FileSelectDirective,
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    TaxfillingRoutingModule
+    TaxfillingRoutingModule,
+    SharedModule
   ]
 })
 export class TaxfillingModule { }

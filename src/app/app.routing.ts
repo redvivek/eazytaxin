@@ -6,9 +6,14 @@ import { RegisterComponent } from './register';
 import { AuthGuard } from './_guards';
 import {ForgotpasswordComponent} from './forgotpassword';
 import {ResetpasswordComponent} from './resetpassword';
+import { DashboardComponent } from './dashboard';
+import { PricingComponent } from './pricing';
 
 const appRoutes: Routes = [
-    { path: 'login', component: LoginComponent },
+   { path: '', component: HomeComponent },
+   { path: 'home',component: HomeComponent }, 
+   { path: 'plans',component: PricingComponent }, 
+   { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'forgotpassword', component: ForgotpasswordComponent },
     { path: 'resetpassword', component: ResetpasswordComponent },
@@ -22,11 +27,10 @@ const appRoutes: Routes = [
           },
           {
              path: 'dashboard',
-             component: HomeComponent
+             component: DashboardComponent
           }
         ]		
-     },
-
+    },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];

@@ -17,7 +17,7 @@
           </svg>
         </a>
       </div>
-      <a class="navbar-brand" href="index.html">
+      <a class="navbar-brand" routerLink="/home">
         <span>
           <img src="/assets/img/easytax-logo-text.png" alt="easytax logo">
         </span>
@@ -38,20 +38,17 @@
         <li class="nav-item">
           <a class="nav-link" href="contact.html">Contact</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" (click)="logout()">Logout</a>
-          </li>
-        <li class="nav-item dropdown u-pro">
+        <li class="nav-item dropdown u-pro" *ngIf="currentUser">
           <a class="user-dropdown dropdown-toggle waves-effect profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img src="/assets/img/1.jpg" alt="user" class="">
             <!-- <span class="hidden-md-down"><i class="fa fa-angle-down"></i></span> -->
           </a>
           <div class="dropdown-menu dropdown-menu-right animated flipInY ">
             <a href="javascript:void(0)" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
-            <a href="javascript:void(0)" class="dropdown-item"><i class="ti-wallet"></i> My Balance</a>
-            <a href="javascript:void(0)" class="dropdown-item"><i class="ti-email"></i> Inbox</a>
-            <a href="javascript:void(0)" class="dropdown-item"><i class="ti-settings"></i> Account Setting</a>
-            <a href="login.html" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
+            <a (click)="goDashboard()" class="dropdown-item"><i class="ti-wallet"></i> My Dashboard</a>
+            <a href="javascript:void(0)" class="dropdown-item"><i class="ti-email"></i> Notifications</a>
+            <a href="javascript:void(0)" class="dropdown-item"><i class="ti-settings"></i> Change Password</a>
+            <a (click)="logout()" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
           </div>
         </li>
       </ul>

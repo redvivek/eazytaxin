@@ -1,8 +1,12 @@
 export class Basicinfo {
-    income_from_salary:boolean;
-    income_from_other_sources:boolean;
-    self_occupied:boolean;
-    rental_property:boolean;
-    capital_gains:boolean;
-    deductions:boolean;
+    incomeFromSalary:boolean;
+    incomeFromOtherSources:boolean;
+    selfOccupiedProp:boolean;
+    rentalProperty:boolean;
+    incomeFromCapitals:boolean;
+    deductionsFlag:boolean;
+    residentIndianFlag:boolean;
+    nonResidentIndianFlag:boolean;
+    ociResidentIndianFlag:boolean;
+    presentIndiaFlag:boolean;
 }

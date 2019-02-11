@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { AuthenticationService } from '@app/_services';
 import { User } from '@app/_models';
@@ -12,6 +13,7 @@ import { User } from '@app/_models';
 export class HeaderComponent implements OnInit {
 
     currentUser: User;
+    isLoggedIn$: Observable<boolean>;
 
     constructor(
         private router: Router,
@@ -22,11 +24,16 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() {
+    //this.currentUser = this.authenticationService.currentUserValue;
   }
 
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
+  }
+
+  goDashboard(){
+    this.router.navigate(['/dashboard']);
   }
 
 }
