@@ -18,7 +18,7 @@
                   <div class="steps clearfix">
                     <ul class="nav " role="tablist">
                       <li class="nav-item">
-                        <a class="nav-link active " id="income-salary-tab" href="#income-salary" data-toggle="tab" role="tab">
+                        <a class="nav-link" [class.active]="step1 == true" (click)="select_form_step('step2')" id="income-salary-tab" href="#income-salary" data-toggle="tab" role="tab">
                           Salary
                           <span class="step-icon-wrap info">
                             <span class="step-icon">
@@ -34,7 +34,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="income-other-tab" href="#income-other" data-toggle="tab" role="tab">
+                        <a class="nav-link" [class.active]="step2 == true" (click)="select_form_step('step2')" id="income-other-tab" href="#income-other" data-toggle="tab" role="tab">
                           Other Income
                           <span class="step-icon-wrap address">
                             <span class="step-icon">
@@ -53,7 +53,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link " id="income-house-property-tab" href="#income-house-property" data-toggle="tab" role="tab">
+                        <a class="nav-link" [class.active]="step3 == true" (click)="select_form_step('step3')" id="income-house-property-tab" href="#income-house-property" data-toggle="tab" role="tab">
                           House Property
                           <span class="step-icon-wrap residency">
                             <span class="step-icon">
@@ -76,7 +76,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="income-capital-gain-tab" href="#income-capital-gain" data-toggle="tab" role="tab">
+                        <a class="nav-link" [class.active]="step4 == true" (click)="select_form_step('step4')" id="income-capital-gain-tab" href="#income-capital-gain" data-toggle="tab" role="tab">
                           Capital Gain
                           <span class="step-icon-wrap bank">
                             <span class="step-icon">
@@ -92,17 +92,17 @@
                     </ul>
                   </div>
                   <div class="tab-content tab-wizard-content">
-                    <div class="tab-pane fade " id="income-salary" role="tabpanel">
+                    <div class="tab-pane fade " id="income-salary" role="tabpanel" [ngClass]="{ 'show': step1 == true , 'active': step1 == true }">
                       <ul class="nav nav-tabs scrollTabs" id="" role="tablist">
                         <li class="nav-item">
-                          <a class="nav-link active" id="income-salary-upload-tab" data-toggle="tab" href="#income-salary-upload" role="tab"aria-selected="true">Upload</a>
+                          <a class="nav-link" id="income-salary-upload-tab"  data-toggle="tab" href="#income-salary-upload" role="tab" (click)="select_step1_subpart_form('income_salary_upload')" [class.active]="step1_income_salary_upload == true" aria-selected="true">Upload</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="income-from-salary-tab" data-toggle="tab" href="#income-from-salary" role="tab" aria-selected="false">Income from Salary</a>
+                          <a class="nav-link" id="income-from-salary-tab" data-toggle="tab" href="#income-from-salary" role="tab" (click)="select_step1_subpart_form('income_from_salary')" [class.active]="step1_income_from_salary == true" aria-selected="false">Income from Salary</a>
                         </li>
                       </ul>
                       <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="income-salary-upload" role="tabpanel">
+                        <div class="tab-pane fade" id="income-salary-upload" role="tabpanel" [ngClass]="{ 'show': step1_income_salary_upload == true , 'active': step1_income_salary_upload == true }">
                           <div class="row form-group mb-0">
                             <div class="col">
                               <h6>Select your Form 16 document</h6>
@@ -135,7 +135,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="tab-pane fade" id="income-from-salary" role="tabpanel">
+                        <div class="tab-pane fade" id="income-from-salary" role="tabpanel" [ngClass]="{ 'show': step1_income_from_salary == true , 'active': step1_income_from_salary == true }">
                           <div class="row form-group mb-0">
                             <div class="col">
                               <h6>Income Chargeable under the head 'Salaries'</h6>
@@ -355,32 +355,32 @@
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane fade" id="income-other" role="tabpanel">
+                    <div class="tab-pane fade" id="income-other" role="tabpanel" [ngClass]="{ 'show': step2 == true , 'active': step2 == true }">
                       <ul class="nav nav-tabs scrollTabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                          <a class="nav-link active" id="income-other-upload-tab" data-toggle="tab" href="#income-other-upload" role="tab" aria-selected="true">Upload</a>
+                          <a class="nav-link" id="income-other-upload-tab" data-toggle="tab" href="#income-other-upload" role="tab" (click)="select_step2_subpart_form('income_other_upload')" [class.active]="step2_income_other_upload == true"  aria-selected="true">Upload</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="income-other-interest-income-tab" data-toggle="tab" href="#income-other-interest-income" role="tab" aria-selected="false">Interest Income</a>
+                          <a class="nav-link" id="income-other-interest-income-tab" data-toggle="tab" href="#income-other-interest-income" role="tab" (click)="select_step2_subpart_form('income_interest')" [class.active]="step2_income_interest == true" aria-selected="false">Interest Income</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="income-other-others-tab" data-toggle="tab" href="#income-other-others" role="tab" aria-selected="false">Other Income</a>
+                          <a class="nav-link" id="income-other-others-tab" data-toggle="tab" href="#income-other-others" role="tab" (click)="select_step2_subpart_form('income_others')" [class.active]="step2_income_others == true" aria-selected="false">Other Income</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="income-other-exempt-tab" data-toggle="tab" href="#income-other-exempt" role="tab" aria-selected="false">Exempt Income</a>
+                          <a class="nav-link" id="income-other-exempt-tab" data-toggle="tab" href="#income-other-exempt" role="tab" (click)="select_step2_subpart_form('income_exempt')" [class.active]="step2_income_exempt == true" aria-selected="false">Exempt Income</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="income-other-agriculture-tab" data-toggle="tab" href="#income-other-agriculture" role="tab" aria-selected="false">Agriculture Income</a>
+                          <a class="nav-link" id="income-other-agriculture-tab" data-toggle="tab" href="#income-other-agriculture" role="tab" (click)="select_step2_subpart_form('income_agri')" [class.active]="step2_income_agri == true" aria-selected="false">Agriculture Income</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="income-other-dependent-tab" data-toggle="tab" href="#income-other-dependent" role="tab" aria-selected="false">Dependent Income</a>
+                          <a class="nav-link" id="income-other-dependent-tab" data-toggle="tab" href="#income-other-dependent" role="tab" (click)="select_step2_subpart_form('income_dependent')" [class.active]="step2_income_dependent == true" aria-selected="false">Dependent Income</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="income-other-pf-tab" data-toggle="tab" href="#income-other-pf" role="tab" aria-selected="false">PF Withdrawl income & Tax Rate</a>
+                          <a class="nav-link" id="income-other-pf-tab" data-toggle="tab" href="#income-other-pf" role="tab" (click)="select_step2_subpart_form('income_pf')" [class.active]="step2_income_pf == true" aria-selected="false">PF Withdrawl income & Tax Rate</a>
                         </li>
                       </ul>
                       <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="income-other-upload" role="tabpanel">
+                        <div class="tab-pane fade" id="income-other-upload" role="tabpanel" [ngClass]="{ 'show': step2_income_other_upload == true , 'active': step2_income_other_upload == true }">
                           <div class="row form-group mb-0">
                             <div class="col">
                               <h6>Select your Form 16 document</h6>
@@ -413,7 +413,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="tab-pane fade" id="income-other-interest-income" role="tabpanel">
+                        <div class="tab-pane fade" id="income-other-interest-income" role="tabpanel" [ngClass]="{ 'show': step2_income_interest == true , 'active': step2_income_interest == true }">
                           <div class="assetsLists">
                             <article>
                               <div class="row form-group floating-label">
@@ -446,7 +446,7 @@
                             </article>
                           </div>
                         </div>
-                        <div class="tab-pane fade" id="income-other-others" role="tabpanel">
+                        <div class="tab-pane fade" id="income-other-others" role="tabpanel" [ngClass]="{ 'show': step2_income_others == true , 'active': step2_income_others == true }">
                           <div class="assetsLists">
                             <article>
                               <div class="row form-group floating-label">
@@ -466,7 +466,7 @@
                             </article>
                           </div>
                         </div>
-                        <div class="tab-pane fade" id="income-other-exempt" role="tabpanel">
+                        <div class="tab-pane fade" id="income-other-exempt" role="tabpanel" [ngClass]="{ 'show': step2_income_exempt == true , 'active': step2_income_exempt == true }">
                           <div class="assetsLists">
                             <article>
                               <div class="row form-group floating-label">
@@ -528,7 +528,7 @@
                             </article>
                           </div>
                         </div>
-                        <div class="tab-pane fade" id="income-other-agriculture" role="tabpanel">
+                        <div class="tab-pane fade" id="income-other-agriculture" role="tabpanel" [ngClass]="{ 'show': step2_income_agri == true , 'active': step2_income_agri == true }">
                           <div class="assetsLists">
                             <article>
                               <div class="row form-group floating-label">
@@ -576,7 +576,7 @@
                             </article>
                           </div>
                         </div>
-                        <div class="tab-pane fade" id="income-other-dependent" role="tabpanel">
+                        <div class="tab-pane fade" id="income-other-dependent" role="tabpanel" [ngClass]="{ 'show': step2_income_dependent == true , 'active': step2_income_dependent == true }">
                           <div class="row">
                             <div class="col">
                               <div class="form-group mb-0">
@@ -652,7 +652,7 @@
                             </table>
                           </div>
                         </div>
-                        <div class="tab-pane fade" id="income-other-pf" role="tabpanel">
+                        <div class="tab-pane fade" id="income-other-pf" role="tabpanel" [ngClass]="{ 'show': step2_income_pf == true , 'active': step2_income_pf == true }">
                           <div class="row">
                             <div class="col">
                               <div class="form-group mb-0">
@@ -685,29 +685,29 @@
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane fade show active" id="income-house-property" role="tabpanel">
+                    <div class="tab-pane fade" id="income-house-property" role="tabpanel" [ngClass]="{ 'show': step3 == true , 'active': step3 == true }">
                       <ul class="nav nav-tabs scrollTabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                          <a class="nav-link active" id="house-property-upload-tab" data-toggle="tab" href="#house-property-upload" role="tab"aria-selected="true">Upload</a>
+                          <a class="nav-link active" id="house-property-upload-tab" data-toggle="tab" href="#house-property-upload" role="tab" (click)="select_step3_subpart_form('house_prop_upload')" [class.active]="step3_house_prop_upload == true"  aria-selected="true">Upload</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="property-address-tab" data-toggle="tab" href="#property-address" role="tab" aria-selected="false">Property Address</a>
+                          <a class="nav-link" id="property-address-tab" data-toggle="tab" href="#property-address" role="tab" (click)="select_step3_subpart_form('prop_address')" [class.active]="step3_prop_address == true" aria-selected="false">Property Address</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="income-from-rental-property-tab" data-toggle="tab" href="#income-from-rental-property" role="tab" aria-selected="false">Income from Rental Property</a>
+                          <a class="nav-link" id="income-from-rental-property-tab" data-toggle="tab" href="#income-from-rental-property" role="tab" (click)="select_step3_subpart_form('rental_prop')" [class.active]="step3_rental_prop == true" aria-selected="false">Income from Rental Property</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="interest-paid-on-housing-loan-tab" data-toggle="tab" href="#interest-paid-on-housing-loan" role="tab" aria-selected="false">Interest Paid on Housing Loan</a>
+                          <a class="nav-link" id="interest-paid-on-housing-loan-tab" data-toggle="tab" href="#interest-paid-on-housing-loan" role="tab" (click)="select_step3_subpart_form('interest_house_loan')" [class.active]="step3_interest_house_loan == true" aria-selected="false">Interest Paid on Housing Loan</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="property-ownership-tab" data-toggle="tab" href="#property-ownership" role="tab" aria-selected="false">Property Ownership</a>
+                          <a class="nav-link" id="property-ownership-tab" data-toggle="tab" href="#property-ownership" role="tab" (click)="select_step3_subpart_form('prop_ownership')" [class.active]="step3_prop_ownership == true" aria-selected="false">Property Ownership</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="unrealized-rent-tab" data-toggle="tab" href="#unrealized-rent" role="tab" aria-selected="false">Unrealized Rent</a>
+                          <a class="nav-link" id="unrealized-rent-tab" data-toggle="tab" href="#unrealized-rent" role="tab" (click)="select_step3_subpart_form('unrealized_rent')" [class.active]="step3_unrealized_rent == true" aria-selected="false">Unrealized Rent</a>
                         </li>
                       </ul>
                       <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="house-property-upload" role="tabpanel">
+                        <div class="tab-pane fade show active" id="house-property-upload" role="tabpanel" [ngClass]="{ 'show': step3_house_prop_upload == true , 'active': step3_house_prop_upload == true }">
                           <div class="row form-group mb-0">
                             <div class="col">
                               <h6>Select document</h6>
@@ -740,7 +740,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="tab-pane fade" id="property-address" role="tabpanel">
+                        <div class="tab-pane fade" id="property-address" role="tabpanel" [ngClass]="{ 'show': step3_prop_address == true , 'active': step3_prop_address == true }">
                           <div class="row">
                             <div class="col">
                               <div class="form-group floating-label">
@@ -1078,7 +1078,7 @@
                             </tbody>
                           </table>
                         </div>
-                        <div class="tab-pane fade" id="income-from-rental-property" role="tabpanel">
+                        <div class="tab-pane fade" id="income-from-rental-property" role="tabpanel" [ngClass]="{ 'show': step3_rental_prop == true , 'active': step3_rental_prop == true }">
                           <div class="row">
                             <div class="col-6">
                               <div class="form-group floating-label customDropdown">
@@ -1142,7 +1142,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="tab-pane fade" id="interest-paid-on-housing-loan" role="tabpanel">
+                        <div class="tab-pane fade" id="interest-paid-on-housing-loan" role="tabpanel" [ngClass]="{ 'show': step3_interest_house_loan == true , 'active': step3_interest_house_loan == true }">
                           <div class="row">
                             <div class="col">
                               <div class="form-group floating-label customDropdown">
@@ -1274,7 +1274,7 @@
                             </tbody>
                           </table>
                         </div>
-                        <div class="tab-pane fade" id="property-ownership" role="tabpanel">
+                        <div class="tab-pane fade" id="property-ownership" role="tabpanel" [ngClass]="{ 'show': step3_prop_ownership == true , 'active': step3_prop_ownership == true }">
                           <div class="row">
                             <div class="col">
                               <div class="form-group floating-label customDropdown">
@@ -1392,7 +1392,7 @@
                             </tbody>
                           </table>
                         </div>
-                        <div class="tab-pane fade" id="unrealized-rent" role="tabpanel">
+                        <div class="tab-pane fade" id="unrealized-rent" role="tabpanel" [ngClass]="{ 'show': step3_unrealized_rent == true , 'active': step3_unrealized_rent == true }">
                           <div class="row">
                             <div class="col">
                               <div class="form-group floating-label">
@@ -1435,7 +1435,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane fade" id="income-capital-gain" role="tabpanel">
+                    <div class="tab-pane fade" id="income-capital-gain" role="tabpanel" [ngClass]="{ 'show': step4 == true , 'active': step4 == true }">
                       <div class="row form-group mb-0">
                         <div class="col">
                           <h6>Did you sell any asset (shares, property, house, land, building, etc) between the period of April 1, 2017 to March 31, 2018? </h6>
@@ -1548,9 +1548,9 @@
                       <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
                     </div>
                     <div class="right ml-auto">
-                      <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
-                      <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>
-                      <button type="button" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
+                      <button type="button" (click)="on_previous_click()" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
+                      <!--<button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>-->
+                      <button type="button" (click)="on_next_click()" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
                     </div>
                   </div>
                 </form>
