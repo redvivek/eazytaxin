@@ -5,7 +5,7 @@ import { first } from 'rxjs/operators';
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { environment } from '@environments/environment';
 import { ApplicationMain} from '@app/_models';
-import { AlertService, AuthenticationService,ApplicationService } from '@app/_services';
+import { ScriptService,AlertService, AuthenticationService,ApplicationService } from '@app/_services';
 
 const URL = `${environment.apiUrl}/tax/uploadxml`;
 
@@ -19,8 +19,9 @@ export class TaxPeriodComponent implements OnInit {
   loading = false;
   submitted = false;
   showUploadField = false;
-  userId;
-  ApplicationId;
+  userId : number;
+  ApplicationId : number;
+  selAssYear : any = null;
 
   taxperiods = this.getCurrentAssesmentYear();
   public uploader: FileUploader = new FileUploader({
@@ -35,15 +36,26 @@ export class TaxPeriodComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private appservice: ApplicationService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private scriptservice : ScriptService
   )
   {
-      // redirect to login if not logged in
+    this.scriptservice.load('mainJS').then(data => {
+        console.log('script loaded ', data);
+    }).catch(error => console.log(error));  
+    
+    // redirect to login if not logged in
       if (!this.authenticationService.currentUserValue) { 
         this.router.navigate(['/login']);
       }else{
         console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
         this.userId = this.authenticationService.currentUserValue.userid;
+      }
+
+      if(!this.appservice.currentApplicationValue){
+          this.selAssYear = this.appservice.currentApplicationValue.taxperiod;
+      }else{
+        this.selAssYear = this.taxperiods[0]
       }
   }
 
@@ -55,7 +67,7 @@ export class TaxPeriodComponent implements OnInit {
     });
 
     //Preload form with existing or default values
-    this.taxPeriodForm.get('taxperiod').setValue(this.taxperiods[0]);
+    this.taxPeriodForm.get('taxperiod').setValue(this.selAssYear);
     this.taxPeriodForm.get('xmluploadflag').setValue('0');
 
     //call this to enable/disable & validate file upload form field on Radio change event
@@ -134,11 +146,11 @@ export class TaxPeriodComponent implements OnInit {
                     //Add newly created AppID in local storage
                     const appdata:ApplicationMain = { 
                         'appId': data['AppId'],
-                        'taxperiod':'',
-                        'xmluploadflag':'', 
-                        'appRefno':'', 
-                        'applicationStage':'', 
-                        'appStatus':'' 
+                        'taxperiod':this.f.taxperiod.value,
+                        'xmluploadflag':this.f.xmluploadflag.value, 
+                        'appRefno':randomNo, 
+                        'applicationStage':1, 
+                        'appStatus':'initiated' 
                     };
                     localStorage.setItem("currentUserApp", JSON.stringify(appdata));
                     
@@ -151,11 +163,11 @@ export class TaxPeriodComponent implements OnInit {
                     localStorage.removeItem("currentUserApp");
                     const appdata:ApplicationMain = { 
                         'appId': data['AppId'],
-                        'taxperiod':'',
-                        'xmluploadflag':'', 
-                        'appRefno':'', 
-                        'applicationStage':'', 
-                        'appStatus':'' 
+                        'taxperiod':this.f.taxperiod.value,
+                        'xmluploadflag':this.f.xmluploadflag.value, 
+                        'appRefno':randomNo, 
+                        'applicationStage':1, 
+                        'appStatus':'initiated' 
                     };
                     localStorage.setItem("currentUserApp", JSON.stringify(appdata));
                     //this.appservice.currentAppValue(appdata);

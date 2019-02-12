@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AlertService, AuthenticationService } from '@app/_services';
+import { ScriptService, AlertService, AuthenticationService } from '@app/_services';
 
 @Component({templateUrl: 'login.component.html'})
 export class LoginComponent implements OnInit {
@@ -13,12 +13,17 @@ export class LoginComponent implements OnInit {
     returnUrl: string;
 
     constructor(
+        private scriptservice : ScriptService,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
         private alertService: AlertService
     ) {
+        this.scriptservice.load('mainJS').then(data => {
+            console.log('script loaded ', data);
+        }).catch(error => console.log(error));
+        
         // redirect to dashboard if already logged in
         if (this.authenticationService.currentUserValue) { 
             this.router.navigate(['/dashboard']);

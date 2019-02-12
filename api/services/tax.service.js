@@ -143,3 +143,7 @@ exports.saveBankDetailsByAppId = (req,res)=>{
 exports.saveAssestsInfoByAppId = (req,res)=>{
     res.status(200);
 };
+
+exports.fetchDashboardInfo = (req,res)=>{
+    res.status(200);
+}

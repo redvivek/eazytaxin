@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import {Basicinfo} from '@app/_models';
-import { AuthenticationService,ApplicationService, AlertService } from '@app/_services';
+import { ScriptService,AuthenticationService,ApplicationService, AlertService } from '@app/_services';
 
 @Component({
   selector: 'app-basic-information',
@@ -24,21 +24,26 @@ export class BasicInformationComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private appService : ApplicationService,
-    private alertService : AlertService
+    private alertService : AlertService,
+    private scriptservice : ScriptService
   ) { 
-      // redirect to login if not logged in
-      if (!this.authenticationService.currentUserValue) { 
-        this.router.navigate(['/login']);
-      }else{
-        //console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
-        //console.log("Current App value "+ this.appService.currentApplicationValue);
-        this.userId         = this.authenticationService.currentUserValue.userid;
-        this.ApplicationId  = this.appService.currentApplicationValue.appId;
-        console.log("Current App Id "+ this.ApplicationId);
+        this.scriptservice.load('mainJS').then(data => {
+            console.log('script loaded ', data);
+        }).catch(error => console.log(error));
+    
+        // redirect to login if not logged in
+        if (!this.authenticationService.currentUserValue) { 
+            this.router.navigate(['/login']);
+        }else{
+            //console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
+            //console.log("Current App value "+ this.appService.currentApplicationValue);
+            this.userId         = this.authenticationService.currentUserValue.userid;
+            this.ApplicationId  = this.appService.currentApplicationValue.appId;
+            console.log("Current App Id "+ this.ApplicationId);
 
-        this.fetchAppMaindata(this.ApplicationId);
+            this.fetchAppMaindata(this.ApplicationId);
+        }
     }
-  }
 
   ngOnInit() {
 

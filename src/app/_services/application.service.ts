@@ -22,13 +22,13 @@ export class ApplicationService {
         return this.currentAppSubject.value;
     }
 
-    /*getAll() {
-        return this.http.get<User[]>(`${environment.apiUrl}/users`);
-    }*/
-
-    /*getByAppId(id: number) {
-        return this.http.get(`${environment.apiUrl}/tax/appMainDetails/${id}`);
-    }*/
+    fetchDashboardDataByAssYearUserId(assYear,userid){
+        var inputdata = {
+            "assYear" : assYear,
+            "userid" : userid
+        };
+        return this.http.post(`${environment.apiUrl}/tax/fetchDashboardInfo`, inputdata);
+    }
 
     getByAppId(id: number) {
         return this.http.post<any>(`${environment.apiUrl}/tax/appMainDetails`, { id })

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { Basicinfostep1, Personaldetails, Addressdetails, Bankdetails, Immovableassetsdetails, Assetsliabilitiesdetails } from '@app/_models';
-import { AuthenticationService,ApplicationService, AlertService } from '@app/_services';
+import { ScriptService,AuthenticationService,ApplicationService, AlertService } from '@app/_services';
 
 @Component({
   selector: 'app-personal-details',
@@ -42,8 +42,13 @@ export class PersonalDetailsComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private appService : ApplicationService,
-    private alertService : AlertService
+    private alertService : AlertService,
+    private scriptservice : ScriptService
   ) {
+      this.scriptservice.load('mainJS').then(data => {
+        console.log('script loaded ', data);
+      }).catch(error => console.log(error));
+      
       // redirect to login if not logged in
       if (!this.authenticationService.currentUserValue) { 
         this.router.navigate(['/login']);

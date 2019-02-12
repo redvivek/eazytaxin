@@ -1,31 +1,37 @@
 import { Component, OnInit,OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { FormBuilder, FormGroup,FormControl, Validators } from '@angular/forms';
-import { User } from '@app/_models';
-import { UserService, AuthenticationService } from '@app/_services';
+import { Router } from '@angular/router';
+import { first } from 'rxjs/operators';
+import { ApplicationMain} from '@app/_models';
+import { ApplicationService, AuthenticationService,AlertService } from '@app/_services';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit , OnDestroy {
-
-  currentUser: User;
-  currentUserSubscription: Subscription;
-  users: User[] = [];
+export class DashboardComponent implements OnInit {
   assesmentYears = [];
   selectedAssYear:any;
 
+  userId : number;
+  ApplicationId : number;
+
   constructor(
-        private formBuilder: FormBuilder,
+        private router: Router,
         private authenticationService: AuthenticationService,
-        private userService: UserService
+        private appService : ApplicationService,
+        private alertService : AlertService
   ) {
-      this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-          this.currentUser = user;
-      });
+    // redirect to login if not logged in
+    if (!this.authenticationService.currentUserValue) { 
+      this.router.navigate(['/login']);
+    }else{
+      //console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
+      //console.log("Current App value "+ this.appService.currentApplicationValue);
+      this.userId         = this.authenticationService.currentUserValue.userid;
+      console.log("Current User Id "+ this.userId);
     }
+}
 
     ngOnInit() {
         this.assesmentYears = this.getCurrentAssesmentYear();
@@ -36,11 +42,37 @@ export class DashboardComponent implements OnInit , OnDestroy {
     onChange(newValue) {
         console.log(newValue);
         this.selectedAssYear = newValue;
+        //Fetch and refresh data on change of assesment year
+        this.appService.fetchDashboardDataByAssYearUserId(this.selectedAssYear,this.userId)
+        .pipe(first())
+        .subscribe(
+        data => {
+                console.log("Response" + JSON.stringify(data));
+                //successfully inserted
+                //if(data['statusCode'] == 200){                  
+                    //this.alertService.error('Application - Personal Info data saved successfully');
+               // }
+            },
+        error => {
+            //this.alertService.error(error);
+        });
     }
 
-    ngOnDestroy() { 
-      // unsubscribe to ensure no memory leaks
-      this.currentUserSubscription.unsubscribe();
+    startFilling(selAssYear){
+        console.log(selAssYear);
+        this.selectedAssYear = selAssYear;
+        //Add newly created AppID in local storage
+        const appdata:ApplicationMain = { 
+            'appId': "",
+            'taxperiod':this.selectedAssYear,
+            'xmluploadflag':'', 
+            'appRefno':'', 
+            'applicationStage':1, 
+            'appStatus':'initiated' 
+        };
+        localStorage.removeItem("currentUserApp");
+        localStorage.setItem("currentUserApp", JSON.stringify(appdata));
+        this.router.navigate(['/taxfilling/taxperiod']);
     }
 
     getCurrentAssesmentYear() {

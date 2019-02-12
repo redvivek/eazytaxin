@@ -9,7 +9,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent }  from './app.component';
 import { routing }        from './app.routing';
-
 import {BaseModule} from './base/base.module';
 import{ SharedModule } from './shared.module';
 import { TaxfillingModule } from './taxfilling/taxfilling.module';
@@ -48,9 +47,8 @@ import { PricingComponent } from './pricing';
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
         // provider used to create fake backend
-        //fakeBackendProvider
+        //fakeBackendProvider,
     ],
     bootstrap: [AppComponent]
 })

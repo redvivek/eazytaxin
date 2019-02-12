@@ -49,7 +49,7 @@ route.post('/tax/generateReport', taxService.generateITRReport);
 
 route.get('/tax/fetchReportInExcel', taxService.fetchITRReportInExcel);
 route.get('/tax/fetchReportInXML', taxService.fetchITRReportInXML);
-route.get('/tax/fetchDocPreview', taxService.fetchDocPreview);
-route.get('/tax/fetchDashboardInfo', taxService.fetchDashboardInfo);*/
+route.get('/tax/fetchDocPreview', taxService.fetchDocPreview);*/
+route.get('/tax/fetchDashboardInfo', taxService.fetchDashboardInfo);
 
 module.exports = route;
