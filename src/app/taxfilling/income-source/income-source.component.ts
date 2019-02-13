@@ -12,17 +12,13 @@ export class IncomeSourceComponent implements OnInit {
   step2:boolean = false;
   step3:boolean = false;
   step4:boolean = false;
+  step5:boolean = false;
 
   step1_income_salary_upload :boolean = true;
   step1_income_from_salary:boolean = false;
   
   step2_income_other_upload :boolean = true;
-  step2_income_interest:boolean = false;
-  step2_income_others:boolean = false;
-  step2_income_exempt:boolean = false;
-  step2_income_agri:boolean = false;
-  step2_income_dependent:boolean = false;
-  step2_income_pf:boolean = false;
+  step2_income_other_data:boolean = false;
 
   step3_house_prop_upload :boolean = true;
   step3_prop_address:boolean = false;
@@ -31,6 +27,14 @@ export class IncomeSourceComponent implements OnInit {
   step3_prop_ownership:boolean = false;
   step3_income_dependent:boolean = false;
   step3_unrealized_rent:boolean = false;
+
+  step4_house_prop_upload :boolean = true;
+  step4_prop_address:boolean = false;
+  step4_rental_prop:boolean = false;
+  step4_interest_house_loan:boolean = false;
+  step4_prop_ownership:boolean = false;
+  step4_income_dependent:boolean = false;
+  step4_unrealized_rent:boolean = false;
 
 
   constructor( 
@@ -47,6 +51,21 @@ export class IncomeSourceComponent implements OnInit {
   //Function Called on next button click
   on_next_click(){
     //this.loading = true;
+    if (this.step5 == true) {
+      /*this.assSubmitted = true;
+      console.log("Assests details submitted");
+      if (this.assestsDetailsForm.invalid) {
+        return;
+      }else{
+        this.onSubmit(this.assestsDetailsForm,'asstinfo');*/
+        this.step1 = false;
+        this.step2 = false;
+        this.step3 = false;
+        this.step4 = false;
+        this.step5 = true
+      //}
+      
+    }
     if (this.step4 == true) {
       /*this.assSubmitted = true;
       console.log("Assests details submitted");
@@ -57,7 +76,8 @@ export class IncomeSourceComponent implements OnInit {
         this.step1 = false;
         this.step2 = false;
         this.step3 = false;
-        this.step4 = true;
+        this.step4 = false;
+        this.step5 = true;
       //}
       
     }
@@ -72,6 +92,7 @@ export class IncomeSourceComponent implements OnInit {
         this.step2 = false;
         this.step3 = false;
         this.step4 = true;
+        this.step5 = false;
       //}
       
     }
@@ -86,6 +107,7 @@ export class IncomeSourceComponent implements OnInit {
         this.step2 = false;
         this.step3 = true;
         this.step4 = false;
+        this.step5 = false;
       //}
       
     }
@@ -101,6 +123,7 @@ export class IncomeSourceComponent implements OnInit {
         this.step2 = true;
         this.step3 = false;
         this.step4 = false;
+        this.step5 = false;
       //}
     }
   }
@@ -112,24 +135,35 @@ export class IncomeSourceComponent implements OnInit {
       this.step2 = false;
       this.step3 = false;
       this.step4 = false;
+      this.step5 = false;
     }
     if (this.step2 == true) {
       this.step1 = true;
       this.step2 = false;
       this.step3 = false;
       this.step4 = false;
+      this.step5 = false;
     }
     if (this.step3 == true) {
       this.step1 = false;
       this.step2 = true;
       this.step3 = false;
       this.step4 = false;
+      this.step5 = false;
     }
     if (this.step4 == true) {
       this.step1 = false;
       this.step2 = false;
       this.step3 = true;
       this.step4 = false;
+      this.step5 = false;
+    }
+    if (this.step5 == true) {
+      this.step1 = false;
+      this.step2 = false;
+      this.step3 = false;
+      this.step4 = true;
+      this.step5 = false;
     }
   }
 
@@ -140,24 +174,35 @@ export class IncomeSourceComponent implements OnInit {
       this.step2 = false;
       this.step3 = false;
       this.step4 = false;
+      this.step5 = false;
     }
     if(a == 'step2'){
       this.step1 = false;
       this.step2 = true;
       this.step3 = false;
       this.step4 = false;
+      this.step5 = false;
     }
     if(a == 'step3'){
       this.step1 = false;
       this.step2 = false;
       this.step3 = true;
       this.step4 = false;
+      this.step5 = false;
     }
     if(a == 'step4'){
       this.step1 = false;
       this.step2 = false;
       this.step3 = false;
       this.step4 = true;
+      this.step5 = false;
+    }
+    if(a == 'step5'){
+      this.step1 = false;
+      this.step2 = false;
+      this.step3 = false;
+      this.step4 = false;
+      this.step5 = true;
     }
   }
 
@@ -174,66 +219,11 @@ export class IncomeSourceComponent implements OnInit {
   select_step2_subpart_form(x){
     if(x == 'income_other_upload'){
       this.step2_income_other_upload = true;
-      this.step2_income_interest = false;
-      this.step2_income_others = false;
-      this.step2_income_exempt = false;
-      this.step2_income_agri = false;
-      this.step2_income_dependent = false;
-      this.step2_income_pf = false;
+      this.step2_income_other_data = false;
     }
-    if(x == 'income_interest'){
+    if(x == 'income_other_data'){
       this.step2_income_other_upload = false;
-      this.step2_income_interest = true;
-      this.step2_income_others = false;
-      this.step2_income_exempt = false;
-      this.step2_income_agri = false;
-      this.step2_income_dependent = false;
-      this.step2_income_pf = false;
-    }
-    if(x == 'income_others'){
-      this.step2_income_other_upload = false;
-      this.step2_income_interest = false;
-      this.step2_income_others = true;
-      this.step2_income_exempt = false;
-      this.step2_income_agri = false;
-      this.step2_income_dependent = false;
-      this.step2_income_pf = false;
-    }
-    if(x == 'income_exempt'){
-      this.step2_income_other_upload = false;
-      this.step2_income_interest = false;
-      this.step2_income_others = false;
-      this.step2_income_exempt = true;
-      this.step2_income_agri = false;
-      this.step2_income_dependent = false;
-      this.step2_income_pf = false;
-    }
-    if(x == 'income_agri'){
-      this.step2_income_other_upload = false;
-      this.step2_income_interest = false;
-      this.step2_income_others = false;
-      this.step2_income_exempt = false;
-      this.step2_income_agri = true;
-      this.step2_income_dependent = false;
-      this.step2_income_pf = false;
-    }
-    if(x == 'income_dependent'){
-      this.step2_income_other_upload = false;
-      this.step2_income_interest = false;
-      this.step2_income_others = false;
-      this.step2_income_exempt = false;
-      this.step2_income_agri = false;
-      this.step2_income_dependent = true;
-      this.step2_income_pf = false;
-    }
-    if(x == 'income_pf'){
-      this.step2_income_other_upload = false;
-      this.step2_income_interest = false;
-      this.step2_income_others = false;
-      this.step2_income_exempt = false;
-      this.step2_income_agri = false;
-      this.step2_income_dependent = false;
-      this.step2_income_pf = true;
+      this.step2_income_other_data = true;
     }
   }
   select_step3_subpart_form(x){
@@ -284,6 +274,57 @@ export class IncomeSourceComponent implements OnInit {
       this.step3_interest_house_loan  = false;
       this.step3_prop_ownership = false;
       this.step3_unrealized_rent= true;
+    }
+  }
+
+  select_step4_subpart_form(x){
+    if(x == 'house_prop_upload'){
+      this.step4_house_prop_upload = true;
+      this.step4_prop_address = false;
+      this.step4_rental_prop = false;
+      this.step4_interest_house_loan  = false;
+      this.step4_prop_ownership = false;
+      this.step4_unrealized_rent= false;
+    }
+    if(x == 'prop_address'){
+      this.step4_house_prop_upload = false;
+      this.step4_prop_address = true;
+      this.step4_rental_prop = false;
+      this.step4_interest_house_loan  = false;
+      this.step4_prop_ownership = false;
+      this.step4_unrealized_rent= false;
+    }
+    if(x == 'rental_prop'){
+      this.step4_house_prop_upload = false;
+      this.step4_prop_address = false;
+      this.step4_rental_prop = true;
+      this.step4_interest_house_loan  = false;
+      this.step4_prop_ownership = false;
+      this.step4_unrealized_rent= false;
+    }
+    if(x == 'interest_house_loan'){
+      this.step4_house_prop_upload = false;
+      this.step4_prop_address = false;
+      this.step4_rental_prop = false;
+      this.step4_interest_house_loan  = true;
+      this.step4_prop_ownership = false;
+      this.step4_unrealized_rent= false;
+    }
+    if(x == 'prop_ownership'){
+      this.step4_house_prop_upload = false;
+      this.step4_prop_address = false;
+      this.step4_rental_prop = false;
+      this.step4_interest_house_loan  = false;
+      this.step4_prop_ownership = true;
+      this.step4_unrealized_rent= false;
+    }
+    if(x == 'unrealized_rent'){
+      this.step4_house_prop_upload = false;
+      this.step4_prop_address = false;
+      this.step4_rental_prop = false;
+      this.step4_interest_house_loan  = false;
+      this.step4_prop_ownership = false;
+      this.step4_unrealized_rent= true;
     }
   }
 

@@ -33,9 +33,9 @@ $(document).delegate('.sidebartoggler', "click", function (e) {
   $('body').toggleClass("left-sidebar-hide");
 });
 
-$('.scrollTabs').scrollingTabs({
+/* $('.scrollTabs').scrollingTabs({
   bootstrapVersion: 4,
   //tabs: myTabs,
   leftArrowContent: ['<div class="scrtabs-tab-scroll-arrow scrtabs-tab-scroll-arrow-left"><i class="fas fa-angle-left"></i></div>'].join(''),
   rightArrowContent: ['<div class="scrtabs-tab-scroll-arrow scrtabs-tab-scroll-arrow-right"><i class="fas fa-angle-right"></i></div>'].join('')
-});
+}); */

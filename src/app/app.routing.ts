@@ -19,7 +19,7 @@ const appRoutes: Routes = [
     { path: 'resetpassword', component: ResetpasswordComponent },
     {
         path: '',
-        canActivate: [ AuthGuard ],
+        //canActivate: [ AuthGuard ],
         children: [
           {
              path: 'taxfilling',
