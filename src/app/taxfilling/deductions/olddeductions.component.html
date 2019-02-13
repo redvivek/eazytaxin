@@ -1,0 +1,785 @@
+<div class="main-container">
+  <app-mainmenus></app-mainmenus>
+  <div class="page-wrapper">
+    <div class="container-fluid">
+      <div class="section-header">
+        <div class="row page-titles">
+          <div class="col-md-5 align-self-center">
+            <h4 class="">Deductions</h4>
+          </div>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body wizard-content">
+                <form class="tab-wizard wizard-circle wizard clearfix">
+                  <div class="steps clearfix">
+                    <ul class="nav " role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="deductions-section-80-tab" href="#deductions-section-80" data-toggle="tab" role="tab">
+                          Section <br>80
+                          <span class="step-icon-wrap info">
+                            <span class="step-icon">
+                              <svg viewBox="0 -63 512 512" width="24px" height="24px" xmlns="http://www.w3.org/2000/svg">
+                                <path d="m497 0h-482c-8.285156 0-15 6.714844-15 15v356.539062c0 8.285157 6.714844 15 15 15h482c8.285156 0 15-6.714843 15-15v-356.539062c0-8.285156-6.714844-15-15-15zm-291.019531 356.539062h-115.917969v-51.476562c0-31.957031 26-57.957031 57.960938-57.957031 31.957031 0 57.957031 26 57.957031 57.957031zm-91.917969-173.253906c0-18.648437 15.234375-33.820312 33.957031-33.820312 18.726563 0 33.960938 15.171875 33.960938 33.820312 0 18.648438-15.234375 33.820313-33.960938 33.820313-18.722656 0-33.957031-15.171875-33.957031-33.820313zm367.9375 173.253906h-246.019531v-51.476562c0-32.316406-17.519531-60.613281-43.5625-75.902344 12.046875-11.613281 19.5625-27.882812 19.5625-45.875 0-35.191406-28.691407-63.820312-63.960938-63.820312-35.265625 0-63.960937 28.628906-63.960937 63.820312 0 17.992188 7.515625 34.261719 19.5625 45.875-26.039063 15.289063-43.5625 43.585938-43.5625 75.902344v51.476562h-30.058594v-262.742187h452zm0-292.742187h-452v-33.796875h452zm0 0"/>
+                                <path d="m289.421875 153.046875h148.332031c8.28125 0 15-6.71875 15-15 0-8.285156-6.71875-15-15-15h-148.332031c-8.28125 0-15 6.714844-15 15 0 8.28125 6.71875 15 15 15zm0 0"/>
+                                <path d="m289.421875 212.296875h148.332031c8.28125 0 15-6.71875 15-15 0-8.285156-6.71875-15-15-15h-148.332031c-8.28125 0-15 6.714844-15 15 0 8.28125 6.71875 15 15 15zm0 0"/>
+                                <path d="m289.421875 271.542969h148.332031c8.28125 0 15-6.714844 15-15 0-8.28125-6.71875-15-15-15h-148.332031c-8.28125 0-15 6.71875-15 15 0 8.285156 6.71875 15 15 15zm0 0"/>
+                                <path d="m289.421875 330.792969h148.332031c8.28125 0 15-6.714844 15-15 0-8.285157-6.71875-15-15-15h-148.332031c-8.28125 0-15 6.714843-15 15 0 8.285156 6.71875 15 15 15zm0 0"/>
+                              </svg>
+                            </span>
+                          </span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="deductions-more-deductions-tab" href="#deductions-more-deductions" data-toggle="tab" role="tab">
+                          More Deductions
+                          <span class="step-icon-wrap address">
+                            <span class="step-icon">
+                              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" x="0px" y="0px"
+                                 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                                <g>
+                                  <path d="M437.02,330.98c-27.883-27.882-61.071-48.523-97.281-61.018C378.521,243.251,404,198.548,404,148
+                                    C404,66.393,337.607,0,256,0S108,66.393,108,148c0,50.548,25.479,95.251,64.262,121.962
+                                    c-36.21,12.495-69.398,33.136-97.281,61.018C26.629,379.333,0,443.62,0,512h40c0-119.103,96.897-216,216-216s216,96.897,216,216
+                                    h40C512,443.62,485.371,379.333,437.02,330.98z M256,256c-59.551,0-108-48.448-108-108S196.449,40,256,40
+                                    c59.551,0,108,48.448,108,108S315.551,256,256,256z"/>
+                                </g>
+                              </svg>
+                            </span>
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="tab-content tab-wizard-content">
+                    <div class="tab-pane fade " id="deductions-section-80" role="tabpanel">
+                      <ul class="nav nav-tabs scrollTabs" id="" role="tablist">
+                        <li class="nav-item">
+                          <a class="nav-link active" id="deductions-section-80-upload-tab" data-toggle="tab" href="#deductions-section-80-upload" role="tab"aria-selected="true">Upload</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="deductions-section-80c-tab" data-toggle="tab" href="#deductions-section-80c" role="tab" aria-selected="false">Section 80C</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="deductions-section-80d-tab" data-toggle="tab" href="#deductions-section-80d" role="tab" aria-selected="false">Section 80D</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="deductions-section-80tta-tab" data-toggle="tab" href="#deductions-section-80tta" role="tab" aria-selected="false">Section 80TTA</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="deductions-section-80g-tab" data-toggle="tab" href="#deductions-section-80g" role="tab" aria-selected="false">Section 80G</a>
+                        </li>
+                      </ul>
+                      <div class="tab-content" id="">
+                        <div class="tab-pane fade show active" id="deductions-section-80-upload" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Select your document</h6>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group">
+                                <div class="input-group prepend custom-file-wrap">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">Choose File</span>
+                                  </div>
+                                  <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="inputGroupFile01">
+                                    <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-4">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">Enter Document Password</label>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group">
+                                <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="deductions-section-80c" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Investments under Section 80C</h6>
+                              <p class="text-muted">You can claim a deduction of upto ₹ 1,50,000 under this section. Add up all your 80C deduction and specify total amount here. Section 80C includes contributions to LIC / Insurance premium, PPF, EPF, NSC, ELSS Mutual Funds, Children school fees, Payment of Principal in Housing Loan & other eligible items. </p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group floating-label customDropdown">
+                                <select id="select2" name="select2" class="form-control">
+                                  <option value=""></option>
+                                  <option value="7">Children school fees</option>
+                                  <option value="6">ELSS Mutual Funds</option>
+                                  <option value="4">EPF</option>
+                                  <option value="2">LIC / Insurance premium</option>
+                                  <option value="5">NSC</option>
+                                  <option value="9">Other eligible items</option>
+                                  <option value="8">Payment of Principal in Housing Loan</option>
+                                  <option value="3">PPF</option>
+                                  <option value="10">Tax Saving FD</option>
+                                </select>
+                                <label for="select2">Investment Category <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group mb-0">
+                                <div class=" floating-label">
+                                  <div class="input-group prepend">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for="">Investment Amount <span class="text-danger required">*</span></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row mt-4">
+                            <div class="col-6">
+                              <button type="button" class="btn btn-outline-primary btn-sm">Add Investment <i class="fas fa-plus mx-2"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="deductions-section-80d" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Deductions for Medical Insurance</h6>
+                              <p class="text-muted">Deductions for Medical Insurance Premium or Preventive Health Check-Up Fees Paid by you.</p>
+                            </div>
+                          </div>
+                          <div class="assetsLists">
+                            <article>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Medical Insurance Premium for you, your spouse, or dependent children <span class="text-danger required">*</span>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group prepend position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Preventive Health Check-Up fees for you, your spouse, or dependent children <span class="text-danger required">*</span>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group prepend position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Medical Insurance Premium for your parents <span class="text-danger required">*</span>
+                                  <small class="d-block text-muted">Note: Amount upto Rs 30,000 in respect of Medical Expenditure of a very senior citizen (80 Yrs or more) shall be allowed under section 80D. Provided such person is not having a health insurance</small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group prepend position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Are your parents who hold the policy senior citizens?
+                                  <small class="d-block text-muted">60 years or older</small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="form-group floating-label customDropdown">
+                                    <select id="select2" name="select2" class="form-control">
+                                      <option value=""></option>
+                                      <option value="yes">Yes</option>
+                                      <option value="no">No</option>
+                                    </select>
+                                    <label for="select2">Are your parents who hold the policy senior citizens?</label>
+                                  </div>
+                                </div>
+                              </div>
+                            </article>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="deductions-section-80tta" role="tabpanel">
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group mb-0">
+                                <div class=" floating-label">
+                                  <div class="input-group prepend">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for="">Interest earned on Savings Bank Account <span class="text-danger required">*</span></label>
+                                  </div>
+                                </div>
+                              </div>
+                              <small class="d-block text-muted mt-2">You do not need to enter a value for the 80TTA deduction here. It up from your declared interest income from Savings Bank account and Post Office deposits.</small>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="deductions-section-80g" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Donee Details</h6>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">Name of Donee <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group">
+                                <div class=" floating-label">
+                                  <div class="input-group prepend">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for="">Donation Amount <span class="text-danger required">*</span></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">PAN of Donee <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group floating-label customDropdown">
+                                <select id="select2" name="select2" class="form-control">
+                                  <option value=""></option>
+                                  <option value="NoLimit">No Limit</option>
+                                  <option value="SubjectToIncome">Subject To Income</option>
+                                </select>
+                                <label for="select2">Limit of Deduction <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">Qualifying Percentage <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Address of Donee</h6>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">Address <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">Town / City <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group floating-label customDropdown">
+                                <select id="select2" name="select2" class="form-control">
+                                  <option value="89">India</option>
+                                </select>
+                                <label for="select2">Country <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group floating-label customDropdown">
+                                <select id="select2" name="select2" class="form-control">
+                                  <option value=""></option>
+                                  <option value="1243">Andhra Pradesh</option><option value="1244">Arunachal Pradesh</option><option value="1235">Assam</option><option value="1245">Bihar</option><option value="1246">Chhattisgarh</option><option value="1241">Delhi</option><option value="1236">Goa</option><option value="1247">Gujarat</option><option value="1248">Haryana</option><option value="1249">Himachal Pradesh</option><option value="1250">Jammu and Kashmir</option><option value="1251">Jharkhand</option><option value="1252">Karnataka</option><option value="1253">Kerala</option><option value="1237">Madhya Pradesh</option><option value="1254">Maharashtra</option><option value="1238">Manipur</option><option value="1239">Meghalaya</option><option value="1240">Mizoram</option><option value="1255">Nagaland</option><option value="1256">Odisha</option><option value="1257">Punjab</option><option value="1258">Rajasthan</option><option value="1242">Sikkim</option><option value="1259">Tamil Nadu</option><option value="1261">Telangana</option><option value="1262">Tripura</option><option value="1263">Union Territory of Andaman and Nicobar Islands</option><option value="1265">Union Territory of Dadra and Nagar Haveli</option><option value="1266">Union Territory of Daman and Diu</option><option value="1267">Union Territory of Lakshadweep</option><option value="1268">Union Territory of Puducherry</option><option value="1269">Uttar Pradesh</option><option value="1260">Uttarakhand</option><option value="1270">West Bengal</option>
+                                </select>
+                                <label for="">State <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="">
+                                <label for="">Pin Code <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row mt-4">
+                            <div class="col-6">
+                              <button type="button" class="btn btn-outline-primary btn-sm">Add Donee <i class="fas fa-plus mx-2"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade active show" id="deductions-more-deductions" role="tabpanel">
+                      <ul class="nav nav-tabs scrollTabs" id="" role="tablist">
+                        <li class="nav-item">
+                          <a class="nav-link active" id="deductions-section-80-upload-tab" data-toggle="tab" href="#deductions-section-80ccg" role="tab" aria-selected="true">Section 80CCG</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="deductions-section-80e-tab" data-toggle="tab" href="#deductions-section-80e" role="tab" aria-selected="false">Section 80E</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="deductions-section-80ccc-tab" data-toggle="tab" href="#deductions-section-80ccc" role="tab" aria-selected="false">Section 80CCC</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="deductions-section-80ccd-tab" data-toggle="tab" href="#deductions-section-80ccd" role="tab" aria-selected="false">Section 80CCD (1), (1B) and (2)</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="deductions-section-80gg-tab" data-toggle="tab" href="#deductions-section-80gg" role="tab" aria-selected="false">Section 80GG</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="deductions-section-80ddb-tab" data-toggle="tab" href="#deductions-section-80ddb" role="tab" aria-selected="false">Section 80DDB</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="deductions-section-80ee-tab" data-toggle="tab" href="#deductions-section-80ee" role="tab" aria-selected="false">Section 80EE</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="deductions-section-80qqb-tab" data-toggle="tab" href="#deductions-section-80qqb" role="tab" aria-selected="false">Section 80QQB</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="deductions-section-80rrb-tab" data-toggle="tab" href="#deductions-section-80rrb" role="tab" aria-selected="false">Section 80RRB</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="deductions-section-80gga-tab" data-toggle="tab" href="#deductions-section-80gga" role="tab" aria-selected="false">Section 80GGA</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="deductions-section-80ggc-tab" data-toggle="tab" href="#deductions-section-80ggc" role="tab" aria-selected="false">Section 80GGC</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="deductions-section-80u-tab" data-toggle="tab" href="#deductions-section-80u" role="tab" aria-selected="false">Section 80U</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="deductions-section-80dd-tab" data-toggle="tab" href="#deductions-section-80dd" role="tab" aria-selected="false">Section 80DD</a>
+                        </li>
+                      </ul>
+                      <div class="tab-content" id="">
+                        <div class="tab-pane fade show active" id="deductions-section-80-upload" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Rajiv Gandhi Equity Saving Scheme</h6>
+                            </div>
+                          </div>
+                          <div class="assetsLists">
+                            <article>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Investment made under Rajiv Gandhi Equity Saving Scheme <span class="text-danger required">*</span>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group prepend position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </article>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="deductions-section-80e" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Education Loan on higher studies (Graduate or PostGraduate)</h6>
+                              <p class="text-muted">You can claim tax deduction on the interest paid on an education loan for higher studies</p>
+                            </div>
+                          </div>
+                          <div class="assetsLists">
+                            <article>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Interest on higher education loan paid this year <span class="text-danger required">*</span>
+                                  <small class="d-block text-muted">Interest paid by you on loan taken out by you. Loan can be for yourself or your spouse or your children</small>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group prepend position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </article>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="deductions-section-80ccc" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Contribution to Pension Plan / Annuity Fund</h6>
+                            </div>
+                          </div>
+                          <div class="assetsLists">
+                            <article>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Contribution amount to Pension Plan / Annuity Fund for Section 80CCC <span class="text-danger required">*</span>
+                                </label>
+                                <div class="col-sm-4">
+                                  <div class="input-group prepend position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </article>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="deductions-section-80ccd" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Employee Contribution to New Pension Scheme (NPS)</h6>
+                              <p class="text-muted">Please enter your own contribution to NPS. It will be split into Section 80 CCD(1) and CCD(1B) in your tax return. The split will be optimised to give you maximum tax savings.</p>
+                            </div>
+                          </div>
+                          <div class="assetsLists">
+                            <article>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Contribution towards Section 80CCD(1) <span class="text-danger required">*</span></label>
+                                <div class="col-sm-4">
+                                  <div class="input-group prepend position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </article>
+                          </div>
+                          <div class="row form-group mb-0 mt-4">
+                            <div class="col">
+                              <h6>Employer Contribution in NPS</h6>
+                            </div>
+                          </div>
+                          <div class="assetsLists">
+                            <article>
+                              <div class="row form-group floating-label">
+                                <label for="" class="col-sm-8 col-form-label">Employers contribution towards NPS (upto 10% of Salary) <span class="text-danger required">*</span></label>
+                                <div class="col-sm-4">
+                                  <div class="input-group prepend position-relative">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for=""></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </article>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="deductions-section-80gg" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Deduction for House Rent. Self-employed or Salary with no HRA</h6>
+                              <p class="text-muted">Not a commonly applicable deduction. Please be careful while claiming. If you receive HRA benefit, then you cannot claim this deduction. If you are looking to claim HRA, this is NOT the section. Eligibility: Your spouse or minor child should not own House Property in same town where paying rent. Self occupied house property Interest deduction should not have been availed. </p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group mb-0">
+                                <div class=" floating-label">
+                                  <div class="input-group prepend">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for="">Rent Paid Per Month <span class="text-danger required">*</span></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group floating-label customDropdown">
+                                <select id="select2" name="select2" class="form-control">
+                                  <option value=""></option>
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                                  <option value="5">5</option>
+                                  <option value="6">6</option>
+                                  <option value="7">7</option>
+                                  <option value="8">8</option>
+                                  <option value="9">9</option>
+                                  <option value="10">10</option>
+                                  <option value="11">11</option>
+                                  <option value="12">12</option>
+                                </select>
+                                <label for="select2">Number of Months Rent Paid <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="deductions-section-80ddb" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Deductions for treatment of specified diseases and ailments</h6>
+                              <p class="text-muted">This deduction is for certain specified diseases. (It is not a commonly applicable deduction). Please be careful while claiming this deduction.</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group mb-0">
+                                <div class=" floating-label">
+                                  <div class="input-group prepend">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for="">Medical Treatment Costs for specified Diseases under Section 80DDB <span class="text-danger required">*</span></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group floating-label customDropdown">
+                                <select id="select2" name="select2" class="form-control">
+                                  <option value=""></option>
+                                  <option value="1">Below 60 years</option>
+                                  <option value="2">60 to 79 years</option>
+                                  <option value="3">80 years or above</option>
+                                </select>
+                                <label for="select2">Age of person for whom deduction is being claimed <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="deductions-section-80ee" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Interest on Home Loan</h6>
+                              <p class="text-muted">Deduction under section 80EE is available on interest on loan on your first house purchased. This purchase should be in the Financial Year 2016-17 (between April 1st, 2016 to March 31st 2017). The purchase price of the house can be upto ₹ 50 Lakhs and the total home loan can be upto ₹ 35 Lakhs.</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group mb-0">
+                                <div class=" floating-label">
+                                  <div class="input-group prepend">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for="">Deductions under Section 80EE <span class="text-danger required">*</span></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="deductions-section-80qqb" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Royalty Received on books</h6>
+                              <p class="text-muted">Deduction for Author of literary/scientific/artistic book. Royalty/copyright-fees/lump-sum consideration are eligible for deduction.</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group mb-0">
+                                <div class=" floating-label">
+                                  <div class="input-group prepend">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for="">Enter the deduction amount <span class="text-danger required">*</span></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="deductions-section-80rrb" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Income on Patents/Inventions</h6>
+                              <p class="text-muted">Deduction for Patentee - Royalty/transfer-of-rights/lump-sum consideration are eligible for deduction.</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group mb-0">
+                                <div class=" floating-label">
+                                  <div class="input-group prepend">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for="">Enter the deduction amount <span class="text-danger required">*</span></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="deductions-section-80gga" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Contribution To Research or Rural Development</h6>
+                              <p class="text-muted">For example, Helpage India or CRY are eligible under Section 80GGA.</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group mb-0">
+                                <div class=" floating-label">
+                                  <div class="input-group prepend">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for="">Contribution to Research & Development or Rural Development <span class="text-danger required">*</span></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="deductions-section-80ggc" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Contribution To Political Party</h6>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group mb-0">
+                                <div class=" floating-label">
+                                  <div class="input-group prepend">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for="">Contribution or Donations to Political Party <span class="text-danger required">*</span></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="deductions-section-80u" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Deduction for individuals or persons with disability</h6>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group floating-label customDropdown">
+                                <select id="select2" name="select2" class="form-control">
+                                  <option value=""></option>
+                                  <option value="3">Self with disability</option>
+                                  <option value="4">Self with severe disability</option>
+                                </select>
+                                <label for="select2">Type of Disability <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group mb-0">
+                                <div class=" floating-label">
+                                  <div class="input-group prepend">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for="">Amount <span class="text-danger required">*</span></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="deductions-section-80dd" role="tabpanel">
+                          <div class="row form-group mb-0">
+                            <div class="col">
+                              <h6>Deduction for individuals or persons having disabled dependents</h6>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group floating-label customDropdown">
+                                <select id="select2" name="select2" class="form-control">
+                                  <option value=""></option>
+                                  <option value="1">Dependent Person with Disability</option>
+                                  <option value="2">Dependent person with Severe Disability</option>
+                                </select>
+                                <label for="select2">Type of Disability <span class="text-danger required">*</span></label>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group mb-0">
+                                <div class=" floating-label">
+                                  <div class="input-group prepend">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for="">Amount <span class="text-danger required">*</span></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-actions d-flex">
+                    <div class="left mr-auto">
+                      <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
+                    </div>
+                    <div class="right ml-auto">
+                      <button type="button" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
+                      <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>
+                      <button type="button" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

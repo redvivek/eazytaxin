@@ -373,3 +373,15 @@ a:hover{text-decoration:none;}
 .dashboard .table td{font-size:12px;}
 .dashboard .yearlySumCard{min-height:289px;}
 .dashboard .yearlySumTable td .btn{padding:6px 12px;}
+
+
+/* Bos Border with Header Label - Companies */
+.boxBorderHeader{border:1px solid rgba(166, 181, 190, .4);padding:25px 30px;margin:30px 0;}
+.boxBorderHeader .boxHeader{margin:-36px 0 0;display:block;}
+.boxBorderHeader .boxHeader span{background-color:#FFF; padding-left:10px; padding-right:10px;}
+.boxBorderHeader .boxFooter{bottom:-29px;left:0;right:0;}
+.boxBorderHeader .boxFooter .button{padding:10px 25px;letter-spacing:0.02em; min-width:auto; text-transform:none;font-family:'Roboto', sans-serif;font-weight:400;background-color:#333;}
+.boxBorderHeader .boxFooter .button:hover{color:#333;}
+.boxBorderHeader .boxFooter .button img{margin-right:4px;}
+.boxBorderHeader li{padding:5px 10px 5px 28px;font:16px 'Roboto', sans-serif;position:relative;}
+.boxBorderHeader li img{position:absolute;left:0;top:7px;}

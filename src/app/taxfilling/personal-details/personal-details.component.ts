@@ -11,29 +11,34 @@ import { ScriptService,AuthenticationService,ApplicationService, AlertService } 
   styleUrls: ['./personal-details.component.css']
 })
 export class PersonalDetailsComponent implements OnInit {
+  //Initialize all sub forms
   personalDetailsForm: FormGroup;
   addressDetailsForm: FormGroup;
   bankDetailsForm: FormGroup;
   assestsDetailsForm: FormGroup;
+  
   loading = false;
+  //flag to check submitted event on each subform
   perSubmitted = false;
   addSubmitted = false;
   bankSubmitted = false;
   assSubmitted = false;
   submittedData = [];
   
+  //flag to by default active perinfo tab
   step2:boolean = true;
   step3:boolean = false;
   step4:boolean = false;
   step5:boolean = false;
-
+  //flag to by default active primary acc subtab
   step4_primary_bank_acc:boolean = true;
   step4_all_other_bank_acc:boolean = false;
-
+  //flag to by default active immovable assest subtab
   step5_immovable:boolean = true;
   step5_movable:boolean = false;
   step5_foreign:boolean = false;
 
+  //Global variables to save userdId and ApplictionID
   userId : number;
   ApplicationId : number;
 
