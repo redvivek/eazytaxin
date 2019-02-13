@@ -18,7 +18,7 @@
                   <div class="steps clearfix">
                     <ul class="nav " role="tablist">
                       <li class="nav-item">
-                        <a class="nav-link" [class.active]="step1 == true" (click)="select_form_step('step2')" id="income-salary-tab" href="#income-salary" data-toggle="tab" role="tab">
+                        <a class="nav-link active" [class.active]="step1 == true" (click)="select_form_step('step2')" id="income-salary-tab" href="#income-salary" data-toggle="tab" role="tab">
                           Salary
                           <span class="step-icon-wrap info">
                             <span class="step-icon">
@@ -95,14 +95,14 @@
                     <div class="tab-pane fade " id="income-salary" role="tabpanel" [ngClass]="{ 'show': step1 == true , 'active': step1 == true }">
                       <ul class="nav nav-tabs scrollTabs" id="" role="tablist">
                         <li class="nav-item">
-                          <a class="nav-link" id="income-salary-upload-tab"  data-toggle="tab" href="#income-salary-upload" role="tab" (click)="select_step1_subpart_form('income_salary_upload')" [class.active]="step1_income_salary_upload == true" aria-selected="true">Upload</a>
+                          <a class="nav-link active" id="income-salary-upload-tab"  data-toggle="tab" href="#income-salary-upload" role="tab" (click)="select_step1_subpart_form('income_salary_upload')" [class.active]="step1_income_salary_upload == true" aria-selected="true">Upload</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" id="income-from-salary-tab" data-toggle="tab" href="#income-from-salary" role="tab" (click)="select_step1_subpart_form('income_from_salary')" [class.active]="step1_income_from_salary == true" aria-selected="false">Income from Salary</a>
                         </li>
                       </ul>
                       <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade" id="income-salary-upload" role="tabpanel" [ngClass]="{ 'show': step1_income_salary_upload == true , 'active': step1_income_salary_upload == true }">
+                        <div class="tab-pane fade active show" id="income-salary-upload" role="tabpanel" [ngClass]="{ 'show': step1_income_salary_upload == true , 'active': step1_income_salary_upload == true }">
                           <div class="row form-group mb-0">
                             <div class="col">
                               <h6>Select your Form 16 document</h6>
@@ -358,7 +358,7 @@
                     <div class="tab-pane fade" id="income-other" role="tabpanel" [ngClass]="{ 'show': step2 == true , 'active': step2 == true }">
                       <ul class="nav nav-tabs scrollTabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                          <a class="nav-link" id="income-other-upload-tab" data-toggle="tab" href="#income-other-upload" role="tab" (click)="select_step2_subpart_form('income_other_upload')" [class.active]="step2_income_other_upload == true"  aria-selected="true">Upload</a>
+                          <a class="nav-link active" id="income-other-upload-tab" data-toggle="tab" href="#income-other-upload" role="tab" (click)="select_step2_subpart_form('income_other_upload')" [class.active]="step2_income_other_upload == true"  aria-selected="true">Upload</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" id="income-other-interest-income-tab" data-toggle="tab" href="#income-other-interest-income" role="tab" (click)="select_step2_subpart_form('income_interest')" [class.active]="step2_income_interest == true" aria-selected="false">Interest Income</a>
@@ -380,7 +380,7 @@
                         </li>
                       </ul>
                       <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade" id="income-other-upload" role="tabpanel" [ngClass]="{ 'show': step2_income_other_upload == true , 'active': step2_income_other_upload == true }">
+                        <div class="tab-pane fade active show" id="income-other-upload" role="tabpanel" [ngClass]="{ 'show': step2_income_other_upload == true , 'active': step2_income_other_upload == true }">
                           <div class="row form-group mb-0">
                             <div class="col">
                               <h6>Select your Form 16 document</h6>
