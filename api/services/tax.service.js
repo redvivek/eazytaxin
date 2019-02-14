@@ -7,6 +7,12 @@ const db = require('../config/dbConfig');
 var dateTime = require('node-datetime');
 
 const ApplicationMain = db.ApplicationMain;
+const PersonalDetails = db.PersonalDetails;
+const AddressDetails = db.AddressDetails
+const BankDetails = db.BankDetails;
+const AssetsDetails = db.AssetsDetails;
+const ImAssetsAddDetails = db.ImAssetsAddDetails;
+const AssetsAOPDetails = db.AssetsAOPDetails;
 const sequelize = db.sequelize;
 
 var dt = dateTime.create();
@@ -99,7 +105,7 @@ exports.fetchApplicationMainByAppId = (req,res)=>{
 };
 
 exports.saveBasicInfoByAppId = (req,res)=>{
-    let inputdata = req.body;
+    //let inputdata = req.body;
     let appid = req.body.appId;
     let userid = req.body.userId;
     let incomeFromSalary = req.body.incomeFromSalary;
@@ -115,8 +121,8 @@ exports.saveBasicInfoByAppId = (req,res)=>{
     let updateAt = formattedDT;
 
     //update basic info flags to et_applicationsmain table */
-    sequelize.query("UPDATE `et_applicationsmain` SET IncomeSalaryFlag = ?, IncomeOthersFlag = ?, IncomeHouseFlag = ?, IncomeRentalFlag=?, IncomeCapitalGainsFlag=?, DeductionsFlag=?, ResidentIndianFlag=?, NonResidentIndianFlag=?, OciResidentIndianFlag=?, PresentIndiaFlag=?, updatedAt = ?, ApplicationStage=? WHERE ApplicationId = ? AND UserId = ? ",{
-        replacements: [incomeFromSalary,incomeFromOtherSources,selfOccupiedProp,rentalProperty,incomeFromCapitals,deductionsFlag,residentIndianFlag,nonResidentIndianFlag,ociResidentIndianFlag,presentIndiaFlag,updateAt,2,appid,userid],
+    sequelize.query("UPDATE `et_applicationsmain` SET IncomeSalaryFlag = ?, IncomeOthersFlag = ?, IncomeHouseFlag = ?, IncomeRentalFlag=?, IncomeCapitalGainsFlag=?, DeductionsFlag=?, ResidentIndianFlag=?, NonResidentIndianFlag=?, OciResidentIndianFlag=?, PresentIndiaFlag=?, updatedAt = ?, ApplicationStage=?, ApplicationStatus=? WHERE ApplicationId = ? AND UserId = ? ",{
+        replacements: [incomeFromSalary,incomeFromOtherSources,selfOccupiedProp,rentalProperty,incomeFromCapitals,deductionsFlag,residentIndianFlag,nonResidentIndianFlag,ociResidentIndianFlag,presentIndiaFlag,updateAt,2,'Progress',appid,userid],
         type: sequelize.QueryTypes.UPDATE 
     }).then(result => {		
         console.log("Result AppId  "+result);
@@ -129,7 +135,73 @@ exports.saveBasicInfoByAppId = (req,res)=>{
 };
 
 exports.savePersonalInfoByAppId = (req,res)=>{
-    res.status(200);
+    //res.status(200);
+    //let inputdata = req.body;
+    let appid = req.body.appId;
+    let userid = req.body.userId;
+    let firstName = req.body.Firstname;
+    let lastName = req.body.Lastname;
+    let middleName = req.body.Middlename;
+    let emailId = req.body.EmailId;
+    let fatherName = req.body.Fathername;
+    let mob = req.body.MobileNo;
+    let altMob = req.body.AltMobileNo;
+    let dob = req.body.DateOfBirth;
+    let gender = req.body.Gender;
+    let empName = req.body.EmployerName;
+    let empType = req.body.EmployerType;
+    let panNumber = req.body.PanNumber;
+    let aadharNumber = req.body.AadharNumber;
+    let passportNumber = req.body.PassportNumber;
+    let updateAt = formattedDT;
+
+    PersonalDetails.findOne(
+		{ where: {UserId:userid,ApplicationId: appid} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Personal Details  "+JSON.stringify(resultData));
+            PersonalDetails.destroy({
+                where: { PersonalDetailsId: resultData.PersonalDetailsId}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + resultData.PersonalDetailsId);
+                sequelize.query("INSERT INTO `et_personaldetails`(ApplicationId,UserId,Firstname,Middlename,Lastname,EmailId,Fathername,MobileNo,AltMobileNo,DateOfBirth,Gender,EmployerName,EmployerType,PanNumber,AadharNumber,PassportNumber,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,firstName,middleName,lastName,emailId,fatherName,mob,altMob,dob,gender,empName,empType,panNumber,aadharNumber,passportNumber,updateAt,'Yes'],
+                    type: sequelize.QueryTypes.INSERT 
+                }).then(result => {		
+                    console.log("Result AppId  "+result[0]);
+                    //update flags to et_applicationsmain table */
+                    updateApplicationMain(appid,userid,4);
+
+                    res.json({"statusCode": 200,"Message": "Successful Request","PerInfoId":result[0]});
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    res.status(400).send(err);
+                });
+            });
+        } else {
+			//res.status(200);
+			//Save to et_personaldetails table */
+			sequelize.query("INSERT INTO `et_personaldetails`(ApplicationId,UserId,Firstname,Middlename,Lastname,EmailId,Fathername,MobileNo,AltMobileNo,DateOfBirth,Gender,EmployerName,EmployerType,PanNumber,AadharNumber,PassportNumber,createdAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,firstName,middleName,lastName,emailId,fatherName,mob,altMob,dob,gender,empName,empType,panNumber,aadharNumber,passportNumber,updateAt,'Yes'],
+                type: sequelize.QueryTypes.INSERT 
+            }).then(result => {		
+                console.log("Result AppId  "+result[0]);
+                //update flags to et_applicationsmain table */
+                updateApplicationMain(appid,userid,4);
+                res.json({"statusCode": 200,"Message": "Successful Request","PerInfoId":result[0]});
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
 };
 
 exports.saveAddressInfoByAppId = (req,res)=>{
@@ -147,3 +219,17 @@ exports.saveAssestsInfoByAppId = (req,res)=>{
 exports.fetchDashboardInfo = (req,res)=>{
     res.status(200);
 }
+
+//update flags to et_applicationsmain table */
+function updateApplicationMain(appid,userid,appStage){
+    sequelize.query("UPDATE `et_applicationsmain` SET updatedAt=?,ApplicationStage=? WHERE ApplicationId = ? AND UserId = ? ",{
+        replacements: [formattedDT,appStage,appid,userid],
+        type: sequelize.QueryTypes.UPDATE 
+    }).then(result => {		
+        console.log("Result AppId  "+result);
+    })
+    .catch(function (err) {
+        console.log("Error in app main update "+err);
+    });
+};
+

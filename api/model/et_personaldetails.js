@@ -37,15 +37,15 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     MobileNo: {
-      type: DataTypes.INTEGER(12),
+      type: DataTypes.STRING(12),
       allowNull: false
     },
     AltMobileNo: {
-      type: DataTypes.INTEGER(12),
+      type: DataTypes.STRING(12),
       allowNull: true
     },
     landlineNo: {
-      type: DataTypes.INTEGER(12),
+      type: DataTypes.STRING(12),
       allowNull: true
     },
     DateOfBirth: {
@@ -69,19 +69,19 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     AadharNumber: {
-      type: DataTypes.INTEGER(12),
-      allowNull: true
+      type: DataTypes.STRING(16),
+      allowNull: false
     },
     PassportNumber: {
       type: DataTypes.STRING(8),
       allowNull: true
     },
-    CreatedDate: {
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
-    ModifiedDate: {
+    updatedAt: {
       type: DataTypes.DATE,
       allowNull: true
     },

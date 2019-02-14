@@ -18,6 +18,7 @@ export class BasicInformationComponent implements OnInit {
   userId: number;
   ApplicationId : number;
   AppMainDetails : Basicinfo;
+  localStoreg = JSON.parse(localStorage.getItem("currentUserApp"));
 
   constructor(
     private formBuilder: FormBuilder,
@@ -129,6 +130,9 @@ export class BasicInformationComponent implements OnInit {
                 if(data['statusCode'] == 200){                  
                     this.alertService.error('Application - BasicInfo data saved successfully');
                     this.loading = false;
+                    this.localStoreg['applicationStage'] = 4;
+                    localStorage.removeItem("currentUserApp");
+                    localStorage.setItem("currentUserApp", JSON.stringify(this.localStoreg));
                     this.router.navigate(['taxfilling/personalinfo']);
                 }
             },

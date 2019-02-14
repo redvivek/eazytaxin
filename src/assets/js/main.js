@@ -39,7 +39,7 @@ $(document).delegate('.sidebartoggler', "click", function (e) {
 //     triggerScrollingTab.trigger( 'click' );
 // });
 
-function triggerScrollingTab(){
+/* function triggerScrollingTab(){
   $('.scrollTabs').scrollingTabs({
     bootstrapVersion: 4,
     // scrollToActiveTab: true,
@@ -48,5 +48,5 @@ function triggerScrollingTab(){
     rightArrowContent: ['<div class="scrtabs-tab-scroll-arrow scrtabs-tab-scroll-arrow-right"><i class="fas fa-angle-right"></i></div>'].join('')
   });  
 }
-triggerScrollingTab();
+triggerScrollingTab(); */
 

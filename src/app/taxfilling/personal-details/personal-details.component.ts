@@ -42,6 +42,8 @@ export class PersonalDetailsComponent implements OnInit {
   userId : number;
   ApplicationId : number;
 
+  localStoreg = JSON.parse(localStorage.getItem("currentUserApp"));
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -158,39 +160,49 @@ export class PersonalDetailsComponent implements OnInit {
     console.log('SUCCESS!! :-)\n\n' + JSON.stringify(formname.value))
       switch(infoType){
         case "personalinfo":
-        perInfoInputParam = {
-            'appId':this.ApplicationId,
-            'userId':this.userId,
-            "Firstname":this.f.Firstname.value,
-            "Lastname":this.f.Lastname.value,
-            "Middlename":this.f.Middlename.value,
-            "EmailId":this.f.EmailId.value,
-            "Fathername":this.f.Fathername.value,
-            "MobileNo":this.f.MobileNo.value,
-            "AltMobileNo":this.f.AltMobileNo.value,
-            "DateOfBirth":this.f.DateOfBirth.value,
-            "Gender":this.f.Gender.value,
-            "EmployerName":this.f.EmployerName.value,
-            "EmployerType":this.f.EmployerType.value,
-            "PanNumber":this.f.PanNumber.value,
-            "AadharNumber":this.f.AadharNumber.value,
-            "PassportNumber":this.f.PassportNumber.value
-          };
-          this.submittedData.push({"addressInfoData":perInfoInputParam});
-          // start storing application data in database
-          this.appService.savePersonalInfoData(perInfoInputParam)
-          .pipe(first())
-          .subscribe(
-            data => {
-                    console.log("Response" + JSON.stringify(data));
-                    //successfully inserted
-                    if(data['statusCode'] == 200){                  
-                        this.alertService.error('Application - Personal Info data saved successfully');
-                    }
-                },
-            error => {
-                this.alertService.error(error);
-            });
+          perInfoInputParam = {
+              'appId':this.ApplicationId,
+              'userId':this.userId,
+              "Firstname":this.f.Firstname.value,
+              "Lastname":this.f.Lastname.value,
+              "Middlename":this.f.Middlename.value,
+              "EmailId":this.f.EmailId.value,
+              "Fathername":this.f.Fathername.value,
+              "MobileNo":this.f.MobileNo.value,
+              "AltMobileNo":this.f.AltMobileNo.value,
+              "DateOfBirth":this.f.DateOfBirth.value,
+              "Gender":this.f.Gender.value,
+              "EmployerName":this.f.EmployerName.value,
+              "EmployerType":this.f.EmployerType.value,
+              "PanNumber":this.f.PanNumber.value,
+              "AadharNumber":this.f.AadharNumber.value,
+              "PassportNumber":this.f.PassportNumber.value
+            };
+            this.submittedData.push({"personalInfoData":perInfoInputParam});
+            // start storing application data in database
+            this.appService.savePersonalInfoData(perInfoInputParam)
+            .pipe(first())
+            .subscribe(
+              data => {
+                      console.log("Response" + JSON.stringify(data));
+                      //successfully inserted
+                      if(data['statusCode'] == 200){                  
+                          this.alertService.success('Application - Personal Info data saved successfully');
+                          this.localStoreg['perInfoId'] = data['PerInfoId'];
+                          this.localStoreg['applicationStage'] = 4;
+                          this.localStoreg['appStatus'] = 'progress';
+                          //console.log("LocalStore" + JSON.stringify(this.localStoreg));
+                          localStorage.removeItem("currentUserApp");
+                          localStorage.setItem("currentUserApp", JSON.stringify(this.localStoreg));
+                          this.step2 = false;
+                          this.step3 = true;
+                          this.step4 = false;
+                          this.step5 = false;
+                      }
+                  },
+              error => {
+                this.alertService.error('Application - Personal Info data save request failed');
+              });
         break;
         case "addressinfo":
         addInfoInputParam = {
@@ -374,10 +386,6 @@ export class PersonalDetailsComponent implements OnInit {
         return;
       }else{
         this.onSubmit(this.personalDetailsForm,'personalinfo');
-        this.step2 = false;
-        this.step3 = true;
-        this.step4 = false;
-        this.step5 = false;
       }
     }
   }
