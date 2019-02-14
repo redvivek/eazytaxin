@@ -34,7 +34,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="deductions-more-deductions-tab" href="#deductions-more-deductions" data-toggle="tab" role="tab">
+                        <a class="nav-link " id="deductions-more-deductions-tab" href="#deductions-more-deductions" data-toggle="tab" role="tab">
                           More Deductions
                           <span class="step-icon-wrap address">
                             <span class="step-icon">
@@ -80,7 +80,7 @@
                   <div class="tab-content tab-wizard-content">
                     <h6><span class="text-danger required">*(If it is not part of Form 16B) </span></h6>
                     <!-- Main Deduction tab start-->
-                    <div class="tab-pane fade active show " id="deductions-section-80" role="tabpanel">
+                    <div class="tab-pane fade active show" id="deductions-section-80" role="tabpanel">
                       <form id="mainDeductionForm" [formGroup]="mainDeductionForm">
                         <!--Checkboxes starts-->
                         <div class="row form-group mb-0">
@@ -88,24 +88,22 @@
                             <h6>Select Deduction Categories : For Additional Declaration</h6>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" id="section80C" value="section80C">
-                              <label class="custom-control-label" for="section80C">Section 80C</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" id="section80D" value="section80D">
-                              <label class="custom-control-label" for="section80D">Section 80D</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" id="section80TTA" value="section80TTA">
-                              <label class="custom-control-label" for="section80TTA">Section 80TTA</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" id="section80G" value="section80G">
-                              <label class="custom-control-label" for="section80G">Section 80G</label>
-                            </div>
+                        <div class="d-flex flex-wrap boxBorderHeader bg-light">
+                          <div class="custom-control custom-checkbox col-3">
+                            <input type="checkbox" class="custom-control-input" id="section80C" value="section80C">
+                            <label class="custom-control-label" for="section80C">Section 80C</label>
+                          </div>
+                          <div class="custom-control custom-checkbox col-3">
+                            <input type="checkbox" class="custom-control-input" id="section80D" value="section80D">
+                            <label class="custom-control-label" for="section80D">Section 80D</label>
+                          </div>
+                          <div class="custom-control custom-checkbox col-3">
+                            <input type="checkbox" class="custom-control-input" id="section80TTA" value="section80TTA">
+                            <label class="custom-control-label" for="section80TTA">Section 80TTA</label>
+                          </div>
+                          <div class="custom-control custom-checkbox col-3">
+                            <input type="checkbox" class="custom-control-input" id="section80G" value="section80G">
+                            <label class="custom-control-label" for="section80G">Section 80G</label>
                           </div>
                         </div>
                         <!--Checkboxes ends-->
@@ -417,64 +415,62 @@
                             <h6>Select Deduction Categories : For Additional Declaration</h6>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" id="section80CCCG" value="section80CCCG">
-                              <label class="custom-control-label" for="section80CCCG">Section 80CCG</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" id="section80E" value="section80E">
-                              <label class="custom-control-label" for="section80E">Section 80E</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" id="section80CCA" value="section80CCA">
-                              <label class="custom-control-label" for="section80CCA">Section 80CCC</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" id="section80CCD-1-1B" value="section80CCD-1-1B">
-                              <label class="custom-control-label" for="section80CCD-1-1B">Section 80CCD (1) and (1B)</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" id="section80CCD" value="section80CCD">
-                              <label class="custom-control-label" for="section80CCD">Section 80CCD</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" id="section80GG" value="section80GG">
-                              <label class="custom-control-label" for="section80GG">Section 80GG</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" id="section80DDB" value="section80DDB">
-                              <label class="custom-control-label" for="section80DDB">Section 80DDB</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" id="section80EE" value="section80EE">
-                              <label class="custom-control-label" for="section80EE">Section 80EE</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" id="section80QQB" value="section80QQB">
-                              <label class="custom-control-label" for="section80QQB">Section 80QQB</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" id="section80RRB" value="section80RRB">
-                              <label class="custom-control-label" for="section80RRB">Section 80RRB</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" id="section80GGA" value="section80GGA">
-                              <label class="custom-control-label" for="section80GGA">Section 80GGA</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" id="section80GGC" value="section80GGC">
-                              <label class="custom-control-label" for="section80GGC">Section 80GGC</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" id="section80U" value="section80U">
-                              <label class="custom-control-label" for="section80U">Section 80U</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" id="section80DD" value="section80DD">
-                              <label class="custom-control-label" for="section80DD">Section 80DD</label>
-                            </div>
+                        <div class="d-flex flex-wrap boxBorderHeader bg-light">
+                          <div class="custom-control custom-checkbox col-3">
+                            <input type="checkbox" class="custom-control-input" id="section80CCCG" value="section80CCCG">
+                            <label class="custom-control-label" for="section80CCCG">Section 80CCG</label>
+                          </div>
+                          <div class="custom-control custom-checkbox col-3">
+                            <input type="checkbox" class="custom-control-input" id="section80E" value="section80E">
+                            <label class="custom-control-label" for="section80E">Section 80E</label>
+                          </div>
+                          <div class="custom-control custom-checkbox col-3">
+                            <input type="checkbox" class="custom-control-input" id="section80CCA" value="section80CCA">
+                            <label class="custom-control-label" for="section80CCA">Section 80CCC</label>
+                          </div>
+                          <div class="custom-control custom-checkbox col-3">
+                            <input type="checkbox" class="custom-control-input" id="section80CCD-1-1B" value="section80CCD-1-1B">
+                            <label class="custom-control-label" for="section80CCD-1-1B">Section 80CCD (1) and (1B)</label>
+                          </div>
+                          <div class="custom-control custom-checkbox col-3">
+                            <input type="checkbox" class="custom-control-input" id="section80CCD" value="section80CCD">
+                            <label class="custom-control-label" for="section80CCD">Section 80CCD</label>
+                          </div>
+                          <div class="custom-control custom-checkbox col-3">
+                            <input type="checkbox" class="custom-control-input" id="section80GG" value="section80GG">
+                            <label class="custom-control-label" for="section80GG">Section 80GG</label>
+                          </div>
+                          <div class="custom-control custom-checkbox col-3">
+                            <input type="checkbox" class="custom-control-input" id="section80DDB" value="section80DDB">
+                            <label class="custom-control-label" for="section80DDB">Section 80DDB</label>
+                          </div>
+                          <div class="custom-control custom-checkbox col-3">
+                            <input type="checkbox" class="custom-control-input" id="section80EE" value="section80EE">
+                            <label class="custom-control-label" for="section80EE">Section 80EE</label>
+                          </div>
+                          <div class="custom-control custom-checkbox col-3">
+                            <input type="checkbox" class="custom-control-input" id="section80QQB" value="section80QQB">
+                            <label class="custom-control-label" for="section80QQB">Section 80QQB</label>
+                          </div>
+                          <div class="custom-control custom-checkbox col-3">
+                            <input type="checkbox" class="custom-control-input" id="section80RRB" value="section80RRB">
+                            <label class="custom-control-label" for="section80RRB">Section 80RRB</label>
+                          </div>
+                          <div class="custom-control custom-checkbox col-3">
+                            <input type="checkbox" class="custom-control-input" id="section80GGA" value="section80GGA">
+                            <label class="custom-control-label" for="section80GGA">Section 80GGA</label>
+                          </div>
+                          <div class="custom-control custom-checkbox col-3">
+                            <input type="checkbox" class="custom-control-input" id="section80GGC" value="section80GGC">
+                            <label class="custom-control-label" for="section80GGC">Section 80GGC</label>
+                          </div>
+                          <div class="custom-control custom-checkbox col-3">
+                            <input type="checkbox" class="custom-control-input" id="section80U" value="section80U">
+                            <label class="custom-control-label" for="section80U">Section 80U</label>
+                          </div>
+                          <div class="custom-control custom-checkbox col-3">
+                            <input type="checkbox" class="custom-control-input" id="section80DD" value="section80DD">
+                            <label class="custom-control-label" for="section80DD">Section 80DD</label>
                           </div>
                         </div>
                         <!--Checkboxes ends-->
@@ -529,277 +525,290 @@
                             </div>
                           </div>
                         </div>
-                        <!--Section 80CCG form ends-->
+                        <!--Section 80E form ends-->
 
-                        <div class="tab-pane fade show active" id="section_80CCC">
-                          <div class="row form-group mb-0">
-                            <div class="col">
-                              <h6>Section 80CCC - Contribution to Pension Plan / Annuity Fund</h6>
-                            </div>
+                        <!--Section 80CCC form starts-->
+                        <div class="boxBorderHeader px-5 py5 my-5 position-relative" id="section_80CCC">
+                          <div class="text-uppercase boxHeader text-center">
+                            <span class="d-inline-block"><h6>Section 80CCC - Contribution to Pension Plan / Annuity Fund</h6></span>
                           </div>
-                          <div class="assetsLists">
-                            <article>
-                              <div class="row form-group floating-label">
-                                <label for="" class="col-sm-8 col-form-label">Contribution amount to Pension Plan / Annuity Fund for Section 80CCC <span class="text-danger required">*</span>
-                                </label>
-                                <div class="col-sm-4">
-                                  <div class="input-group prepend position-relative">
-                                    <div class="input-group-prepend">
-                                      <div class="input-group-text">₹</div>
+                          <div class="boxBody">
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group mb-0">
+                                  <div class=" floating-label">
+                                    <div class="input-group prepend">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text">₹</div>
+                                      </div>
+                                      <input type="text" class="form-control" id="" placeholder="">
+                                      <label for="">Contribution amount to Pension Plan / Annuity Fund for Section 80CCC <span class="text-danger required">*</span></label>
                                     </div>
-                                    <input type="text" class="form-control" id="" placeholder="">
-                                    <label for=""></label>
-                                  </div>
-                                </div>
-                              </div>
-                            </article>
-                          </div>
-                        </div>
-
-                        <div class="tab-pane fade  show active" id="section_80CCD">
-                          <div class="row form-group mb-0">
-                            <div class="col">
-                              <h6>Section 80CCD (1) and (1B) - Employee Contribution to New Pension Scheme (NPS)</h6>
-                              <p class="text-muted">Please enter your own contribution to NPS. It will be split into Section 80 CCD(1) and CCD(1B) in your tax return. The split will be optimised to give you maximum tax savings.</p>
-                            </div>
-                          </div>
-                          <div class="assetsLists">
-                            <article>
-                              <div class="row form-group floating-label">
-                                <label for="" class="col-sm-8 col-form-label">Contribution towards Section 80CCD(1) <span class="text-danger required">*</span></label>
-                                <div class="col-sm-4">
-                                  <div class="input-group prepend position-relative">
-                                    <div class="input-group-prepend">
-                                      <div class="input-group-text">₹</div>
-                                    </div>
-                                    <input type="text" class="form-control" id="" placeholder="">
-                                    <label for=""></label>
-                                  </div>
-                                </div>
-                              </div>
-                            </article>
-                          </div>
-                          <div class="row form-group mb-0 mt-4">
-                            <div class="col">
-                              <h6>Section 80CCD(2) - Employer Contribution in NPS</h6>
-                            </div>
-                          </div>
-                          <div class="assetsLists">
-                            <article>
-                              <div class="row form-group floating-label">
-                                <label for="" class="col-sm-8 col-form-label">Employers contribution towards NPS (upto 10% of Salary) <span class="text-danger required">*</span></label>
-                                <div class="col-sm-4">
-                                  <div class="input-group prepend position-relative">
-                                    <div class="input-group-prepend">
-                                      <div class="input-group-text">₹</div>
-                                    </div>
-                                    <input type="text" class="form-control" id="" placeholder="">
-                                    <label for=""></label>
-                                  </div>
-                                </div>
-                              </div>
-                            </article>
-                          </div>
-                        </div>
-
-                        <div class="tab-pane fade show active" id="section_80GG">
-                          <div class="row form-group mb-0">
-                            <div class="col">
-                              <h6>Section 80GG - Deduction for House Rent. Self-employed or Salary with no HRA</h6>
-                              <p class="text-muted">Not a commonly applicable deduction. Please be careful while claiming. If you receive HRA benefit, then you cannot claim this deduction. If you are looking to claim HRA, this is NOT the section. Eligibility: Your spouse or minor child should not own House Property in same town where paying rent. Self occupied house property Interest deduction should not have been availed. </p>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col">
-                              <div class="form-group mb-0">
-                                <div class=" floating-label">
-                                  <div class="input-group prepend">
-                                    <div class="input-group-prepend">
-                                      <div class="input-group-text">₹</div>
-                                    </div>
-                                    <input type="text" class="form-control" id="" placeholder="">
-                                    <label for="">Rent Paid Per Month <span class="text-danger required">*</span></label>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col">
-                              <div class="form-group floating-label customDropdown">
-                                <select id="select2" name="select2" class="form-control">
-                                  <option value=""></option>
-                                  <option value="1">1</option>
-                                  <option value="2">2</option>
-                                  <option value="3">3</option>
-                                  <option value="4">4</option>
-                                  <option value="5">5</option>
-                                  <option value="6">6</option>
-                                  <option value="7">7</option>
-                                  <option value="8">8</option>
-                                  <option value="9">9</option>
-                                  <option value="10">10</option>
-                                  <option value="11">11</option>
-                                  <option value="12">12</option>
-                                </select>
-                                <label for="select2">Number of Months Rent Paid <span class="text-danger required">*</span></label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="tab-pane fade show active" id="section_80DDB">
-                          <div class="row form-group mb-0">
-                            <div class="col">
-                              <h6>Section 80DDB - Deductions for treatment of specified diseases and ailments</h6>
-                              <p class="text-muted">This deduction is for certain specified diseases. (It is not a commonly applicable deduction). Please be careful while claiming this deduction.</p>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col">
-                              <div class="form-group mb-0">
-                                <div class=" floating-label">
-                                  <div class="input-group prepend">
-                                    <div class="input-group-prepend">
-                                      <div class="input-group-text">₹</div>
-                                    </div>
-                                    <input type="text" class="form-control" id="" placeholder="">
-                                    <label for="">Medical Treatment Costs for specified Diseases under Section 80DDB <span class="text-danger required">*</span></label>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col">
-                              <div class="form-group floating-label customDropdown">
-                                <select id="select2" name="select2" class="form-control">
-                                  <option value=""></option>
-                                  <option value="1">Below 60 years</option>
-                                  <option value="2">60 to 79 years</option>
-                                  <option value="3">80 years or above</option>
-                                </select>
-                                <label for="select2">Age of person for whom deduction is being claimed <span class="text-danger required">*</span></label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="tab-pane fade show active" id="section_80EE">
-                          <div class="row form-group mb-0">
-                            <div class="col">
-                              <h6>Section 80EE - Interest on Home Loan</h6>
-                              <p class="text-muted">Deduction under section 80EE is available on interest on loan on your first house purchased. This purchase should be in the Financial Year 2016-17 (between April 1st, 2016 to March 31st 2017). The purchase price of the house can be upto ₹ 50 Lakhs and the total home loan can be upto ₹ 35 Lakhs.</p>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-6">
-                              <div class="form-group mb-0">
-                                <div class=" floating-label">
-                                  <div class="input-group prepend">
-                                    <div class="input-group-prepend">
-                                      <div class="input-group-text">₹</div>
-                                    </div>
-                                    <input type="text" class="form-control" id="" placeholder="">
-                                    <label for="">Deductions under Section 80EE <span class="text-danger required">*</span></label>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
+                        <!--Section 80CCC form ends-->
 
-                        <div class="tab-pane fade show active" id="section_80QQB">
-                          <div class="row form-group mb-0">
-                            <div class="col">
-                              <h6>Section 80QQB - Royalty Received on books</h6>
+                        <!--Section 80CCD form starts-->
+                        <div class="boxBorderHeader px-5 py5 my-5 position-relative" id="section_80CCD">
+                          <div class="text-uppercase boxHeader text-center">
+                            <span class="d-inline-block"><h6>Section 80CCD (1) and (1B) - Employee Contribution to New Pension Scheme (NPS)</h6></span>
+                          </div>
+                          <div class="boxBody">
+                            <p class="text-muted">Please enter your own contribution to NPS. It will be split into Section 80 CCD(1) and CCD(1B) in your tax return. The split will be optimised to give you maximum tax savings.</p>
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group mb-0">
+                                  <div class=" floating-label">
+                                    <div class="input-group prepend">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text">₹</div>
+                                      </div>
+                                      <input type="text" class="form-control" id="" placeholder="">
+                                      <label for="">Contribution towards Section 80CCD(1) <span class="text-danger required">*</span></label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row form-group mb-0 mt-4">
+                              <div class="col">
+                                <h6>Section 80CCD(2) - Employer Contribution in NPS</h6>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group mb-0">
+                                  <div class=" floating-label">
+                                    <div class="input-group prepend">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text">₹</div>
+                                      </div>
+                                      <input type="text" class="form-control" id="" placeholder="">
+                                      <label for="">Employers contribution towards NPS (upto 10% of Salary) <span class="text-danger required">*</span></label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--Section 80CCD form ends-->
+
+                        <!--Section 80GG form starts-->
+                        <div class="boxBorderHeader px-5 py5 my-5 position-relative" id="section_80GG">
+                          <div class="text-uppercase boxHeader text-center">
+                            <span class="d-inline-block"><h6>Section 80GG - Deduction for House Rent. Self-employed or Salary with no HRA</h6></span>
+                          </div>
+                          <div class="boxBody">
+                            <p class="text-muted">Not a commonly applicable deduction. Please be careful while claiming. If you receive HRA benefit, then you cannot claim this deduction. If you are looking to claim HRA, this is NOT the section. Eligibility: Your spouse or minor child should not own House Property in same town where paying rent. Self occupied house property Interest deduction should not have been availed. </p>
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group mb-0">
+                                  <div class=" floating-label">
+                                    <div class="input-group prepend">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text">₹</div>
+                                      </div>
+                                      <input type="text" class="form-control" id="" placeholder="">
+                                      <label for="">Rent Paid Per Month <span class="text-danger required">*</span></label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col">
+                                <div class="form-group floating-label customDropdown">
+                                  <select id="select2" name="select2" class="form-control">
+                                    <option value=""></option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                  </select>
+                                  <label for="select2">Number of Months Rent Paid <span class="text-danger required">*</span></label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--Section 80GG form ends-->
+
+                        <!--Section 80DDB form starts-->
+                        <div class="boxBorderHeader px-5 py5 my-5 position-relative" id="section_80DDB">
+                          <div class="text-uppercase boxHeader text-center">
+                            <span class="d-inline-block"><h6>Section 80DDB - Deductions for treatment of specified diseases and ailments</h6></span>
+                          </div>
+                          <div class="boxBody">
+                            <p class="text-muted text-center">This deduction is for certain specified diseases. (It is not a commonly applicable deduction). Please be careful while claiming this deduction.</p>
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group mb-0">
+                                  <div class=" floating-label">
+                                    <div class="input-group prepend">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text">₹</div>
+                                      </div>
+                                      <input type="text" class="form-control" id="" placeholder="">
+                                      <label for="">Medical Treatment Costs for specified Diseases under Section 80DDB <span class="text-danger required">*</span></label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col">
+                                <div class="form-group floating-label customDropdown">
+                                  <select id="select2" name="select2" class="form-control">
+                                    <option value=""></option>
+                                    <option value="1">Below 60 years</option>
+                                    <option value="2">60 to 79 years</option>
+                                    <option value="3">80 years or above</option>
+                                  </select>
+                                  <label for="select2">Age of person for whom deduction is being claimed <span class="text-danger required">*</span></label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--Section 80DDB form ends-->
+
+                        <!--Section 80EE form starts-->
+                        <div class="boxBorderHeader px-5 py5 my-5 position-relative" id="section_80EE">
+                          <div class="text-uppercase boxHeader text-center">
+                            <span class="d-inline-block"><h6>Section 80EE - Interest on Home Loan</h6></span>
+                          </div>
+                          <div class="boxBody">
+                            <p class="text-muted">Deduction under section 80EE is available on interest on loan on your first house purchased. This purchase should be in the Financial Year 2016-17 (between April 1st, 2016 to March 31st 2017). The purchase price of the house can be upto ₹ 50 Lakhs and the total home loan can be upto ₹ 35 Lakhs.</p>
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group mb-0">
+                                  <div class=" floating-label">
+                                    <div class="input-group prepend">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text">₹</div>
+                                      </div>
+                                      <input type="text" class="form-control" id="" placeholder="">
+                                      <label for="">Deductions under Section 80EE <span class="text-danger required">*</span></label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--Section 80EE form ends-->
+
+                        <!--Section 80QQB form starts-->
+                        <div class="boxBorderHeader px-5 py5 my-5 position-relative" id="section_80QQB">
+                          <div class="text-uppercase boxHeader text-center">
+                            <span class="d-inline-block"><h6>Section 80QQB - Royalty Received on books</h6></span>
+                          </div>
+                          <div class="boxBody">
                               <p class="text-muted">Deduction for Author of literary/scientific/artistic book. Royalty/copyright-fees/lump-sum consideration are eligible for deduction.</p>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-6">
-                              <div class="form-group mb-0">
-                                <div class=" floating-label">
-                                  <div class="input-group prepend">
-                                    <div class="input-group-prepend">
-                                      <div class="input-group-text">₹</div>
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group mb-0">
+                                  <div class=" floating-label">
+                                    <div class="input-group prepend">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text">₹</div>
+                                      </div>
+                                      <input type="text" class="form-control" id="" placeholder="">
+                                      <label for="">Enter the deduction amount <span class="text-danger required">*</span></label>
                                     </div>
-                                    <input type="text" class="form-control" id="" placeholder="">
-                                    <label for="">Enter the deduction amount <span class="text-danger required">*</span></label>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
+                        <!--Section 80QQB form ends-->
 
-                        <div class="tab-pane fade show active" id="section_80RRB">
-                          <div class="row form-group mb-0">
-                            <div class="col">
-                              <h6>Section 80RRB - Income on Patents/Inventions</h6>
-                              <p class="text-muted">Deduction for Patentee - Royalty/transfer-of-rights/lump-sum consideration are eligible for deduction.</p>
-                            </div>
+                        <!--Section 80RRB form starts-->
+                        <div class="boxBorderHeader px-5 py5 my-5 position-relative" id="section_80RRB">
+                          <div class="text-uppercase boxHeader text-center">
+                            <span class="d-inline-block"><h6>Section 80RRB - Income on Patents/Inventions</h6></span>
                           </div>
-                          <div class="row">
-                            <div class="col-6">
-                              <div class="form-group mb-0">
-                                <div class=" floating-label">
-                                  <div class="input-group prepend">
-                                    <div class="input-group-prepend">
-                                      <div class="input-group-text">₹</div>
+                          <div class="boxBody">
+                            <p class="text-muted">Deduction for Patentee - Royalty/transfer-of-rights/lump-sum consideration are eligible for deduction.</p>
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group mb-0">
+                                  <div class=" floating-label">
+                                    <div class="input-group prepend">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text">₹</div>
+                                      </div>
+                                      <input type="text" class="form-control" id="" placeholder="">
+                                      <label for="">Enter the deduction amount <span class="text-danger required">*</span></label>
                                     </div>
-                                    <input type="text" class="form-control" id="" placeholder="">
-                                    <label for="">Enter the deduction amount <span class="text-danger required">*</span></label>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
+                        <!--Section 80RRB form ends-->
 
-                        <div class="tab-pane fade show active" id="section_80GGA">
-                          <div class="row form-group mb-0">
-                            <div class="col">
-                              <h6>Section 80GGA - Contribution To Research or Rural Development</h6>
-                              <p class="text-muted">For example, Helpage India or CRY are eligible under Section 80GGA.</p>
-                            </div>
+                        <!--Section 80GGA form starts-->
+                        <div class="boxBorderHeader px-5 py5 my-5 position-relative" id="section_80GGA">
+                          <div class="text-uppercase boxHeader text-center">
+                            <span class="d-inline-block"><h6>Section 80GGA - Contribution To Research or Rural Development</h6></span>
                           </div>
-                          <div class="row">
-                            <div class="col-6">
-                              <div class="form-group mb-0">
-                                <div class=" floating-label">
-                                  <div class="input-group prepend">
-                                    <div class="input-group-prepend">
-                                      <div class="input-group-text">₹</div>
+                          <div class="boxBody">
+                            <p class="text-muted">For example, Helpage India or CRY are eligible under Section 80GGA.</p>
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group mb-0">
+                                  <div class=" floating-label">
+                                    <div class="input-group prepend">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text">₹</div>
+                                      </div>
+                                      <input type="text" class="form-control" id="" placeholder="">
+                                      <label for="">Contribution to Research & Development or Rural Development <span class="text-danger required">*</span></label>
                                     </div>
-                                    <input type="text" class="form-control" id="" placeholder="">
-                                    <label for="">Contribution to Research & Development or Rural Development <span class="text-danger required">*</span></label>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
+                        <!--Section 80GGA form ends-->
 
-                        <div class="tab-pane fade show active" id="section_80GGC">
-                          <div class="row form-group mb-0">
-                            <div class="col">
-                              <h6>Section 80GGC - Contribution To Political Party</h6>
-                            </div>
+                        <!--Section 80GGC form starts-->
+                        <div class="boxBorderHeader px-5 py5 my-5 position-relative" id="section_80GGC">
+                          <div class="text-uppercase boxHeader text-center">
+                            <span class="d-inline-block"><h6>Section 80GGC - Contribution To Political Party</h6></span>
                           </div>
-                          <div class="row">
-                            <div class="col-6">
-                              <div class="form-group mb-0">
-                                <div class=" floating-label">
-                                  <div class="input-group prepend">
-                                    <div class="input-group-prepend">
-                                      <div class="input-group-text">₹</div>
+                          <div class="boxBody">
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group mb-0">
+                                  <div class=" floating-label">
+                                    <div class="input-group prepend">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text">₹</div>
+                                      </div>
+                                      <input type="text" class="form-control" id="" placeholder="">
+                                      <label for="">Contribution or Donations to Political Party <span class="text-danger required">*</span></label>
                                     </div>
-                                    <input type="text" class="form-control" id="" placeholder="">
-                                    <label for="">Contribution or Donations to Political Party <span class="text-danger required">*</span></label>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-
+                        <!--Section 80GGC form ends-->
                       </form>
                     </div>
                     <!-- Other Deduction tab ends-->

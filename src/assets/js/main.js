@@ -39,14 +39,26 @@ $(document).delegate('.sidebartoggler', "click", function (e) {
 //     triggerScrollingTab.trigger( 'click' );
 // });
 
-/* function triggerScrollingTab(){
-  $('.scrollTabs').scrollingTabs({
-    bootstrapVersion: 4,
-    // scrollToActiveTab: true,
-    //tabs: myTabs,
-    leftArrowContent: ['<div class="scrtabs-tab-scroll-arrow scrtabs-tab-scroll-arrow-left"><i class="fas fa-angle-left"></i></div>'].join(''),
-    rightArrowContent: ['<div class="scrtabs-tab-scroll-arrow scrtabs-tab-scroll-arrow-right"><i class="fas fa-angle-right"></i></div>'].join('')
-  });  
-}
-triggerScrollingTab(); */
+ // function triggerScrollingTab(){
+  // $('.scrollTabs:first').scrollingTabs({
+  //   // tabs: tabs,
+  //   bootstrapVersion: 4,
+  //   // scrollToActiveTab: true,
+  //   //tabs: myTabs,
+  //   leftArrowContent: ['<div class="scrtabs-tab-scroll-arrow scrtabs-tab-scroll-arrow-left"><i class="fas fa-angle-left"></i></div>'].join(''),
+  //   rightArrowContent: ['<div class="scrtabs-tab-scroll-arrow scrtabs-tab-scroll-arrow-right"><i class="fas fa-angle-right"></i></div>'].join('')
+  // });  
+  // $('.steps').scrollingTabs('scrollToActiveTab');
+
+
+  // $('.scrollTabs')
+  //       .scrollingTabs()
+  //       .on('ready.scrtabs', function() {
+  //         $('.tab-content').show();
+  //       });
+
+
+
+// }
+// triggerScrollingTab(); 
 
