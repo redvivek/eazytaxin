@@ -385,3 +385,17 @@ a:hover{text-decoration:none;}
 .boxBorderHeader .boxFooter .button img{margin-right:4px;}
 .boxBorderHeader li{padding:5px 10px 5px 28px;font:16px 'Roboto', sans-serif;position:relative;}
 .boxBorderHeader li img{position:absolute;left:0;top:7px;}
+
+
+
+
+/* Review Page */
+.reviewChartWrap{margin-bottom:30px;}
+.reviewChart {width:150px; height:150px; margin:0 auto; }
+.reviewChart text{font-size:30px; font-weight:300; fill: #1072b8;}
+.reviewChart path.color0{fill: #0095e3;}
+.reviewChart path.color1{fill:#ecebeb;}
+.review .chart-name{font-size:16px; margin-top:10px; margin-bottom:0; font-weight:400;}
+.review .reviewInfo{margin-top:35px;}
+.review .reviewInfo .form-actions{margin-top:30px;}
+
