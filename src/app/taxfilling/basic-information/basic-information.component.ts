@@ -37,7 +37,7 @@ export class BasicInformationComponent implements OnInit {
             this.router.navigate(['/login']);
         }else{
             //console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
-            //console.log("Current App value "+ this.appService.currentApplicationValue);
+            console.log("Current App value "+ this.appService.currentApplicationValue);
             this.userId         = this.authenticationService.currentUserValue.userid;
             this.ApplicationId  = this.appService.currentApplicationValue.appId;
             console.log("Current App Id "+ this.ApplicationId);
@@ -83,10 +83,10 @@ export class BasicInformationComponent implements OnInit {
     .pipe(first())
     .subscribe(
         data  => {
-            console.log("Response"+JSON.stringify(data));
+            //console.log("Response"+JSON.stringify(data));
             if(data){
               this.AppMainDetails =  data;
-              console.log("Value "+ this.AppMainDetails.incomeFromSalary);
+              console.log("Value "+ JSON.stringify(this.AppMainDetails));
             }
         },
         error => {
@@ -130,7 +130,8 @@ export class BasicInformationComponent implements OnInit {
                 if(data['statusCode'] == 200){                  
                     this.alertService.error('Application - BasicInfo data saved successfully');
                     this.loading = false;
-                    this.localStoreg['applicationStage'] = 4;
+                    this.localStoreg['applicationStage'] = 2;
+                    this.localStoreg['appStatus'] = 'progress';
                     localStorage.removeItem("currentUserApp");
                     localStorage.setItem("currentUserApp", JSON.stringify(this.localStoreg));
                     this.router.navigate(['taxfilling/personalinfo']);

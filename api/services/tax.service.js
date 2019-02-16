@@ -205,15 +205,289 @@ exports.savePersonalInfoByAppId = (req,res)=>{
 };
 
 exports.saveAddressInfoByAppId = (req,res)=>{
-    res.status(200);
+    //res.status(200);
+    //let inputdata = req.body;
+    let appid = req.body.appId;
+    let userid = req.body.userId;
+    let addressType = req.body.Addresstype;
+    let flatno = req.body.Flatno;
+    let building = req.body.Building;
+    let street = req.body.Street;
+    let area = req.body.Area;
+    let pincode = req.body.Pincode;
+    let city = req.body.City;
+    let state = req.body.State;
+    let country = req.body.Country;
+    let updateAt = formattedDT;
+
+    AddressDetails.findOne(
+		{ where: {UserId:userid,ApplicationId: appid} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Personal Details  "+JSON.stringify(resultData));
+            AddressDetails.destroy({
+                where: { AdressDetailsId: resultData.AdressDetailsId}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + resultData.AdressDetailsId);
+                sequelize.query("INSERT INTO `et_addressdetails`(ApplicationId,UserId,AddressType,Flatno_Blockno,Building_Village_Premises,Road_Street_PO,Area_Locality,City_Town_District,State,Country,Pincode,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,addressType,flatno,building,street,area,city,state,country,pincode,updateAt,'Yes'],
+                    type: sequelize.QueryTypes.INSERT 
+                }).then(result => {		
+                    console.log("Result AppId  "+result[0]);
+                    //update flags to et_applicationsmain table */
+                    updateApplicationMain(appid,userid,5);
+
+                    res.json({"statusCode": 200,"Message": "Successful Request","addInfoId":result[0]});
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    res.status(400).send(err);
+                });
+            });
+        } else {
+			//res.status(200);
+			//Save to et_personaldetails table */
+			sequelize.query("INSERT INTO `et_addressdetails`(ApplicationId,UserId,AddressType,Flatno_Blockno,Building_Village_Premises,Road_Street_PO,Area_Locality,City_Town_District,State,Country,Pincode,createdAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,addressType,flatno,building,street,area,city,state,country,pincode,updateAt,'Yes'],
+                type: sequelize.QueryTypes.INSERT 
+            }).then(result => {			
+                console.log("Result AppId  "+result[0]);
+                //update flags to et_applicationsmain table */
+                updateApplicationMain(appid,userid,5);
+                res.json({"statusCode": 200,"Message": "Successful Request","addInfoId":result[0]});
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
 };
 
 exports.saveBankDetailsByAppId = (req,res)=>{
-    res.status(200);
+    //res.status(200);
+    //let inputdata = req.body;
+    let appid = req.body.appId;
+    let userid = req.body.userId;
+    let details = req.body.Details;
+    let updateAt = formattedDT;
+
+    BankDetails.findOne(
+        { where: {UserId:userid,ApplicationId: appid} }
+    )
+    .then(function (resultData) {
+        if (resultData) {
+            console.log("Result - Personal Details  "+JSON.stringify(resultData));
+            BankDetails.destroy({
+                where: {UserId:userid,ApplicationId: appid}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + appid);
+                
+                if(details.length > 0){
+                    for(var i=0;i < details.length;i++){
+                        let accPriority = details[i].AccPriority;
+                        let accNumber = details[i].AccNumber;
+                        let accType = details[i].AccType;
+                        let bankNm = details[i].BankNm;
+                        let ifscCode = details[i].IFSCCode;
+                        console.log("Result cnt  "+ i);
+                        if( i == details.length-1){
+                            insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt,res);
+                        }
+                        else{
+                            insertBankDetailsAndSendResponse(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt,res);
+                        }
+                    }
+                }
+            });
+        } else {
+            //res.status(200);
+            if(details.length > 0){
+                for(i=0;i < details.length;i++){
+                    let accPriority = details[i].AccPriority;
+                    let accNumber = details[i].AccNumber;
+                    let accType = details[i].AccType;
+                    let bankNm = details[i].BankNm;
+                    let ifscCode = details[i].IFSCCode;
+
+                    console.log("Result cnt  "+ i);
+                    if( i == details.length-1){
+                        insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt,res);
+                    }
+                    else{
+                        insertBankDetailsAndSendResponse(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt,res);
+                    }
+                }
+            }
+        }
+    })
+    .catch(function (err) {
+        console.log("Error "+err);
+        res.status(400).send(err);
+    });
 };
 
+function insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt,res){
+    sequelize.query("INSERT INTO `et_bankdetails`(ApplicationId,UserId,AccountPriority,AccountNumber,AccountType,BankName,IFSCCode,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?)",{
+        replacements: [appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt,'Yes'],
+        type: sequelize.QueryTypes.INSERT 
+    }).then(result => {		
+        console.log("Result AppId  "+result[0]);
+    })
+    .catch(function (err) {
+        console.log("Error "+err);
+        res.status(400).send(err);
+    });
+}
+
+function insertBankDetailsAndSendResponse(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt,res){
+    sequelize.query("INSERT INTO `et_bankdetails`(ApplicationId,UserId,AccountPriority,AccountNumber,AccountType,BankName,IFSCCode,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?)",{
+        replacements: [appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt,'Yes'],
+        type: sequelize.QueryTypes.INSERT 
+    }).then(result => {		
+        console.log("Result AppId  "+result[0]);
+        //update flags to et_applicationsmain table */
+        updateApplicationMain(appid,userid,6);
+        res.json({"statusCode": 200,"Message": "Successful Request"});
+    })
+    .catch(function (err) {
+        console.log("Error "+err);
+        res.status(400).send(err);
+    });
+}
+
 exports.saveAssestsInfoByAppId = (req,res)=>{
-    res.status(200);
+    //res.status(200);
+    let inputdata = req.body;
+    console.log("Input Req "+ JSON.stringify(inputdata));
+    let appid = req.body.appId;
+    let userid = req.body.userId;
+    let immovableAssetsFlag = req.body.immovableAssetsFlag;
+    let movJwellaryItemsAmount = req.body.movJwellaryItemsAmount;
+    let movCraftItemsAmount = req.body.movCraftItemsAmount;
+    let movConveninceItemsAmount = req.body.movConveninceItemsAmount;
+    let movFABankAmount = req.body.movFABankAmount;
+    let movFASharesAmount = req.body.movFASharesAmount;
+    let movFAInsAmount = req.body.movFAInsAmount;
+    let movFALoansGivenAmount = req.body.movFALoansGivenAmount;
+    let movInHandCashAmount = req.body.movInHandCashAmount;
+    let totalLiability = req.body.totalLiability;
+    let foreignAssFlag = req.body.foreignAssFlag;
+    let updateAt = formattedDT;
+    AssetsDetails.findOne(
+		{ where: {UserId:userid,ApplicationId: appid} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Assets Details  "+JSON.stringify(resultData));
+            AssetsDetails.destroy({
+                where: { ALDetailsId: resultData.ALDetailsId}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + resultData.ALDetailsId);
+                sequelize.query("INSERT INTO `et_assetsliabilitiesdetails`(ApplicationId,UserId,ImmovableAssetsFlag,MovJwellaryItemsAmount,MovCraftItemsAmount,MovConveninceItemsAmount,MovFABankAmount,MovFASharesAmount,MovFAInsAmount,MovFALoansGivenAmount,MovInHandCashAmount,TotalLiability,ForeignAssesDocUploadFlag,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,immovableAssetsFlag,movJwellaryItemsAmount,movCraftItemsAmount,movConveninceItemsAmount,movFABankAmount,movFASharesAmount,movFAInsAmount,movFALoansGivenAmount,movInHandCashAmount,totalLiability,foreignAssFlag,updateAt,'Yes'],
+                    type: sequelize.QueryTypes.INSERT 
+                }).then(result => {		
+                    console.log("Result AppId  "+result[0]);
+                    //update flags to et_assetsliabilitiesdetails table */
+                    updateApplicationMain(appid,userid,7);
+                    res.json({"statusCode": 200,"Message": "Successful Request","assInfoId":result[0]});
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    res.status(400).send(err);
+                });
+            });
+        } else {
+			//res.status(200);
+			//Save to et_personaldetails table */
+			sequelize.query("INSERT INTO `et_assetsliabilitiesdetails`(ApplicationId,UserId,ImmovableAssetsFlag,MovJwellaryItemsAmount,MovCraftItemsAmount,MovConveninceItemsAmount,MovFABankAmount,MovFASharesAmount,MovFAInsAmount,MovFALoansGivenAmount,MovInHandCashAmount,TotalLiability,ForeignAssesDocUploadFlag,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,immovableAssetsFlag,movJwellaryItemsAmount,movCraftItemsAmount,movConveninceItemsAmount,movFABankAmount,movFASharesAmount,movFAInsAmount,movFALoansGivenAmount,movInHandCashAmount,totalLiability,foreignAssFlag,updateAt,'Yes'],
+                type: sequelize.QueryTypes.INSERT 
+            }).then(result => {			
+                console.log("Result AppId  "+result[0]);
+                //update flags to et_assetsliabilitiesdetails table */
+                updateApplicationMain(appid,userid,7);
+                res.json({"statusCode": 200,"Message": "Successful Request","assInfoId":result[0]});
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+};
+
+exports.saveImmAssestsInfoByAppId = (req,res)=>{
+    let inputdata = req.body;
+    console.log("Input Req "+ JSON.stringify(inputdata));
+    let assInfoId = req.body.assInfoId;
+    let immovableAssInput = req.body.immovableAssInputParam
+    let appid = immovableAssInput.appId;
+    let userid = immovableAssInput.userId;
+    let description = immovableAssInput.description;
+    let flatNo = immovableAssInput.flatNo;
+    let premiseName = immovableAssInput.premiseName;
+    let streetName = immovableAssInput.streetName;
+    let locality = immovableAssInput.locality;
+    let state = immovableAssInput.state;
+    let pincode = immovableAssInput.pincode;
+    let country = immovableAssInput.country;
+    let purchaseCost = parseFloat(immovableAssInput.purchaseCost);
+    let totalLiabilites = immovableAssInput.totalLiabilites;
+    let updateAt = formattedDT;
+    console.log("Input Req "+ JSON.stringify(inputdata));
+    ImAssetsAddDetails.findOne(
+		{ where: {UserId:userid,ApplicationId: appid} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - ImmAssets Details  "+JSON.stringify(resultData));
+            ImAssetsAddDetails.destroy({
+                where: { ImmovableAssetsDetailsId: resultData.ImmovableAssetsDetailsId}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + resultData.ImmovableAssetsDetailsId);
+                sequelize.query("INSERT INTO `et_immovableassetsdetails`(ALDetailsId,ApplicationId,UserId,Description,FlatNo,PremiseName,StreetName,AreaLocality,State,Pincode,Amount,updatedAt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",{
+                    replacements: [assInfoId,appid,userid,description,flatNo,premiseName,streetName,locality,state,pincode,purchaseCost,updateAt],
+                    type: sequelize.QueryTypes.INSERT 
+                }).then(result => {		
+                    console.log("Result AppId  "+result[0]);
+                    res.json({"statusCode": 200,"Message": "Successful Request","immAssInfoId":result[0]});
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    res.status(400).send(err);
+                });
+            });
+        } else {
+			//res.status(200);
+			//Save to et_immovableassetsdetails table */
+			sequelize.query("INSERT INTO `et_immovableassetsdetails`(ALDetailsId,ApplicationId,UserId,Description,FlatNo,PremiseName,StreetName,AreaLocality,State,Pincode,Amount,updatedAt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",{
+                replacements: [assInfoId,appid,userid,description,flatNo,premiseName,streetName,locality,state,pincode,purchaseCost,updateAt],
+                type: sequelize.QueryTypes.INSERT 
+            }).then(result => {		
+                console.log("Result AppId  "+result[0]);
+                res.json({"statusCode": 200,"Message": "Successful Request","immAssInfoId":result[0]});
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
 };
 
 exports.fetchDashboardInfo = (req,res)=>{

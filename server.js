@@ -74,11 +74,11 @@ app.use(function(req, res, next) {
 /// error handlers
 // no stacktraces leaked to user
 // Adding raw body support
- app.use(function(err, req, res, next) {
+ /* app.use(function(err, req, res, next) {
   res.status(err.code || 500).send('error', {
     message: err.message,
     error: err
   });
-});
+}); */
 
 module.exports = app;

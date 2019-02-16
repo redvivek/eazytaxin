@@ -18,62 +18,65 @@ module.exports = function(sequelize, DataTypes) {
     },
     ImmovableAssetsFlag: {
       type: DataTypes.INTEGER(1),
-      allowNull: false
+      allowNull: false,
+      defaultValue:1
     },
     MovJwellaryItemsAmount: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT(10,2),
       allowNull: true
     },
     MovCraftItemsAmount: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT(10,2),
       allowNull: true
     },
     MovConveninceItemsAmount: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT(10,2),
       allowNull: true
     },
     MovFABankAmount: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT(10,2),
       allowNull: true
     },
     MovFASharesAmount: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT(10,2),
       allowNull: true
     },
     MovFAInsAmount: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT(10,2),
       allowNull: true
     },
     MovFALoansGivenAmount: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT(10,2),
       allowNull: true
     },
     MovInHandCashAmount: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT(10,2),
       allowNull: true
     },
     AssetsAOPFlag: {
       type: DataTypes.INTEGER(1),
-      allowNull: false
+      allowNull: false,
+      defaultValue:0
     },
     TotalLiability: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT(10,2),
       allowNull: false
     },
     ForeignAssesDocUploadFlag: {
       type: DataTypes.INTEGER(1),
-      allowNull: false
+      allowNull: false,
+      defaultValue:0
     },
     CompletionStatus: {
       type: DataTypes.ENUM('Yes','No'),
       allowNull: false
     },
-    CreatedDate: {
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
-    ModifiedDate: {
+    updatedAt: {
       type: DataTypes.DATE,
       allowNull: true
     }

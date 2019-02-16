@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     AccountNumber: {
-      type: DataTypes.INTEGER(20),
+      type: DataTypes.STRING(20),
       allowNull: false
     },
     AccountType: {
@@ -49,15 +49,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.ENUM('Yes','No'),
       allowNull: false
     },
-    CreatedDate: {
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
-    ModifiedDate: {
+    updatedAt: {
       type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: '0000-00-00 00:00:00'
+      allowNull: true,
     }
   }, {
     tableName: 'et_bankdetails'

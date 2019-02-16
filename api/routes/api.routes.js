@@ -36,6 +36,7 @@ route.post('/tax/savePersonalInfo', taxService.savePersonalInfoByAppId);
 route.post('/tax/saveAddressInfo', taxService.saveAddressInfoByAppId);
 route.post('/tax/saveBankDetails', taxService.saveBankDetailsByAppId);
 route.post('/tax/saveAssestsInfo', taxService.saveAssestsInfoByAppId);
+route.post('/tax/saveImmAssestsInfo', taxService.saveImmAssestsInfoByAppId);
 /*route.post('/tax/saveSalaryIncome', taxService.saveSalIncomeInfoByAppId);
 route.post('/tax/saveOtherIncome', taxService.saveOthIncomeInfoByAppId);
 route.post('/tax/saveHouseIncome', taxService.saveHouseIncomeInfoByAppId);

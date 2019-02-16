@@ -25,19 +25,19 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     Flatno_Blockno: {
-      type: DataTypes.STRING(15),
+      type: DataTypes.STRING(25),
       allowNull: false
     },
     Building_Village_Premises: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(30),
       allowNull: true
     },
     Road_Street_PO: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(30),
       allowNull: true
     },
     Area_Locality: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(25),
       allowNull: true
     },
     City_Town_District: {
@@ -56,14 +56,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(6),
       allowNull: false
     },
-    CreatedDate: {
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
-    ModifiedDate: {
+    updatedAt: {
       type: DataTypes.DATE,
-      allowNull: true
+      allowNull: true,
     },
     CompletionStatus: {
       type: DataTypes.ENUM('Yes','No'),

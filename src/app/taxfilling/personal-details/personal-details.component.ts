@@ -18,6 +18,7 @@ export class PersonalDetailsComponent implements OnInit {
   assestsDetailsForm: FormGroup;
   
   loading = false;
+  immAssestsForm = true;
   //flag to check submitted event on each subform
   perSubmitted = false;
   addSubmitted = false;
@@ -124,7 +125,7 @@ export class PersonalDetailsComponent implements OnInit {
     });
 
     this.assestsDetailsForm = this.formBuilder.group({
-      immovable_assets:[''],
+      immovableAssetsFlag:['1'],
       Description: ['', Validators.required ],
       FlatNo: ['', Validators.required ],
       PremiseName: ['', Validators.required ],
@@ -132,18 +133,18 @@ export class PersonalDetailsComponent implements OnInit {
       AreaLocality: ['', Validators.required ],
       immovable_State: ['', Validators.required ],
       immovable_Pincode: ['', Validators.required ],
-      country:[''],
-      cost_purchase_price:[''],
-      liabilities_in_relation_immovable_assets:[''],
-      MovJwellaryItemsAmount:[''],
-      MovCraftItemsAmount:[''],
-      MovConveninceItemsAmount:[''],
-      MovFABankAmount:[''],
-      MovFASharesAmount:[''],
-      MovFAInsAmount:[''],
-      MovFALoansGivenAmount:[''],
-      MovInHandCashAmount:[''],
-      TotalLiability:[''],
+      country:['',Validators.required],
+      cost_purchase_price:[0,Validators.required],
+      liabilities_in_relation_immovable_assets:[0,Validators.required],
+      MovJwellaryItemsAmount:[0,Validators.required],
+      MovCraftItemsAmount:[0,Validators.required],
+      MovConveninceItemsAmount:[0,Validators.required],
+      MovFABankAmount:[0,Validators.required],
+      MovFASharesAmount:[0,Validators.required],
+      MovFAInsAmount:[0,Validators.required],
+      MovFALoansGivenAmount:[0,Validators.required],
+      MovInHandCashAmount:[0,Validators.required],
+      TotalLiability:[0,Validators.required],
       inputGroupFile01:[''] 
     });
 
@@ -155,8 +156,62 @@ export class PersonalDetailsComponent implements OnInit {
   get b() { return this.bankDetailsForm.controls; }
   get s() { return this.assestsDetailsForm.controls; }
 
+  /* Function to enable/disable & validate file upload form field on Radio change event */
+  onChange(event): void {
+    const newVal = event.target.value;
+    console.log("asDas" +newVal);
+    const immAssetsDetails = this.assestsDetailsForm.get('Description');
+    const inputflatno = this.assestsDetailsForm.get('FlatNo');
+    const inputPremnm = this.assestsDetailsForm.get('PremiseName');
+    const inputStreetnm = this.assestsDetailsForm.get('StreetName');
+    const inputArea = this.assestsDetailsForm.get('AreaLocality');
+    const inputState = this.assestsDetailsForm.get('immovable_State');
+    const inputPincode = this.assestsDetailsForm.get('immovable_Pincode');
+    const inputCountry = this.assestsDetailsForm.get('country');
+    const inputCost = this.assestsDetailsForm.get('cost_purchase_price');
+    const inputTotalLiabilites = this.assestsDetailsForm.get('liabilities_in_relation_immovable_assets');
+
+    if (newVal == true) {
+      this.immAssestsForm = true;
+      immAssetsDetails.setValidators([Validators.required]);
+      inputflatno.setValidators([Validators.required]);
+      inputPremnm.setValidators([Validators.required]);
+      inputStreetnm.setValidators([Validators.required]);
+      inputArea.setValidators([Validators.required]);
+      inputState.setValidators([Validators.required]);
+      inputPincode.setValidators([Validators.required]);
+      inputCountry.setValidators([Validators.required]);
+      inputCost.setValidators([Validators.required]);
+      inputTotalLiabilites.setValidators([Validators.required]);
+    }
+    else {
+      this.immAssestsForm = false;
+      immAssetsDetails.clearValidators();
+      inputflatno.clearValidators();
+      inputPremnm.clearValidators();
+      inputStreetnm.clearValidators();
+      inputArea.clearValidators();
+      inputState.clearValidators();
+      inputPincode.clearValidators();
+      inputCountry.clearValidators();
+      inputCost.clearValidators();
+      inputTotalLiabilites.clearValidators();
+
+    }
+    immAssetsDetails.updateValueAndValidity();
+    inputflatno.updateValueAndValidity();
+    inputPremnm.updateValueAndValidity();
+    inputStreetnm.updateValueAndValidity();
+    inputArea.updateValueAndValidity();
+    inputState.updateValueAndValidity();
+    inputPincode.updateValueAndValidity();
+    inputCountry.updateValueAndValidity();
+    inputCost.updateValueAndValidity();
+    inputTotalLiabilites.updateValueAndValidity();
+  }
+
   onSubmit(formname,infoType) {
-    var perInfoInputParam,addInfoInputParam,bankInfoInputParam,assetsInfoInputParam;  
+    var perInfoInputParam,addInfoInputParam,bankInfoInputParam,assetsInfoInputParam,ImmovableAssInputParam;  
     console.log('SUCCESS!! :-)\n\n' + JSON.stringify(formname.value))
       switch(infoType){
         case "personalinfo":
@@ -188,12 +243,11 @@ export class PersonalDetailsComponent implements OnInit {
                       //successfully inserted
                       if(data['statusCode'] == 200){                  
                           this.alertService.success('Application - Personal Info data saved successfully');
-                          this.localStoreg['perInfoId'] = data['PerInfoId'];
                           this.localStoreg['applicationStage'] = 4;
-                          this.localStoreg['appStatus'] = 'progress';
                           //console.log("LocalStore" + JSON.stringify(this.localStoreg));
                           localStorage.removeItem("currentUserApp");
                           localStorage.setItem("currentUserApp", JSON.stringify(this.localStoreg));
+                          this.loading = false;
                           this.step2 = false;
                           this.step3 = true;
                           this.step4 = false;
@@ -201,7 +255,8 @@ export class PersonalDetailsComponent implements OnInit {
                       }
                   },
               error => {
-                this.alertService.error('Application - Personal Info data save request failed');
+                this.alertService.error('Application - Personal Info data save request failed '+error);
+                this.loading = false;
               });
         break;
         case "addressinfo":
@@ -227,11 +282,21 @@ export class PersonalDetailsComponent implements OnInit {
                   console.log("Response" + JSON.stringify(data));
                   //successfully inserted
                   if(data['statusCode'] == 200){                  
-                      this.alertService.error('Application - Address Info data saved successfully');
+                      this.alertService.success('Application - Address Info data saved successfully');
+                      this.localStoreg['applicationStage'] = 5;
+                      //console.log("LocalStore" + JSON.stringify(this.localStoreg));
+                      localStorage.removeItem("currentUserApp");
+                      localStorage.setItem("currentUserApp", JSON.stringify(this.localStoreg));
+                      this.loading = false;
+                      this.step2 = false;
+                      this.step3 = false;
+                      this.step4 = true;
+                      this.step5 = false;
                   }
               },
           error => {
-              this.alertService.error(error);
+              this.alertService.error('Application - Address Info data save request failed '+error);
+              this.loading = false;
           });
         break;
         case "bankinfo":
@@ -264,30 +329,44 @@ export class PersonalDetailsComponent implements OnInit {
                   console.log("Response" + JSON.stringify(data));
                   //successfully inserted
                   if(data['statusCode'] == 200){                  
-                      this.alertService.error('Application - Bank Info data saved successfully');
+                      this.alertService.success('Application - Bank Info data saved successfully');
+                      this.localStoreg['applicationStage'] = 6;
+                      //console.log("LocalStore" + JSON.stringify(this.localStoreg));
+                      localStorage.removeItem("currentUserApp");
+                      localStorage.setItem("currentUserApp", JSON.stringify(this.localStoreg));
+                      this.loading = false;
+                      this.step2 = false;
+                      this.step3 = false;
+                      this.step4 = false;
+                      this.step5 = true;
+
                   }
               },
           error => {
-              this.alertService.error(error);
+              this.alertService.error('Application - Bank Info data save request failed '+error );
+              this.loading = false;
           });
         break;
         case "asstinfo":
-        assetsInfoInputParam = {
-          'appId':this.ApplicationId,
-          'userId':this.userId,
-          "immovableAssetsFlag":this.s.immovable_assets.value,
-          "movJwellaryItemsAmount":this.s.MovJwellaryItemsAmount.value,
-          "movCraftItemsAmount":this.s.MovCraftItemsAmount.value,
-          "movConveninceItemsAmount":this.s.MovConveninceItemsAmount.value,
-          "movFABankAmount":this.s.MovFABankAmount.value,
-          "movFASharesAmount":this.s.MovFASharesAmount.value,
-          "movFAInsAmount":this.s.MovFAInsAmount.value,
-          "movFALoansGivenAmount":this.s.MovFALoansGivenAmount.value,
-          "movInHandCashAmount":this.s.MovInHandCashAmount.value,
-          "totalLiability":this.s.TotalLiability.value,
-          "foreignAssFlag":0,
-          "ImmovableAssDetails":[
-            {
+          assetsInfoInputParam = {
+            'appId':this.ApplicationId,
+            'userId':this.userId,
+            "immovableAssetsFlag":this.s.immovableAssetsFlag.value,
+            "movJwellaryItemsAmount":this.s.MovJwellaryItemsAmount.value,
+            "movCraftItemsAmount":this.s.MovCraftItemsAmount.value,
+            "movConveninceItemsAmount":this.s.MovConveninceItemsAmount.value,
+            "movFABankAmount":this.s.MovFABankAmount.value,
+            "movFASharesAmount":this.s.MovFASharesAmount.value,
+            "movFAInsAmount":this.s.MovFAInsAmount.value,
+            "movFALoansGivenAmount":this.s.MovFALoansGivenAmount.value,
+            "movInHandCashAmount":this.s.MovInHandCashAmount.value,
+            "totalLiability":this.s.TotalLiability.value,
+            "foreignAssFlag":0,
+          };
+          if(this.s.immovableAssetsFlag.value == 1){
+            ImmovableAssInputParam = {
+              'appId':this.ApplicationId,
+              'userId':this.userId,
               "description":this.s.Description.value,
               "flatNo":this.s.FlatNo.value,
               "premiseName":this.s.PremiseName.value,
@@ -297,11 +376,13 @@ export class PersonalDetailsComponent implements OnInit {
               "pincode":this.s.immovable_Pincode.value,
               "country":this.s.country.value,
               "purchaseCost":this.s.cost_purchase_price.value,
-              "totalLiabilites":this.s.liabilities_in_relation_immovable_assets.value,
-            },
-          ]
-        };
-        this.submittedData.push({"assetsInfoData":assetsInfoInputParam});
+              "totalLiabilites":this.s.liabilities_in_relation_immovable_assets.value
+            };
+          }else{
+            ImmovableAssInputParam = "";
+          }
+        
+        this.submittedData.push({"assetsInfoData":assetsInfoInputParam,"immAssetsInfoData":ImmovableAssInputParam});
         // start storing application data in database
         this.appService.saveAssestsInfoData(assetsInfoInputParam)
         .pipe(first())
@@ -309,24 +390,52 @@ export class PersonalDetailsComponent implements OnInit {
           data => {
                   console.log("Response" + JSON.stringify(data));
                   //successfully inserted
-                  if(data['statusCode'] == 200){                  
-                      this.alertService.error('Application - Assests Info data saved successfully');
-                      //this.router.navigate(['taxfilling/earnings']);
+                  if(data['statusCode'] == 200){
+                      var assInfoId = data['assInfoId'];
+                      //var obj = JSON.parse(ImmovableAssInputParam);
+                      //obj['assInfoId'] = assInfoId;
+                      //ImmovableAssInputParam = JSON.stringify(obj);
+                      if(this.s.immovableAssetsFlag.value == 1){ 
+                        this.appService.saveImmAssestsInfoData(assInfoId,ImmovableAssInputParam)
+                        
+                        .pipe(first())
+                        .subscribe(
+                          data => {
+                                  console.log("Response" + JSON.stringify(data));
+                                  //successfully inserted
+                                  if(data['statusCode'] == 200){ 
+                                        this.alertService.error('Application - Assests Info data saved successfully');
+                                        this.localStoreg['applicationStage'] = 7;
+                                        //console.log("LocalStore" + JSON.stringify(this.localStoreg));
+                                        localStorage.removeItem("currentUserApp");
+                                        localStorage.setItem("currentUserApp", JSON.stringify(this.localStoreg));
+                                        this.loading = false;
+                                        this.router.navigate(['taxfilling/earnings']);
+                                      }                
+                              },
+                          error => {
+                              this.alertService.error('Application - Assests & Liabilites data save request failed '+error);
+                              this.loading = false;
+                          });    
+                      }else{
+                        this.alertService.error('Application - Assests Info data saved successfully');
+                        this.localStoreg['applicationStage'] = 7;
+                        //console.log("LocalStore" + JSON.stringify(this.localStoreg));
+                        localStorage.removeItem("currentUserApp");
+                        localStorage.setItem("currentUserApp", JSON.stringify(this.localStoreg));
+                        this.loading = false;
+                        this.router.navigate(['taxfilling/earnings']);
+                      }                
                   }
               },
           error => {
-              this.alertService.error(error);
+              this.alertService.error('Application - Assests & Liabilites data save request failed '+error);
+              this.loading = false;
           });
         break;
         default:
           this.submittedData = [];
       }
-      
-      this.loading = false;
-      this.perSubmitted = false;
-      this.addSubmitted = false;
-      this.bankSubmitted = false;
-      this.assSubmitted = false;
   }
 
   autoFillPersonalInfoForm(){
@@ -335,51 +444,42 @@ export class PersonalDetailsComponent implements OnInit {
 
   //Function Called on next button click
   on_next_click(){
-    this.loading = true;
     if (this.step5 == true) {
       this.assSubmitted = true;
+      this.loading = true;
       console.log("Assests details submitted");
       if (this.assestsDetailsForm.invalid) {
         return;
       }else{
         this.onSubmit(this.assestsDetailsForm,'asstinfo');
-        this.step2 = false;
-        this.step3 = false;
-        this.step4 = false;
-        this.step5 = true;
       }
       
     }
     if (this.step4 == true) {
       this.bankSubmitted = true;
+      this.loading = true;
       console.log("Bank details submitted");
       if (this.bankDetailsForm.invalid) {
         return;
       }else{
         this.onSubmit(this.bankDetailsForm,'bankinfo');
-        this.step2 = false;
-        this.step3 = false;
-        this.step4 = false;
-        this.step5 = true;
       }
       
     }
     if (this.step3 == true) {
       this.addSubmitted = true;
+      this.loading = true;
       console.log("Address details submitted");
       if (this.addressDetailsForm.invalid) {
         return;
       }else{
         this.onSubmit(this.addressDetailsForm,'addressinfo');
-        this.step2 = false;
-        this.step3 = false;
-        this.step4 = true;
-        this.step5 = false;
       }
       
     }
     if (this.step2 == true) {
       this.perSubmitted = true;
+      this.loading = true;
       console.log("Personal details submitted");
       // stop here if form is invalid
       if (this.personalDetailsForm.invalid) {

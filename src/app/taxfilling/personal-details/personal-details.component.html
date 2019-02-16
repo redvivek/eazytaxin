@@ -561,6 +561,7 @@
                             <a class="nav-link " id="foreign-assets-tab" (click)="select_step5_subform_part('foreign')" [class.active]="step5_foreign == true" data-toggle="tab" href="#foreign-assets" role="tab" aria-selected="false">Foreign Assets</a>
                           </li>
                         </ul>
+                        <!--Immovable Assests Tab form-->
                         <div class="tab-content" id="myTabContent">
                           <div class="tab-pane fade active show" id="immovable-assets" role="tabpanel" [ngClass]="{ 'show': step5_immovable == true , 'active': step5_immovable == true }">
                             <div class="row">
@@ -571,23 +572,23 @@
                             <div class="row">
                               <div class="col-6">
                                 <div class="form-group floating-label customDropdown">
-                                  <select id="select2" name="select2" class="form-control" formControlName="immovable_assets">
+                                  <select id="select2" name="select2" class="form-control" formControlName="immovableAssetsFlag" (change)="onChange($event)">
                                     <option value=""></option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
                                   </select>
                                   <label for="select2">Do you own any immovable asset?</label>
                                 </div>
                               </div>
                             </div>
-                            <div class="row">
+                            <div class="row" *ngIf="immAssestsForm">
                               <div class="form-group">
                                 <div class="col">
                                   <h6>Details of Immovable Assets</h6>
                                 </div>
                               </div>
                             </div>
-                            <div class="row">
+                            <div class="row" *ngIf="immAssestsForm">
                               <div class="col">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="Description" formControlName="Description" [ngClass]="{ 'is-invalid': assSubmitted && s.Description.errors}">
@@ -607,7 +608,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="row">
+                            <div class="row" *ngIf="immAssestsForm">
                               <div class="col">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="PremiseName" formControlName="PremiseName" [ngClass]="{ 'is-invalid': assSubmitted && s.PremiseName.errors}">
@@ -627,7 +628,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="row">
+                            <div class="row" *ngIf="immAssestsForm">
                               <div class="col">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="AreaLocality" formControlName="AreaLocality" [ngClass]="{ 'is-invalid': assSubmitted && s.AreaLocality.errors}">
@@ -640,17 +641,17 @@
                               <div class="col">
                                 <div class="form-group floating-label customDropdown">
                                   <select id="select2" name="select2" class="form-control" formControlName="country">
-                                    <option value="89">India</option>
+                                    <option value="india">India</option>
                                   </select>
                                   <label for="select2">Country</label>
                                 </div>
                               </div>
                             </div>
-                            <div class="row">
+                            <div class="row" *ngIf="immAssestsForm">
                               <div class="col">
                                 <div class="form-group floating-label customDropdown">
                                   <select id="select2" name="select2" class="form-control" formControlName="immovable_State">
-                                    <option value="1254">Maharashtra</option>
+                                    <option value="1">Maharashtra</option>
                                   </select>
                                   <label for="">State <span class="text-danger required">*</span></label>
                                 </div>
@@ -665,7 +666,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="row">
+                            <div class="row" *ngIf="immAssestsForm">
                               <div class="col-6">
                                 <div class="form-group floating-label">
                                   <div class="input-group prepend">
@@ -673,25 +674,38 @@
                                       <div class="input-group-text">₹</div>
                                     </div>
                                     <input type="text" class="form-control" placeholder="" id="cost_purchase_price" formControlName="cost_purchase_price" [ngClass]="{ 'is-invalid': assSubmitted && s.cost_purchase_price.errors}">
+                                    <div *ngIf="assSubmitted && s.cost_purchase_price.errors" class="invalid-feedback">
+                                      <div *ngIf="s.cost_purchase_price.required">Asset cost is required</div>
+                                    </div>
                                     <label for="">Cost of Purchase of the Property</label>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div class="row">
+                            <!--<div class="row" *ngIf="immAssestsForm">
                               <div class="col-12 text-right">
                                 <button type="button" class="btn btn-outline-primary btn-sm">Add Assets <i class="fas fa-plus mx-2"></i></button>
                               </div>
-                            </div>
-                            <div class="row">
+                            </div>-->
+                            <div class="row" *ngIf="immAssestsForm">
                               <div class="col-6">
                                 <div class="form-group floating-label">
-                                  <input type="text" class="form-control" id="liabilities_in_relation_immovable_assets" formControlName="liabilities_in_relation_immovable_assets" [ngClass]="{ 'is-invalid': assSubmitted && s.liabilities_in_relation_immovable_assets.errors}">
-                                  <label for="">Liability in Relation to Immovable Assets</label>
+                                  <div class="input-group prepend">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">₹</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="liabilities_in_relation_immovable_assets" formControlName="liabilities_in_relation_immovable_assets" [ngClass]="{ 'is-invalid': assSubmitted && s.liabilities_in_relation_immovable_assets.errors}">
+                                    <div *ngIf="assSubmitted && s.liabilities_in_relation_immovable_assets.errors" class="invalid-feedback">
+                                      <div *ngIf="s.liabilities_in_relation_immovable_assets.required">Total liability cost is required</div>
+                                    </div>
+                                    <label for="">Liability in Relation to Immovable Assets</label>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
+                          
+                          <!--Movable Assests Tab form-->
                           <div class="tab-pane fade " id="movable-assets" role="tabpanel" [ngClass]="{ 'show': step5_movable == true , 'active': step5_movable == true }">
                             <div class="assetsLists">
                               <article>
@@ -710,7 +724,10 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text">₹</div>
                                       </div>
-                                      <input type="text" class="form-control" placeholder="" id="MovJwellaryItemsAmount" formControlName="MovJwellaryItemsAmount">
+                                      <input type="text" class="form-control" placeholder="" id="MovJwellaryItemsAmount" formControlName="MovJwellaryItemsAmount" [ngClass]="{ 'is-invalid': assSubmitted && s.MovJwellaryItemsAmount.errors}">
+                                      <div *ngIf="assSubmitted && s.MovJwellaryItemsAmount.errors" class="invalid-feedback">
+                                        <div *ngIf="s.MovJwellaryItemsAmount.required">Jewellery cost is required</div>
+                                      </div>
                                       <label for=""></label>
                                     </div>
                                   </div>
@@ -722,7 +739,10 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text">₹</div>
                                       </div>
-                                      <input type="text" class="form-control" placeholder="" id="MovCraftItemsAmount" formControlName="MovCraftItemsAmount">
+                                      <input type="text" class="form-control" placeholder="" id="MovCraftItemsAmount" formControlName="MovCraftItemsAmount" [ngClass]="{ 'is-invalid': assSubmitted && s.MovCraftItemsAmount.errors}">
+                                      <div *ngIf="assSubmitted && s.MovCraftItemsAmount.errors" class="invalid-feedback">
+                                        <div *ngIf="s.MovCraftItemsAmount.required">Crafts cost is required</div>
+                                      </div>
                                       <label for=""></label>
                                     </div>
                                   </div>
@@ -734,7 +754,10 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text">₹</div>
                                       </div>
-                                      <input type="text" class="form-control" placeholder="" id="MovConveninceItemsAmount" formControlName="MovConveninceItemsAmount">
+                                      <input type="text" class="form-control" placeholder="" id="MovConveninceItemsAmount" formControlName="MovConveninceItemsAmount" [ngClass]="{ 'is-invalid': assSubmitted && s.MovConveninceItemsAmount.errors}">
+                                      <div *ngIf="assSubmitted && s.MovConveninceItemsAmount.errors" class="invalid-feedback">
+                                        <div *ngIf="s.MovConveninceItemsAmount.required">Convenince Items cost is required</div>
+                                      </div>
                                       <label for=""></label>
                                     </div>
                                   </div>
@@ -753,7 +776,10 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text">₹</div>
                                       </div>
-                                      <input type="text" class="form-control" placeholder="" id="MovFABankAmount" formControlName="MovFABankAmount">
+                                      <input type="text" class="form-control" placeholder="" id="MovFABankAmount" formControlName="MovFABankAmount" [ngClass]="{ 'is-invalid': assSubmitted && s.MovFABankAmount.errors}">
+                                      <div *ngIf="assSubmitted && s.MovFABankAmount.errors" class="invalid-feedback">
+                                        <div *ngIf="s.MovFABankAmount.required">Total Bank deposits are required</div>
+                                      </div>
                                       <label for=""></label>
                                     </div>
                                   </div>
@@ -765,7 +791,10 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text">₹</div>
                                       </div>
-                                      <input type="text" class="form-control" placeholder="" id="MovFASharesAmount" formControlName="MovFASharesAmount">
+                                      <input type="text" class="form-control" placeholder="" id="MovFASharesAmount" formControlName="MovFASharesAmount" [ngClass]="{ 'is-invalid': assSubmitted && s.MovFASharesAmount.errors}">
+                                      <div *ngIf="assSubmitted && s.MovFASharesAmount.errors" class="invalid-feedback">
+                                        <div *ngIf="s.MovFASharesAmount.required">Total Shares Amount are required</div>
+                                      </div>
                                       <label for=""></label>
                                     </div>
                                   </div>
@@ -777,7 +806,10 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text">₹</div>
                                       </div>
-                                      <input type="text" class="form-control" placeholder="" id="MovFAInsAmount" formControlName="MovFAInsAmount">
+                                      <input type="text" class="form-control" placeholder="" id="MovFAInsAmount" formControlName="MovFAInsAmount" [ngClass]="{ 'is-invalid': assSubmitted && s.MovFAInsAmount.errors}">
+                                      <div *ngIf="assSubmitted && s.MovFAInsAmount.errors" class="invalid-feedback">
+                                        <div *ngIf="s.MovFAInsAmount.required">Total Insurance Amounts are required</div>
+                                      </div>
                                       <label for=""></label>
                                     </div>
                                   </div>
@@ -789,7 +821,10 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text">₹</div>
                                       </div>
-                                      <input type="text" class="form-control" placeholder="" id="MovFALoansGivenAmount" formControlName="MovFALoansGivenAmount">
+                                      <input type="text" class="form-control" placeholder="" id="MovFALoansGivenAmount" formControlName="MovFALoansGivenAmount" [ngClass]="{ 'is-invalid': assSubmitted && s.MovFALoansGivenAmount.errors}">
+                                      <div *ngIf="assSubmitted && s.MovFALoansGivenAmount.errors" class="invalid-feedback">
+                                        <div *ngIf="s.MovFALoansGivenAmount.required">Total Loan Amounts are required</div>
+                                      </div>
                                       <label for=""></label>
                                     </div>
                                   </div>
@@ -801,7 +836,10 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text">₹</div>
                                       </div>
-                                      <input type="text" class="form-control" placeholder="" id="MovInHandCashAmount" formControlName="MovInHandCashAmount">
+                                      <input type="text" class="form-control" placeholder="" id="MovInHandCashAmount" formControlName="MovInHandCashAmount" [ngClass]="{ 'is-invalid': assSubmitted && s.MovInHandCashAmount.errors}">
+                                      <div *ngIf="assSubmitted && s.MovInHandCashAmount.errors" class="invalid-feedback">
+                                        <div *ngIf="s.MovInHandCashAmount.required">Total Cash Amounts are required</div>
+                                      </div>
                                       <label for=""></label>
                                     </div>
                                   </div>
@@ -811,12 +849,22 @@
                             <div class="row">
                               <div class="col-6">
                                 <div class="form-group floating-label">
-                                  <input type="text" class="form-control" id="TotalLiability" formControlName="TotalLiability">
-                                  <label for="">Liability in relation to Movable Asset</label>
+                                    <div class="input-group prepend">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text">₹</div>
+                                      </div>
+                                      <input type="text" class="form-control" id="TotalLiability" formControlName="TotalLiability" [ngClass]="{ 'is-invalid': assSubmitted && s.TotalLiability.errors}">
+                                      <div *ngIf="assSubmitted && s.TotalLiability.errors" class="invalid-feedback">
+                                        <div *ngIf="s.TotalLiability.required">Total Liability Cost is required</div>
+                                      </div>
+                                      <label for="">Liability in relation to Movable Asset</label>
+                                    </div>
                                 </div>
                               </div>
                             </div>
                           </div>
+
+                          <!--Foreign Assests Tab form-->
                           <div class="tab-pane fade " id="foreign-assets" role="tabpanel" [ngClass]="{ 'show': step5_foreign == true , 'active': step5_foreign == true }">
                             <div class="row form-group mb-0">
                               <div class="col">

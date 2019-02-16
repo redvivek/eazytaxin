@@ -73,6 +73,15 @@ export class ApplicationService {
         return this.http.post(`${environment.apiUrl}/tax/saveAssestsInfo`, assestinfodata);
     }
 
+    //save assests info details
+    saveImmAssestsInfoData(assInfoId,immovableAssInputParam) {
+        var jsonInput = {
+            "assInfoId" : assInfoId,
+            "immovableAssInputParam" : immovableAssInputParam
+        };
+        return this.http.post(`${environment.apiUrl}/tax/saveImmAssestsInfo`,jsonInput);
+    }
+
     /*delete(id: number) {
         return this.http.delete(`${environment.apiUrl}/users/${id}`);
     }*/

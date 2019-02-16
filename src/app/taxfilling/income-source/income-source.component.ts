@@ -20,21 +20,11 @@ export class IncomeSourceComponent implements OnInit {
   step2_income_other_upload :boolean = true;
   step2_income_other_data:boolean = false;
 
-  step3_house_prop_upload :boolean = true;
-  step3_prop_address:boolean = false;
-  step3_rental_prop:boolean = false;
-  step3_interest_house_loan:boolean = false;
-  step3_prop_ownership:boolean = false;
-  step3_income_dependent:boolean = false;
-  step3_unrealized_rent:boolean = false;
+  step3_house_property_upload :boolean = true;
+  step3_house_property_data:boolean = false;
 
-  step4_house_prop_upload :boolean = true;
-  step4_prop_address:boolean = false;
-  step4_rental_prop:boolean = false;
-  step4_interest_house_loan:boolean = false;
-  step4_prop_ownership:boolean = false;
-  step4_income_dependent:boolean = false;
-  step4_unrealized_rent:boolean = false;
+  step4_rental_property_upload :boolean = true;
+  step4_rental_property_data:boolean = false;
 
 
   constructor( 
@@ -227,105 +217,24 @@ export class IncomeSourceComponent implements OnInit {
     }
   }
   select_step3_subpart_form(x){
-    if(x == 'house_prop_upload'){
-      this.step3_house_prop_upload = true;
-      this.step3_prop_address = false;
-      this.step3_rental_prop = false;
-      this.step3_interest_house_loan  = false;
-      this.step3_prop_ownership = false;
-      this.step3_unrealized_rent= false;
+    if(x == 'house_property_upload'){
+      this.step3_house_property_upload = true;
+      this.step3_house_property_data = false;
     }
-    if(x == 'prop_address'){
-      this.step3_house_prop_upload = false;
-      this.step3_prop_address = true;
-      this.step3_rental_prop = false;
-      this.step3_interest_house_loan  = false;
-      this.step3_prop_ownership = false;
-      this.step3_unrealized_rent= false;
-    }
-    if(x == 'rental_prop'){
-      this.step3_house_prop_upload = false;
-      this.step3_prop_address = false;
-      this.step3_rental_prop = true;
-      this.step3_interest_house_loan  = false;
-      this.step3_prop_ownership = false;
-      this.step3_unrealized_rent= false;
-    }
-    if(x == 'interest_house_loan'){
-      this.step3_house_prop_upload = false;
-      this.step3_prop_address = false;
-      this.step3_rental_prop = false;
-      this.step3_interest_house_loan  = true;
-      this.step3_prop_ownership = false;
-      this.step3_unrealized_rent= false;
-    }
-    if(x == 'prop_ownership'){
-      this.step3_house_prop_upload = false;
-      this.step3_prop_address = false;
-      this.step3_rental_prop = false;
-      this.step3_interest_house_loan  = false;
-      this.step3_prop_ownership = true;
-      this.step3_unrealized_rent= false;
-    }
-    if(x == 'unrealized_rent'){
-      this.step3_house_prop_upload = false;
-      this.step3_prop_address = false;
-      this.step3_rental_prop = false;
-      this.step3_interest_house_loan  = false;
-      this.step3_prop_ownership = false;
-      this.step3_unrealized_rent= true;
+    if(x == 'house_property_data'){
+      this.step3_house_property_upload = false;
+      this.step3_house_property_data = true;
     }
   }
 
   select_step4_subpart_form(x){
-    if(x == 'house_prop_upload'){
-      this.step4_house_prop_upload = true;
-      this.step4_prop_address = false;
-      this.step4_rental_prop = false;
-      this.step4_interest_house_loan  = false;
-      this.step4_prop_ownership = false;
-      this.step4_unrealized_rent= false;
+    if(x == 'rental_property_upload'){
+      this.step4_rental_property_upload = true;
+      this.step4_rental_property_data = false;
     }
-    if(x == 'prop_address'){
-      this.step4_house_prop_upload = false;
-      this.step4_prop_address = true;
-      this.step4_rental_prop = false;
-      this.step4_interest_house_loan  = false;
-      this.step4_prop_ownership = false;
-      this.step4_unrealized_rent= false;
-    }
-    if(x == 'rental_prop'){
-      this.step4_house_prop_upload = false;
-      this.step4_prop_address = false;
-      this.step4_rental_prop = true;
-      this.step4_interest_house_loan  = false;
-      this.step4_prop_ownership = false;
-      this.step4_unrealized_rent= false;
-    }
-    if(x == 'interest_house_loan'){
-      this.step4_house_prop_upload = false;
-      this.step4_prop_address = false;
-      this.step4_rental_prop = false;
-      this.step4_interest_house_loan  = true;
-      this.step4_prop_ownership = false;
-      this.step4_unrealized_rent= false;
-    }
-    if(x == 'prop_ownership'){
-      this.step4_house_prop_upload = false;
-      this.step4_prop_address = false;
-      this.step4_rental_prop = false;
-      this.step4_interest_house_loan  = false;
-      this.step4_prop_ownership = true;
-      this.step4_unrealized_rent= false;
-    }
-    if(x == 'unrealized_rent'){
-      this.step4_house_prop_upload = false;
-      this.step4_prop_address = false;
-      this.step4_rental_prop = false;
-      this.step4_interest_house_loan  = false;
-      this.step4_prop_ownership = false;
-      this.step4_unrealized_rent= true;
+    if(x == 'rental_property_data'){
+      this.step4_rental_property_upload = false;
+      this.step4_rental_property_data = true;
     }
   }
-
 }

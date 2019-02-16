@@ -25,19 +25,19 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     FlatNo: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.STRING(25),
       allowNull: true
     },
     PremiseName: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(30),
       allowNull: true
     },
     StreetName: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(30),
       allowNull: true
     },
     AreaLocality: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(30),
       allowNull: true
     },
     State: {
@@ -49,15 +49,15 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     Amount: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT(10,2),
       allowNull: true
     },
-    CreatedDate: {
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
-    ModifiedDate: {
+    updatedAt: {
       type: DataTypes.DATE,
       allowNull: true
     }
