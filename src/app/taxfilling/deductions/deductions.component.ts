@@ -53,7 +53,9 @@ export class DeductionsComponent implements OnInit {
 
   //Global variables to save userdId and ApplictionID
   userId : number;
-  ApplicationId : number;
+  ApplicationId : number = null;
+  nextButtonDisable = false;
+  previousButtonDisable = false;
 
   //Read localstorage in progress application values
   localStoreg = JSON.parse(localStorage.getItem("currentUserApp"));
@@ -79,7 +81,13 @@ export class DeductionsComponent implements OnInit {
         //console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
         //console.log("Current App value "+ this.appService.currentApplicationValue);
         this.userId         = this.authenticationService.currentUserValue.userid;
-        this.ApplicationId  = this.appService.currentApplicationValue.appId;
+        if(this.appService.currentApplicationValue != null){
+          this.ApplicationId  = this.appService.currentApplicationValue.appId;
+        }else{
+          this.nextButtonDisable = true;
+          this.previousButtonDisable = true;
+        }
+        
         console.log("Current App Id "+ this.ApplicationId);
       }
   }

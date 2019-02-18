@@ -84,11 +84,11 @@ export class IncomeSourceComponent implements OnInit {
 
   ngOnInit() {
     this.salaryIncomeForm = this.formBuilder.group({
-      uploadForm16File: ['', Validators.required ],
+      uploadForm16File: [''],
       uploadFilePassword: [''],
       uploadForm16FileFlag:[''],
-      inputEmployernm:['',, Validators.required],
-      inputEmployertype:['',, Validators.required],
+      inputEmployernm:['', Validators.required],
+      inputEmployertype:['', Validators.required],
       inputSalary: ['', Validators.required]
     });
 
@@ -271,7 +271,7 @@ export class IncomeSourceComponent implements OnInit {
 
   onSubmit(formname,infoType) {
     var salIncomeInputParam,othIncomeInputParam,houseIncomeInputParam,rentIncomeInputParam,capIncomeInputParam;  
-    console.log('SUCCESS!! :-)\n\n' + JSON.stringify(formname.value))
+    console.log('SUCCESS!! :-)\n\n' + JSON.stringify(formname.value));
       switch(infoType){
         case "salIncomeDetails":
           salIncomeInputParam = {
@@ -283,6 +283,7 @@ export class IncomeSourceComponent implements OnInit {
               "salamount":this.s.inputSalary
             };
             this.submittedData.push({"salIncomeData":salIncomeInputParam});
+            //console.log('Submitted Data Array!! :-)' + JSON.stringify(this.submittedData));
             // start storing application data in database
             this.appService.saveSalIncomeDetails(salIncomeInputParam)
             .pipe(first())

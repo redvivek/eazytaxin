@@ -52,7 +52,7 @@ export class TaxPeriodComponent implements OnInit {
         this.userId = this.authenticationService.currentUserValue.userid;
       }
 
-      if(!this.appservice.currentApplicationValue){
+      if(this.appservice.currentApplicationValue != null){
           this.selAssYear = this.appservice.currentApplicationValue.taxperiod;
       }else{
         this.selAssYear = this.taxperiods[0]

@@ -144,10 +144,10 @@
                                                     <span class="input-group-text">Choose File</span>
                                                     </div>
                                                     <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="uploadForm16File" formControlName="uploadForm16File" [ngClass]="{ 'is-invalid': salFSubmitted && f.uploadForm16File.errors}">
-                                                    <div *ngIf="salFSubmitted && f.uploadForm16File.errors" class="invalid-feedback">
-                                                        <div *ngIf="f.uploadForm16File.errors.required">Please upload your form16</div>
-                                                    </div>
+                                                    <input type="file" class="custom-file-input" id="uploadForm16File" formControlName="uploadForm16File" [ngClass]="{ 'is-invalid': salFSubmitted && s.uploadForm16File.errors}">
+                                                    <!-- <div *ngIf="salFSubmitted && s.uploadForm16File.errors" class="invalid-feedback">
+                                                        <div *ngIf="s.uploadForm16File.errors.required">Please upload your form16</div>
+                                                    </div> -->
                                                     <label class="custom-file-label" for="uploadForm16File">No File Chosen</label>
                                                     </div>
                                                 </div>
@@ -178,24 +178,24 @@
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-group floating-label">
-                                                <input type="text" class="form-control" id="employername" formControlName="inputEmployernm" [ngClass]="{ 'is-invalid': salFSubmitted && f.inputEmployernm.errors}">
-                                                <div *ngIf="salFSubmitted && f.inputEmployernm.errors" class="invalid-feedback">
-                                                    <div *ngIf="f.inputEmployernm.errors.required">Employer name is required</div>
+                                                <input type="text" class="form-control" id="employername" formControlName="inputEmployernm" [ngClass]="{ 'is-invalid': salFSubmitted && s.inputEmployernm.errors}">
+                                                <div *ngIf="salFSubmitted && s.inputEmployernm.errors" class="invalid-feedback">
+                                                    <div *ngIf="s.inputEmployernm.errors.required">Employer name is required</div>
                                                 </div>
                                                 <label for="employername">Name of the Employer <span class="text-danger required">*</span></label>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-group floating-label customDropdown">
-                                                <select id="employertype"  class="form-control" formControlName="inputEmployertype" [ngClass]="{ 'is-invalid': salFSubmitted && f.inputEmployertype.errors}">
+                                                <select id="employertype"  class="form-control" formControlName="inputEmployertype" [ngClass]="{ 'is-invalid': salFSubmitted && s.inputEmployertype.errors}">
                                                     <option value=""></option>
                                                     <option value="govt">Govt.</option>
                                                     <option value="public">Public</option>
                                                     <option value="private">Private</option>
                                                     <option value="Propertiship">Propertiship</option>
                                                 </select>
-                                                <div *ngIf="salFSubmitted && f.inputEmployertype.errors" class="invalid-feedback">
-                                                    <div *ngIf="f.inputEmployertype.errors.required">Employer type is required</div>
+                                                <div *ngIf="salFSubmitted && s.inputEmployertype.errors" class="invalid-feedback">
+                                                    <div *ngIf="s.inputEmployertype.errors.required">Employer type is required</div>
                                                 </div>
                                                 <label for="employertype">Employer Type/Category <span class="text-danger required">*</span></label>
                                                 </div>
@@ -209,9 +209,9 @@
                                                             <div class="input-group-prepend">
                                                                 <div class="input-group-text">₹</div>
                                                             </div>
-                                                            <input type="text" class="form-control" id="salary" formControlName="inputSalary" [ngClass]="{ 'is-invalid': salFSubmitted && f.inputSalary.errors}">
-                                                            <div *ngIf="salFSubmitted && f.inputSalary.errors" class="invalid-feedback">
-                                                                <div *ngIf="f.inputSalary.errors.required">Salary amount is required</div>
+                                                            <input type="text" class="form-control" id="salary" formControlName="inputSalary" [ngClass]="{ 'is-invalid': salFSubmitted && s.inputSalary.errors}">
+                                                            <div *ngIf="salFSubmitted && s.inputSalary.errors" class="invalid-feedback">
+                                                                <div *ngIf="s.inputSalary.errors.required">Salary amount is required</div>
                                                             </div>
                                                             <label for="salary">Salary <span class="text-danger required">*</span></label>
                                                         </div>
@@ -814,9 +814,9 @@
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="form-group floating-label customDropdown">
-                                                            <select id="inpSelfOccPropLoanFlag" class="form-control" formControlName="inpSelfOccPropLoanFlag" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropLoanFlag.errors}"></select>>
-                                                            <option value="1">Yes</option>
-                                                            <option value="0">No</option>
+                                                            <select id="inpSelfOccPropLoanFlag" class="form-control" formControlName="inpSelfOccPropLoanFlag" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropLoanFlag.errors}">
+                                                                <option value="1">Yes</option>
+                                                                <option value="0">No</option>
                                                             </select>
                                                             <div *ngIf="houFSubmitted && h.inpSelfOccPropLoanFlag.errors" class="invalid-feedback">
                                                                 <div *ngIf="h.inpSelfOccPropLoanFlag.errors.required">Loan response on self occupied property is required</div>
@@ -854,7 +854,7 @@
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="form-group floating-label customDropdown">
-                                                            <select id="inpCOFlag" class="form-control" formControlName="inpCOFlag" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpCOFlag.errors}"></select>>
+                                                            <select id="inpCOFlag" class="form-control" formControlName="inpCOFlag" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpCOFlag.errors}">
                                                             <option value="1">Yes</option>
                                                             <option value="0">No</option>
                                                             </select>

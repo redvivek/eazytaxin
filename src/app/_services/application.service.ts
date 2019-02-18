@@ -84,6 +84,7 @@ export class ApplicationService {
 
     //save Sal Income info details
     saveSalIncomeDetails(salinfoData) {
+        console.log("InputParam "+salinfoData);
         return this.http.post(`${environment.apiUrl}/tax/saveSalaryIncome`, salinfoData);
     }
 
