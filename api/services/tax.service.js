@@ -7,12 +7,21 @@ const db = require('../config/dbConfig');
 var dateTime = require('node-datetime');
 
 const ApplicationMain = db.ApplicationMain;
+
 const PersonalDetails = db.PersonalDetails;
 const AddressDetails = db.AddressDetails
 const BankDetails = db.BankDetails;
 const AssetsDetails = db.AssetsDetails;
 const ImAssetsAddDetails = db.ImAssetsAddDetails;
 const AssetsAOPDetails = db.AssetsAOPDetails;
+
+const SalariedIncome = db.SalariedIncome;
+const OtherIncome = db.OtherIncome;
+const OtherDepIncome = db.OtherDepIncome;
+const PropertyIncome = db.PropertyIncome;
+const PropCoOwnerIncome = db.PropCoOwnerIncome;
+const CapitalGainsIncome = db.CapitalGainsIncome;
+
 const sequelize = db.sequelize;
 
 var dt = dateTime.create();
@@ -477,6 +486,476 @@ exports.saveImmAssestsInfoByAppId = (req,res)=>{
             }).then(result => {		
                 console.log("Result AppId  "+result[0]);
                 res.json({"statusCode": 200,"Message": "Successful Request","immAssInfoId":result[0]});
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+};
+
+exports.saveSalIncomeInfoByAppId = (req,res) => {
+    //let inputdata = req.body;
+    let appid = req.body.appId;
+    let userid = req.body.userId;
+    let uploadDocFlag = req.body.uploadDocFlag;
+    let employernm = req.body.employernm;
+    let salamount = req.body.salamount;
+    let inputEmployertype = req.body.inputEmployertype;
+
+    SalariedIncome.findOne(
+		{ where: {UserId:userid,ApplicationId: appid} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Salary Income details  "+JSON.stringify(resultData));
+            SalariedIncome.destroy({
+                where: { IncomeSourceSalId: resultData.IncomeSourceSalId}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + resultData.IncomeSourceSalId);
+                sequelize.query("INSERT INTO `et_income_salary`(ApplicationId,UserId,Form16UploadFlag,SalaryPaidAmount,EmployerName,EmployerCategory,CompletionStatus) VALUES (?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,uploadDocFlag,salamount,employernm,inputEmployertype,'Yes'],
+                    type: sequelize.QueryTypes.INSERT 
+                }).then(result => {		
+                    console.log("Result AppId  "+result[0]);
+                    //update flags to et_income_salary table */
+                    updateApplicationMain(appid,userid,9);
+
+                    res.json({"statusCode": 200,"Message": "Successful Request"});
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    res.status(400).send(err);
+                });
+            });
+        } else {
+			//res.status(200);
+			//Save to et_income_salary table */
+			sequelize.query("INSERT INTO `et_income_salary`(ApplicationId,UserId,Form16UploadFlag,SalaryPaidAmount,EmployerName,EmployerCategory,CompletionStatus) VALUES (?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,uploadDocFlag,salamount,employernm,inputEmployertype,'Yes'],
+                type: sequelize.QueryTypes.INSERT 
+            }).then(result => {		
+                console.log("Result AppId  "+result[0]);
+                //update flags to et_applicationsmain table */
+                updateApplicationMain(appid,userid,9);
+                res.json({"statusCode": 200,"Message": "Successful Request"});
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+
+};
+
+exports.saveOthIncomeInfoByAppId = (req,res) => {
+    //let inputdata = req.body;
+    let appid = req.body.appId;
+    let userid = req.body.userId;
+    let uploadDocFlag = req.body.uploadDocFlag;
+    let savingsIncome = req.body.savingsIncome;
+    let fdincome = req.body.fdincome;
+    let othericnome = req.body.othericnome;
+    let shareincome = req.body.shareincome;
+    let exemptincome = req.body.exemptincome;
+    let otherexemptincome = req.body.otherexemptincome;
+    let agriincome = req.body.agriincome;
+    let agriexpend = req.body.agriexpend;
+    let agriloss = req.body.agriloss;
+    let depincome = req.body.depincome;
+    let depname = req.body.depname;
+    let deprelation = req.body.deprelation;
+    let depincomeNature = req.body.depincomeNature;
+    let pfincome = req.body.pfincome;
+    let pfincometax = req.body.pfincometax;
+
+    OtherIncome.findOne(
+		{ where: {UserId:userid,ApplicationId: appid} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Other Income details  "+JSON.stringify(resultData));
+            OtherIncome.destroy({
+                where: { IncomeSourceOthersId: resultData.IncomeSourceOthersId}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + resultData.IncomeSourceOthersId);
+                sequelize.query("INSERT INTO `et_income_others`(ApplicationId,UserId,DocumentUploadFlag,SavingsInterestAmount,FDInterestAmount,GiftsIncome,DividendEarnedAmount,ExemptInterestIncome,OtherExemptIncome,GrossAgriIncome,AgriExpenditure,AgriLoss,PFWithdrawalIncome,PFWithdrawalTaxrate,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,uploadDocFlag,savingsIncome,fdincome,othericnome,shareincome,exemptincome,otherexemptincome,agriincome,agriexpend,agriloss,pfincome,pfincometax,'Yes'],
+                    type: sequelize.QueryTypes.INSERT 
+                }).then(result => {		
+                    console.log("Result AppId  "+result[0]);
+                    insertDependentIncome(appid,userid,result[0],depincome,depname,deprelation,depincomeNature);
+                    res.json({"statusCode": 200,"Message": "Successful Request"});
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    res.status(400).send(err);
+                });
+            });
+        } else {
+			//res.status(200);
+			//Save to et_income_others table */
+			sequelize.query("INSERT INTO `et_income_others`(ApplicationId,UserId,DocumentUploadFlag,SavingsInterestAmount,FDInterestAmount,GiftsIncome,DividendEarnedAmount,ExemptInterestIncome,OtherExemptIncome,GrossAgriIncome,AgriExpenditure,AgriLoss,PFWithdrawalIncome,PFWithdrawalTaxrate,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,uploadDocFlag,savingsIncome,fdincome,othericnome,shareincome,exemptincome,otherexemptincome,agriincome,agriexpend,agriloss,pfincome,pfincometax,'Yes'],
+                type: sequelize.QueryTypes.INSERT 
+            }).then(result => {		
+                console.log("Result AppId  "+result[0]);
+                insertDependentIncome(appid,userid,result[0],depincome,depname,deprelation,depincomeNature);
+                res.json({"statusCode": 200,"Message": "Successful Request"});
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+
+};
+
+function insertDependentIncome(appid,userid,otherIncomeId,depincome,depname,deprelation,depincomeNature){
+    OtherDepIncome.findOne(
+		{ where: {UserId:userid,ApplicationId: appid} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Other Dep Income details  "+JSON.stringify(resultData));
+            OtherDepIncome.destroy({
+                where: { DepIncomeId: resultData.DepIncomeId}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + resultData.DepIncomeId);
+                sequelize.query("INSERT INTO `et_income_dependentincome`(IncomeSourceOthersId,ApplicationId,UserId,Amount,PersonName,Relationship,NatureOfIncome) VALUES (?,?,?,?,?,?,?)",{
+                    replacements: [otherIncomeId,appid,userid,depincome,depname,deprelation,depincomeNature],
+                    type: sequelize.QueryTypes.INSERT 
+                }).then(result => {		
+                    console.log("Result AppId  "+result[0]);
+                    //update flags to et_applicationsmain table */
+                    updateApplicationMain(appid,userid,10);
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                });
+            });
+        } else {
+			//Save to et_income_dependentincome table */
+			sequelize.query("INSERT INTO `et_income_dependentincome`(IncomeSourceOthersId,ApplicationId,UserId,Amount,PersonName,Relationship,NatureOfIncome) VALUES (?,?,?,?,?,?,?)",{
+                replacements: [otherIncomeId,appid,userid,depincome,depname,deprelation,depincomeNature],
+                type: sequelize.QueryTypes.INSERT 
+            }).then(result => {		
+                console.log("Result AppId  "+result[0]);
+                //update flags to et_applicationsmain table */
+                updateApplicationMain(appid,userid,10);
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+            });
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+	});
+};
+
+exports.saveHouseIncomeInfoByAppId = (req,res) => {
+    //let inputdata = req.body;
+    let appid = req.body.appId;
+    let userid = req.body.userId;
+    let propType = "Houseprop";
+    let uploadDocFlag = req.body.uploadDocFlag;
+    let flatno = req.body.flatno;
+    let premises = req.body.premises;
+    let street = req.body.street;
+    let area = req.body.area;
+    let city = req.body.city;
+    let pincode = req.body.pincode;
+    let country = req.body.country;
+    let state = req.body.state;
+    let proploanflag = req.body.proploanflag;
+    let propinterestpaid = req.body.propinterestpaid;
+    let coflag = req.body.coflag;
+    let selfshare = req.body.selfshare;
+    let coname = req.body.coname;
+    let copan = req.body.copan;
+    let coshare = req.body.coshare;
+
+    PropertyIncome.findOne(
+		{ where: {UserId:userid,ApplicationId: appid, PropertyType:propType} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - House Income details  "+JSON.stringify(resultData));
+            PropertyIncome.destroy({
+                where: { IncomeHouseDetailsId: resultData.IncomeHouseDetailsId}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + resultData.IncomeHouseDetailsId);
+                sequelize.query("INSERT INTO `et_income_property`(ApplicationId,UserId,PropertyType,HouseloanFlag,InterestAmount,DocumentUploadFlag,CoownerFlag,OwnershipShare,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,propType,proploanflag,propinterestpaid,uploadDocFlag,coflag,selfshare,'Yes'],
+                    type: sequelize.QueryTypes.INSERT 
+                }).then(result => {		
+                    console.log("Result AppId  "+result[0]);
+                    insertHousePropAddress(appid,userid,result[0],propType,flatno,premises,street,area,city,pincode,country,state,coname,copan,coshare,res);
+                    //res.json({"statusCode": 200,"Message": "Successful Request"});
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    res.status(400).send(err);
+                });
+            });
+        } else {
+			sequelize.query("INSERT INTO `et_income_property`(ApplicationId,UserId,PropertyType,HouseloanFlag,InterestAmount,DocumentUploadFlag,CoownerFlag,OwnershipShare,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,propType,proploanflag,propinterestpaid,uploadDocFlag,coflag,selfshare,'Yes'],
+                type: sequelize.QueryTypes.INSERT 
+            }).then(result => {		
+                console.log("Result AppId  "+result[0]);
+                insertHousePropAddress(appid,userid,result[0],propType,flatno,premises,street,area,city,pincode,country,state,coname,copan,coshare,res);
+                //res.json({"statusCode": 200,"Message": "Successful Request"});
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+
+};
+
+function insertHousePropAddress(appid,userid,propertyId,propType,flatno,premises,street,area,city,pincode,country,state,res){
+    if(propType == "Houseprop"){
+        stage = 11;
+    }else if(propType == "Rentalprop"){
+        stage = 12;
+    }
+    
+    AddressDetails.findOne(
+		{ where: {UserId:userid,ApplicationId: appid, AddressType:propType} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Address Details  "+JSON.stringify(resultData));
+            AddressDetails.destroy({
+                where: { AdressDetailsId: resultData.AdressDetailsId}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + resultData.AdressDetailsId);
+                sequelize.query("INSERT INTO `et_addressdetails`(ApplicationId,UserId,IncomeHouseDetailsId,AddressType,Flatno_Blockno,Building_Village_Premises,Road_Street_PO,Area_Locality,City_Town_District,State,Country,Pincode,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,propertyId,propType,flatno,premises,street,area,city,state,country,pincode,formattedDT,'Yes'],
+                    type: sequelize.QueryTypes.INSERT 
+                }).then(result => {		
+                    console.log("Result AppId  "+result[0]);
+                    //insert coowner details */
+                    insertCoownerDetails(appid,userid,propertyId,propType,coname,copan,coshare,stage,res);
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    res.status(400).send(err);
+                });
+            });
+        } else {
+			//res.status(200);
+			//Save to et_personaldetails table */
+			sequelize.query("INSERT INTO `et_addressdetails`(ApplicationId,UserId,IncomeHouseDetailsId,AddressType,Flatno_Blockno,Building_Village_Premises,Road_Street_PO,Area_Locality,City_Town_District,State,Country,Pincode,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,propertyId,propType,flatno,premises,street,area,city,state,country,pincode,formattedDT,'Yes'],
+                type: sequelize.QueryTypes.INSERT 
+            }).then(result => {			
+                console.log("Result AppId  "+result[0]);
+                //insert coowner details */
+                insertCoownerDetails(appid,userid,propertyId,coname,propType,copan,coshare,stage,res);
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+}
+
+function insertCoownerDetails(appid,userid,propertyId,propType,coname,copan,coshare,stage,res){
+    PropCoOwnerIncome.findOne(
+		{ where: {UserId:userid,ApplicationId: appid,PropertyType:propType} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Other Dep Income details  "+JSON.stringify(resultData));
+            PropCoOwnerIncome.destroy({
+                where: { cownerId: resultData.cownerId}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + resultData.cownerId);
+                sequelize.query("INSERT INTO `et_property_coownerdetails`(IncomeHouseDetailsId,ApplicationId,UserId,PropertyType,PersonName,Panno,Share) VALUES (?,?,?,?,?,?,?)",{
+                    replacements: [propertyId,appid,userid,propType,coname,copan,coshare],
+                    type: sequelize.QueryTypes.INSERT 
+                }).then(result => {		
+                    console.log("Result AppId  "+result[0]);
+                    //update flags to et_applicationsmain table */
+                    updateApplicationMain(appid,userid,stage);
+                    res.json({"statusCode": 200,"Message": "Successful Request"});
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    res.status(400).send(err);
+                });
+            });
+        } else {
+			//Save to et_property_coownerdetails table */
+			sequelize.query("INSERT INTO `et_property_coownerdetails`(IncomeHouseDetailsId,ApplicationId,UserId,PropertyType,PersonName,Panno,Share) VALUES (?,?,?,?,?,?,?)",{
+                replacements: [propertyId,appid,userid,propType,coname,copan,coshare],
+                type: sequelize.QueryTypes.INSERT 
+            }).then(result => {		
+                console.log("Result AppId  "+result[0]);
+                //update flags to et_applicationsmain table */
+                updateApplicationMain(appid,userid,stage);
+                res.json({"statusCode": 200,"Message": "Successful Request"});
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+		}
+	})
+	.catch(function (err) {
+        console.log("Error "+err);
+        res.status(400).send(err);
+	});
+};
+
+exports.saveRentalIncomeInfoByAppId = (req,res) => {
+    //let inputdata = req.body;
+    let appid = req.body.appId;
+    let userid = req.body.userId;
+    let propType = "Rentalprop";
+    let uploadDocFlag = req.body.uploadDocFlag;
+    let flatno = req.body.flatno;
+    let premises = req.body.premises;
+    let street = req.body.street;
+    let area = req.body.area;
+    let city = req.body.city;
+    let pincode = req.body.pincode;
+    let country = req.body.country;
+    let state = req.body.state;
+    
+    let rentAmountRcvd = req.body.rentAmountRcvd;
+    let rentHouseTaxPaid = req.body.rentHouseTaxPaid;
+    let rentalTenantNm = req.body.rentalTenantNm;
+    let rentalTenantPan = req.body.rentalTenantPan;
+    
+    let rentalPropLoanFlag = req.body.rentalPropLoanFlag;
+    let rentalpropInterestPaid = req.body.rentalpropInterestPaid;
+
+    let coflag = req.body.coflag;
+    let selfshare = req.body.selfshare;
+    let unRealizedRent = req.body.unRealizedRent;
+    let coname = req.body.coname;
+    let copan = req.body.copan;
+    let coshare = req.body.coshare;
+
+    PropertyIncome.findOne(
+		{ where: {UserId:userid,ApplicationId: appid, PropertyType:propType} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - House Income details  "+JSON.stringify(resultData));
+            PropertyIncome.destroy({
+                where: { IncomeHouseDetailsId: resultData.IncomeHouseDetailsId}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + resultData.IncomeHouseDetailsId);
+                sequelize.query("INSERT INTO `et_income_property`(ApplicationId,UserId,PropertyType,AmountReceived,HousetaxPaid,TenantName,TanantPanno,HouseloanFlag,InterestAmount,DocumentUploadFlag,UnrealizedRentAmount,CoownerFlag,OwnershipShare,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,propType,rentAmountRcvd,rentHouseTaxPaid,rentalTenantNm,rentalTenantPan,rentalPropLoanFlag,rentalpropInterestPaid,uploadDocFlag,unRealizedRent,coflag,selfshare,'Yes'],
+                    type: sequelize.QueryTypes.INSERT 
+                }).then(result => {		
+                    console.log("Result AppId  "+result[0]);
+                    insertHousePropAddress(appid,userid,result[0],propType,flatno,premises,street,area,city,pincode,country,state,coname,copan,coshare,res);
+                    //res.json({"statusCode": 200,"Message": "Successful Request"});
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    res.status(400).send(err);
+                });
+            });
+        } else {
+			sequelize.query("INSERT INTO `et_income_property`(ApplicationId,UserId,PropertyType,AmountReceived,HousetaxPaid,TenantName,TanantPanno,HouseloanFlag,InterestAmount,DocumentUploadFlag,UnrealizedRentAmount,CoownerFlag,OwnershipShare,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,propType,rentAmountRcvd,rentHouseTaxPaid,rentalTenantNm,rentalTenantPan,rentalPropLoanFlag,rentalpropInterestPaid,uploadDocFlag,unRealizedRent,coflag,selfshare,'Yes'],
+                type: sequelize.QueryTypes.INSERT 
+            }).then(result => {		
+                console.log("Result AppId  "+result[0]);
+                insertHousePropAddress(appid,userid,result[0],propType,flatno,premises,street,area,city,pincode,country,state,coname,copan,coshare,res);
+                //res.json({"statusCode": 200,"Message": "Successful Request"});
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+};
+
+exports.saveCapitalIncomeInfoByAppId = (req,res) => {
+    //let inputdata = req.body;
+    let appid = req.body.appId;
+    let userid = req.body.userId;
+    let shareIncomeFlag = req.body.shareIncomeFlag;
+    let landsaleproof = req.body.landsaleproof;
+    let assestSaleProof = req.body.assestSaleProof;
+    let MFSaleProof = req.body.MFSaleProof;
+
+    CapitalGainsIncome.findOne(
+		{ where: {UserId:userid,ApplicationId: appid} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Capital Income details  "+JSON.stringify(resultData));
+            CapitalGainsIncome.destroy({
+                where: { CapitalgainID: resultData.CapitalgainID}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + resultData.CapitalgainID);
+                sequelize.query("INSERT INTO `et_income_capitalgains`(ApplicationId,UserId,Shares_Sell_Flag,Property_Sell_Flag,Assests_Sell_Flag,MF_Sell_Flag,CompletionStatus) VALUES (?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,shareIncomeFlag,landsaleproof,assestSaleProof,MFSaleProof,'Yes'],
+                    type: sequelize.QueryTypes.INSERT 
+                }).then(result => {		
+                    console.log("Result AppId  "+result[0]);
+                    //update flags to et_income_salary table */
+                    updateApplicationMain(appid,userid,13);
+
+                    res.json({"statusCode": 200,"Message": "Successful Request"});
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    res.status(400).send(err);
+                });
+            });
+        } else {
+			//res.status(200);
+			//Save to et_income_salary table */
+			sequelize.query("INSERT INTO `et_income_capitalgains`(ApplicationId,UserId,Shares_Sell_Flag,Property_Sell_Flag,Assests_Sell_Flag,MF_Sell_Flag,CompletionStatus) VALUES (?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,shareIncomeFlag,landsaleproof,assestSaleProof,MFSaleProof,'Yes'],
+                type: sequelize.QueryTypes.INSERT 
+            }).then(result => {		
+                console.log("Result AppId  "+result[0]);
+                //update flags to et_applicationsmain table */
+                updateApplicationMain(appid,userid,13);
+                res.json({"statusCode": 200,"Message": "Successful Request"});
             })
             .catch(function (err) {
                 console.log("Error "+err);

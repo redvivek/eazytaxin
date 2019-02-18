@@ -20,6 +20,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(10),
       allowNull: false
     },
+    PropertyType: {
+      type: DataTypes.ENUM('Houseprop','Rentalprop'),
+      allowNull: false
+    },
     PersonName: {
       type: DataTypes.STRING(30),
       allowNull: true

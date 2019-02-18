@@ -82,7 +82,28 @@ export class ApplicationService {
         return this.http.post(`${environment.apiUrl}/tax/saveImmAssestsInfo`,jsonInput);
     }
 
-    /*delete(id: number) {
-        return this.http.delete(`${environment.apiUrl}/users/${id}`);
-    }*/
+    //save Sal Income info details
+    saveSalIncomeDetails(salinfoData) {
+        return this.http.post(`${environment.apiUrl}/tax/saveSalaryIncome`, salinfoData);
+    }
+
+    //save Other Income info details
+    saveOtherIncomeDetails(othinfoData) {
+        return this.http.post(`${environment.apiUrl}/tax/saveOtherIncome`, othinfoData);
+    }
+
+    //save HouseProp Income info details
+    saveHouseIncomeDetails(houseinfoData) {
+        return this.http.post(`${environment.apiUrl}/tax/saveHouseIncome`, houseinfoData);
+    }
+
+    //save RentalProp Income info details
+    saveRentalIncomeDetails(rentalinfoData) {
+        return this.http.post(`${environment.apiUrl}/tax/saveRentalIncome`, rentalinfoData);
+    }
+
+    //save RentalProp Income info details
+    saveCapitalIncomeDetails(capitalinfoData) {
+        return this.http.post(`${environment.apiUrl}/tax/saveCapitalIncome`, capitalinfoData);
+    }
 }
