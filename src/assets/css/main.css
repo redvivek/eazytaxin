@@ -52,15 +52,16 @@ a:hover{text-decoration:none;}
 
 
 /* Header */
-.header{background-color:#FFF; box-shadow:-1px 3px 10px rgba(0,0,0,0.1); position: fixed; z-index:50;}
-.header a{color:#2e2e2c;}
-.header .top-navbar{min-height:50px; padding:0;}
-.header .top-navbar .profile-pic img{width:50px; border-radius:100%;}
-.header .top-navbar .profile-pic img{width:50px; border-radius:100%;}
-.header .top-navbar .navbar-nav > .nav-item > .nav-link{padding-left:15px; padding-right:15px; font-size:14px; font-weight:500; line-height:50px; }
-.header .top-navbar .navbar-nav > .nav-item .pageName{font-size:18px; font-weight:300;}
-.header .top-navbar .navbar-nav > .nav-item > .user-dropdown{padding-top:7px; padding-left:15px;}
-.header .mainMenutoggler{padding:22px; width:70px; height:66px;}
+#header{}
+#header .headerInner{background-color:#FFF; box-shadow:-1px 3px 10px rgba(0,0,0,0.1); position: fixed; z-index:50;}
+#header a{color:#2e2e2c;}
+#header .top-navbar{min-height:50px; padding:0;}
+#header .top-navbar .profile-pic img{width:50px; border-radius:100%;}
+#header .top-navbar .profile-pic img{width:50px; border-radius:100%;}
+#header .top-navbar .navbar-nav > .nav-item > .nav-link{padding-left:15px; padding-right:15px; font-size:14px; font-weight:500; line-height:50px; }
+#header .top-navbar .navbar-nav > .nav-item .pageName{font-size:18px; font-weight:300;}
+#header .top-navbar .navbar-nav > .nav-item > .user-dropdown{padding-top:7px; padding-left:15px;}
+#header .mainMenutoggler{padding:22px; width:70px; height:66px;}
 .mainMenuList{background-color:#f2f2f2; box-shadow:5px 5px 5px rgba(0,0,0,.2); top:65px; z-index:49; transition:.5s; transform:matrix(1, 0, 0, 1, 0, -500);}
 .mainMenuList.show{transform:matrix(1, 0, 0, 1, 0, 0);}
 .mainMenuList li{padding:0; border-left:none; border-right:none;}
@@ -70,6 +71,11 @@ a:hover{text-decoration:none;}
 .mainMenuList li a:hover .text{color:#FFF;}
 .mainMenuList .text{font-size:12px; font-weight:500; margin-top:5px;}
 .overlay{opacity:.3; z-index:48;}
+
+#header.no-bg .headerInner{background-color:transparent; box-shadow:none; color:#FFF;}
+#header.no-bg a{color:#FFF;}
+#header.no-bg .dropdown-menu a{color:#2e2e2c;}
+#header.no-bg .dropdown-toggle::after{color:#FFF;}
 
 
 .card {border:none; border-radius:0;}
@@ -398,4 +404,85 @@ a:hover{text-decoration:none;}
 .review .chart-name{font-size:16px; margin-top:10px; margin-bottom:0; font-weight:400;}
 .review .reviewInfo{margin-top:35px;}
 .review .reviewInfo .form-actions{margin-top:30px;}
+
+/* Home Page */
+.homepage .mainBanner{min-height:620px; height:100vh;}
+.homepage .mainBanner .captions{left:5%; z-index:1; color:#FFF; top:50%; transform:translateY(-50%);}
+.homepage .mainBanner .captions h3{font-size:101px; font-weight:500; margin-bottom:0;}
+.homepage .mainBanner .captions h5{font-size:44px; font-weight:100; margin-bottom:25px;}
+.homepage .mainBanner .captions .btn{font-size:16px; padding:17px 20px; min-width:145px;}
+
+.homepage .mainBanner .owl-carousel,
+.homepage .mainBanner .owl-item,
+.homepage .mainBanner .owl-stage-outer,
+.homepage .mainBanner .owl-stage{height:100%;}
+.homepage .mainBanner .owl-item .item{width:100%; height:100%;}
+.homepage .mainBanner .owl-item img{position:absolute; width:100%; height:100%;object-fit: cover;}
+.homepage .mainBanner .slide-progress {width:0; max-width:100%; height:10px; background:#0095e3; position:absolute;left:0; right:0; margin:0 auto; bottom:0; z-index:2;}
+.homepage .pricing{background-color:#FFF;}
+.homepage .pricing .priceList li{width:350px; height:200px; background-color:#f3f3f3; padding:30px; list-style:none; margin:0 45px;}
+.homepage .pricing .priceList li h3{font-size:24px; color:#0095e3; margin-bottom: 25px;}
+.homepage .pricing .priceList li h2{font-size:48px; font-weight:500; line-height:1; margin-bottom:0;}
+.homepage .pricing .priceList li .hover{visibility:hidden; opacity:0; width:100%; height:100%; left:0; top:0; transition:.5s ease;}
+.homepage .pricing .priceList li:hover .hover{background-color:rgba(176,176,176,.5); visibility:visible; opacity:1;}
+.homepage .pricing .priceList li .btn{font-size:16px; padding:17px 20px; min-width:145px;}
+
+
+
+
+/**
+ * Owl Carousel v2.3.4
+ * Copyright 2013-2018 David Deutsch
+ * Licensed under: SEE LICENSE IN https://github.com/OwlCarousel2/OwlCarousel2/blob/master/LICENSE
+ */
+.owl-theme .owl-nav{margin-top:10px}
+.owl-theme .owl-nav [class*=owl-]{color:#FFF;font-size:14px;margin:5px;padding:4px 7px;background:#D6D6D6;display:inline-block;cursor:pointer;border-radius:3px}
+.owl-theme .owl-nav [class*=owl-]:hover{background:#869791;color:#FFF;text-decoration:none}
+.owl-theme .owl-nav .disabled{opacity:.5;cursor:default}
+.owl-theme .owl-dots{display:block; position:absolute; bottom:70px; left:5%;}
+.owl-theme .owl-dots .owl-dot{display:inline-block;zoom:1}
+.owl-theme .owl-dots .owl-dot span{width:50px;height:4px;margin:5px; background:#e4e9ff;display:block;-webkit-backface-visibility:visible;transition:opacity .2s ease;}
+.owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span{background:#0095e3}
+
+
+/**
+ * Owl Carousel v2.3.4
+ * Copyright 2013-2018 David Deutsch
+ * Licensed under: SEE LICENSE IN https://github.com/OwlCarousel2/OwlCarousel2/blob/master/LICENSE
+ */
+.owl-carousel,.owl-carousel .owl-item{-webkit-tap-highlight-color:transparent;position:relative}
+.owl-carousel{display:none;width:100%;z-index:1}
+.owl-carousel .owl-stage{position:relative;-ms-touch-action:pan-Y;touch-action:manipulation;-moz-backface-visibility:hidden}
+.owl-carousel .owl-stage:after{content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0}
+.owl-carousel .owl-stage-outer{position:relative;overflow:hidden;-webkit-transform:translate3d(0,0,0)}
+.owl-carousel .owl-item,
+.owl-carousel .owl-wrapper{-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;-ms-backface-visibility:hidden;-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0)}
+.owl-carousel .owl-item{min-height:1px;float:left;-webkit-backface-visibility:hidden;-webkit-touch-callout:none}
+.owl-carousel .owl-item img{display:block;width:100%}
+.owl-carousel .owl-dots.disabled,
+.owl-carousel .owl-nav.disabled{display:none}
+.no-js .owl-carousel,.owl-carousel.owl-loaded{display:block}
+.owl-carousel .owl-dot,.owl-carousel .owl-nav .owl-next,
+.owl-carousel .owl-nav .owl-prev{cursor:pointer;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+.owl-carousel .owl-nav button.owl-next,
+.owl-carousel .owl-nav button.owl-prev,
+.owl-carousel button.owl-dot{background:0 0;color:inherit;border:none;padding:0!important;font:inherit}
+.owl-carousel.owl-loading{opacity:0;display:block}
+.owl-carousel.owl-hidden{opacity:0}
+.owl-carousel.owl-refresh .owl-item{visibility:hidden}
+.owl-carousel.owl-drag .owl-item{-ms-touch-action:pan-y;touch-action:pan-y;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.owl-carousel.owl-grab{cursor:move;cursor:grab}
+.owl-carousel.owl-rtl{direction:rtl}
+.owl-carousel.owl-rtl .owl-item{float:right}
+.owl-carousel .animated{animation-duration:1s;animation-fill-mode:both}
+.owl-carousel .owl-animated-in{z-index:0}
+.owl-carousel .owl-animated-out{z-index:1}
+.owl-carousel .fadeOut{animation-name:fadeOut}
+@keyframes fadeOut{0%{opacity:1}100%{opacity:0}}
+.owl-height{transition:height .5s ease-in-out}
+.owl-carousel .owl-item .owl-lazy{opacity:0;transition:opacity .4s ease}
+.owl-carousel .owl-item .owl-lazy:not([src]),
+.owl-carousel .owl-item .owl-lazy[src^=""]{max-height:0}
+.owl-carousel .owl-item img.owl-lazy{transform-style:preserve-3d}
+
 

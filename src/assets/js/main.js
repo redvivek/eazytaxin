@@ -62,6 +62,54 @@ $(document).delegate('.sidebartoggler', "click", function (e) {
 // }
 // triggerScrollingTab(); 
  
+// Home Page Banner Slider
+//Init the carousel
+initSlider();
+
+function initSlider() {
+  $(".owl-carousel").owlCarousel({
+    items: 1,
+    loop: true,
+    autoplay: true,
+    onInitialized: startProgressBar,
+    onTranslate: resetProgressBar,
+    onTranslated: startProgressBar
+  });
+}
+
+function startProgressBar() {
+  // apply keyframe animation
+  $(".slide-progress").css({
+    width: "100%",
+    transition: "width 5000ms"
+  });
+}
+
+function resetProgressBar() {
+  $(".slide-progress").css({
+    width: 0,
+    transition: "width 0s"
+  });
+}
+
+// Header
+headerScrollJs();
+
+function headerScrollJs() {
+    var scroll = $(window).scrollTop();
+    if (scroll >= 500) {
+      // alert(1);
+      $("body").addClass("scrolled");
+      $("#header").removeClass("no-bg");
+    } else {
+      // alert(2);
+      $("body").removeClass("scrolled");
+      $("#header").addClass("no-bg");
+    }
+};
+
+
+
 
 
 var duration   = 500,
@@ -70,12 +118,12 @@ $( ".reviewChart" ).each(function( index, d ) {
   var ele = $(d);
   var id = ele.attr('id');
   drawDonutChart(
-  '#'+id,
-  ele.data('donut'),
-  150,
-  150,
-  ".35em"
-);
+    '#'+id,
+    ele.data('donut'),
+    150,
+    150,
+    ".35em"
+  );
 });
 
 function drawDonutChart(element, percent, width, height, text_y) {
@@ -139,3 +187,4 @@ function drawDonutChart(element, percent, width, height, text_y) {
 function calcPercent(percent) {
   return [percent, 100-percent];
 };
+
