@@ -1,5 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { ScriptService,AlertService, AuthenticationService,ApplicationService } from '@app/_services';
+// import '../../assets/js/static.js';
+
 
 @Component({ templateUrl: 'home.component.html' })
 

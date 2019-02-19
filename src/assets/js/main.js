@@ -92,26 +92,6 @@ function resetProgressBar() {
   });
 }
 
-// Header
-headerScrollJs();
-
-function headerScrollJs() {
-    var scroll = $(window).scrollTop();
-    if (scroll >= 500) {
-      // alert(1);
-      $("body").addClass("scrolled");
-      $("#header").removeClass("no-bg");
-    } else {
-      // alert(2);
-      $("body").removeClass("scrolled");
-      $("#header").addClass("no-bg");
-    }
-};
-
-
-
-
-
 var duration   = 500,
     transition = 200;
 $( ".reviewChart" ).each(function( index, d ) {

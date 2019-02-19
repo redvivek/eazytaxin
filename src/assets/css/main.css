@@ -1,6 +1,6 @@
 @import url(simple-line-icons.css);
 @import url(fontawesome.css);
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
 
 body{font-family: 'Roboto', sans-serif; font-size:14px; line-height:1.4;}
 html, body{height:100%;}
@@ -420,14 +420,44 @@ a:hover{text-decoration:none;}
 .homepage .mainBanner .owl-item img{position:absolute; width:100%; height:100%;object-fit: cover;}
 .homepage .mainBanner .slide-progress {width:0; max-width:100%; height:10px; background:#0095e3; position:absolute;left:0; right:0; margin:0 auto; bottom:0; z-index:2;}
 .homepage .pricing{background-color:#FFF;}
-.homepage .pricing .priceList li{width:350px; height:200px; background-color:#f3f3f3; padding:30px; list-style:none; margin:0 45px;}
-.homepage .pricing .priceList li h3{font-size:24px; color:#0095e3; margin-bottom: 25px;}
-.homepage .pricing .priceList li h2{font-size:48px; font-weight:500; line-height:1; margin-bottom:0;}
+.homepage .pricing .priceList li{width:350px; height:200px; background-color:#f3f3f3; padding:30px; list-style:none; margin:0 45px 30px;}
+.homepage .pricing .priceList li:after{content:''; display:block; width:2px; height:75%; position:absolute; top:0; bottom:0; margin:auto; right:-46px; background-color:#0095e3;}
+.homepage .pricing .priceList li:first-child{margin-left:0;}
+.homepage .pricing .priceList li:last-child{margin-right:0;}
+.homepage .pricing .priceList li:last-child:after{display:none;}
+.homepage .pricing .priceList li h3{font-size:24px; color:#0095e3; margin-bottom:30px;}
+.homepage .pricing .priceList li h2{font-size:48px; font-weight:700; line-height:1; margin-bottom:0; letter-spacing:-0.02em;}
 .homepage .pricing .priceList li .hover{visibility:hidden; opacity:0; width:100%; height:100%; left:0; top:0; transition:.5s ease;}
 .homepage .pricing .priceList li:hover .hover{background-color:rgba(176,176,176,.5); visibility:visible; opacity:1;}
 .homepage .pricing .priceList li .btn{font-size:16px; padding:17px 20px; min-width:145px;}
+.homepage .pricing .compare {color:#212529;}
+.homepage .pricing .compare .text{margin:10px 0; font-size:16px;}
+.homepage .pricing .compare path{fill:#0095e3;}
 
+.homepage .sectionHeader{padding:40px 0 30px;}
+.homepage .sectionHeader h3{font-size:30px; position:relative; padding-bottom:10px;}
+.homepage .sectionHeader h3:after{content:''; position:absolute; bottom:0; width:50px; height:4px; background-color:#0095e3; display:block; left:0; right:0; margin:0 auto;}
+.homepage .section{padding-bottom:30px;}
+.homepage .featureSection{background-color:#f3f3f3; border-top:1px solid #ccc; border-bottom:1px solid #ccc; box-shadow:inset 0px 4px 12px rgba(0, 0, 0, .12);}
+.homepage .featuresList figure{padding:0 35px;}
+.homepage .featuresList .icon{width:110px; height:110px; border:1px solid #0095e3; border-radius:100%; margin:0 auto;}
+.homepage .featuresList .icon path{fill:#0095e3;}
+.homepage .featuresList figcaption h3{font-size:24px; font-weight:500; color:#0095e3; margin:20px 0 10px;}
+.homepage .featuresList .actionRow .btn{font-size:16px; padding:17px 20px; min-width:145px;}
 
+.homepage .testimonialSection .testimonial{max-width:870px; padding:0 150px; position:relative; margin:30px auto; font-size:16px;}
+.homepage .testimonialSection .testimonial:before,
+.homepage .testimonialSection .testimonial:after{display:block; position:absolute; font:900 80px "FontAwesome"; top:0; color:#dfdfdf;}
+.homepage .testimonialSection .testimonial:before{content: "\f10d"; left:0;}
+.homepage .testimonialSection .testimonial:after{content: "\f10e"; right:0;}
+.homepage .testimonialSection .testimonial .title{font-size:24px; font-weight:100; font-style:italic; color:#0095e3;}
+.homepage .testimonialSection .testimonial .title small{font-size:12px; font-weight:100;}
+
+#footer{background-color:#333; color:#FFF; padding:30px;}
+
+.social{list-style:none;}
+.social li {margin:0 10px; display:inline-block;}
+.social li a{width:50px; height:50px; background-color:#506ffd; border-radius:100%; display:block;}
 
 
 /**
