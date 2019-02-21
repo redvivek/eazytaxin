@@ -520,8 +520,9 @@ a:hover{text-decoration:none;}
 .owl-carousel .owl-item img.owl-lazy{transform-style:preserve-3d}
 
 
-.payment .form-group{margin-bottom:15px;}
-.payment .key label{padding:10px;}
-.payment .value{border: 1px solid #707070; padding:10px;}
+.payment .form-group{margin:0 0 15px;}
+.payment .key label{padding:10px 0 10px 10px; display:block;}
+.payment .value{background-color:rgba(120,120,120,.05); border:1px solid rgba(120,120,120,.5); padding:10px; height:42px;}
 .payment .total label{font-size:22px; font-weight:500; margin:5px 0 0;}
 .payment .total .amt{font-size:32px; font-weight:700;}
+.payment .actionRow{padding:20px 45px; margin-bottom:0;}
