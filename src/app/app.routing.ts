@@ -8,6 +8,8 @@ import {ForgotpasswordComponent} from './forgotpassword';
 import {ResetpasswordComponent} from './resetpassword';
 import { DashboardComponent } from './dashboard';
 import { PricingComponent } from './pricing';
+import { ContactusComponent } from './contactus';
+import { BuynowComponent } from './buynow';
 
 const appRoutes: Routes = [
    { path: '', component: HomeComponent },
@@ -17,6 +19,8 @@ const appRoutes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'forgotpassword', component: ForgotpasswordComponent },
     { path: 'resetpassword', component: ResetpasswordComponent },
+    { path: 'contactus', component: ContactusComponent },
+    { path: 'buynow', component: BuynowComponent },
     {
         path: '',
         canActivate: [ AuthGuard ],

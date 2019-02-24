@@ -22,6 +22,8 @@ import { ResetpasswordComponent } from './resetpassword';
 
 import { DashboardComponent } from './dashboard';
 import { PricingComponent } from './pricing';
+import { ContactusComponent } from './contactus/contactus.component';
+import { BuynowComponent } from './buynow/buynow.component';
 
 @NgModule({
     imports: [
@@ -42,6 +44,8 @@ import { PricingComponent } from './pricing';
         ResetpasswordComponent,
         DashboardComponent,
         PricingComponent,
+        ContactusComponent,
+        BuynowComponent,
     ],
         
     providers: [
