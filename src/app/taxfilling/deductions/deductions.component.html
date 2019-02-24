@@ -78,78 +78,81 @@
                     </ul>
                   </div>
                   <div class="tab-content tab-wizard-content">
-                    <h6><span class="text-danger required">*(If it is not part of Form 16B) </span></h6>
+                    <p><span class="text-danger required">*(If it is not part of Form 16B) </span></p>
                     <!-- Main Deduction tab start-->
-                    <div class="tab-pane fade active show" id="deductions-section-80" role="tabpanel">
-                      <form id="mainDeductionForm" [formGroup]="mainDeductionForm">
-                        <!--Checkboxes starts-->
-                        <div class="row form-group mb-0">
+                    <div class="tab-pane fade active show" id="deductions-section-80" role="tabpanel" [ngClass]="{ 'active': step1 == true ,'show': step1 == true}">
+                      
+                      <!--Checkboxes starts-->
+                      <div class="row">
                           <div class="col">
                             <h6>Select Deduction Categories : For Additional Declaration</h6>
                           </div>
+                      </div>
+                      <div class="d-flex flex-wrap boxBorderHeader bg-light" style="padding: 12px 45px; margin: 3px 0;">
+                        <div class="custom-control custom-checkbox col-3">
+                          <input type="checkbox" class="custom-control-input" id="section80C"  name="section80C" value="section80C" [(ngModel)]="step1_section80C" (change)="onChange($event)">
+                          <label class="custom-control-label" for="section80C">Section 80C</label>
                         </div>
-                        <div class="d-flex flex-wrap boxBorderHeader bg-light">
-                          <div class="custom-control custom-checkbox col-3">
-                            <input type="checkbox" class="custom-control-input" id="section80C" value="section80C">
-                            <label class="custom-control-label" for="section80C">Section 80C</label>
-                          </div>
-                          <div class="custom-control custom-checkbox col-3">
-                            <input type="checkbox" class="custom-control-input" id="section80D" value="section80D">
-                            <label class="custom-control-label" for="section80D">Section 80D</label>
-                          </div>
-                          <div class="custom-control custom-checkbox col-3">
-                            <input type="checkbox" class="custom-control-input" id="section80TTA" value="section80TTA">
-                            <label class="custom-control-label" for="section80TTA">Section 80TTA</label>
-                          </div>
-                          <div class="custom-control custom-checkbox col-3">
-                            <input type="checkbox" class="custom-control-input" id="section80G" value="section80G">
-                            <label class="custom-control-label" for="section80G">Section 80G</label>
-                          </div>
+                        <div class="custom-control custom-checkbox col-3">
+                          <input type="checkbox" class="custom-control-input" id="section80D"  name="section80D" value="section80D" [(ngModel)]="step1_section80D" (change)="onChange($event)">
+                          <label class="custom-control-label" for="section80D">Section 80D</label>
                         </div>
-                        <!--Checkboxes ends-->
-
+                        <div class="custom-control custom-checkbox col-3">
+                          <input type="checkbox" class="custom-control-input" id="section80TTA" name="section80TTA" value="section80TTA" [(ngModel)]="step1_section80TTA" (change)="onChange($event)">
+                          <label class="custom-control-label" for="section80TTA">Section 80TTA</label>
+                        </div>
+                        <div class="custom-control custom-checkbox col-3">
+                          <input type="checkbox" class="custom-control-input" id="section80G" name="section80G" value="section80G" [(ngModel)]="step1_section80G" (change)="onChange($event)">
+                          <label class="custom-control-label" for="section80G">Section 80G</label>
+                        </div>
+                      </div>
+                      <!--Checkboxes ends-->
+                      
+                      <form id="mainDeductionForm" [formGroup]="mainDeductionForm">
                         <!--Section 80C form start-->
-                        <div class="boxBorderHeader position-relative">
+                        <div class="boxBorderHeader position-relative" *ngIf="step1_section80C">
                           <span class="text-uppercase boxHeader text-center">
                             <span class="d-inline-block"><h6>Investments under Section 80C</h6></span>
                           </span>
                           <div class="boxBody">
                             <p class="text-muted text-center">You can claim a deduction of upto ₹ 1,50,000 under this section. Add up all your 80C deduction and specify total amount here. Section 80C includes contributions to LIC / Insurance premium, PPF, EPF, NSC, ELSS Mutual Funds, Children school fees, Payment of Principal in Housing Loan & other eligible items.</p>
-                            <div class="row">
-                              <div class="col">
-                                <div class="form-group floating-label customDropdown">
-                                  <select id="select2" name="select2" class="form-control">
-                                    <option value=""></option>
-                                    <option value="7">Children school fees</option>
-                                    <option value="6">ELSS Mutual Funds</option>
-                                    <option value="4">EPF</option>
-                                    <option value="2">LIC / Insurance premium</option>
-                                    <option value="5">NSC</option>
-                                    <option value="9">Other eligible items</option>
-                                    <option value="8">Payment of Principal in Housing Loan</option>
-                                    <option value="3">PPF</option>
-                                    <option value="10">Tax Saving FD</option>
-                                  </select>
-                                  <label for="select2">Investment Category <span class="text-danger required">*</span></label>
+                            <div formArrayName="itemRows">  
+                              <div class="row" *ngFor="let itemrow of mainDeductionForm.controls.itemRows.controls; let i=index"  [formGroupName]="i">
+                                <div class="col">
+                                  <div class="form-group floating-label customDropdown">
+                                    <select id="investmentCategory" class="form-control" formControlName="investmentCategory" (change)="onChangeInvestment($event)" [ngClass]="{ 'is-invalid': step1_section80C && mainFSubmitted && getInvesCatValidity(i)}" >
+                                      <option [value]="invest.value" *ngFor="let invest of investmentCatArr">{{invest.caption}}</option>
+                                    </select>
+                                    <div *ngIf="step1_section80C && mainFSubmitted && getInvesCatValidity(i)" class="invalid-feedback">
+                                        <div *ngIf="getInvesCatValidity(i).required">Investment Category is required</div>
+                                    </div>
+                                    <label for="investmentCategory">Investment Category <span class="text-danger required">*</span></label>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="col">
-                                <div class="form-group mb-0">
-                                  <div class=" floating-label">
-                                    <div class="input-group prepend">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text">₹</div>
+                                <div class="col">
+                                  <div class="form-group mb-0">
+                                    <div class=" floating-label">
+                                      <div class="input-group prepend">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">₹</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="investmentAmount" formControlName="investmentAmount" [ngClass]="{ 'is-invalid': step1_section80C && mainFSubmitted && getInvesAmtValidity(i)}">
+                                        <div *ngIf="step1_section80C && mainFSubmitted && getInvesAmtValidity(i)" class="invalid-feedback">
+                                            <div *ngIf="getInvesAmtValidity(i).required">Investment Amount is required</div>
+                                        </div>
+                                        <label for="">Investment Amount <span class="text-danger required">*</span></label>
                                       </div>
-                                      <input type="text" class="form-control" id="" placeholder="">
-                                      <label for="">Investment Amount <span class="text-danger required">*</span></label>
                                     </div>
                                   </div>
                                 </div>
+                                <div class="col-6">
+                                  <button type="button" (click)="deleteRow(i)" *ngIf="mainDeductionForm.controls.itemRows.controls.length > 1" >Remove</button>
+                                </div>
                               </div>
                             </div>
-                            <div class="row mt-4">
+                            <div class="row mt-4" *ngIf="investmentCatArr.length > mainDeductionForm.controls.itemRows.controls.length">
                               <div class="col-6">
-                                <button type="button" class="btn btn-outline-primary btn-sm">Add Investment <i class="fas fa-plus mx-2"></i></button>
+                                <button type="button" (click)="addNewRow()" class="btn btn-outline-primary btn-sm">Add Investment <i class="fas fa-plus mx-2"></i></button>
                               </div>
                             </div>
                           </div>
@@ -157,7 +160,7 @@
                         <!--Section 80C form ends-->
 
                         <!--Section 80D form starts-->
-                        <div class="boxBorderHeader position-relative" id="section_80D">
+                        <div class="boxBorderHeader position-relative" id="section_80D" *ngIf="step1_section80D">
                           <span class="text-uppercase boxHeader text-center">
                             <span class="d-inline-block"><h6>Section 80D: Deductions for Medical Insurance</h6></span>
                           </span>
@@ -173,7 +176,10 @@
                                     <div class="input-group-prepend">
                                       <div class="input-group-text">₹</div>
                                     </div>
-                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <input type="text" class="form-control" id="selfMedInsPremium" formControlName="selfMedInsPremium" [ngClass]="{ 'is-invalid': mainFSubmitted && m.selfMedInsPremium.errors}">
+                                    <div *ngIf="mainFSubmitted && m.selfMedInsPremium.errors" class="invalid-feedback">
+                                        <div *ngIf="m.selfMedInsPremium.errors.required">Medical Insurance Premium Amount is required</div>
+                                    </div>
                                     <label for=""></label>
                                   </div>
                                 </div>
@@ -187,7 +193,10 @@
                                     <div class="input-group-prepend">
                                       <div class="input-group-text">₹</div>
                                     </div>
-                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <input type="text" class="form-control" id="depHealthCheckupFees" formControlName="depHealthCheckupFees" [ngClass]="{ 'is-invalid': mainFSubmitted && m.depHealthCheckupFees.errors}">
+                                    <div *ngIf="mainFSubmitted && m.depHealthCheckupFees.errors" class="invalid-feedback">
+                                        <div *ngIf="m.depHealthCheckupFees.errors.required">Preventive Health Checkup Fees is required</div>
+                                    </div>
                                     <label for=""></label>
                                   </div>
                                 </div>
@@ -204,23 +213,29 @@
                                     <div class="input-group-prepend">
                                       <div class="input-group-text">₹</div>
                                     </div>
-                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <input type="text" class="form-control" id="parentsMedInsPremium" formControlName="parentsMedInsPremium" [ngClass]="{ 'is-invalid':  mainFSubmitted && m.parentsMedInsPremium.errors}">
+                                    <div *ngIf="mainFSubmitted && m.parentsMedInsPremium.errors" class="invalid-feedback">
+                                        <div *ngIf="m.parentsMedInsPremium.errors.required">Parents Medical Insurance Premium Amount is required</div>
+                                    </div>
                                     <label for=""></label>
                                   </div>
                                 </div>
                               </div>
                               <div class="row form-group floating-label">
-                                <label for="" class="col-sm-8 col-form-label">Are your parents who hold the policy senior citizens?
+                                <label for="" class="col-sm-8 col-form-label">Are your parents who hold the policy are senior citizens?
                                   <small class="d-block text-muted">60 years or older</small>
                                 </label>
                                 <div class="col-sm-4">
                                   <div class="form-group floating-label customDropdown">
-                                    <select id="select2" name="select2" class="form-control">
+                                    <select id="parentSenCitizenFlag" class="form-control" formControlName="parentSenCitizenFlag" [ngClass]="{ 'is-invalid':  mainFSubmitted && m.parentSenCitizenFlag.errors}">
                                       <option value=""></option>
-                                      <option value="yes">Yes</option>
-                                      <option value="no">No</option>
+                                      <option value="1">Yes</option>
+                                      <option value="0">No</option>
                                     </select>
-                                    <label for="select2">Select Option</label>
+                                    <div *ngIf="mainFSubmitted && m.parentSenCitizenFlag.errors" class="invalid-feedback">
+                                        <div *ngIf="m.parentSenCitizenFlag.errors.required">Parents senior citizen flag required</div>
+                                    </div>
+                                    <label for="parentSenCitizenFlag">Select Option</label>
                                   </div>
                                 </div>
                               </div>
@@ -230,7 +245,7 @@
                         <!--Section 80D form ends-->
 
                         <!--Section 80TTA form open-->
-                        <div class="boxBorderHeader position-relative" id="section_80TTA">
+                        <div class="boxBorderHeader position-relative" id="section_80TTA" *ngIf="step1_section80TTA">
                           <span class="text-uppercase boxHeader text-center">
                             <span class="d-inline-block"><h6>Section 80TTA: Deduction for Interest earned on Savings Bank Account</h6></span>
                           </span>
@@ -243,8 +258,11 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text">₹</div>
                                       </div>
-                                      <input type="text" class="form-control" id="" placeholder="">
-                                      <label for="">Interest earned on Savings Bank Account <span class="text-danger required">*</span></label>
+                                      <input type="text" class="form-control" id="savingAccInterest" formControlName="savingAccInterest" [ngClass]="{ 'is-invalid': mainFSubmitted && m.savingAccInterest.errors}">
+                                      <div *ngIf="mainFSubmitted && m.savingAccInterest.errors" class="invalid-feedback">
+                                          <div *ngIf="m.savingAccInterest.errors.required">Interest Amount on savings bank account is required</div>
+                                      </div>
+                                      <label for="savingAccInterest">Interest earned on Savings Bank Account <span class="text-danger required">*</span></label>
                                     </div>
                                   </div>
                                 </div>
@@ -256,7 +274,7 @@
                         <!--Section 80TTA form ends-->
 
                         <!--Section 80G form starts-->
-                        <div class="boxBorderHeader position-relative" id="section-80G">
+                        <div class="boxBorderHeader position-relative" id="section-80G" *ngIf="step1_section80G">
                           <span class="text-uppercase boxHeader text-center">
                             <span class="d-inline-block"><h6>Section 80G : Donations to charitable organizations</h6></span>
                           </span>
@@ -270,7 +288,10 @@
                             <div class="row">
                               <div class="col">
                                 <div class="form-group floating-label">
-                                  <input type="text" class="form-control" id="">
+                                  <input type="text" class="form-control" id="doneeName" formControlName="doneeName" [ngClass]="{ 'is-invalid': mainFSubmitted && m.doneeName.errors}">
+                                  <div *ngIf="mainFSubmitted && m.doneeName.errors" class="invalid-feedback">
+                                      <div *ngIf="m.doneeName.errors.required">Donee name is required</div>
+                                  </div>
                                   <label for="">Name of Donee <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
@@ -281,7 +302,10 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text">₹</div>
                                       </div>
-                                      <input type="text" class="form-control" id="" placeholder="">
+                                      <input type="text" class="form-control" id="donAmount" formControlName="donAmount" [ngClass]="{ 'is-invalid': mainFSubmitted && m.donAmount.errors}">
+                                      <div *ngIf="mainFSubmitted && m.donAmount.errors" class="invalid-feedback">
+                                          <div *ngIf="m.donAmount.errors.required">Donation Amount name is required</div>
+                                      </div>
                                       <label for="">Donation Amount <span class="text-danger required">*</span></label>
                                     </div>
                                   </div>
@@ -291,25 +315,34 @@
                             <div class="row">
                               <div class="col">
                                 <div class="form-group floating-label">
-                                  <input type="text" class="form-control" id="">
-                                  <label for="">PAN of Donee <span class="text-danger required">*</span></label>
+                                  <input type="text" class="form-control" id="doneePan" formControlName="doneePan" [ngClass]="{ 'is-invalid': mainFSubmitted && m.doneePan.errors}">
+                                  <div *ngIf="mainFSubmitted && m.doneePan.errors" class="invalid-feedback">
+                                      <div *ngIf="m.doneePan.errors.required">Donee Pan number is required</div>
+                                  </div>
+                                  <label for="doneePan">PAN of Donee <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
                               <div class="col">
                                 <div class="form-group floating-label customDropdown">
-                                  <select id="select2" name="select2" class="form-control">
+                                  <select id="donDeductionLimit" class="form-control" formControlName="donDeductionLimit" [ngClass]="{ 'is-invalid': mainFSubmitted && m.donDeductionLimit.errors}">
                                     <option value=""></option>
                                     <option value="NoLimit">No Limit</option>
                                     <option value="SubjectToIncome">Subject To Income</option>
                                   </select>
-                                  <label for="select2">Limit of Deduction <span class="text-danger required">*</span></label>
+                                  <div *ngIf="mainFSubmitted && m.donDeductionLimit.errors" class="invalid-feedback">
+                                      <div *ngIf="m.donDeductionLimit.errors.required">Donation limit flag is required</div>
+                                  </div>
+                                  <label for="donDeductionLimit">Limit of Deduction <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
                             </div>
                             <div class="row">
                               <div class="col-6">
                                 <div class="form-group floating-label">
-                                  <input type="text" class="form-control" id="">
+                                  <input type="text" class="form-control" id="donQualPer" formControlName="donQualPer" [ngClass]="{ 'is-invalid': mainFSubmitted && m.donQualPer.errors}"> 
+                                  <div *ngIf="mainFSubmitted && m.donQualPer.errors" class="invalid-feedback">
+                                      <div *ngIf="m.donQualPer.errors.required">Qualifying percentage is required</div>
+                                  </div>
                                   <label for="">Qualifying Percentage <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
@@ -322,30 +355,36 @@
                             <div class="row">
                               <div class="col">
                                 <div class="form-group floating-label">
-                                  <input type="text" class="form-control" id="">
-                                  <label for="">Address <span class="text-danger required">*</span></label>
+                                  <input type="text" class="form-control" id="donAddress" formControlName="donAddress" [ngClass]="{ 'is-invalid': mainFSubmitted && m.donAddress.errors}"> 
+                                  <div *ngIf="mainFSubmitted && m.donAddress.errors" class="invalid-feedback">
+                                      <div *ngIf="m.donAddress.errors.required">Donee Address is required</div>
+                                  </div>
+                                  <label for="donAddress">Address <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
                               <div class="col">
                                 <div class="form-group floating-label">
-                                  <input type="text" class="form-control" id="">
-                                  <label for="">Town / City <span class="text-danger required">*</span></label>
+                                  <input type="text" class="form-control" id="donCity" formControlName="donCity" [ngClass]="{ 'is-invalid': mainFSubmitted && m.donCity.errors}"> 
+                                  <div *ngIf="mainFSubmitted && m.donCity.errors" class="invalid-feedback">
+                                      <div *ngIf="m.donCity.errors.required">Donee Cityname is required</div>
+                                  </div>
+                                  <label for="donCity">Town / City <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
                             </div>
                             <div class="row">
                               <div class="col">
                                 <div class="form-group floating-label customDropdown">
-                                  <select id="select2" name="select2" class="form-control">
-                                    <option value="89">India</option>
+                                  <select id="select2" name="select2" class="form-control" formControlName="donCountry" [ngClass]="{ 'is-invalid': mainFSubmitted && m.donCountry.errors}"> 
+                                    <option value="India">India</option>
                                   </select>
                                   <label for="select2">Country <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
                               <div class="col">
                                 <div class="form-group floating-label customDropdown">
-                                  <select id="select2" name="select2" class="form-control">
-                                    <option value="1254">Maharashtra</option>
+                                  <select id="donState" class="form-control" formControlName="donState" [ngClass]="{ 'is-invalid': mainFSubmitted && m.donState.errors}"> 
+                                    <option value="1">Maharashtra</option>
                                     </select>
                                   <label for="">State <span class="text-danger required">*</span></label>
                                 </div>
@@ -354,16 +393,19 @@
                             <div class="row">
                               <div class="col-6">
                                 <div class="form-group floating-label">
-                                  <input type="text" class="form-control" id="">
-                                  <label for="">Pin Code <span class="text-danger required">*</span></label>
+                                  <input type="text" class="form-control" id="donPincode" formControlName="donPincode" [ngClass]="{ 'is-invalid': mainFSubmitted && m.donPincode.errors}"> 
+                                  <div *ngIf="mainFSubmitted && m.donPincode.errors" class="invalid-feedback">
+                                      <div *ngIf="m.donPincode.errors.required">Donee pincode is required</div>
+                                  </div>
+                                  <label for="donPincode">Pin Code <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
                             </div>
-                            <div class="row mt-4">
+                            <!-- <div class="row mt-4">
                               <div class="col-6">
                                 <button type="button" class="btn btn-outline-primary btn-sm">Add Donee <i class="fas fa-plus mx-2"></i></button>
                               </div>
-                            </div>
+                            </div> -->
                           </div>
                         </div>
                         <!--Section 80G form ends-->
@@ -372,498 +414,487 @@
                     <!-- Main Deduction tab ends-->
 
                     <!-- Other Deduction tab start-->
-                    <div class="tab-pane fade" id="deductions-more-deductions" role="tabpanel">
-                      <form id="otherDeductionForm" [formGroup]="otherDeductionForm">
-                        <!--Checkboxes starts-->
-                        <div class="row form-group mb-0">
-                          <div class="col">
-                            <h6>Select Deduction Categories : For Additional Declaration</h6>
+                    <div class="tab-pane fade" id="deductions-more-deductions" role="tabpanel" [ngClass]="{ 'active': step2 == true ,'show': step2 == true}">
+                        <form id="otherDeductionChkboxForm" [formGroup]="otherDeductionChkboxForm">  
+                          <!--Checkboxes starts-->
+                          <div class="row">
+                            <div class="col">
+                              <h6>Select Deduction Categories : For Additional Declaration</h6>
+                            </div>
                           </div>
-                        </div>
-                        <div class="d-flex flex-wrap boxBorderHeader bg-light">
-                          <div class="custom-control custom-checkbox col-3">
-                            <input type="checkbox" class="custom-control-input" id="section80CCCG" value="section80CCCG">
-                            <label class="custom-control-label" for="section80CCCG">Section 80CCG</label>
+                          <div class="d-flex flex-wrap boxBorderHeader bg-light">
+                            <div class="form-group custom-control custom-checkbox col-3">
+                              <input type="checkbox" class="custom-control-input" id="section80CCD-1-1B" value="section80CCD1" formControlName="section80CCD1" [(ngModel)]="step2_section80CCD1" (change)="onOtherChange($event)">
+                              <label class="custom-control-label" for="section80CCD-1-1B">Section 80CCD (1) and (1B)</label>
+                            </div>
+                            <div class="form-group custom-control custom-checkbox col-3">
+                              <input type="checkbox" class="custom-control-input" id="section80CCD" value="section80CCD2" formControlName="section80CCD2" [(ngModel)]="step2_section80CCD2" (change)="onOtherChange($event)">
+                              <label class="custom-control-label" for="section80CCD">Section 80CCD</label>
+                            </div>
+                            <div class="form-group custom-control custom-checkbox col-3">
+                              <input type="checkbox" class="custom-control-input" id="section80CCCG" value="section80CCCG" formControlName="section80CCCG" [(ngModel)]="step2_section80CCCG" (change)="onOtherChange($event)">
+                              <label class="custom-control-label" for="section80CCCG">Section 80CCG</label>
+                            </div>
+                            <div class="form-group custom-control custom-checkbox col-3">
+                              <input type="checkbox" class="custom-control-input" id="section80E" value="section80E" formControlName="section80E" [(ngModel)]="step2_section80E" (change)="onOtherChange($event)">
+                              <label class="custom-control-label" for="section80E">Section 80E</label>
+                            </div>
+                            <div class="form-group custom-control custom-checkbox col-3">
+                              <input type="checkbox" class="custom-control-input" id="section80CCA" value="section80CCA" formControlName="section80CCA" [(ngModel)]="step2_section80CCC" (change)="onOtherChange($event)">
+                              <label class="custom-control-label" for="section80CCA">Section 80CCC</label>
+                            </div>
+                            <div class="form-group custom-control custom-checkbox col-3">
+                              <input type="checkbox" class="custom-control-input" id="section80GG" value="section80GG" formControlName="section80GG" [(ngModel)]="step2_section80GG" (change)="onOtherChange($event)">
+                              <label class="custom-control-label" for="section80GG">Section 80GG</label>
+                            </div>
+                            <div class="form-group custom-control custom-checkbox col-3">
+                              <input type="checkbox" class="custom-control-input" id="section80DDB" value="section80DDB" formControlName="section80DDB" [(ngModel)]="step2_section80DDB" (change)="onOtherChange($event)">
+                              <label class="custom-control-label" for="section80DDB">Section 80DDB</label>
+                            </div>
+                            <div class="form-group custom-control custom-checkbox col-3">
+                              <input type="checkbox" class="custom-control-input" id="section80EE" value="section80EE" formControlName="section80EE" [(ngModel)]="step2_section80EE" (change)="onOtherChange($event)">
+                              <label class="custom-control-label" for="section80EE">Section 80EE</label>
+                            </div>
+                            <div class="form-group custom-control custom-checkbox col-3">
+                              <input type="checkbox" class="custom-control-input" id="section80QQB" value="section80QQB" formControlName="section80QQB" [(ngModel)]="step2_section80QQB" (change)="onOtherChange($event)">
+                              <label class="custom-control-label" for="section80QQB">Section 80QQB</label>
+                            </div>
+                            <div class="form-group custom-control custom-checkbox col-3">
+                              <input type="checkbox" class="custom-control-input" id="section80RRB" value="section80RRB" formControlName="section80RRB" [(ngModel)]="step2_section80RRB" (change)="onOtherChange($event)">
+                              <label class="custom-control-label" for="section80RRB">Section 80RRB</label>
+                            </div>
+                            <div class="form-group custom-control custom-checkbox col-3">
+                              <input type="checkbox" class="custom-control-input" id="section80GGA" value="section80GGA" formControlName="section80GGA" [(ngModel)]="step2_section80GGA" (change)="onOtherChange($event)">
+                              <label class="custom-control-label" for="section80GGA">Section 80GGA</label>
+                            </div>
+                            <div class="form-group custom-control custom-checkbox col-3">
+                              <input type="checkbox" class="custom-control-input" id="section80GGC" value="section80GGC" formControlName="section80GGC" [(ngModel)]="step2_section80GGC" (change)="onOtherChange($event)">
+                              <label class="custom-control-label" for="section80GGC">Section 80GGC</label>
+                            </div>
                           </div>
-                          <div class="custom-control custom-checkbox col-3">
-                            <input type="checkbox" class="custom-control-input" id="section80E" value="section80E">
-                            <label class="custom-control-label" for="section80E">Section 80E</label>
-                          </div>
-                          <div class="custom-control custom-checkbox col-3">
-                            <input type="checkbox" class="custom-control-input" id="section80CCA" value="section80CCA">
-                            <label class="custom-control-label" for="section80CCA">Section 80CCC</label>
-                          </div>
-                          <div class="custom-control custom-checkbox col-3">
-                            <input type="checkbox" class="custom-control-input" id="section80CCD-1-1B" value="section80CCD-1-1B">
-                            <label class="custom-control-label" for="section80CCD-1-1B">Section 80CCD (1) and (1B)</label>
-                          </div>
-                          <div class="custom-control custom-checkbox col-3">
-                            <input type="checkbox" class="custom-control-input" id="section80CCD" value="section80CCD">
-                            <label class="custom-control-label" for="section80CCD">Section 80CCD</label>
-                          </div>
-                          <div class="custom-control custom-checkbox col-3">
-                            <input type="checkbox" class="custom-control-input" id="section80GG" value="section80GG">
-                            <label class="custom-control-label" for="section80GG">Section 80GG</label>
-                          </div>
-                          <div class="custom-control custom-checkbox col-3">
-                            <input type="checkbox" class="custom-control-input" id="section80DDB" value="section80DDB">
-                            <label class="custom-control-label" for="section80DDB">Section 80DDB</label>
-                          </div>
-                          <div class="custom-control custom-checkbox col-3">
-                            <input type="checkbox" class="custom-control-input" id="section80EE" value="section80EE">
-                            <label class="custom-control-label" for="section80EE">Section 80EE</label>
-                          </div>
-                          <div class="custom-control custom-checkbox col-3">
-                            <input type="checkbox" class="custom-control-input" id="section80QQB" value="section80QQB">
-                            <label class="custom-control-label" for="section80QQB">Section 80QQB</label>
-                          </div>
-                          <div class="custom-control custom-checkbox col-3">
-                            <input type="checkbox" class="custom-control-input" id="section80RRB" value="section80RRB">
-                            <label class="custom-control-label" for="section80RRB">Section 80RRB</label>
-                          </div>
-                          <div class="custom-control custom-checkbox col-3">
-                            <input type="checkbox" class="custom-control-input" id="section80GGA" value="section80GGA">
-                            <label class="custom-control-label" for="section80GGA">Section 80GGA</label>
-                          </div>
-                          <div class="custom-control custom-checkbox col-3">
-                            <input type="checkbox" class="custom-control-input" id="section80GGC" value="section80GGC">
-                            <label class="custom-control-label" for="section80GGC">Section 80GGC</label>
-                          </div>
-                          <div class="custom-control custom-checkbox col-3">
-                            <input type="checkbox" class="custom-control-input" id="section80U" value="section80U">
-                            <label class="custom-control-label" for="section80U">Section 80U</label>
-                          </div>
-                          <div class="custom-control custom-checkbox col-3">
-                            <input type="checkbox" class="custom-control-input" id="section80DD" value="section80DD">
-                            <label class="custom-control-label" for="section80DD">Section 80DD</label>
-                          </div>
-                        </div>
-                        <!--Checkboxes ends-->
+                          <!--Checkboxes ends-->
+                        </form>
 
-                        <!--Section 80CCG form starts-->
-                        <div class="boxBorderHeader position-relative" id="section_80CCG">
-                          <div class="text-uppercase boxHeader text-center">
-                            <span class="d-inline-block"><h6>Section 80CCG - Rajiv Gandhi Equity Saving Scheme</h6></span>
-                          </div>
-                          <div class="boxBody ">
-                            <div class="row form-group floating-label">
-                              <div class="col">
-                                <div class="form-group mb-0">
-                                  <div class=" floating-label">
-                                    <div class="input-group prepend">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text">₹</div>
-                                      </div>
-                                      <input type="text" class="form-control" id="" placeholder="">
-                                      <label for="">Investment made under Rajiv Gandhi Equity Saving Scheme <span class="text-danger required">*</span></label>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!--Section 80CCG form ends-->
+                        <form id="otherDeductionForm" [formGroup]="otherDeductionForm">
 
-                        <!--Section 80E form starts-->
-                        <div class="boxBorderHeader position-relative" id="section_80E">
-                          <div class="text-uppercase boxHeader text-center">
-                            <span class="d-inline-block"><h6>Section 80E - Education Loan on higher studies (Graduate or PostGraduate)</h6></span>
-                          </div>
-                          <div class="boxBody">
-                            <p class="text-muted text-center">You can claim tax deduction on the interest paid on an education loan for higher studies</p>
-                            <div class="row">
-                              <div class="col">
-                                <div class="form-group mb-0">
-                                  <div class=" floating-label">
-                                    <div class="input-group prepend">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text">₹</div>
+                          <!--Section 80CCD form starts-->
+                          <div class="boxBorderHeader position-relative" id="section_80CCD1" *ngIf="step2_section80CCD1">
+                            <div class="text-uppercase boxHeader text-center">
+                              <span class="d-inline-block"><h6>Section 80CCD (1) and (1B) - Employee Contribution to New Pension Scheme (NPS)</h6></span>
+                            </div>
+                            <div class="boxBody">
+                              <p class="text-muted">Please enter your own contribution to NPS. It will be split into Section 80 CCD(1) and CCD(1B) in your tax return. The split will be optimised to give you maximum tax savings.</p>
+                              <div class="row" >
+                                <div class="col">
+                                  <div class="form-group mb-0">
+                                    <div class=" floating-label">
+                                      <div class="input-group prepend">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">₹</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="S80CDD1Amount" formControlName="S80CDD1Amount" [ngClass]="{ 'is-invalid': otherFSubmitted && o.S80CDD1Amount.errors}">
+                                        <div *ngIf="otherFSubmitted && o.S80CDD1Amount.errors" class="invalid-feedback">
+                                            <div *ngIf="o.S80CDD1Amount.errors.required">Contribution towards section 80CCD1 is required</div>
+                                        </div>
+                                        <label for="S80CDD1Amount">Contribution towards Section 80CCD(1) <span class="text-danger required">*</span></label>
                                       </div>
-                                      <input type="text" class="form-control" id="" placeholder="">
-                                      <label for="">Interest on higher education loan paid this year <span class="text-danger required">*</span></label>
                                     </div>
                                   </div>
                                 </div>
-                                <small class="d-block text-muted mt-2">Interest paid by you on loan taken out by you. Loan can be for yourself or your spouse or your children</small>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <!--Section 80E form ends-->
+                          <div class="boxBorderHeader position-relative" id="section_80CCD2" *ngIf="step2_section80CCD2" >
+                              <div class="text-uppercase boxHeader text-center">
+                                <span class="d-inline-block"><h6>Section 80CCD(2) - Employer Contribution in NPS</h6></span>
+                              </div>
+                              <div class="boxBody">
+                                <p class="text-muted">Employers contribution towards NPS (upto 10% of Salary).</p>
+                                <div class="row" *ngIf="step2_section80CCD2">
+                                  <div class="col">
+                                    <div class="form-group mb-0">
+                                      <div class=" floating-label">
+                                        <div class="input-group prepend">
+                                          <div class="input-group-prepend">
+                                            <div class="input-group-text">₹</div>
+                                          </div>
+                                          <input type="text" class="form-control" id="S80CDD2EmprAmount" formControlName="S80CDD2EmprAmount" [ngClass]="{ 'is-invalid': otherFSubmitted && o.S80CDD2EmprAmount.errors}">
+                                          <div *ngIf="otherFSubmitted && o.S80CDD2EmprAmount.errors" class="invalid-feedback">
+                                              <div *ngIf="o.S80CDD2EmprAmount.errors.required">Employers contribution amount towards NPS is required</div>
+                                          </div>
+                                          <label for="S80CDD2EmprAmount">Employers contribution towards NPS (upto 10% of Salary) <span class="text-danger required">*</span></label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                          </div>
+                          <!--Section 80CCD form ends-->
 
-                        <!--Section 80CCC form starts-->
-                        <div class="boxBorderHeader position-relative" id="section_80CCC">
-                          <div class="text-uppercase boxHeader text-center">
-                            <span class="d-inline-block"><h6>Section 80CCC - Contribution to Pension Plan / Annuity Fund</h6></span>
-                          </div>
-                          <div class="boxBody">
-                            <div class="row">
-                              <div class="col">
-                                <div class="form-group mb-0">
-                                  <div class=" floating-label">
-                                    <div class="input-group prepend">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text">₹</div>
+                          <!--Section 80CCG form starts-->
+                          <div class="boxBorderHeader position-relative" id="section_80CCG" *ngIf="step2_section80CCCG">
+                            <div class="text-uppercase boxHeader text-center">
+                              <span class="d-inline-block"><h6>Section 80CCG - Rajiv Gandhi Equity Saving Scheme</h6></span>
+                            </div>
+                            <div class="boxBody ">
+                              <div class="row form-group floating-label">
+                                <div class="col">
+                                  <div class="form-group mb-0">
+                                    <div class=" floating-label">
+                                      <div class="input-group prepend">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">₹</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="S80CCCGAmount" formControlName="S80CCCGAmount" [ngClass]="{ 'is-invalid': otherFSubmitted && o.S80CCCGAmount.errors}">
+                                        <div *ngIf="otherFSubmitted && o.S80CCCGAmount.errors" class="invalid-feedback">
+                                            <div *ngIf="o.S80CCCGAmount.errors.required">Contribution amount towards 80CCCG is required</div>
+                                        </div>
+                                        <label for="S80CCCGAmount">Investment made under Rajiv Gandhi Equity Saving Scheme <span class="text-danger required">*</span></label>
                                       </div>
-                                      <input type="text" class="form-control" id="" placeholder="">
-                                      <label for="">Contribution amount to Pension Plan / Annuity Fund for Section 80CCC <span class="text-danger required">*</span></label>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <!--Section 80CCC form ends-->
+                          <!--Section 80CCG form ends-->
 
-                        <!--Section 80CCD form starts-->
-                        <div class="boxBorderHeader position-relative" id="section_80CCD">
-                          <div class="text-uppercase boxHeader text-center">
-                            <span class="d-inline-block"><h6>Section 80CCD (1) and (1B) - Employee Contribution to New Pension Scheme (NPS)</h6></span>
-                          </div>
-                          <div class="boxBody">
-                            <p class="text-muted">Please enter your own contribution to NPS. It will be split into Section 80 CCD(1) and CCD(1B) in your tax return. The split will be optimised to give you maximum tax savings.</p>
-                            <div class="row">
-                              <div class="col">
-                                <div class="form-group mb-0">
-                                  <div class=" floating-label">
-                                    <div class="input-group prepend">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text">₹</div>
+                          <!--Section 80E form starts-->
+                          <div class="boxBorderHeader position-relative" id="section_80E" *ngIf="step2_section80E">
+                            <div class="text-uppercase boxHeader text-center">
+                              <span class="d-inline-block"><h6>Section 80E - Education Loan on higher studies (Graduate or PostGraduate)</h6></span>
+                            </div>
+                            <div class="boxBody">
+                              <p class="text-muted text-center">You can claim tax deduction on the interest paid on an education loan for higher studies</p>
+                              <div class="row">
+                                <div class="col">
+                                  <div class="form-group mb-0">
+                                    <div class=" floating-label">
+                                      <div class="input-group prepend">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">₹</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="S80EAmount" formControlName="S80EAmount" [ngClass]="{ 'is-invalid': otherFSubmitted && o.S80EAmount.errors}">
+                                        <div *ngIf="otherFSubmitted && o.S80EAmount.errors" class="invalid-feedback">
+                                            <div *ngIf="o.S80EAmount.errors.required">Education loan interest amount is required</div>
+                                        </div>
+                                        <label for="S80EAmount">Interest on higher education loan paid this year <span class="text-danger required">*</span></label>
                                       </div>
-                                      <input type="text" class="form-control" id="" placeholder="">
-                                      <label for="">Contribution towards Section 80CCD(1) <span class="text-danger required">*</span></label>
                                     </div>
                                   </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row form-group mb-0 mt-4">
-                              <div class="col">
-                                <h6>Section 80CCD(2) - Employer Contribution in NPS</h6>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col">
-                                <div class="form-group mb-0">
-                                  <div class=" floating-label">
-                                    <div class="input-group prepend">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text">₹</div>
-                                      </div>
-                                      <input type="text" class="form-control" id="" placeholder="">
-                                      <label for="">Employers contribution towards NPS (upto 10% of Salary) <span class="text-danger required">*</span></label>
-                                    </div>
-                                  </div>
+                                  <small class="d-block text-muted mt-2">Interest paid by you on loan taken out by you. Loan can be for yourself or your spouse or your children</small>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <!--Section 80CCD form ends-->
+                          <!--Section 80E form ends-->
 
-                        <!--Section 80GG form starts-->
-                        <div class="boxBorderHeader position-relative" id="section_80GG">
-                          <div class="text-uppercase boxHeader text-center">
-                            <span class="d-inline-block"><h6>Section 80GG - Deduction for House Rent. Self-employed or Salary with no HRA</h6></span>
-                          </div>
-                          <div class="boxBody">
-                            <p class="text-muted">Not a commonly applicable deduction. Please be careful while claiming. If you receive HRA benefit, then you cannot claim this deduction. If you are looking to claim HRA, this is NOT the section. Eligibility: Your spouse or minor child should not own House Property in same town where paying rent. Self occupied house property Interest deduction should not have been availed. </p>
-                            <div class="row">
-                              <div class="col">
-                                <div class="form-group mb-0">
-                                  <div class=" floating-label">
-                                    <div class="input-group prepend">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text">₹</div>
+                          <!--Section 80CCC form starts-->
+                          <div class="boxBorderHeader position-relative" id="section_80CCC" *ngIf="step2_section80CCC">
+                            <div class="text-uppercase boxHeader text-center">
+                              <span class="d-inline-block"><h6>Section 80CCC - Contribution to Pension Plan / Annuity Fund</h6></span>
+                            </div>
+                            <div class="boxBody">
+                              <div class="row">
+                                <div class="col">
+                                  <div class="form-group mb-0">
+                                    <div class=" floating-label">
+                                      <div class="input-group prepend">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">₹</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="S80CCCAmount" formControlName="S80CCCAmount" [ngClass]="{ 'is-invalid': otherFSubmitted && o.S80CCCAmount.errors}">
+                                        <div *ngIf="otherFSubmitted && o.S80CCCAmount.errors" class="invalid-feedback">
+                                            <div *ngIf="o.S80CCCAmount.errors.required">Contribution amount to Pension Plan is required</div>
+                                        </div>
+                                        <label for="S80CCCAmount">Contribution amount to Pension Plan / Annuity Fund for Section 80CCC <span class="text-danger required">*</span></label>
                                       </div>
-                                      <input type="text" class="form-control" id="" placeholder="">
-                                      <label for="">Rent Paid Per Month <span class="text-danger required">*</span></label>
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                              <div class="col">
-                                <div class="form-group floating-label customDropdown">
-                                  <select id="select2" name="select2" class="form-control">
-                                    <option value=""></option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                  </select>
-                                  <label for="select2">Number of Months Rent Paid <span class="text-danger required">*</span></label>
-                                </div>
-                              </div>
                             </div>
                           </div>
-                        </div>
-                        <!--Section 80GG form ends-->
+                          <!--Section 80CCC form ends-->
 
-                        <!--Section 80DDB form starts-->
-                        <div class="boxBorderHeader position-relative" id="section_80DDB">
-                          <div class="text-uppercase boxHeader text-center">
-                            <span class="d-inline-block"><h6>Section 80DDB - Deductions for treatment of specified diseases and ailments</h6></span>
-                          </div>
-                          <div class="boxBody">
-                            <p class="text-muted text-center">This deduction is for certain specified diseases. (It is not a commonly applicable deduction). Please be careful while claiming this deduction.</p>
-                            <div class="row">
-                              <div class="col">
-                                <div class="form-group mb-0">
-                                  <div class=" floating-label">
-                                    <div class="input-group prepend">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text">₹</div>
+                          <!--Section 80GG form starts-->
+                          <div class="boxBorderHeader position-relative" id="section_80GG" *ngIf="step2_section80GG">
+                            <div class="text-uppercase boxHeader text-center">
+                              <span class="d-inline-block"><h6>Section 80GG - Deduction for House Rent. Self-employed or Salary with no HRA</h6></span>
+                            </div>
+                            <div class="boxBody">
+                              <p class="text-muted">Not a commonly applicable deduction. Please be careful while claiming. If you receive HRA benefit, then you cannot claim this deduction. If you are looking to claim HRA, this is NOT the section. Eligibility: Your spouse or minor child should not own House Property in same town where paying rent. Self occupied house property Interest deduction should not have been availed. </p>
+                              <div class="row">
+                                <div class="col">
+                                  <div class="form-group mb-0">
+                                    <div class=" floating-label">
+                                      <div class="input-group prepend">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">₹</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="S80GGAmount" formControlName="S80GGAmount" [ngClass]="{ 'is-invalid': otherFSubmitted && o.S80GGAmount.errors}">
+                                        <div *ngIf="otherFSubmitted && o.S80GGAmount.errors" class="invalid-feedback">
+                                            <div *ngIf="o.S80GGAmount.errors.required">Rent Paid Per Month is required</div>
+                                        </div>
+                                        <label for="S80GGAmount">Rent Paid Per Month <span class="text-danger required">*</span></label>
                                       </div>
-                                      <input type="text" class="form-control" id="" placeholder="">
-                                      <label for="">Medical Treatment Costs for specified Diseases under Section 80DDB <span class="text-danger required">*</span></label>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div class="col">
-                                <div class="form-group floating-label customDropdown">
-                                  <select id="select2" name="select2" class="form-control">
-                                    <option value=""></option>
-                                    <option value="1">Below 60 years</option>
-                                    <option value="2">60 to 79 years</option>
-                                    <option value="3">80 years or above</option>
-                                  </select>
-                                  <label for="select2">Age of person for whom deduction is being claimed <span class="text-danger required">*</span></label>
+                                <div class="col">
+                                  <div class="form-group floating-label customDropdown">
+                                    <select class="form-control" id="noOfMonthsRentPaid" formControlName="noOfMonthsRentPaid" [ngClass]="{ 'is-invalid': otherFSubmitted && o.noOfMonthsRentPaid.errors}">
+                                       <option value=""></option>
+                                      <option value="1">1</option>
+                                      <option value="2">2</option>
+                                      <option value="3">3</option>
+                                      <option value="4">4</option>
+                                      <option value="5">5</option>
+                                      <option value="6">6</option>
+                                      <option value="7">7</option>
+                                      <option value="8">8</option>
+                                      <option value="9">9</option>
+                                      <option value="10">10</option>
+                                      <option value="11">11</option>
+                                      <option value="12">12</option>
+                                    </select>
+                                    <div *ngIf="otherFSubmitted && o.noOfMonthsRentPaid.errors" class="invalid-feedback">
+                                        <div *ngIf="o.noOfMonthsRentPaid.errors.required">Rent Paid Per Month is required</div>
+                                    </div>
+                                    <label for="noOfMonthsRentPaid">Number of Months Rent Paid <span class="text-danger required">*</span></label>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <!--Section 80DDB form ends-->
+                          <!--Section 80GG form ends-->
 
-                        <!--Section 80EE form starts-->
-                        <div class="boxBorderHeader position-relative" id="section_80EE">
-                          <div class="text-uppercase boxHeader text-center">
-                            <span class="d-inline-block"><h6>Section 80EE - Interest on Home Loan</h6></span>
-                          </div>
-                          <div class="boxBody">
-                            <p class="text-muted">Deduction under section 80EE is available on interest on loan on your first house purchased. This purchase should be in the Financial Year 2016-17 (between April 1st, 2016 to March 31st 2017). The purchase price of the house can be upto ₹ 50 Lakhs and the total home loan can be upto ₹ 35 Lakhs.</p>
-                            <div class="row">
-                              <div class="col">
-                                <div class="form-group mb-0">
-                                  <div class=" floating-label">
-                                    <div class="input-group prepend">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text">₹</div>
+                          <!--Section 80DDB form starts-->
+                          <div class="boxBorderHeader position-relative" id="section_80DDB" *ngIf="step2_section80DDB">
+                            <div class="text-uppercase boxHeader text-center">
+                              <span class="d-inline-block"><h6>Section 80DDB - Deductions for treatment of specified diseases and ailments</h6></span>
+                            </div>
+                            <div class="boxBody">
+                              <p class="text-muted text-center">This deduction is for certain specified diseases. (It is not a commonly applicable deduction). Please be careful while claiming this deduction.</p>
+                              <div class="row">
+                                <div class="col">
+                                  <div class="form-group mb-0">
+                                    <div class=" floating-label">
+                                      <div class="input-group prepend">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">₹</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="S80DDBAmount" formControlName="S80DDBAmount" [ngClass]="{ 'is-invalid': otherFSubmitted && o.S80DDBAmount.errors}">
+                                        <div *ngIf="otherFSubmitted && o.S80DDBAmount.errors" class="invalid-feedback">
+                                            <div *ngIf="o.S80DDBAmount.errors.required">Medical Treatment Costs for specified Diseases is required</div>
+                                        </div>
+                                        <label for="S80DDBAmount">Medical Treatment Costs for specified Diseases under Section 80DDB <span class="text-danger required">*</span></label>
                                       </div>
-                                      <input type="text" class="form-control" id="" placeholder="">
-                                      <label for="">Deductions under Section 80EE <span class="text-danger required">*</span></label>
                                     </div>
+                                  </div>
+                                </div>
+                                <div class="col">
+                                  <div class="form-group floating-label customDropdown">
+                                    <select class="form-control" id="personAge" formControlName="personAge" [ngClass]="{ 'is-invalid': otherFSubmitted && o.personAge.errors}">
+                                      <option value=""></option>
+                                      <option value="below60">Below 60 years</option>
+                                      <option value="60-79">60 to 79 years</option>
+                                      <option value="Above80">80 years or above</option>
+                                    </select>
+                                    <div *ngIf="otherFSubmitted && o.personAge.errors" class="invalid-feedback">
+                                        <div *ngIf="o.personAge.errors.required">Medical Treatment Costs for specified Diseases is required</div>
+                                    </div>
+                                    <label for="personAge">Age of person for whom deduction is being claimed <span class="text-danger required">*</span></label>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <!--Section 80EE form ends-->
+                          <!--Section 80DDB form ends-->
 
-                        <!--Section 80QQB form starts-->
-                        <div class="boxBorderHeader position-relative" id="section_80QQB">
-                          <div class="text-uppercase boxHeader text-center">
-                            <span class="d-inline-block"><h6>Section 80QQB - Royalty Received on books</h6></span>
-                          </div>
-                          <div class="boxBody">
-                              <p class="text-muted">Deduction for Author of literary/scientific/artistic book. Royalty/copyright-fees/lump-sum consideration are eligible for deduction.</p>
-                            <div class="row">
-                              <div class="col">
-                                <div class="form-group mb-0">
-                                  <div class=" floating-label">
-                                    <div class="input-group prepend">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text">₹</div>
+                          <!--Section 80EE form starts-->
+                          <div class="boxBorderHeader position-relative" id="section_80EE" *ngIf="step2_section80EE">
+                            <div class="text-uppercase boxHeader text-center">
+                              <span class="d-inline-block"><h6>Section 80EE - Interest on Home Loan</h6></span>
+                            </div>
+                            <div class="boxBody">
+                              <p class="text-muted">Deduction under section 80EE is available on interest on loan on your first house purchased. This purchase should be in the Financial Year 2016-17 (between April 1st, 2016 to March 31st 2017). The purchase price of the house can be upto ₹ 50 Lakhs and the total home loan can be upto ₹ 35 Lakhs.</p>
+                              <div class="row">
+                                <div class="col">
+                                  <div class="form-group mb-0">
+                                    <div class=" floating-label">
+                                      <div class="input-group prepend">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">₹</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="S80EEAmount" formControlName="S80EEAmount" [ngClass]="{ 'is-invalid': otherFSubmitted && o.S80EEAmount.errors}">
+                                        <div *ngIf="otherFSubmitted && o.S80EEAmount.errors" class="invalid-feedback">
+                                            <div *ngIf="o.S80EEAmount.errors.required">Interest on loan on your first house purchased is required</div>
+                                        </div>
+                                        <label for="S80EEAmount">Deductions under Section 80EE <span class="text-danger required">*</span></label>
                                       </div>
-                                      <input type="text" class="form-control" id="" placeholder="">
-                                      <label for="">Enter the deduction amount <span class="text-danger required">*</span></label>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <!--Section 80QQB form ends-->
+                          <!--Section 80EE form ends-->
 
-                        <!--Section 80RRB form starts-->
-                        <div class="boxBorderHeader position-relative" id="section_80RRB">
-                          <div class="text-uppercase boxHeader text-center">
-                            <span class="d-inline-block"><h6>Section 80RRB - Income on Patents/Inventions</h6></span>
-                          </div>
-                          <div class="boxBody">
-                            <p class="text-muted">Deduction for Patentee - Royalty/transfer-of-rights/lump-sum consideration are eligible for deduction.</p>
-                            <div class="row">
-                              <div class="col">
-                                <div class="form-group mb-0">
-                                  <div class=" floating-label">
-                                    <div class="input-group prepend">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text">₹</div>
+                          <!--Section 80QQB form starts-->
+                          <div class="boxBorderHeader position-relative" id="section_80QQB" *ngIf="step2_section80QQB">
+                            <div class="text-uppercase boxHeader text-center">
+                              <span class="d-inline-block"><h6>Section 80QQB - Royalty Received on books</h6></span>
+                            </div>
+                            <div class="boxBody">
+                                <p class="text-muted">Deduction for Author of literary/scientific/artistic book. Royalty/copyright-fees/lump-sum consideration are eligible for deduction.</p>
+                              <div class="row">
+                                <div class="col">
+                                  <div class="form-group mb-0">
+                                    <div class=" floating-label">
+                                      <div class="input-group prepend">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">₹</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="S80QQBAmount" formControlName="S80QQBAmount" [ngClass]="{ 'is-invalid': otherFSubmitted && o.S80QQBAmount.errors}">
+                                        <div *ngIf="otherFSubmitted && o.S80QQBAmount.errors" class="invalid-feedback">
+                                            <div *ngIf="o.S80QQBAmount.errors.required">Deduction for royality is required</div>
+                                        </div>
+                                        <label for="S80QQBAmount">Enter the deduction amount <span class="text-danger required">*</span></label>
                                       </div>
-                                      <input type="text" class="form-control" id="" placeholder="">
-                                      <label for="">Enter the deduction amount <span class="text-danger required">*</span></label>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <!--Section 80RRB form ends-->
+                          <!--Section 80QQB form ends-->
 
-                        <!--Section 80GGA form starts-->
-                        <div class="boxBorderHeader position-relative" id="section_80GGA">
-                          <div class="text-uppercase boxHeader text-center">
-                            <span class="d-inline-block"><h6>Section 80GGA - Contribution To Research or Rural Development</h6></span>
-                          </div>
-                          <div class="boxBody">
-                            <p class="text-muted">For example, Helpage India or CRY are eligible under Section 80GGA.</p>
-                            <div class="row">
-                              <div class="col">
-                                <div class="form-group mb-0">
-                                  <div class=" floating-label">
-                                    <div class="input-group prepend">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text">₹</div>
+                          <!--Section 80RRB form starts-->
+                          <div class="boxBorderHeader position-relative" id="section_80RRB" *ngIf="step2_section80RRB">
+                            <div class="text-uppercase boxHeader text-center">
+                              <span class="d-inline-block"><h6>Section 80RRB - Income on Patents/Inventions</h6></span>
+                            </div>
+                            <div class="boxBody">
+                              <p class="text-muted">Deduction for Patentee - Royalty/transfer-of-rights/lump-sum consideration are eligible for deduction.</p>
+                              <div class="row">
+                                <div class="col">
+                                  <div class="form-group mb-0">
+                                    <div class=" floating-label">
+                                      <div class="input-group prepend">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">₹</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="S80RRBAmount" formControlName="S80RRBAmount" [ngClass]="{ 'is-invalid': otherFSubmitted && o.S80RRBAmount.errors}">
+                                        <div *ngIf="otherFSubmitted && o.S80RRBAmount.errors" class="invalid-feedback">
+                                            <div *ngIf="o.S80RRBAmount.errors.required">Deduction for Patentee is required</div>
+                                        </div>
+                                        <label for="S80RRBAmount">Enter the deduction amount <span class="text-danger required">*</span></label>
                                       </div>
-                                      <input type="text" class="form-control" id="" placeholder="">
-                                      <label for="">Contribution to Research & Development or Rural Development <span class="text-danger required">*</span></label>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <!--Section 80GGA form ends-->
+                          <!--Section 80RRB form ends-->
 
-                        <!--Section 80GGC form starts-->
-                        <div class="boxBorderHeader position-relative" id="section_80GGC">
-                          <div class="text-uppercase boxHeader text-center">
-                            <span class="d-inline-block"><h6>Section 80GGC - Contribution To Political Party</h6></span>
-                          </div>
-                          <div class="boxBody">
-                            <div class="row">
-                              <div class="col">
-                                <div class="form-group mb-0">
-                                  <div class=" floating-label">
-                                    <div class="input-group prepend">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text">₹</div>
+                          <!--Section 80GGA form starts-->
+                          <div class="boxBorderHeader position-relative" id="section_80GGA" *ngIf="step2_section80GGA">
+                            <div class="text-uppercase boxHeader text-center">
+                              <span class="d-inline-block"><h6>Section 80GGA - Contribution To Research or Rural Development</h6></span>
+                            </div>
+                            <div class="boxBody">
+                              <p class="text-muted">For example, Helpage India or CRY are eligible under Section 80GGA.</p>
+                              <div class="row">
+                                <div class="col">
+                                  <div class="form-group mb-0">
+                                    <div class=" floating-label">
+                                      <div class="input-group prepend">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">₹</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="S80GGAAmount" formControlName="S80GGAAmount" [ngClass]="{ 'is-invalid': otherFSubmitted && o.S80GGAAmount.errors}">
+                                        <div *ngIf="otherFSubmitted && o.S80GGAAmount.errors" class="invalid-feedback">
+                                            <div *ngIf="o.S80GGAAmount.errors.required">Contribution To Research or Rural Development is required</div>
+                                        </div>
+                                        <label for="S80GGAAmount">Contribution to Research & Development or Rural Development <span class="text-danger required">*</span></label>
                                       </div>
-                                      <input type="text" class="form-control" id="" placeholder="">
-                                      <label for="">Contribution or Donations to Political Party <span class="text-danger required">*</span></label>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <!--Section 80GGC form ends-->
-                      </form>
+                          <!--Section 80GGA form ends-->
+
+                          <!--Section 80GGC form starts-->
+                          <div class="boxBorderHeader position-relative" id="section_80GGC" *ngIf="step2_section80GGC">
+                            <div class="text-uppercase boxHeader text-center">
+                              <span class="d-inline-block"><h6>Section 80GGC - Contribution To Political Party</h6></span>
+                            </div>
+                            <div class="boxBody">
+                              <div class="row">
+                                <div class="col">
+                                  <div class="form-group mb-0">
+                                    <div class=" floating-label">
+                                      <div class="input-group prepend">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">₹</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="S80GGCAmount" formControlName="S80GGCAmount" [ngClass]="{ 'is-invalid': otherFSubmitted && o.S80GGCAmount.errors}">
+                                        <div *ngIf="otherFSubmitted && o.S80GGCAmount.errors" class="invalid-feedback">
+                                            <div *ngIf="o.S80GGCAmount.errors.required">Contribution To Political Party is required</div>
+                                        </div>
+                                        <label for="S80GGCAmount">Contribution or Donations to Political Party <span class="text-danger required">*</span></label>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!--Section 80GGC form ends-->
+                        </form>
                     </div>
                     <!-- Other Deduction tab ends-->
 
                     <!-- Proof doc upload tab starts-->
-                    <div class="tab-pane fade" id="deductions-doc-upload" role="tabpanel">
-                      <form id="proofDocUploadForm" [formGroup]="proofDocUploadForm">
+                    <div class="tab-pane fade" id="deductions-doc-upload" role="tabpanel" [ngClass]="{ 'active': step3 == true ,'show': step3 == true}">
+                      <form id="profDocUploadForm" [formGroup]="proofDocUploadForm">
                         <!--Prrof doc upload section-->
-                        <div class="row form-group mb-0">
+                        <div class="row">
                           <div class="col">
                             <h6>Select your document</h6>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col-6">
-                            <div class="form-group">
-                              <div class="input-group prepend custom-file-wrap">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">Choose File</span>
-                                </div>
-                                <div class="custom-file">
-                                  <input type="file" class="custom-file-input" id="inputGroupFile01">
-                                  <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-4">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="">
-                              <label for="">Enter Document Password</label>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="form-group">
-                              <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-6">
-                            <div class="form-group">
-                              <div class="input-group prepend custom-file-wrap">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">Choose File</span>
-                                </div>
-                                <div class="custom-file">
-                                  <input type="file" class="custom-file-input" id="inputGroupFile01">
-                                  <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
+                        <div formArrayName="itemUploadDocRows"> 
+                          <div class="row" *ngFor="let itemrow of proofDocUploadForm.controls.itemUploadDocRows.controls; let in=index"  [formGroupName]="in">
+                            <div class="col-6">
+                              <div class="form-group">
+                                <div class="input-group prepend custom-file-wrap">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">Choose File</span>
+                                  </div>
+                                  <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="inputGroupFile01" formControlName="inputGroupFile01">
+                                    <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div class="col-4">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="">
-                              <label for="">Enter Document Password</label>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="form-group">
-                              <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-6">
-                            <div class="form-group">
-                              <div class="input-group prepend custom-file-wrap">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">Choose File</span>
-                                </div>
-                                <div class="custom-file">
-                                  <input type="file" class="custom-file-input" id="inputGroupFile01">
-                                  <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
-                                </div>
+                            <div class="col-4">
+                              <div class="form-group floating-label">
+                                <input type="text" class="form-control" id="inputGroupFile01Pwd" formControlName="inputGroupFile01Pwd">
+                                <label for="">Enter Document Password</label>
                               </div>
                             </div>
-                          </div>
-                          <div class="col-4">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="">
-                              <label for="">Enter Document Password</label>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="form-group">
-                              <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                            <div class="col">
+                              <div class="form-group">
+                                <input type="hidden" class="form-control" formControlName="investmentProof" id="investmentProof">
+                                <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -877,8 +908,8 @@
                       <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
                     </div>
                     <div class="right ml-auto">
-                      <button disabled="previousButtonDisable" type="button" (click)="on_previous_click()" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
-                      <button disabled="nextButtonDisable" type="button" (click)="on_next_click()" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
+                      <button type="button" (click)="on_previous_click()" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
+                      <button type="button" (click)="on_next_click()" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
                     </div>
                   </div>
                 </div>

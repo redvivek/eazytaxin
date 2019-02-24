@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { AuthenticationService } from '@app/_services';
+import { ScriptService,AuthenticationService } from '@app/_services';
 import { User } from '@app/_models';
 
 @Component({
@@ -17,8 +17,12 @@ export class HeaderComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private authenticationService: AuthenticationService
+        private authenticationService: AuthenticationService,
+        private scriptservice : ScriptService
     ) {
+        this.scriptservice.load('headerJS').then(data => {
+            console.log('script loaded ', data);
+        }).catch(error => console.log(error)); 
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     }
 
@@ -29,11 +33,19 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authenticationService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
   }
 
   goDashboard(){
     this.router.navigate(['/dashboard']);
+  }
+
+  goLogin(){
+    this.router.navigate(['/login']);
+  }
+
+  goHome(){
+    this.router.navigate(['/home']);
   }
 
 }

@@ -21,6 +21,7 @@ const OtherDepIncome = db.OtherDepIncome;
 const PropertyIncome = db.PropertyIncome;
 const PropCoOwnerIncome = db.PropCoOwnerIncome;
 const CapitalGainsIncome = db.CapitalGainsIncome;
+const Deductions = db.Deductions;
 
 const sequelize = db.sequelize;
 
@@ -968,6 +969,183 @@ exports.saveCapitalIncomeInfoByAppId = (req,res) => {
 		res.status(400).send(err);
 	});
 };
+
+/*
+//Save data to deductions table
+*/
+exports.saveDeductionsInfoByAppId = (req,res)=>{
+    let inputdata = req.body;
+    let appid, userid , deductiontype,dedcategory,deductionamount,investCat,docUploadFlag,SelfMedPremAmt;
+    let depHCfees,parentSCFlag,parMedPremAmt,DoneeNm,DoneePan,DonDedLimit;
+    let DoneeQualPer,DonAddress,DoneeCity,DoneeState, DonPincode,DonCountry;
+    if(inputdata.length > 0){
+        for(var i=0;i<inputdata.length;i++){
+            appid = inputdata[i].appId;
+            userid = inputdata[i].userId;
+            deductiontype = inputdata[i].DeductionType;
+            dedcategory = inputdata[i].DeductionCat;
+            deductionamount = inputdata[i].DeductionAmt != "" ? parseFloat(inputdata[i].DeductionAmt) : 0.00;
+            investCat = inputdata[i].InvestmentCat;
+            docUploadFlag = inputdata[i].docUploadFlag;
+            SelfMedPremAmt = inputdata[i].SelfMedPremAmt != "" ? parseFloat(inputdata[i].SelfMedPremAmt) : 0.00;
+            depHCfees = inputdata[i].depHCfees != "" ? parseFloat(inputdata[i].depHCfees) : null;
+            parentSCFlag = inputdata[i].parentSCFlag;
+            parMedPremAmt = inputdata[i].parMedPremAmt != "" ? parseFloat(inputdata[i].parMedPremAmt) : 0.00;
+            DoneeNm = inputdata[i].DoneeNm;
+            DoneePan = inputdata[i].DoneePan;
+            DonDedLimit = inputdata[i].DonDedLimit;
+            DoneeQualPer = inputdata[i].DoneeQualPer;
+            DonAddress = inputdata[i].DonAddress;
+            DoneeCity = inputdata[i].DoneeCity;
+            DoneeState = inputdata[i].DoneeState;
+            DonPincode = inputdata[i].DonPincode;
+            DonCountry = inputdata[i].DonCountry;
+            RentPerMonth = 0;
+            TreatAge = "";
+
+            saveMainDeductionsData(appid,userid,deductiontype,dedcategory,deductionamount,investCat,docUploadFlag,
+                SelfMedPremAmt,depHCfees,parentSCFlag,parMedPremAmt,DoneeNm,DoneePan,
+                DonDedLimit,DoneeQualPer,DonAddress,DoneeCity,DoneeState,DonPincode,DonCountry,RentPerMonth,TreatAge,i,res,inputdata.length,15);
+        }
+    }
+}
+
+exports.saveOtherDeductionsByAppId = (req,res)=>{
+    let inputdata = req.body;
+    let appid, userid , deductiontype,dedcategory,deductionamount,investCat,docUploadFlag,SelfMedPremAmt;
+    let depHCfees,parentSCFlag,parMedPremAmt,DoneeNm,DoneePan,DonDedLimit;
+    let DoneeQualPer,DonAddress,DoneeCity,DoneeState, DonPincode,DonCountry;
+    if(inputdata.length > 0){
+        for(var i=0;i<inputdata.length;i++){
+            appid = inputdata[i].appId;
+            userid = inputdata[i].userId;
+            deductiontype = inputdata[i].DeductionType;
+            dedcategory = inputdata[i].DeductionCat;
+            deductionamount = inputdata[i].DeductionAmt != "" ? parseFloat(inputdata[i].DeductionAmt) : 0.00;
+            investCat = inputdata[i].InvestmentCat;
+            docUploadFlag = inputdata[i].docUploadFlag;
+            
+            SelfMedPremAmt = 0.00;
+            depHCfees = 0.00;
+            parentSCFlag = 0;
+            parMedPremAmt = 0.00;
+            DoneeNm = null;
+            DoneePan = null;
+            DonDedLimit = null;
+            DoneeQualPer = null;
+            DonAddress = null;
+            DoneeCity = null;
+            DoneeState = null;
+            DonPincode = null;
+            DonCountry = null;
+
+            RentPerMonth = inputdata[i].RentPerMonth == "" ? 0 :inputdata[i].RentPerMonth;
+            TreatAge = inputdata[i].TreatAge;
+
+            saveMainDeductionsData(appid,userid,deductiontype,dedcategory,deductionamount,investCat,docUploadFlag,
+                SelfMedPremAmt,depHCfees,parentSCFlag,parMedPremAmt,DoneeNm,DoneePan,
+                DonDedLimit,DoneeQualPer,DonAddress,DoneeCity,DoneeState,DonPincode,DonCountry,RentPerMonth,TreatAge,i,res,inputdata.length,16);
+        }
+    }
+}
+
+function saveMainDeductionsData(appid,userid,deductiontype,dedcategory,deductionamount,investCat,docUploadFlag,
+SelfMedPremAmt,depHCfees,parentSCFlag,parMedPremAmt,DoneeNm,DoneePan,
+DonDedLimit,DoneeQualPer,DonAddress,DoneeCity,DoneeState,DonPincode,DonCountry,RentPerMonth,TreatAge,index,res,len,appstage)
+{
+    Deductions.findAll(
+        { where: {UserId:userid,ApplicationId: appid,DeductionTypes:deductiontype} }
+    )
+    .then(function (resultData) {
+        if (resultData) {
+            console.log("Result -Exisitng Deductions details  "+JSON.stringify(resultData));
+            Deductions.destroy({
+                where: { UserId:userid,ApplicationId: appid,DeductionTypes:deductiontype}
+            }).then(() => {
+                console.log('deleted successfully with id = ');
+                sequelize.query("INSERT INTO `et_deductions`(ApplicationId,UserId,DeductionTypes,DeductionCategory,"+
+                    "InvestmentCategory,DeductionAmount,Self_MI_PremiumAmt,Self_HC_Fees,Parents_MI_PremiumAmt,"+
+                    "Parents_SC_PolicyFlag,NoHRA_TotalMonths,SpecificDisease_PersonAge,DoneeName,DoneePan,DoneeDeductionLimit,DoneeQualPer,DoneeAddress,DoneeCity,"+
+                    "DoneeState,DoneeCountry,DonePincode,CompletionStatus,DocUploadFlag,updatedAt) "+
+                    "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                {
+                    replacements: [appid,userid,deductiontype,dedcategory,investCat,deductionamount,SelfMedPremAmt,
+                    depHCfees,parMedPremAmt,parentSCFlag,RentPerMonth,TreatAge,DoneeNm,DoneePan,DonDedLimit,DoneeQualPer,DonAddress,DoneeCity,DoneeState,
+                    DonCountry,DonPincode,'Yes',docUploadFlag,formattedDT],
+                    type: sequelize.QueryTypes.INSERT 
+                }).then(result => {		
+                    console.log("Result AppId  "+result[0]);
+                    if(index == len-1){
+                        //update flags to et_applicationsmain table */
+                        updateApplicationMain(appid,userid,appstage);
+    
+                        res.json({"statusCode": 200,"Message": "Successful Request"});
+                    }
+                    
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    if(index == len-1){
+                        res.status(400).send(err);
+                    }
+                });
+            });
+        } else {
+            //res.status(200);
+            //Save to et_deductions table */
+            sequelize.query("INSERT INTO `et_deductions`(ApplicationId,UserId,DeductionTypes,DeductionCategory,"+
+                "InvestmentCategory,DeductionAmount,Self_MI_PremiumAmt,Self_HC_Fees,Parents_MI_PremiumAmt,"+
+                "Parents_SC_PolicyFlag,NoHRA_TotalMonths,SpecificDisease_PersonAge,DoneeName,DoneePan,DoneeDeductionLimit,DoneeQualPer,DoneeAddress,DoneeCity,"+
+                "DoneeState,DoneeCountry,DonePincode,CompletionStatus,DocUploadFlag,createdAt) "+
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            {
+                replacements: [appid,userid,deductiontype,dedcategory,investCat,deductionamount,SelfMedPremAmt,
+                depHCfees,parMedPremAmt,parentSCFlag,RentPerMonth,TreatAge,DoneeNm,DoneePan,DonDedLimit,DoneeQualPer,DonAddress,DoneeCity,DoneeState,
+                DonCountry,DonPincode,'Yes',docUploadFlag,formattedDT],
+                type: sequelize.QueryTypes.INSERT 
+            }).then(result => {		
+                console.log("Result AppId  "+result[0]);
+                if(index == len-1){
+                    //update flags to et_applicationsmain table */
+                    updateApplicationMain(appid,userid,appstage);
+
+                    res.json({"statusCode": 200,"Message": "Successful Request"});
+                }
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                if(index == len-1){
+                    res.status(400).send(err);
+                }
+            });
+        }
+    })
+    .catch(function (err) {
+        console.log("Error "+err);
+        if(index == len-1){
+            res.status(400).send(err);
+        }
+    });
+}
+
+exports.fetchDeductionsDetails = (req,res)=>{
+    let appid = req.body.appid;
+    let userid = req.body.userid;
+    console.log("Input Data  "+req.body.appid);
+    Deductions.findAll({ 
+        where: {UserId:userid,ApplicationId: appid} 
+    })
+    .then(function (resultData) {
+        if (resultData) {
+            console.log("Result -Exisitng Deductions details  "+JSON.stringify(resultData));
+            res.json({"statusCode": 200,"Message": "Successful Request","ResultData":resultData});
+        } 
+    })
+    .catch(function (err) {
+        console.log("Error "+err);
+        res.status(400).send(err);
+    });
+}
 
 exports.fetchDashboardInfo = (req,res)=>{
     res.status(200);

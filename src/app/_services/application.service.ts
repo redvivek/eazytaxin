@@ -107,4 +107,21 @@ export class ApplicationService {
     saveCapitalIncomeDetails(capitalinfoData) {
         return this.http.post(`${environment.apiUrl}/tax/saveCapitalIncome`, capitalinfoData);
     }
+
+    //save deduction details
+    saveDeductionsDetails(deductionsInputParam){
+        return this.http.post(`${environment.apiUrl}/tax/saveDeductions`, deductionsInputParam);
+    }
+
+    saveOtherDeductionsDetails(deductionsInputParam){
+        return this.http.post(`${environment.apiUrl}/tax/saveOtherDeductions`, deductionsInputParam);
+    }
+
+    fetchDeductionDetails(userid,appid){
+        var jsonInput = {
+            "userid" : userid,
+            "appid" : appid
+        };
+        return this.http.post(`${environment.apiUrl}/tax/fetchDeductionsDetails`, jsonInput);
+    }
 }

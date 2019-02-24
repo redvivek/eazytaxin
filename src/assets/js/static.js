@@ -1,19 +1,30 @@
+// Home Page Banner Slider
+//Init the carousel
+initSlider();
 
+function initSlider() {
+  $(".owl-carousel").owlCarousel({
+    items: 1,
+    loop: true,
+    autoplay: true,
+    onInitialized: startProgressBar,
+    onTranslate: resetProgressBar,
+    onTranslated: startProgressBar
+  });
+}
 
-// Header
-headerScrollJs();
+function startProgressBar() {
+  // apply keyframe animation
+  $(".slide-progress").css({
+    width: "100%",
+    transition: "width 5000ms"
+  });
+}
 
-function headerScrollJs() {
-    var scroll = $(window).scrollTop();
-    if (scroll >= 500) {
-      // alert(1);
-      $("body").addClass("scrolled");
-      $("#header").removeClass("no-bg");
-    } else {
-      // alert(2);
-      $("body").removeClass("scrolled");
-      $("#header").addClass("no-bg");
-    }
-};
-
+function resetProgressBar() {
+  $(".slide-progress").css({
+    width: 0,
+    transition: "width 0s"
+  });
+}
 

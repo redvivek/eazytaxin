@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     DocumentCategory: {
-      type: DataTypes.INTEGER(10),
+      type: DataTypes.STRING(100),
       allowNull: false
     },
     DocumentName: {

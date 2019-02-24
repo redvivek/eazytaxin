@@ -12,7 +12,7 @@ export class ReviewdetailsComponent implements OnInit {
     private scriptservice : ScriptService
     ) 
   {
-  	this.scriptservice.load('mainJS').then(data => {
+  	this.scriptservice.load('d3JS','mainJS','reviewJS').then(data => {
   	    console.log('script loaded ', data);
   	}).catch(error => console.log(error));  
   }
