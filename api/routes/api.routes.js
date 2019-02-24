@@ -54,5 +54,6 @@ route.get('/tax/fetchReportInExcel', taxService.fetchITRReportInExcel);
 route.get('/tax/fetchReportInXML', taxService.fetchITRReportInXML);
 route.get('/tax/fetchDocPreview', taxService.fetchDocPreview);*/
 route.get('/tax/fetchDashboardInfo', taxService.fetchDashboardInfo);
+route.post('/tax/fetchInProgApps', taxService.fetchInProgressAppsByUserid);
 
 module.exports = route;

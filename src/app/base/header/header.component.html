@@ -50,7 +50,10 @@
               <a class="nav-link" href="support.html">Support</a>
             </li> -->
             <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact Us</a>
+              <a class="nav-link" href="javascript:void(0)" (click)="goFaq()">FAQ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0)" (click)="goContactus()">Contact Us</a>
             </li>
             <li class="nav-item" *ngIf="!currentUser">
               <a class="nav-link" href="javascript:void(0)" (click)="goLogin()">Login</a>

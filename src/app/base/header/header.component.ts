@@ -48,5 +48,9 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
+  goContactus(){
+    this.router.navigate(['/contactus']);
+  }
+
 }
 	

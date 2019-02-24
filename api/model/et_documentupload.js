@@ -5,7 +5,16 @@ module.exports = function(sequelize, DataTypes) {
     documentId: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
+    },
+    UserId: {
+      type: DataTypes.INTEGER(10),
+      allowNull: false
+    },
+    ApplicationId: {
+      type: DataTypes.INTEGER(10),
+      allowNull: false
     },
     DocumentCategory: {
       type: DataTypes.STRING(100),
@@ -23,12 +32,12 @@ module.exports = function(sequelize, DataTypes) {
       type: "BLOB",
       allowNull: true
     },
-    DocUploadDate: {
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
-    DocModifiedDate: {
+    updatedAt: {
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')

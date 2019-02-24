@@ -17,7 +17,18 @@ export class BasicInformationComponent implements OnInit {
   submitted = false;
   userId: number;
   ApplicationId : number;
-  AppMainDetails : Basicinfo;
+  //AppMainDetails : Basicinfo;
+  checked :boolean;
+  checked1 :boolean;
+  checked2 :boolean;
+  checked3 :boolean;
+  checked4 :boolean;
+  checked5 :boolean;
+  checked6 :boolean;
+  checked7 :boolean;
+  checked8 :boolean;
+  checked9 :boolean;
+
   localStoreg = JSON.parse(localStorage.getItem("currentUserApp"));
 
   constructor(
@@ -28,7 +39,7 @@ export class BasicInformationComponent implements OnInit {
     private alertService : AlertService,
     private scriptservice : ScriptService
   ) { 
-        this.scriptservice.load('mainJS').then(data => {
+        this.scriptservice.load('waveJS','mainJS').then(data => {
             console.log('script loaded ', data);
         }).catch(error => console.log(error));
     
@@ -41,8 +52,6 @@ export class BasicInformationComponent implements OnInit {
             this.userId         = this.authenticationService.currentUserValue.userid;
             this.ApplicationId  = this.appService.currentApplicationValue.appId;
             console.log("Current App Id "+ this.ApplicationId);
-
-            this.fetchAppMaindata(this.ApplicationId);
         }
     }
 
@@ -61,17 +70,7 @@ export class BasicInformationComponent implements OnInit {
       presentIndiaFlag: ['',Validators.required],
     });
 
-    //Preload form with existing or default values
-    //this.basicInfoForm.get('incomeFromSalary').setValue(this.AppMainDetails.incomeFromSalary);
-    //this.basicInfoForm.get('incomeFromOtherSources').setValue(this.AppMainDetails.incomeFromOtherSources);
-    /*this.basicInfoForm.get('selfOccupiedProp').setValue(this.AppMainDetails.selfOccupiedProp);
-    this.basicInfoForm.get('rentalProperty').setValue(this.AppMainDetails.rentalProperty);
-    this.basicInfoForm.get('incomeFromCapitals').setValue(this.AppMainDetails.incomeFromCapitals);
-    this.basicInfoForm.get('deductionsFlag').setValue(this.AppMainDetails.deductionsFlag);
-    this.basicInfoForm.get('residentIndianFlag').setValue('1');
-    this.basicInfoForm.get('nonResidentIndianFlag').setValue('1');
-    this.basicInfoForm.get('ociResidentIndianFlag').setValue('1');
-    this.basicInfoForm.get('presentIndiaFlag').setValue('1');*/
+    this.fetchAppMaindata(this.ApplicationId);
   }
 
   // convenience getter for easy access to form fields
@@ -85,8 +84,79 @@ export class BasicInformationComponent implements OnInit {
         data  => {
             //console.log("Response"+JSON.stringify(data));
             if(data){
-              this.AppMainDetails =  data;
-              console.log("Value "+ JSON.stringify(this.AppMainDetails));
+                //this.AppMainDetails =  data;
+                //console.log("Value "+ JSON.stringify(data));
+                //Preload form with existing or default values
+                if(data.incomeFromSalary === 1){
+                    this.checked = true;
+                    this.basicInfoForm.get('incomeFromSalary').setValue('1');
+                }else{
+                    this.checked = false;
+                    this.basicInfoForm.get('incomeFromSalary').setValue('0');
+                }
+                if(data.incomeFromOtherSources === 1){
+                    this.checked1 = true;
+                    this.basicInfoForm.get('incomeFromOtherSources').setValue('1');
+                }else{
+                    this.checked1 = false;
+                    this.basicInfoForm.get('incomeFromOtherSources').setValue('0');
+                }
+                if(data.selfOccupiedProp === 1){
+                    this.checked2 = true;
+                    this.basicInfoForm.get('selfOccupiedProp').setValue('1');
+                }else{
+                    this.checked2 = false;
+                    this.basicInfoForm.get('selfOccupiedProp').setValue('0');
+                }
+                if(data.rentalProperty === 1){
+                    this.checked3 = true;
+                    this.basicInfoForm.get('rentalProperty').setValue('1');
+                }else{
+                    this.checked3= false;
+                    this.basicInfoForm.get('rentalProperty').setValue('0');
+                }
+                if(data.incomeFromCapitals === 1){
+                    this.checked4 = true;
+                    this.basicInfoForm.get('incomeFromCapitals').setValue('1');
+                }else{
+                    this.checked4 = false;
+                    this.basicInfoForm.get('incomeFromCapitals').setValue('0');
+                }
+                if(data.deductionsFlag === 1){
+                    this.checked5 = true;
+                    this.basicInfoForm.get('deductionsFlag').setValue('1');
+                }else{
+                    this.checked5 = false;
+                    this.basicInfoForm.get('deductionsFlag').setValue('0');
+                }
+                if(data.ResidentIndianFlag === 1){
+                    this.checked6 = true;
+                    this.basicInfoForm.get('residentIndianFlag').setValue('1');
+                }else{
+                    this.checked6 = false;
+                    this.basicInfoForm.get('residentIndianFlag').setValue('0');
+                }
+                if(data.NonResidentIndianFlag === 1){
+                    this.checked7 = true;
+                    this.basicInfoForm.get('nonResidentIndianFlag').setValue('1');
+                }else{
+                    this.checked7 = false;
+                    this.basicInfoForm.get('nonResidentIndianFlag').setValue('0');
+                }
+                if(data.OciResidentIndianFlag === 1){
+                    this.checked8 = true;
+                    this.basicInfoForm.get('ociResidentIndianFlag').setValue('1');
+                }else{
+                    this.checked8 = false;
+                    this.basicInfoForm.get('ociResidentIndianFlag').setValue('0');
+                }
+                if(data.PresentIndiaFlag === 1){
+                    this.checked9 = true;
+                    this.basicInfoForm.get('presentIndiaFlag').setValue('1');
+                }else{
+                    this.checked9 = false;
+                    this.basicInfoForm.get('presentIndiaFlag').setValue('0');
+                }
             }
         },
         error => {

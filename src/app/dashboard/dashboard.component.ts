@@ -2,7 +2,7 @@ import { Component, OnInit,OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { ApplicationMain} from '@app/_models';
-import { ApplicationService, AuthenticationService,AlertService } from '@app/_services';
+import { ScriptService,ApplicationService, AuthenticationService,AlertService } from '@app/_services';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,16 +12,22 @@ import { ApplicationService, AuthenticationService,AlertService } from '@app/_se
 export class DashboardComponent implements OnInit {
   assesmentYears = [];
   selectedAssYear:any;
+  showCurrAssYear:boolean;
 
   userId : number;
   ApplicationId : number;
+  inProgressApps = [];
 
   constructor(
         private router: Router,
         private authenticationService: AuthenticationService,
         private appService : ApplicationService,
-        private alertService : AlertService
+        private alertService : AlertService,
+        private scriptservice : ScriptService
   ) {
+    this.scriptservice.load('mainJS').then(data => {
+        console.log('script loaded ', data);
+    }).catch(error => console.log(error));   
     // redirect to login if not logged in
     if (!this.authenticationService.currentUserValue) { 
       this.router.navigate(['/login']);
@@ -37,6 +43,7 @@ export class DashboardComponent implements OnInit {
         this.assesmentYears = this.getCurrentAssesmentYear();
         console.log("Current Assesment Year "+this.assesmentYears);
         this.selectedAssYear = this.assesmentYears[0];
+        this.inProgressApps = this.fetchInProgressAppDataByUserID(this.userId);
     }
 
     onChange(newValue) {
@@ -68,11 +75,43 @@ export class DashboardComponent implements OnInit {
             'xmluploadflag':'', 
             'appRefno':'', 
             'applicationStage':1, 
-            'appStatus':'initiated' 
+            'appStatus':'Initiated' 
         };
         localStorage.removeItem("currentUserApp");
         localStorage.setItem("currentUserApp", JSON.stringify(appdata));
         this.router.navigate(['/taxfilling/taxperiod']);
+    }
+
+    continueApp(appArray){
+        console.log("Selected App details "+ JSON.stringify(appArray));
+        this.selectedAssYear = appArray.AssYear;
+        //Add newly created AppID in local storage
+        const appdata:ApplicationMain = { 
+            'appId': appArray.AppId,
+            'taxperiod':this.selectedAssYear,
+            'xmluploadflag':appArray.xmlFlag, 
+            'appRefno':appArray.AppRefno, 
+            'applicationStage':appArray.AppStage, 
+            'appStatus':'Progress' 
+        };
+        localStorage.removeItem("currentUserApp");
+        localStorage.setItem("currentUserApp", JSON.stringify(appdata));
+        if(appArray.AppStage == "")
+            this.router.navigate(['/taxfilling/taxperiod']);
+        else if(appArray.AppStage == 1)
+           this.router.navigate(['/taxfilling/basicinfo']);
+        else if(appArray.AppStage >= 2 && appArray.AppStage < 7)
+            this.router.navigate(['/taxfilling/personalinfo']);
+        else if(appArray.AppStage >= 7 && appArray.AppStage < 12)
+            this.router.navigate(['/taxfilling/earnings']);
+        else if(appArray.AppStage >= 13 && appArray.AppStage < 16)
+            this.router.navigate(['/taxfilling/deductions']);
+        else if(appArray.AppStage == 17)
+            this.router.navigate(['/taxfilling/taxpaid']);
+        else if(appArray.AppStage >= 18)
+            this.router.navigate(['/taxfilling/review']);
+        else
+            this.router.navigate(['/taxfilling/review']);
     }
 
     getCurrentAssesmentYear() {
@@ -102,5 +141,43 @@ export class DashboardComponent implements OnInit {
         assYearList.push(prevAYear);
         assYearList.push(prevLAYear);
         return assYearList;
+    }
+
+    fetchInProgressAppDataByUserID(userid){
+        var resultArray = [];
+        // start storing application data in database
+        this.appService.fetchInProgAppDataByUserid(userid)
+        .pipe(first())
+        .subscribe(
+            data => {
+                    //console.log("Response" + JSON.stringify(data));
+                    if(data['statusCode'] == 200){                  
+                        if(data['ResultData'].length > 0){
+                            for(var i=0;i<data['ResultData'].length;i++){
+                                if(data['ResultData'][i].AssesmentYear == this.assesmentYears[0]){
+                                    this.showCurrAssYear = false;
+                                }else{
+                                    this.showCurrAssYear = true;
+                                }
+                                
+                                resultArray.push(
+                                    {
+                                        "AppId":data['ResultData'][i].ApplicationId,
+                                        "AppRefno":data['ResultData'][i].AppRefNo,
+                                        "AssYear":data['ResultData'][i].AssesmentYear,
+                                        "AppStage":data['ResultData'][i].ApplicationStage,
+                                        "xmlFlag":data['ResultData'][i].XmlUploadFlag
+                                    }
+                                )
+                            }
+                        }else{
+                            this.showCurrAssYear = true;
+                        }
+                    }
+                },
+            error => {
+                console.log("Error "+error);
+            });
+        return resultArray;
     }
 }

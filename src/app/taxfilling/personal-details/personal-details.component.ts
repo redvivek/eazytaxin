@@ -53,7 +53,7 @@ export class PersonalDetailsComponent implements OnInit {
     private alertService : AlertService,
     private scriptservice : ScriptService
   ) {
-      this.scriptservice.load('mainJS').then(data => {
+      this.scriptservice.load('waveJS','mainJS').then(data => {
         console.log('script loaded ', data);
       }).catch(error => console.log(error));
       

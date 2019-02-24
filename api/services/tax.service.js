@@ -1,6 +1,8 @@
 const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
+const bodyParser = require('body-parser');
+var Q = require('q');
 
 
 const db = require('../config/dbConfig');
@@ -22,6 +24,7 @@ const PropertyIncome = db.PropertyIncome;
 const PropCoOwnerIncome = db.PropCoOwnerIncome;
 const CapitalGainsIncome = db.CapitalGainsIncome;
 const Deductions = db.Deductions;
+const DocumentUpload = db.DocumentUpload; 
 
 const sequelize = db.sequelize;
 
@@ -32,13 +35,16 @@ var formattedDT = dt.format('Y-m-d H:M:S');
 // Fetch all Users
 exports.uploadPrefilledXML = (req, res) => {
     var new_path = path.join(process.env.PWD, '/uploads/');
-    console.log("New Path:"+new_path);
+    //console.log("New Path:"+new_path);
+    //console.log("Request: "+JSON.stringify(req.body));
 
     var storage = multer.diskStorage({
         destination: new_path,
         filename: function (req, file, cb) {
+            //console.log("Request Filedata: "+JSON.stringify(req.body));
+            var userid          =   req.body.UserId;
             var file_ext        =   file.originalname.split('.');
-            cb(null, file_ext[0] + '_' + Date.now()+ "." +file_ext[1])
+            cb(null, userid + '_prexml' + '_' + Date.now()+ "." +file_ext[1])
         }
     });
     var upload = multer({
@@ -51,12 +57,66 @@ exports.uploadPrefilledXML = (req, res) => {
             res.status(400).send(err);
         } else {
             console.log('file received');
-            req.files.forEach(function(item) {
-                console.log("File item "+item);
-            });
-            return res.send({
-                success: true
+            console.log("Request Filedata: "+JSON.stringify(req.body));
+            var userid          =   req.body.UserId;
+            var appRefNo        =   req.body.AppRefNo;
+            var assYear         =   req.body.AssesmentYear; 
+            var xmlFlag         =   req.body.XmlUploadFlag;
+            var docCategory     =   req.body.DocCategory;
+            createApplicationMain(userid,appRefNo,assYear,xmlFlag,res)
+            .then(function(appid){
+                req.files.forEach(function(item) {
+                    console.log("File item "+ JSON.stringify(item));
+                    var filename = item.fieldname;
+                    var filepath = item.path;
+                    DocumentUpload.findOne(
+                        { where: {UserId:userid,ApplicationId: appid,DocumentCategory:docCategory} }
+                    )
+                    .then(function (resultData) {
+                        if (resultData) {
+                            console.log("Result Doc Details  "+JSON.stringify(resultData));
+                            DocumentUpload.destroy({
+                                where: { documentId: resultData.documentId}
+                            }).then(() => {
+                                console.log('deleted successfully with id = ' + resultData.documentId);
+                                sequelize.query("INSERT INTO `et_documentupload`(UserId,ApplicationId,DocumentCategory,DocumentName,DocumentPath,createdAt) VALUES (?,?,?,?,?,?)",{
+                                    replacements: [userid,appid,docCategory,filename,filepath,formattedDT],
+                                    type: sequelize.QueryTypes.INSERT 
+                                }).then(result => {		
+                                    console.log("Result AppId  "+result[0]);
+                                    res.json({"statusCode": 200,"Message": "Successful Request","AppId":appid});
+                                })
+                                .catch(function (err) {
+                                    console.log("Error "+err);
+                                    res.status(400).send(err);
+                                });
+                            });
+                        } else {
+                            //res.status(200);
+                            //Save to et_documentupload table */
+                            sequelize.query("INSERT INTO `et_documentupload`(UserId,ApplicationId,DocumentCategory,DocumentName,DocumentPath,createdAt) VALUES (?,?,?,?,?,?)",{
+                                replacements: [userid,appid,docCategory,filename,filepath,formattedDT],
+                                type: sequelize.QueryTypes.INSERT 
+                            }).then(result => {		
+                                console.log("Result AppId  "+result[0]);
+                                res.json({"statusCode": 200,"Message": "Successful Request","AppId":appid});
+                            })
+                            .catch(function (err) {
+                                console.log("Error "+err);
+                                res.status(400).send(err);
+                            });
+                        }
+                    })
+                    .catch(function (err) {
+                        console.log("Error "+err);
+                        res.status(400).send(err);
+                    });
+                });
             })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
         }
     });
 };
@@ -70,36 +130,61 @@ exports.createApplication = (req, res) => {
     let userid = appParam.userId;
     let xmluploadflag = appParam.xmluploadflag;
     let appRefNo = appParam.appRefNo;
+    let files = [];
+    createApplicationMain(userid,appRefNo,assYear,xmlFlag,res)
+    .then(function(appid){
+        res.json({"statusCode": 200,"Message": "Successful Request","AppId":appid});
+    })
+    .catch(function (err) {
+        console.log("Error "+err);
+        res.status(400).send(err);
+    });
 
-	ApplicationMain.findOne(
-		{ where: {UserId:userid,AssesmentYear: assesmentYear} }
+}
+
+function createApplicationMain(userid,appRefNo,assYear,xmlFlag,res){
+    var deferred = Q.defer();
+    ApplicationMain.findOne(
+		{ where: {UserId:userid,AssesmentYear: assYear} }
 	)
 	.then(function (application) {
 		if (application) {
             console.log("Result AppId  "+JSON.stringify(application));
-            res.json({"statusCode": 301,"Message": "Existing AppId","AppId":application.ApplicationId});
+            if(xmlFlag == 1){
+                updateApplicationMain(application.ApplicationId,userid,1,xmlFlag);
+                deferred.resolve(application.ApplicationId);
+            }else{
+                deferred.resolve(application.ApplicationId);
+                //res.json({"statusCode": 301,"Message": "Existing AppId","AppId":application.ApplicationId});
+            }
         } else {
 			//res.status(200);
-			//Save to et_userinfo table */
+			//Save to et_applicationsmain table */
 			sequelize.query("INSERT INTO `et_applicationsmain`(UserId,AppRefNo,AssesmentYear,xmluploadflag,createdAt,ApplicationStage,ApplicationStatus,AppPaymentStatus,AppITRUploadStatus) VALUES (?,?,?,?,?,?,?,?,?)",{
-				replacements: [userid,appRefNo,assesmentYear,xmluploadflag,formattedDT,1,'Initiated','NotStarted','No'],
+				replacements: [userid,appRefNo,assYear,xmlFlag,formattedDT,1,'Initiated','NotStarted','No'],
 				type: sequelize.QueryTypes.INSERT 
 			}).then(result => {		
                 console.log("Result AppId  "+result[0]);
-                res.json({"statusCode": 200,"Message": "Successful Request","AppId":result[0]});
+                //if(xmlFlag == 1){
+                    deferred.resolve(result[0]);
+                //}else{
+                  //  res.json({"statusCode": 200,"Message": "Successful Request","AppId":result[0]});
+                //}
 			})
 			.catch(function (err) {
-				console.log("Error "+err);
-				res.status(400).send(err);
+                console.log("Error "+err);
+                deferred.reject(err);
+				//res.status(400).send(err);
 			});
 		}
 	})
 	.catch(function (err) {
 		console.log("Error "+err);
-		res.status(400).send(err);
-	});
-
-};
+		deferred.reject(err);
+    });
+    
+    return deferred.promise;
+}
 
 exports.fetchApplicationMainByAppId = (req,res)=>{
     console.log("Request param "+req.body.id);
@@ -1147,14 +1232,32 @@ exports.fetchDeductionsDetails = (req,res)=>{
     });
 }
 
+exports.fetchInProgressAppsByUserid = (req,res)=>{
+    console.log("Request "+req.body.userid);
+    let userid = req.body.userid;
+    ApplicationMain.findAll({ 
+        where: {UserId:userid,ApplicationStatus:'Progress'} 
+    })
+    .then(function (resultData) {
+        if (resultData) {
+            console.log("Result -In Progress Applications  "+JSON.stringify(resultData));
+            res.json({"statusCode": 200,"Message": "Successful Request","ResultData":resultData});
+        } 
+    })
+    .catch(function (err) {
+        console.log("Error "+err);
+        res.status(400).send(err);
+    });
+}
+
 exports.fetchDashboardInfo = (req,res)=>{
     res.status(200);
 }
 
 //update flags to et_applicationsmain table */
-function updateApplicationMain(appid,userid,appStage){
-    sequelize.query("UPDATE `et_applicationsmain` SET updatedAt=?,ApplicationStage=? WHERE ApplicationId = ? AND UserId = ? ",{
-        replacements: [formattedDT,appStage,appid,userid],
+function updateApplicationMain(appid,userid,appStage,xmlflag=0){
+    sequelize.query("UPDATE `et_applicationsmain` SET XmlUploadFlag=?,updatedAt=?,ApplicationStage=? WHERE ApplicationId = ? AND UserId = ? ",{
+        replacements: [xmlflag,formattedDT,appStage,appid,userid],
         type: sequelize.QueryTypes.UPDATE 
     }).then(result => {		
         console.log("Result AppId  "+result);

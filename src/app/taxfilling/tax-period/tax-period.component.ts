@@ -22,14 +22,9 @@ export class TaxPeriodComponent implements OnInit {
   userId : number;
   ApplicationId : number;
   selAssYear : any = null;
+  //dataSubmitted = false;
 
   taxperiods = this.getCurrentAssesmentYear();
-  public uploader: FileUploader = new FileUploader({
-    url: URL, 
-    itemAlias: 'uploadPreFillXMLFile'
-  });
-
-
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,7 +35,7 @@ export class TaxPeriodComponent implements OnInit {
     private scriptservice : ScriptService
   )
   {
-    this.scriptservice.load('mainJS').then(data => {
+    this.scriptservice.load('waveJS','mainJS').then(data => {
         console.log('script loaded ', data);
     }).catch(error => console.log(error));  
     
@@ -58,6 +53,11 @@ export class TaxPeriodComponent implements OnInit {
         this.selAssYear = this.taxperiods[0]
       }
   }
+
+  public uploader: FileUploader = new FileUploader({
+    url: URL, 
+    itemAlias: 'uploadPreFillXMLFile'
+  });
 
   ngOnInit() {
     this.taxPeriodForm = this.formBuilder.group({
@@ -77,17 +77,36 @@ export class TaxPeriodComponent implements OnInit {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     
     this.uploader.onBuildItemForm = (fileItem: any, form: any) => {
-      form.append('AppRefNo', 'abcd123'); //note comma separating key and value
-      form.append('UserId', this.authenticationService.currentUserValue.userid);
-      form.append('AssesmentYear', '2019-2020');
+      var randomNo = "App"+this.generateAppRefNo(this.userId);  
+      form.append('AppRefNo', randomNo); //note comma separating key and value
+      form.append('UserId', this.userId);
+      form.append('AssesmentYear', this.selAssYear);
       form.append('XmlUploadFlag', 1);
       form.append('ApplicationStatus', 'Initiated');
-      form.append('DocCategory', 'PreUpload');
+      form.append('DocCategory', 'PreUploadXML');
      };
 
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-          console.log('ImageUpload:uploaded:', item, status, response);
-          alert('File uploaded successfully');
+          //console.log('ImageUpload:uploaded:', item, status, response);
+          console.log('Response '+ response); 
+          var res = JSON.parse(response);
+          //alert('File uploaded successfully');
+          if(res['statusCode'] == 200){                 
+            this.alertService.error('File Uploaded & data saved successfully');
+            localStorage.removeItem("currentUserApp");
+            //Add newly created AppID in local storage
+            const appdata:ApplicationMain = { 
+                'appId': res['AppId'],
+                'taxperiod':this.selAssYear,
+                'xmluploadflag':1, 
+                'appRefno':"", 
+                'applicationStage':1, 
+                'appStatus':'initiated' 
+            };
+            localStorage.setItem("currentUserApp", JSON.stringify(appdata));
+            //this.dataSubmitted = true;
+            this.loading = false;
+        }
     };
     /*XML File Uploader with form data ends here */
   }
@@ -123,62 +142,68 @@ export class TaxPeriodComponent implements OnInit {
         return;
     }
 
-    var randomNo = "App"+this.generateAppRefNo(this.userId);
-      
-    console.log('Input Values :-)\n\n' + JSON.stringify(this.taxPeriodForm.value));
-    //create the input params for post request
-    const appData = {
-        'userId':this.userId,
-        'taxperiod' : this.f.taxperiod.value,
-        'xmluploadflag':this.f.xmluploadflag.value,
-        'appRefNo': randomNo
-    };
-    // start storing application data in database
-    this.appservice.createApplication(appData)
-    .pipe(first())
-    .subscribe(
-        data => {
-                console.log("Response" + JSON.stringify(data));
-                //successfully inserted
-                if(data['statusCode'] == 200){                  
-                    this.alertService.error('Application data saved successfully');
-                    
-                    //Add newly created AppID in local storage
-                    const appdata:ApplicationMain = { 
-                        'appId': data['AppId'],
-                        'taxperiod':this.f.taxperiod.value,
-                        'xmluploadflag':this.f.xmluploadflag.value, 
-                        'appRefno':randomNo, 
-                        'applicationStage':1, 
-                        'appStatus':'initiated' 
-                    };
-                    localStorage.setItem("currentUserApp", JSON.stringify(appdata));
-                    
-                    //this.appservice.currentAppValue(appdata);
-                    this.loading = false;
-                    this.router.navigate(['taxfilling/basicinfo']);
-                }else if(data['statusCode'] == 301){    //Application already exist for same ass year and userId
-                    this.alertService.error('Application already exist for selected Assesment Year');
-                    //update fetched AppID in local storage
-                    localStorage.removeItem("currentUserApp");
-                    const appdata:ApplicationMain = { 
-                        'appId': data['AppId'],
-                        'taxperiod':this.f.taxperiod.value,
-                        'xmluploadflag':this.f.xmluploadflag.value, 
-                        'appRefno':randomNo, 
-                        'applicationStage':1, 
-                        'appStatus':'initiated' 
-                    };
-                    localStorage.setItem("currentUserApp", JSON.stringify(appdata));
-                    //this.appservice.currentAppValue(appdata);
-                    this.loading = false;
-                    this.router.navigate(['taxfilling/basicinfo']);
-                }
-            },
-        error => {
-            this.alertService.error(error);
-            this.loading = false;
-        });
+    this.ApplicationId  = this.appservice.currentApplicationValue.appId;
+    console.log("Current App Id "+ this.ApplicationId);
+    if(this.ApplicationId == null){
+        var randomNo = "App"+this.generateAppRefNo(this.userId);
+        
+        console.log('Input Values :-)\n\n' + JSON.stringify(this.taxPeriodForm.value));
+        //create the input params for post request
+        const appData = {
+            'userId':this.userId,
+            'taxperiod' : this.f.taxperiod.value,
+            'xmluploadflag':this.f.xmluploadflag.value,
+            'appRefNo': randomNo
+        };
+        // start storing application data in database
+        this.appservice.createApplication(appData)
+        .pipe(first())
+        .subscribe(
+            data => {
+                    console.log("Response" + JSON.stringify(data));
+                    //successfully inserted
+                    if(data['statusCode'] == 200){                  
+                        this.alertService.error('Application data saved successfully');
+                        
+                        //Add newly created AppID in local storage
+                        const appdata:ApplicationMain = { 
+                            'appId': data['AppId'],
+                            'taxperiod':this.f.taxperiod.value,
+                            'xmluploadflag':this.f.xmluploadflag.value, 
+                            'appRefno':randomNo, 
+                            'applicationStage':1, 
+                            'appStatus':'initiated' 
+                        };
+                        localStorage.setItem("currentUserApp", JSON.stringify(appdata));
+                        
+                        //this.appservice.currentAppValue(appdata);
+                        this.loading = false;
+                        this.router.navigate(['taxfilling/basicinfo']);
+                    }else if(data['statusCode'] == 301){    //Application already exist for same ass year and userId
+                        this.alertService.error('Application already exist for selected Assesment Year');
+                        //update fetched AppID in local storage
+                        localStorage.removeItem("currentUserApp");
+                        const appdata:ApplicationMain = { 
+                            'appId': data['AppId'],
+                            'taxperiod':this.f.taxperiod.value,
+                            'xmluploadflag':this.f.xmluploadflag.value, 
+                            'appRefno':randomNo, 
+                            'applicationStage':1, 
+                            'appStatus':'initiated' 
+                        };
+                        localStorage.setItem("currentUserApp", JSON.stringify(appdata));
+                        //this.appservice.currentAppValue(appdata);
+                        this.loading = false;
+                        this.router.navigate(['taxfilling/basicinfo']);
+                    }
+                },
+            error => {
+                this.alertService.error(error);
+                this.loading = false;
+            });
+        }else{
+            this.router.navigate(['taxfilling/basicinfo']);
+        }
   }
 
   /*Function to create list of Assesment year dropdowns */

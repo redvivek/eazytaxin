@@ -21,7 +21,7 @@
                     <div class="col-4">
                       <div class="form-group floating-label customDropdown">
                         <select name="taxperiod" class="form-control" id="taxperiod" formControlName="taxperiod" [ngClass]="{ 'is-invalid': submitted && f.taxperiod.errors}">
-                            <option [value]="taxperiod" *ngFor="let taxperiod of taxperiods">{{taxperiod}}</option>
+                            <option [value]="taxperiod" *ngFor="let taxperiod of taxperiods" [selected]="taxperiod == selAssYear">{{taxperiod}}</option>
                         </select>
                         <label for="taxperiod">Select Assessment Year</label>
                         <div *ngIf="submitted && f.taxperiod.errors" class="invalid-feedback">
@@ -92,7 +92,7 @@
                     <div class="col-6">
                       <div>
                           File upload progress:
-                          <div class="progress" style="">
+                          <div class="progress">
                               <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
                           </div>
                       </div>

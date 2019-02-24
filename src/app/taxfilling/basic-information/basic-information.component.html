@@ -22,11 +22,11 @@
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="salaryyes" class="custom-control-input" value="1" formControlName="incomeFromSalary" [ngClass]="{ 'is-invalid': submitted && f.incomeFromSalary.errors}">
+                        <input type="radio" id="salaryyes" class="custom-control-input" value="1" formControlName="incomeFromSalary" [checked]="checked" [ngClass]="{ 'is-invalid': submitted && f.incomeFromSalary.errors}">
                         <label class="custom-control-label" for="salaryyes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="salaryno" class="custom-control-input" value="0" formControlName="incomeFromSalary" [ngClass]="{ 'is-invalid': submitted && f.incomeFromSalary.errors}">
+                        <input type="radio" id="salaryno" class="custom-control-input" value="0" formControlName="incomeFromSalary" [checked]="!checked" [ngClass]="{ 'is-invalid': submitted && f.incomeFromSalary.errors}">
                         <label class="custom-control-label" for="salaryno">No</label>
                       </div>
                       <div *ngIf="submitted && f.incomeFromSalary.errors" class="invalid-feedback">
@@ -40,11 +40,11 @@
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="otherSourceyes" class="custom-control-input" value="1" formControlName="incomeFromOtherSources" [ngClass]="{ 'is-invalid': submitted && f.incomeFromOtherSources.errors}">
+                        <input type="radio" id="otherSourceyes" class="custom-control-input" value="1" formControlName="incomeFromOtherSources" [checked]="checked1" [ngClass]="{ 'is-invalid': submitted && f.incomeFromOtherSources.errors}">
                         <label class="custom-control-label" for="otherSourceyes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="otherSourceno" class="custom-control-input" value="0" formControlName="incomeFromOtherSources" [ngClass]="{ 'is-invalid': submitted && f.incomeFromOtherSources.errors}">
+                        <input type="radio" id="otherSourceno" class="custom-control-input" value="0" formControlName="incomeFromOtherSources" [checked]="!checked1" [ngClass]="{ 'is-invalid': submitted && f.incomeFromOtherSources.errors}">
                         <label class="custom-control-label" for="otherSourceno">No</label>
                       </div>
                       <div *ngIf="submitted && f.incomeFromOtherSources.errors" class="invalid-feedback">
@@ -58,11 +58,11 @@
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="interestyes" class="custom-control-input" value="1" formControlName="selfOccupiedProp" [ngClass]="{ 'is-invalid': submitted && f.selfOccupiedProp.errors}">
+                        <input type="radio" id="interestyes" class="custom-control-input" value="1" formControlName="selfOccupiedProp" [checked]="checked2"  [ngClass]="{ 'is-invalid': submitted && f.selfOccupiedProp.errors}">
                         <label class="custom-control-label" for="interestyes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="interestno" class="custom-control-input" value="0" formControlName="selfOccupiedProp" [ngClass]="{ 'is-invalid': submitted && f.selfOccupiedProp.errors}">
+                        <input type="radio" id="interestno" class="custom-control-input" value="0" formControlName="selfOccupiedProp" [checked]="!checked2" [ngClass]="{ 'is-invalid': submitted && f.selfOccupiedProp.errors}">
                         <label class="custom-control-label" for="interestno">No</label>
                       </div>
                       <div *ngIf="submitted && f.selfOccupiedProp.errors" class="invalid-feedback">
@@ -76,11 +76,11 @@
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="rentalLossyes" class="custom-control-input" value="1" formControlName="rentalProperty" [ngClass]="{ 'is-invalid': submitted && f.rentalProperty.errors}">
+                        <input type="radio" id="rentalLossyes" class="custom-control-input" value="1" formControlName="rentalProperty" [checked]="checked3" [ngClass]="{ 'is-invalid': submitted && f.rentalProperty.errors}">
                         <label class="custom-control-label" for="rentalLossyes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="rentalLossno" class="custom-control-input" value="0" formControlName="rentalProperty" [ngClass]="{ 'is-invalid': submitted && f.rentalProperty.errors}">
+                        <input type="radio" id="rentalLossno" class="custom-control-input" value="0" formControlName="rentalProperty" [checked]="!checked3" [ngClass]="{ 'is-invalid': submitted && f.rentalProperty.errors}">
                         <label class="custom-control-label" for="rentalLossno">No</label>
                       </div>
                       <div *ngIf="submitted && f.rentalProperty.errors" class="invalid-feedback">
@@ -94,11 +94,11 @@
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="capitalGainyes" class="custom-control-input" value="1" formControlName="incomeFromCapitals" [ngClass]="{ 'is-invalid': submitted && f.incomeFromCapitals.errors}">
+                        <input type="radio" id="capitalGainyes" class="custom-control-input" value="1" formControlName="incomeFromCapitals" [checked]="checked4" [ngClass]="{ 'is-invalid': submitted && f.incomeFromCapitals.errors}">
                         <label class="custom-control-label" for="capitalGainyes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="capitalGainno" class="custom-control-input" value="0" formControlName="incomeFromCapitals" [ngClass]="{ 'is-invalid': submitted && f.incomeFromCapitals.errors}">
+                        <input type="radio" id="capitalGainno" class="custom-control-input" value="0" formControlName="incomeFromCapitals" [checked]="!checked4" [ngClass]="{ 'is-invalid': submitted && f.incomeFromCapitals.errors}">
                         <label class="custom-control-label" for="capitalGainno">No</label>
                       </div>
                       <div *ngIf="submitted && f.incomeFromCapitals.errors" class="invalid-feedback">
@@ -112,11 +112,11 @@
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="deductionyes" class="custom-control-input" value="1" formControlName="deductionsFlag" [ngClass]="{ 'is-invalid': submitted && f.deductionsFlag.errors}">
+                        <input type="radio" id="deductionyes" class="custom-control-input" value="1" formControlName="deductionsFlag" [checked]="checked5" [ngClass]="{ 'is-invalid': submitted && f.deductionsFlag.errors}">
                         <label class="custom-control-label" for="deductionyes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="deductionno" class="custom-control-input" value="0" formControlName="deductionsFlag" [ngClass]="{ 'is-invalid': submitted && f.deductionsFlag.errors}">
+                        <input type="radio" id="deductionno" class="custom-control-input" value="0" formControlName="deductionsFlag" [checked]="!checked5" [ngClass]="{ 'is-invalid': submitted && f.deductionsFlag.errors}">
                         <label class="custom-control-label" for="deductionno">No</label>
                       </div>
                       <div *ngIf="submitted && f.deductionsFlag.errors" class="invalid-feedback">
@@ -130,11 +130,11 @@
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="residentIndianYes" class="custom-control-input" value="1" formControlName="residentIndianFlag" [ngClass]="{ 'is-invalid': submitted && f.residentIndianFlag.errors}" >
+                        <input type="radio" id="residentIndianYes" class="custom-control-input" value="1" formControlName="residentIndianFlag" [checked]="checked6" [ngClass]="{ 'is-invalid': submitted && f.residentIndianFlag.errors}" >
                         <label class="custom-control-label" for="residentIndianYes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="residentIndianNo" class="custom-control-input" value="0" formControlName="residentIndianFlag" [ngClass]="{ 'is-invalid': submitted && f.residentIndianFlag.errors}" >
+                        <input type="radio" id="residentIndianNo" class="custom-control-input" value="0" formControlName="residentIndianFlag" [checked]="!checked6" [ngClass]="{ 'is-invalid': submitted && f.residentIndianFlag.errors}" >
                         <label class="custom-control-label" for="residentIndianNo">No</label>
                       </div>
                       <div *ngIf="submitted && f.residentIndianFlag.errors" class="invalid-feedback">
@@ -148,11 +148,11 @@
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="nonResidentIndianYes" class="custom-control-input" value="1" formControlName="nonResidentIndianFlag" [ngClass]="{ 'is-invalid': submitted && f.nonResidentIndianFlag.errors}" >
+                        <input type="radio" id="nonResidentIndianYes" class="custom-control-input" value="1" formControlName="nonResidentIndianFlag" [checked]="checked7" [ngClass]="{ 'is-invalid': submitted && f.nonResidentIndianFlag.errors}" >
                         <label class="custom-control-label" for="nonResidentIndianYes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="nonResidentIndianNo" class="custom-control-input" value="0" formControlName="nonResidentIndianFlag" [ngClass]="{ 'is-invalid': submitted && f.nonResidentIndianFlag.errors}" >
+                        <input type="radio" id="nonResidentIndianNo" class="custom-control-input" value="0" formControlName="nonResidentIndianFlag" [checked]="!checked7" [ngClass]="{ 'is-invalid': submitted && f.nonResidentIndianFlag.errors}" >
                         <label class="custom-control-label" for="nonResidentIndianNo">No</label>
                       </div>
                       <div *ngIf="submitted && f.nonResidentIndianFlag.errors" class="invalid-feedback">
@@ -166,11 +166,11 @@
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="ociResidentIndianYes" class="custom-control-input" value="1" formControlName="ociResidentIndianFlag" [ngClass]="{ 'is-invalid': submitted && f.ociResidentIndianFlag.errors}">
+                        <input type="radio" id="ociResidentIndianYes" class="custom-control-input" value="1" formControlName="ociResidentIndianFlag" [checked]="checked8" [ngClass]="{ 'is-invalid': submitted && f.ociResidentIndianFlag.errors}">
                         <label class="custom-control-label" for="ociResidentIndianYes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="ociResidentIndianYes" class="custom-control-input" value="0" formControlName="ociResidentIndianFlag" [ngClass]="{ 'is-invalid': submitted && f.ociResidentIndianFlag.errors}">
+                        <input type="radio" id="ociResidentIndianYes" class="custom-control-input" value="0" formControlName="ociResidentIndianFlag" [checked]="!checked8" [ngClass]="{ 'is-invalid': submitted && f.ociResidentIndianFlag.errors}">
                         <label class="custom-control-label" for="ociResidentIndianYes">No</label>
                       </div>
                       <div *ngIf="submitted && f.ociResidentIndianFlag.errors" class="invalid-feedback">
@@ -184,11 +184,11 @@
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="presentIndiaYes" class="custom-control-input" value="1" formControlName="presentIndiaFlag" [ngClass]="{ 'is-invalid': submitted && f.presentIndiaFlag.errors}" >
+                        <input type="radio" id="presentIndiaYes" class="custom-control-input" value="1" formControlName="presentIndiaFlag" [checked]="checked9" [ngClass]="{ 'is-invalid': submitted && f.presentIndiaFlag.errors}" >
                         <label class="custom-control-label" for="presentIndiaYes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="presentIndiaNo" class="custom-control-input" value="0" formControlName="presentIndiaFlag" [ngClass]="{ 'is-invalid': submitted && f.presentIndiaFlag.errors}" >
+                        <input type="radio" id="presentIndiaNo" class="custom-control-input" value="0" formControlName="presentIndiaFlag" [checked]="!checked9" [ngClass]="{ 'is-invalid': submitted && f.presentIndiaFlag.errors}" >
                         <label class="custom-control-label" for="presentIndiaNo">No</label>
                       </div>
                       <div *ngIf="submitted && f.presentIndiaFlag.errors" class="invalid-feedback">
