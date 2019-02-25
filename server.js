@@ -34,12 +34,7 @@ app.use(function(req, res, next) {
 
 app.use(express.static(path.join(__dirname, 'dist/eazytaxin')));
 app.use('/', express.static(path.join(__dirname, 'dist/eazytaxin')));
-
 app.use('/api', apiRouter);
-// Catch all other routes and return the index file
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/eazytaxin'));
-});
 
 
 // force: true will drop the table if it already exists
@@ -48,9 +43,9 @@ db.sequelize.sync({force: false}).then(() => {
 });
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+/* app.use(function(req, res, next) {
   next(createError(404));
-});
+}); */
 
 // error handler
 /*app.use(function(err, req, res, next) {
