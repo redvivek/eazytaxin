@@ -74,6 +74,9 @@ a:hover{text-decoration:none;}
 #header .top-navbar .navbar-nav > .nav-item .pageName{font-size:18px; font-weight:300;}
 #header .top-navbar .navbar-nav > .nav-item > .user-dropdown{padding-top:7px; padding-left:15px;}
 #header .mainMenutoggler{padding:22px; width:70px; height:66px;}
+#header .navbar-brand{position:relative; padding-left:35px;}
+
+
 .mainMenuList{background-color:#f2f2f2; box-shadow:5px 5px 5px rgba(0,0,0,.2); top:65px; z-index:49; transition:.5s; transform:matrix(1, 0, 0, 1, 0, -500);}
 .mainMenuList.show{transform:matrix(1, 0, 0, 1, 0, 0);}
 .mainMenuList li{padding:0; border-left:none; border-right:none;}
@@ -88,6 +91,8 @@ a:hover{text-decoration:none;}
 #header.no-bg a{color:#FFF;}
 #header.no-bg .dropdown-menu a{color:#2e2e2c;}
 #header.no-bg .dropdown-toggle::after{color:#FFF;}
+#header.no-bg .navbar-brand img{width:220px; height:34px;}
+#header.no-bg .navbar-brand::before{content:""; position:absolute; left:-50px; top:-160px; background:#FFF; border-radius:50%; width:396px; height:256px; display:block; transform: rotate(11deg); z-index: -1;}
 
 
 .card {border:none; border-radius:0;}
