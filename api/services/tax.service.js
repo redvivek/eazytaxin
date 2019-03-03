@@ -1,12 +1,14 @@
-const path = require('path');
-const fs = require('fs');
-const multer = require('multer');
-const bodyParser = require('body-parser');
-var Q = require('q');
+const path          = require('path');
+//const fs            = require('fs');
+const multer        = require('multer');
+const bodyParser    = require('body-parser');
+var Q               = require('q');
+//var xml2js          = require('xml2js');
 
 
-const db = require('../config/dbConfig');
-var dateTime = require('node-datetime');
+const db        = require('../config/dbConfig');
+var dateTime    = require('node-datetime');
+//var parser      = new xml2js.Parser({ attrkey: "ATTR" });
 
 const ApplicationMain = db.ApplicationMain;
 
@@ -44,7 +46,7 @@ exports.uploadPrefilledXML = (req, res) => {
             //console.log("Request Filedata: "+JSON.stringify(req.body));
             var userid          =   req.body.UserId;
             var file_ext        =   file.originalname.split('.');
-            cb(null, userid + '_prexml' + '_' + Date.now()+ "." +file_ext[1])
+            cb(null, userid + '_preFilledxml' + "." +file_ext[1])
         }
     });
     var upload = multer({
@@ -69,6 +71,8 @@ exports.uploadPrefilledXML = (req, res) => {
                     console.log("File item "+ JSON.stringify(item));
                     var filename = item.fieldname;
                     var filepath = item.path;
+
+                    //Save the uploaded document details in document upload table
                     DocumentUpload.findOne(
                         { where: {UserId:userid,ApplicationId: appid,DocumentCategory:docCategory} }
                     )
@@ -92,8 +96,7 @@ exports.uploadPrefilledXML = (req, res) => {
                                 });
                             });
                         } else {
-                            //res.status(200);
-                            //Save to et_documentupload table */
+                            //Save to et_documentupload table
                             sequelize.query("INSERT INTO `et_documentupload`(UserId,ApplicationId,DocumentCategory,DocumentName,DocumentPath,createdAt) VALUES (?,?,?,?,?,?)",{
                                 replacements: [userid,appid,docCategory,filename,filepath,formattedDT],
                                 type: sequelize.QueryTypes.INSERT 
@@ -112,6 +115,7 @@ exports.uploadPrefilledXML = (req, res) => {
                         res.status(400).send(err);
                     });
                 });
+            
             })
             .catch(function (err) {
                 console.log("Error "+err);
@@ -119,7 +123,88 @@ exports.uploadPrefilledXML = (req, res) => {
             });
         }
     });
-};
+}
+
+exports.uploadproofDocuments = (req,res)=>{
+    var new_path = path.join(process.env.PWD, '/uploads/');
+    //console.log("New Path:"+new_path);
+    //console.log("Request: "+JSON.stringify(req.body));
+
+    var storage = multer.diskStorage({
+        destination: new_path,
+        filename: function (req, file, cb) {
+            //console.log("Request Filedata: "+JSON.stringify(req.body));
+            var userid      =   req.body.UserId;
+            var category    =   req.body.DocCategory;
+            var file_ext    =   file.originalname.split('.');
+            cb(null, userid + '_'+category+ "." +file_ext[1])
+        }
+    });
+    var upload = multer({
+        storage: storage
+    }).any();
+
+    upload(req, res, function(err) {
+        if (err) {
+            console.log("success:"+false);
+            res.status(400).send(err);
+        } else {
+            console.log('file received');
+            console.log("Request Filedata: "+JSON.stringify(req.body));
+            var userid      =   req.body.UserId;
+            var appid       =   req.body.ApplicationId;
+            var pwd         =   req.body.FilePassword != "" ? req.body.FilePassword : "";
+            var docCategory =   req.body.DocCategory;
+            req.files.forEach(function(item) {
+                console.log("File item "+ JSON.stringify(item));
+                var filename = item.fieldname;
+                var filepath = item.path;
+                DocumentUpload.findOne(
+                    { where: {UserId:userid,ApplicationId: appid,DocumentCategory:docCategory} }
+                )
+                .then(function (resultData) {
+                    if (resultData) {
+                        console.log("Result Doc Details  "+JSON.stringify(resultData));
+                        DocumentUpload.destroy({
+                            where: { documentId: resultData.documentId}
+                        }).then(() => {
+                            console.log('deleted successfully with id = ' + resultData.documentId);
+                            sequelize.query("INSERT INTO `et_documentupload`(UserId,ApplicationId,DocumentCategory,DocumentName,FilePassword,DocumentPath,createdAt) VALUES (?,?,?,?,?,?,?)",{
+                                replacements: [userid,appid,docCategory,filename,pwd,filepath,formattedDT],
+                                type: sequelize.QueryTypes.INSERT 
+                            }).then(result => {		
+                                console.log("Result AppId  "+result[0]);
+                                res.json({"statusCode": 200,"Message": "Successful Request"});
+                            })
+                            .catch(function (err) {
+                                console.log("Error "+err);
+                                res.status(400).send(err);
+                            });
+                        });
+                    } else {
+                        //res.status(200);
+                        //Save to et_documentupload table */
+                        sequelize.query("INSERT INTO `et_documentupload`(UserId,ApplicationId,DocumentCategory,DocumentName,FilePassword,DocumentPath,createdAt) VALUES (?,?,?,?,?,?,?)",{
+                            replacements: [userid,appid,docCategory,filename,pwd,filepath,formattedDT],
+                            type: sequelize.QueryTypes.INSERT 
+                        }).then(result => {		
+                            console.log("Result AppId  "+result[0]);
+                            res.json({"statusCode": 200,"Message": "Successful Request"});
+                        })
+                        .catch(function (err) {
+                            console.log("Error "+err);
+                            res.status(400).send(err);
+                        });
+                    }
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    res.status(400).send(err);
+                });
+            });
+        }
+    });
+}
 
 exports.createApplication = (req, res) => {
     let appParam = req.body;
@@ -187,7 +272,7 @@ function createApplicationMain(userid,appRefNo,assYear,xmlFlag,res){
 }
 
 exports.fetchApplicationMainByAppId = (req,res)=>{
-    console.log("Request param "+req.body.id);
+    //console.log("Request param "+req.body.id);
     ApplicationMain.findByPk(req.body.id).then(appmain => {
         console.log("Result AppData "+appmain);
         res.json({"statusCode": 200,"Message": "Successful Request","AppData":appmain});
@@ -198,6 +283,106 @@ exports.fetchApplicationMainByAppId = (req,res)=>{
         res.status(400).send(err);
     });
 };
+
+exports.fetchPersonalInfoByAppId = (req,res)=>{
+    console.log("Request param "+req.body.id);
+    PersonalDetails.findOne(
+		{ where: {ApplicationId: req.body.id} }
+	)
+	.then(function (resultData) {
+        console.log("Result - Personal Details  "+ resultData);
+        if (resultData) {
+            console.log("Result - Personal Details  "+JSON.stringify(resultData));
+            res.json({"statusCode": 200,"Message": "Successful Request","PerData":resultData});
+        }else{
+            res.json({"statusCode": 200,"Message": "Successful Request","PerData":""});
+        }
+
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+};
+
+exports.fetchAddressInfoByAppId = (req,res)=>{
+    console.log("Request param "+req.body.id);
+    console.log("Request param "+req.body.addresstype);
+    AddressDetails.findOne(
+		{ where: {ApplicationId: req.body.id,AddressType:req.body.addresstype} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Address Details  "+JSON.stringify(resultData));
+            res.json({"statusCode": 200,"Message": "Successful Request","PerData":resultData});
+        }else{
+            res.json({"statusCode": 200,"Message": "Successful Request","PerData":""});
+        }
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+}
+
+exports.fetchBankInfoByAppId = (req,res) =>{
+    console.log("Request param "+req.body.id);
+    BankDetails.findAll(
+		{ where: {ApplicationId: req.body.id} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Address Details  "+JSON.stringify(resultData));
+            res.json({"statusCode": 200,"Message": "Successful Request","PerData":resultData});
+        }else{
+            res.json({"statusCode": 200,"Message": "Successful Request","PerData":""});
+        }
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+}
+
+exports.fetchAssetsInfoByAppId =(req,res)=>{
+    console.log("Request param "+req.body.id);
+    var resultArray = [];
+    AssetsDetails.findOne(
+		{ where: {ApplicationId: req.body.id} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            //console.log("Result - Assets Details  "+JSON.stringify(resultData));
+            resultArray.push({"MainData":resultData});
+            if(resultData.ImmovableAssetsFlag == 1){
+                ImAssetsAddDetails.findOne(
+                    { where: {ALDetailsId: resultData.ALDetailsId} }
+                )
+                .then(function (imResultData) {
+                    if (imResultData) {
+                        //console.log("Result - ImAssets Details  "+JSON.stringify(imResultData));
+                        resultArray.push({"ImmData":imResultData});
+                        res.json({"statusCode": 200,"Message": "Successful Request","PerData":resultArray});
+                    }else{
+                        res.json({"statusCode": 200,"Message": "Successful Request","PerData":""});
+                    }
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    res.status(400).send(err);
+                });
+                
+            }else{
+                res.json({"statusCode": 200,"Message": "Successful Request","PerData":resultArray});
+            }
+            
+        }
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+}
 
 exports.saveBasicInfoByAppId = (req,res)=>{
     //let inputdata = req.body;
@@ -299,6 +484,60 @@ exports.savePersonalInfoByAppId = (req,res)=>{
 	});
 };
 
+function savePersonalInfofromXML(appid,userid,firstnm,middlenm,lastnm,panno,landline,mobileno,altMobileno,email,dob,emptype,genVal,aadhar,resiStatus){
+    var deferred = Q.defer();
+    let updateAt = formattedDT;
+    //let resiStatus = resiStatus;
+    
+    PersonalDetails.findOne(
+		{ where: {UserId:userid,ApplicationId: appid} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Personal Details  "+JSON.stringify(resultData));
+            PersonalDetails.destroy({
+                where: { PersonalDetailsId: resultData.PersonalDetailsId}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + resultData.PersonalDetailsId);
+                sequelize.query("INSERT INTO `et_personaldetails`(ApplicationId,UserId,Firstname,Middlename,Lastname,EmailId,MobileNo,AltMobileNo,landlineNo,DateOfBirth,Gender,EmployerType,PanNumber,AadharNumber,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,firstnm,middlenm,lastnm,email,mobileno,altMobileno,landline,dob,genVal,emptype,panno,aadhar,updateAt,'No'],
+                    type: sequelize.QueryTypes.INSERT 
+                }).then(result => {		
+                    console.log("Result AppId  "+result[0]);
+                    //update flags to et_applicationsmain table */
+                    updateApplicationMain(appid,userid,4);
+                    deferred.resolve();
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    deferred.reject(err);
+                });
+            });
+        } else {
+			//Save to et_personaldetails table */
+			sequelize.query("INSERT INTO `et_personaldetails`(ApplicationId,UserId,Firstname,Middlename,Lastname,EmailId,MobileNo,AltMobileNo,landlineNo,DateOfBirth,Gender,EmployerType,PanNumber,AadharNumber,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,firstnm,middlenm,lastnm,email,mobileno,altMobileno,landline,dob,genVal,emptype,panno,aadhar,updateAt,'No'],
+                type: sequelize.QueryTypes.INSERT
+            }).then(result => {		
+                console.log("Result AppId  "+result[0]);
+                //update flags to et_applicationsmain table */
+                updateApplicationMain(appid,userid,4);
+                deferred.resolve();
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                deferred.reject(err);
+            });
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		deferred.reject(err);
+	});
+    
+    return deferred.promise;
+}
+
 exports.saveAddressInfoByAppId = (req,res)=>{
     //res.status(200);
     //let inputdata = req.body;
@@ -364,6 +603,63 @@ exports.saveAddressInfoByAppId = (req,res)=>{
 	});
 };
 
+function saveAddressInfofromXML(appid,userid,flatno,roadStreetnm,areaLocalitynm,citynm,state,pincode){
+    var deferred = Q.defer();
+    let addressType = "Residence";
+    let building = "";
+    country = "India";
+
+    AddressDetails.findOne(
+		{ where: {UserId:userid,ApplicationId: appid} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Personal Details  "+JSON.stringify(resultData));
+            AddressDetails.destroy({
+                where: { AdressDetailsId: resultData.AdressDetailsId}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + resultData.AdressDetailsId);
+                sequelize.query("INSERT INTO `et_addressdetails`(ApplicationId,UserId,AddressType,Flatno_Blockno,Building_Village_Premises,Road_Street_PO,Area_Locality,City_Town_District,State,Country,Pincode,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,addressType,flatno,building,roadStreetnm,areaLocalitynm,citynm,state,country,pincode,updateAt,'No'],
+                    type: sequelize.QueryTypes.INSERT 
+                }).then(result => {		
+                    console.log("Result AppId  "+result[0]);
+                    //update flags to et_applicationsmain table */
+                    updateApplicationMain(appid,userid,5);
+
+                    deferred.resolve();
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    deferred.reject(err);
+                });
+            });
+        } else {
+			//res.status(200);
+			//Save to et_personaldetails table */
+			sequelize.query("INSERT INTO `et_addressdetails`(ApplicationId,UserId,AddressType,Flatno_Blockno,Building_Village_Premises,Road_Street_PO,Area_Locality,City_Town_District,State,Country,Pincode,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,addressType,flatno,building,roadStreetnm,areaLocalitynm,citynm,state,country,pincode,updateAt,'No'],
+                type: sequelize.QueryTypes.INSERT 
+            }).then(result => {			
+                console.log("Result AppId  "+result[0]);
+                //update flags to et_applicationsmain table */
+                updateApplicationMain(appid,userid,5);
+                deferred.resolve();
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                deferred.reject(err);
+            });
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		deferred.reject(err);
+    });
+    
+    return deferred.promise;
+}
+
 exports.saveBankDetailsByAppId = (req,res)=>{
     //res.status(200);
     //let inputdata = req.body;
@@ -391,11 +687,26 @@ exports.saveBankDetailsByAppId = (req,res)=>{
                         let bankNm = details[i].BankNm;
                         let ifscCode = details[i].IFSCCode;
                         console.log("Result cnt  "+ i);
-                        if( i == details.length-1){
-                            insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt,res);
+                        if( i != details.length-1){
+                            insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt)
+                            .then(result =>{
+                                console.log("Result AppId  "+result);
+                            })
+                            .catch(function (err) {
+                                console.log("Error "+err);
+                                res.status(400).send(err);
+                            });
                         }
                         else{
-                            insertBankDetailsAndSendResponse(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt,res);
+                            insertBankDetailsAndSendResponse(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt)
+                            .then(result =>{
+                                console.log("Result AppId  "+result);
+                                res.json({"statusCode": 200,"Message": "Successful Request"});
+                            })
+                            .catch(function (err) {
+                                console.log("Error "+err);
+                                res.status(400).send(err);
+                            });
                         }
                     }
                 }
@@ -411,11 +722,26 @@ exports.saveBankDetailsByAppId = (req,res)=>{
                     let ifscCode = details[i].IFSCCode;
 
                     console.log("Result cnt  "+ i);
-                    if( i == details.length-1){
-                        insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt,res);
+                    if( i != details.length-1){
+                        insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt)
+                        .then(result =>{
+                            console.log("Result AppId  "+result);
+                        })
+                        .catch(function (err) {
+                            console.log("Error "+err);
+                            res.status(400).send(err);
+                        });
                     }
                     else{
-                        insertBankDetailsAndSendResponse(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt,res);
+                        insertBankDetailsAndSendResponse(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt)
+                        .then(result =>{
+                            console.log("Result AppId  "+result);
+                            res.json({"statusCode": 200,"Message": "Successful Request"});
+                        })
+                        .catch(function (err) {
+                            console.log("Error "+err);
+                            res.status(400).send(err);
+                        });
                     }
                 }
             }
@@ -427,20 +753,110 @@ exports.saveBankDetailsByAppId = (req,res)=>{
     });
 };
 
-function insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt,res){
+function saveBankDetailsFromXML(userid,appid,bankDetailsArr){
+    var deferred = Q.defer();
+
+    BankDetails.findOne(
+        { where: {UserId:userid,ApplicationId: appid} }
+    )
+    .then(function (resultData) {
+        if (resultData) {
+            console.log("Result - Bank Details  "+JSON.stringify(resultData));
+            BankDetails.destroy({
+                where: {UserId:userid,ApplicationId: appid}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + appid);
+                
+                if(bankDetailsArr.length > 0){
+                    for(var i=0;i < bankDetailsArr.length;i++){
+                        let accPriority = bankDetailsArr[i].AccPriority;
+                        let accNumber = bankDetailsArr[i].AccNumber;
+                        let accType = "Savings";
+                        let bankNm = bankDetailsArr[i].BankNm;
+                        let ifscCode = bankDetailsArr[i].IFSCCode;
+                        console.log("Result cnt  "+ i);
+                        if( i != details.length-1){
+                            insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt)
+                            .then(result =>{
+                                console.log("Result AppId  "+result);
+                            })
+                            .catch(function (err) {
+                                console.log("Error "+err);
+                            });
+                        }
+                        else{
+                            insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt)
+                            .then(result =>{
+                                console.log("Result AppId  "+result);
+                                deferred.resolve();
+                            })
+                            .catch(function (err) {
+                                console.log("Error "+err);
+                                deferred.reject(err);
+                            });
+                        }
+                    }
+                }
+            });
+        } else {
+            if(bankDetailsArr.length > 0){
+                for(var i=0;i < bankDetailsArr.length;i++){
+                    let accPriority = bankDetailsArr[i].AccPriority;
+                    let accNumber = bankDetailsArr[i].AccNumber;
+                    let accType = "Savings";
+                    let bankNm = bankDetailsArr[i].BankNm;
+                    let ifscCode = bankDetailsArr[i].IFSCCode;
+                    console.log("Result cnt  "+ i);
+                    if( i != details.length-1){
+                        insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt)
+                        .then(result =>{
+                            console.log("Result AppId  "+result);
+                        })
+                        .catch(function (err) {
+                            console.log("Error "+err);
+                        });
+                    }
+                    else{
+                        insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt)
+                        .then(result =>{
+                            console.log("Result AppId  "+result);
+                            deferred.resolve();
+                        })
+                        .catch(function (err) {
+                            console.log("Error "+err);
+                            deferred.reject(err);
+                        });
+                    }
+                }
+            }
+        }
+    })
+    .catch(function (err) {
+        console.log("Error "+err);
+        deferred.reject(err);
+    });
+
+    return deferred.promise;
+}
+
+function insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt){
+    var deferred = Q.defer();
     sequelize.query("INSERT INTO `et_bankdetails`(ApplicationId,UserId,AccountPriority,AccountNumber,AccountType,BankName,IFSCCode,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?)",{
         replacements: [appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt,'Yes'],
         type: sequelize.QueryTypes.INSERT 
     }).then(result => {		
         console.log("Result AppId  "+result[0]);
+        deferred.resolve(result[0]);
     })
     .catch(function (err) {
         console.log("Error "+err);
-        res.status(400).send(err);
+        deferred.reject(err);
     });
+    return deferred.promise;
 }
 
-function insertBankDetailsAndSendResponse(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt,res){
+function insertBankDetailsAndSendResponse(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt){
+    var deferred = Q.defer();
     sequelize.query("INSERT INTO `et_bankdetails`(ApplicationId,UserId,AccountPriority,AccountNumber,AccountType,BankName,IFSCCode,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?)",{
         replacements: [appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt,'Yes'],
         type: sequelize.QueryTypes.INSERT 
@@ -448,12 +864,14 @@ function insertBankDetailsAndSendResponse(appid,userid,accPriority,accNumber,acc
         console.log("Result AppId  "+result[0]);
         //update flags to et_applicationsmain table */
         updateApplicationMain(appid,userid,6);
-        res.json({"statusCode": 200,"Message": "Successful Request"});
+        deferred.resolve(result[0]);
     })
     .catch(function (err) {
         console.log("Error "+err);
-        res.status(400).send(err);
+        deferred.reject(err);
+        //res.status(400).send(err);
     });
+    return deferred.promise;
 }
 
 exports.saveAssestsInfoByAppId = (req,res)=>{
@@ -643,6 +1061,59 @@ exports.saveSalIncomeInfoByAppId = (req,res) => {
 	});
 
 };
+
+function saveSalaryDetailsFromXML(userid,appid,salDetailInput){
+    var deferred = Q.defer();
+
+    SalariedIncome.findOne(
+		{ where: {UserId:userid,ApplicationId: appid} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Salary Income details  "+JSON.stringify(resultData));
+            SalariedIncome.destroy({
+                where: { IncomeSourceSalId: resultData.IncomeSourceSalId}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + resultData.IncomeSourceSalId);
+                sequelize.query("INSERT INTO `et_income_salary`(ApplicationId,UserId,Form16UploadFlag,SalaryPaidAmount,EmployerName,EmployerCategory,CompletionStatus) VALUES (?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,uploadDocFlag,salamount,employernm,inputEmployertype,'Yes'],
+                    type: sequelize.QueryTypes.INSERT 
+                }).then(result => {		
+                    console.log("Result AppId  "+result[0]);
+                    //update flags to et_income_salary table */
+                    updateApplicationMain(appid,userid,9);
+
+                    deferred.resolve();
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    deferred.reject(err);
+                });
+            });
+        } else {
+			//Save to et_income_salary table */
+			sequelize.query("INSERT INTO `et_income_salary`(ApplicationId,UserId,Form16UploadFlag,SalaryPaidAmount,EmployerName,EmployerCategory,CompletionStatus) VALUES (?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,uploadDocFlag,salamount,employernm,inputEmployertype,'Yes'],
+                type: sequelize.QueryTypes.INSERT 
+            }).then(result => {		
+                console.log("Result AppId  "+result[0]);
+                //update flags to et_applicationsmain table */
+                updateApplicationMain(appid,userid,9);
+                deferred.resolve();
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                deferred.reject(err);
+            });
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		deferred.reject(err);
+	});
+
+    return deferred.promise;
+}
 
 exports.saveOthIncomeInfoByAppId = (req,res) => {
     //let inputdata = req.body;
@@ -1213,6 +1684,13 @@ DonDedLimit,DoneeQualPer,DonAddress,DoneeCity,DoneeState,DonPincode,DonCountry,R
     });
 }
 
+function saveTaxPaidDetailsFromXML(){
+    var deferred = Q.defer();
+
+    return deferred.promise;
+
+}
+
 exports.fetchDeductionsDetails = (req,res)=>{
     let appid = req.body.appid;
     let userid = req.body.userid;
@@ -1251,19 +1729,32 @@ exports.fetchInProgressAppsByUserid = (req,res)=>{
 }
 
 exports.fetchDashboardInfo = (req,res)=>{
-    res.status(200);
+    res.json({"statusCode": 200,"Message": "Successful Request","ResultData":null});
 }
 
 //update flags to et_applicationsmain table */
 function updateApplicationMain(appid,userid,appStage,xmlflag=0){
-    sequelize.query("UPDATE `et_applicationsmain` SET XmlUploadFlag=?,updatedAt=?,ApplicationStage=? WHERE ApplicationId = ? AND UserId = ? ",{
-        replacements: [xmlflag,formattedDT,appStage,appid,userid],
-        type: sequelize.QueryTypes.UPDATE 
-    }).then(result => {		
-        console.log("Result AppId  "+result);
-    })
-    .catch(function (err) {
-        console.log("Error in app main update "+err);
-    });
+    if(xmlflag != 0){
+        sequelize.query("UPDATE `et_applicationsmain` SET XmlUploadFlag=?,updatedAt=?,ApplicationStage=? WHERE ApplicationId = ? AND UserId = ? ",{
+            replacements: [xmlflag,formattedDT,appStage,appid,userid],
+            type: sequelize.QueryTypes.UPDATE 
+        }).then(result => {		
+            console.log("Result AppId  "+result);
+        })
+        .catch(function (err) {
+            console.log("Error in app main update "+err);
+        });
+    }else{
+        sequelize.query("UPDATE `et_applicationsmain` SET updatedAt=?,ApplicationStage=? WHERE ApplicationId = ? AND UserId = ? ",{
+            replacements: [formattedDT,appStage,appid,userid],
+            type: sequelize.QueryTypes.UPDATE 
+        }).then(result => {		
+            console.log("Result AppId  "+result);
+        })
+        .catch(function (err) {
+            console.log("Error in app main update "+err);
+        });
+    }
+    
 };
 

@@ -25,23 +25,23 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     Flatno_Blockno: {
-      type: DataTypes.STRING(25),
+      type: DataTypes.STRING(100),
       allowNull: false
     },
     Building_Village_Premises: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(100),
       allowNull: true
     },
     Road_Street_PO: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(100),
       allowNull: true
     },
     Area_Locality: {
-      type: DataTypes.STRING(25),
+      type: DataTypes.STRING(100),
       allowNull: true
     },
     City_Town_District: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(50),
       allowNull: false
     },
     State: {
@@ -49,7 +49,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     Country: {
-      type: DataTypes.STRING(5),
+      type: DataTypes.STRING(20),
       allowNull: false
     },
     Pincode: {

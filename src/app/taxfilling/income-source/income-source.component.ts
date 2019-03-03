@@ -75,7 +75,7 @@ export class IncomeSourceComponent implements OnInit {
       this.router.navigate(['/login']);
     }else{
       //console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
-      //console.log("Current App value "+ this.appService.currentApplicationValue);
+      console.log("Current App value "+ this.appService.currentApplicationValue);
       this.userId         = this.authenticationService.currentUserValue.userid;
       this.ApplicationId  = this.appService.currentApplicationValue.appId;
       console.log("Current App Id "+ this.ApplicationId);
@@ -282,7 +282,7 @@ export class IncomeSourceComponent implements OnInit {
               "employertype":this.s.inputEmployertype,
               "salamount":this.s.inputSalary
             };
-            this.submittedData.push({"salIncomeData":salIncomeInputParam});
+            //this.submittedData.push({"salIncomeData":salIncomeInputParam});
             //console.log('Submitted Data Array!! :-)' + JSON.stringify(this.submittedData));
             // start storing application data in database
             this.appService.saveSalIncomeDetails(salIncomeInputParam)

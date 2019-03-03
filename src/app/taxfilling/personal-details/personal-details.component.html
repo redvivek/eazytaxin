@@ -291,13 +291,16 @@
                           </div>
                           <div class="col">
                             <div class="form-group floating-label customDropdown">
-                              <select id="select2" name="select2" class="form-control" formControlName="Gender">
+                              <select id="Gender" class="form-control" formControlName="Gender" [ngClass]="{ 'is-invalid': perSubmitted && f.Gender.errors}">
                                 <option value=""></option>
-                                <option value="1">Male</option>
-                                <option value="2">Female</option>
-                                <option value="3">Others</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="others">Others</option>
                               </select>
-                              <label for="select2">Gender<span class="text-danger required">*</span></label>
+                              <div *ngIf="perSubmitted && f.Gender.errors" class="invalid-feedback">
+                                <div *ngIf="f.Gender.errors.required">Gender is required</div>
+                            </div>
+                              <label for="Gender">Gender<span class="text-danger required">*</span></label>
                             </div>
                           </div>
                         </div>
@@ -458,15 +461,15 @@
                               </div>
                               <div class="col">
                                 <div class="form-group floating-label customDropdown">
-                                  <select id="select2" name="select2" class="form-control" formControlName="PrimaryAccType" [ngClass]="{ 'is-invalid': bankSubmitted && b.PrimaryAccType.errors}">
-                                    <option value=""></option>
+                                  <select id="PrimaryAccType" class="form-control" formControlName="PrimaryAccType" [ngClass]="{ 'is-invalid': bankSubmitted && b.PrimaryAccType.errors}">
+                                    <option value="">--Select Type --</option>
                                     <option value="savings">Savings</option>
                                     <option value="current">Current</option>
                                   </select>
                                   <div *ngIf="bankSubmitted && b.PrimaryAccType.errors" class="invalid-feedback">
                                       <div *ngIf="b.PrimaryAccType.errors.required">Account Type is required</div>
                                   </div>
-                                  <label for="select2">Account Type</label>
+                                  <label for="PrimaryAccType">Account Type</label>
                                 </div>
                               </div>
                             </div>
@@ -504,15 +507,15 @@
                               </div>
                               <div class="col">
                                 <div class="form-group floating-label customDropdown">
-                                  <select id="select2" name="select2" class="form-control" formControlName="SecAccType" [ngClass]="{ 'is-invalid': bankSubmitted && b.SecAccType.errors}">
-                                    <option value=""></option>
+                                  <select id="SecAccType"  class="form-control" formControlName="SecAccType" [ngClass]="{ 'is-invalid': bankSubmitted && b.SecAccType.errors}">
+                                    <option value="">--Select Type --</option>
                                     <option value="savings">Savings</option>
                                     <option value="current">Current</option>
                                   </select>
                                   <div *ngIf="bankSubmitted && b.SecAccType.errors" class="invalid-feedback">
                                       <div *ngIf="b.SecAccType.errors.required">Account Type is required</div>
                                   </div>
-                                  <label for="select2">Account Type</label>
+                                  <label for="SecAccType">Account Type</label>
                                 </div>
                               </div>
                             </div>
@@ -573,7 +576,7 @@
                               <div class="col-6">
                                 <div class="form-group floating-label customDropdown">
                                   <select id="select2" name="select2" class="form-control" formControlName="immovableAssetsFlag" (change)="onChange($event)">
-                                    <option value=""></option>
+                                    <option value="">--Select--</option>
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                   </select>
@@ -879,21 +882,32 @@
                                       <span class="input-group-text">Choose File</span>
                                     </div>
                                     <div class="custom-file">
-                                      <input type="file" class="custom-file-input" id="inputGroupFile01">
-                                      <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
+                                      <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="uploadForeignAssetsFile" formControlName="uploadForeignAssetsFile" >
+                                      <label class="custom-file-label" for="uploadForeignAssetsFile">No File Chosen</label>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                               <div class="col-4">
                                 <div class="form-group floating-label">
-                                  <input type="text" class="form-control" id="">
+                                  <input type="text" class="form-control" id="uploadForeignAssetsFilepwd" formControlName="uploadForeignAssetsFilepwd">
                                   <label for="">Enter Document Password</label>
                                 </div>
                               </div>
                               <div class="col">
                                 <div class="form-group">
-                                  <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                                  <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                                  <input type="hidden" class="custom-file-input" id="uploadFAProofFlag" formControlName="uploadFAProofFlag" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-6">
+                                <div>
+                                    File upload progress:
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                                    </div>
                                 </div>
                               </div>
                             </div>
@@ -909,13 +923,12 @@
                   <!--Button Part open -->
                   <div class="form-actions d-flex">
                     <div class="left mr-auto">
-                      <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
-                      <!-- <button type="button" class="btn btn-secondary btn-lg" disabled="" (click)="on_reset_click()">Reset</button> -->
+                      <button type="button" class="btn btn-secondary btn-lg" (click)="on_reset_click()">Reset</button>
                     </div>
                     <div class="right ml-auto">
                       <button type="button" class="btn btn-secondary btn-lg" (click)="on_previous_click()"><i class="fas fa-arrow-left"></i> Back</button>
-                      <button type="button" class="btn btn-primary btn-lg" (click)="on_next_click()">Save <i class="fas fa-arrow-right"></i></button>
-                      <!--<button [disabled]="true" type="submit" class="btn btn-primary btn-lg">Submit </button>-->
+                      <button type="button" [disabled]="disable" class="btn btn-primary btn-lg" (click)="on_next_click()">Save <i class="fas fa-arrow-right"></i></button>
+                      <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                     </div>
                   </div>
                   <!--Button Part closed -->

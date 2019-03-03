@@ -3,6 +3,7 @@ var route = express.Router();   //define our app using express
 var  userService = require('../services/users.service');
 var  masterService = require('../services/masters.service');
 var  taxService = require('../services/tax.service');
+var  parseService = require('../services/parser.service');
 
 //Routes
 /* GET home page. */
@@ -28,20 +29,29 @@ route.get('/masters/deductiontypes', masterService.fetchAllDeductionTypes);*/
 
 //API routes for taxfilling module
 route.post('/tax/uploadxml', taxService.uploadPrefilledXML);
+route.post('/tax/uploadproofDocuments', taxService.uploadproofDocuments);
 route.post('/tax/appMainDetails', taxService.fetchApplicationMainByAppId);
 
 route.post('/tax/createApplication', taxService.createApplication);
 route.post('/tax/saveBasicInfo', taxService.saveBasicInfoByAppId);
+
 route.post('/tax/savePersonalInfo', taxService.savePersonalInfoByAppId);
 route.post('/tax/saveAddressInfo', taxService.saveAddressInfoByAppId);
 route.post('/tax/saveBankDetails', taxService.saveBankDetailsByAppId);
 route.post('/tax/saveAssestsInfo', taxService.saveAssestsInfoByAppId);
 route.post('/tax/saveImmAssestsInfo', taxService.saveImmAssestsInfoByAppId);
+
+route.post('/tax/appPersonalDetails',taxService.fetchPersonalInfoByAppId);
+route.post('/tax/appAddressDetails',taxService.fetchAddressInfoByAppId);
+route.post('/tax/appBankDetails',taxService.fetchBankInfoByAppId);
+route.post('/tax/appAssetsDetails',taxService.fetchAssetsInfoByAppId);
+
 route.post('/tax/saveSalaryIncome', taxService.saveSalIncomeInfoByAppId);
 route.post('/tax/saveOtherIncome', taxService.saveOthIncomeInfoByAppId);
 route.post('/tax/saveHouseIncome', taxService.saveHouseIncomeInfoByAppId);
 route.post('/tax/saveRentalIncome', taxService.saveRentalIncomeInfoByAppId);
 route.post('/tax/saveCapitalIncome', taxService.saveCapitalIncomeInfoByAppId);
+
 route.post('/tax/saveDeductions', taxService.saveDeductionsInfoByAppId);
 route.post('/tax/saveOtherDeductions', taxService.saveOtherDeductionsByAppId);
 route.post('/tax/fetchDeductionsDetails', taxService.fetchDeductionsDetails);
@@ -53,7 +63,10 @@ route.post('/tax/generateReport', taxService.generateITRReport);
 route.get('/tax/fetchReportInExcel', taxService.fetchITRReportInExcel);
 route.get('/tax/fetchReportInXML', taxService.fetchITRReportInXML);
 route.get('/tax/fetchDocPreview', taxService.fetchDocPreview);*/
-route.get('/tax/fetchDashboardInfo', taxService.fetchDashboardInfo);
+route.post('/tax/fetchDashboardInfo', taxService.fetchDashboardInfo);
 route.post('/tax/fetchInProgApps', taxService.fetchInProgressAppsByUserid);
+
+
+route.post('/tax/getInfoFromXML',parseService.getInfoFromXML);
 
 module.exports = route;

@@ -87,12 +87,12 @@ export class TaxPeriodComponent implements OnInit {
      };
 
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-          //console.log('ImageUpload:uploaded:', item, status, response);
-          console.log('Response '+ response); 
-          var res = JSON.parse(response);
-          //alert('File uploaded successfully');
-          if(res['statusCode'] == 200){                 
-            this.alertService.error('File Uploaded & data saved successfully');
+        //console.log('ImageUpload:uploaded:', item, status, response);
+        console.log('Response '+ response); 
+        var res = JSON.parse(response);
+        //alert('File uploaded successfully');
+        if(res['statusCode'] == 200){                 
+            this.alertService.success('Prefilled XML File Uploaded successfully');
             localStorage.removeItem("currentUserApp");
             //Add newly created AppID in local storage
             const appdata:ApplicationMain = { 
@@ -106,6 +106,8 @@ export class TaxPeriodComponent implements OnInit {
             localStorage.setItem("currentUserApp", JSON.stringify(appdata));
             //this.dataSubmitted = true;
             this.loading = false;
+        }else{
+            this.alertService.error('Prefilled XML File Upload Failed');
         }
     };
     /*XML File Uploader with form data ends here */

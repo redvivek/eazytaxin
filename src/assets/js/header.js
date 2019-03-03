@@ -4,11 +4,11 @@ headerScrollJs();
 function headerScrollJs() {
     var scroll = $(window).scrollTop();
     if (scroll >= 500) {
-      // alert(1);
+      //alert(1);
       $("body").addClass("scrolled");
       $("#header").removeClass("no-bg");
     } else {
-      // alert(2);
+      //alert(2);
       $("body").removeClass("scrolled");
       $("#header").addClass("no-bg");
     }
@@ -52,6 +52,7 @@ $(".mainMenutoggler").click(function() {
   // Bind click handler to menu items
   // so we can get a fancy scroll animation
   menuItems.click(function(e){
+    //alert($(this).attr("href").offset());
     var href = $(this).attr("href"),
         offsetTop = href === "#" ? 0 : $(href).offset().top - topMenuHeight - 41;
     $('html, body').stop().animate({ 

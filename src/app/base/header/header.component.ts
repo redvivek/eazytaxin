@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { User } from '@app/_models';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit,AfterViewInit {
 
     currentUser: User;
     isLoggedIn$: Observable<boolean>;
@@ -22,13 +22,18 @@ export class HeaderComponent implements OnInit {
     ) {
         this.scriptservice.load('headerJS').then(data => {
             console.log('script loaded ', data);
-        }).catch(error => console.log(error)); 
+        }).catch(error => console.log(error));
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     }
 
 
   ngOnInit() {
     //this.currentUser = this.authenticationService.currentUserValue;
+  }
+
+  ngAfterViewInit(){
+    //$.getScript('../../assets/js/header.js');
+    //$.getScript('../../assets/js/header.js', function(){});
   }
 
   logout() {

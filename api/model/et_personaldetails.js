@@ -34,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     Fathername: {
       type: DataTypes.STRING(25),
-      allowNull: false
+      allowNull: true
     },
     MobileNo: {
       type: DataTypes.STRING(12),
@@ -58,11 +58,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     EmployerName: {
       type: DataTypes.STRING(20),
-      allowNull: false
+      allowNull: true
     },
     EmployerType: {
       type: DataTypes.STRING(15),
-      allowNull: false
+      allowNull: true
     },
     PanNumber: {
       type: DataTypes.STRING(10),

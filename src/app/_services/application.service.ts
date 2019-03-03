@@ -36,15 +36,31 @@ export class ApplicationService {
 
     getByAppId(id: number) {
         return this.http.post<any>(`${environment.apiUrl}/tax/appMainDetails`, { id })
-            .pipe(map(appmaindata => {
-                if(appmaindata['statusCode'] == 200){
-                    if (appmaindata['AppData']) {
-                        //console.log("Current App value"+ JSON.stringify(appmaindata['AppData']));
-                    }
+        .pipe(map(appmaindata => {
+            if(appmaindata['statusCode'] == 200){
+                if (appmaindata['AppData']) {
+                    //console.log("Current App value"+ JSON.stringify(appmaindata['AppData']));
                 }
-                
-                return appmaindata['AppData'];
-            }));
+            }
+            return appmaindata['AppData'];
+        }));
+    }
+
+    getDataFromXMLByUserId(appid:number,userid:number,category:string){
+        var jsonInput = {
+            "appid":appid,
+            "userid" : userid,
+            "category" : category
+        };
+        return this.http.post<any>(`${environment.apiUrl}/tax/getInfoFromXML`, jsonInput)
+        .pipe(map(result => {
+            if(result['statusCode'] == 200){
+                if (result['infoData']) {
+                    //console.log("Current App value"+ JSON.stringify(appmaindata['AppData']));
+                }
+            }
+            return result['infoData'];
+        }));
     }
     
     //Initate Application creation
@@ -55,6 +71,58 @@ export class ApplicationService {
     //update Application main table with basicinfo details
     updateApplicationMain(basicInfoData) {
         return this.http.post(`${environment.apiUrl}/tax/saveBasicInfo`, basicInfoData);
+    }
+
+    getPersonalInfoByAppId(id: number) {
+        return this.http.post<any>(`${environment.apiUrl}/tax/appPersonalDetails`, { id })
+            .pipe(map(perinfodata => {
+                if(perinfodata['statusCode'] == 200){
+                    if (perinfodata['PerData'] != "") {
+                        //console.log("Current App value"+ JSON.stringify(perinfodata['PerData']));
+                        return perinfodata['PerData'];
+                    }else{
+                        return null;
+                    }
+                }
+            }));
+    }
+
+    getAddressInfoByAppId(id: number,addresstype:string) {
+        return this.http.post<any>(`${environment.apiUrl}/tax/appAddressDetails`, { id,addresstype })
+            .pipe(map(perinfodata => {
+                if(perinfodata['statusCode'] == 200){
+                    if (perinfodata['PerData'] != "") {
+                        //console.log("Current App value"+ JSON.stringify(perinfodata['PerData']));
+                        return perinfodata['PerData'];
+                    }else{
+                        return null;
+                    }
+                }
+            }));
+    }
+
+    getBankInfoByAppId(id: number) {
+        return this.http.post<any>(`${environment.apiUrl}/tax/appBankDetails`, { id })
+            .pipe(map(perinfodata => {
+                if (perinfodata['PerData'] != "") {
+                    //console.log("Current App value"+ JSON.stringify(perinfodata['PerData']));
+                    return perinfodata['PerData'];
+                }else{
+                    return null;
+                }
+            }));
+    }
+
+    getAssetsInfoByAppId(id: number) {
+        return this.http.post<any>(`${environment.apiUrl}/tax/appAssetsDetails`, { id })
+            .pipe(map(perinfodata => {
+                if (perinfodata['PerData'] != "") {
+                    //console.log("Current App value"+ JSON.stringify(perinfodata['PerData']));
+                    return perinfodata['PerData'];
+                }else{
+                    return null;
+                }
+            }));
     }
 
     //save persoanl info details
@@ -88,7 +156,7 @@ export class ApplicationService {
 
     //save Sal Income info details
     saveSalIncomeDetails(salinfoData) {
-        console.log("InputParam "+salinfoData);
+        //console.log("InputParam "+salinfoData);
         return this.http.post(`${environment.apiUrl}/tax/saveSalaryIncome`, salinfoData);
     }
 

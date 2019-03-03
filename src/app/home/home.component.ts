@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit{
 		private router: Router
 	  ) 
 	{
-		 this.scriptservice.load('owlCJS','staticJS').then(data => {
+		 this.scriptservice.load('staticJS').then(data => {
 		    console.log('script loaded ', data);
 		}).catch(error => console.log(error));   
 	}
