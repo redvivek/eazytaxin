@@ -57,5 +57,8 @@ export class HeaderComponent implements OnInit,AfterViewInit {
     this.router.navigate(['/contactus']);
   }
 
+  goTaxFilling(){
+    this.router.navigate(['/taxfilling']);
+  }
 }
 	

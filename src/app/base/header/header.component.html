@@ -19,7 +19,7 @@
               </svg>
             </a>
           </div> -->
-          <a class="navbar-brand" routerLink="/home" (click)="goHome()">
+          <a class="navbar-brand" href="javascript:void(0);" routerLink="/home" (click)="goHome()">
             <span>
               <img src="/assets/img/easytax-logo-text.png" alt="easytax logo" width="130" height="20">
             </span>
@@ -35,7 +35,7 @@
           </ul>
           <ul class="navbar-nav my-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="javascript:void(0)" (click)="goHome()">Home</a>
+              <a class="nav-link" href="javascript:void(0);" (click)="goHome()">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#pricing">Pricing</a>
@@ -67,6 +67,7 @@
                 <a href="javascript:void(0)" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
                 <a (click)="goDashboard()" class="dropdown-item"><i class="ti-wallet"></i> My Dashboard</a>
                 <a href="javascript:void(0)" class="dropdown-item"><i class="ti-email"></i> Notifications</a>
+                <a href="javascript:void(0)" class="dropdown-item" (click)="goTaxFilling()"><i class="ti-email"></i> Tax Filing</a>
                 <a href="javascript:void(0)" class="dropdown-item"><i class="ti-settings"></i> Change Password</a>
                 <a (click)="logout()" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
               </div>

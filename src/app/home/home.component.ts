@@ -21,4 +21,7 @@ export class HomeComponent implements OnInit{
 	goTaxFilling(){
     this.router.navigate(['/taxfilling']);
   }
+	goPricing(){
+    this.router.navigate(['/pricing']);
+  }
 }
