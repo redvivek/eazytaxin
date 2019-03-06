@@ -54,7 +54,7 @@ a:hover{text-decoration:none;}
 .halfLayoutContainer .right-half .banner{background-repeat:no-repeat; background-position:center center; background-size:cover; height:100%; width:100%; left:0; top:0;}
 .halfLayoutContainer .left-half{padding:0 60px 60px;}
 .halfLayoutContainer .left-half-inner{max-width:75%;}
-
+.halfLayoutContainer .left-half-inner.fullWidth{max-width:100%;}
 
 
 .page-titles{padding:30px 0;}
@@ -544,3 +544,29 @@ a:hover{text-decoration:none;}
 .payment .total label{font-size:22px; font-weight:500; margin:5px 0 0;}
 .payment .total .amt{font-size:32px; font-weight:700;}
 .payment .actionRow{padding:20px 45px; margin-bottom:0;}
+
+
+/* Contact us */
+.contactusPage .actionRow .btn{font-size:16px; padding:17px 20px; min-width:145px;}
+
+/* Pricing */
+.pricingPage .nav-tabs{font-size:20px; font-weight:500; border-bottom:none;}
+.pricingPage .nav-tabs .nav-item{padding:0;}
+.pricingPage .nav-tabs .nav-item .nav-link{padding:8px 80px;}
+
+.pricingPage .nav-tabs .nav-item.show .nav-link,
+.pricingPage .nav-tabs .nav-link.active,
+.pricingPage .nav-tabs .nav-link:focus,
+.pricingPage .nav-tabs .nav-link:hover{border-bottom-color:#0095e3;}
+
+
+
+.pricingPage .table{font-size:16px;}
+.pricingPage .table tbody tr:first-child th,
+.pricingPage .table tbody tr:first-child td{border-top:none;}
+.pricingPage .table th,
+.pricingPage .table td{padding:14px 0;}
+.pricingPage .table tfoot td{font-size:24px; font-weight:500;}
+.pricingPage .table tfoot td i{color:#0095e3; font-style:normal;}
+.pricingPage .actionRow {margin-top:30px;}
+.pricingPage .actionRow .btn{font-size:16px; padding:17px 20px; min-width:145px;}
