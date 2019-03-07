@@ -1,0 +1,16 @@
+@media (min-width: 576px) {
+}
+
+@media (min-width: 768px) {
+	#header .navbar-brand{padding-left:35px;}
+	.left-sidebar{width:250px; padding-top:66px;}
+	.main-container{padding-left:250px;}
+	.page-wrapper{padding-left:60px; padding-right:60px;}
+	.sidebar-nav{padding-top:30px;}
+}
+
+@media (min-width: 992px) {
+}
+
+@media (min-width: 1200px) {
+}

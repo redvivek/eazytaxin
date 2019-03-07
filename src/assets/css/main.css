@@ -35,11 +35,11 @@ a:hover{text-decoration:none;}
 
 /* Layout */
 .main-wrapper{min-height:100%;}
-.main-container{max-width:100%; padding-left:250px; transition: .2s;}
-.left-sidebar{width:250px; left:0; height:100%; background: #fefefe; -webkit-box-shadow: inset 1px 0px 20px rgba(0, 0, 0, 0.08); box-shadow: inset 1px 0px 20px rgba(0, 0, 0, 0.08); -webkit-box-flex: 0; -ms-flex: 0 0 auto; flex: 0 0 auto; padding-top:66px; transition: .2s;}
+.main-container{max-width:100%; padding-left:60px; transition: .2s;}
+.left-sidebar{width:60px; left:0; height:100%; background: #fefefe; -webkit-box-shadow: inset 1px 0px 20px rgba(0, 0, 0, 0.08); box-shadow: inset 1px 0px 20px rgba(0, 0, 0, 0.08); -webkit-box-flex: 0; -ms-flex: 0 0 auto; flex: 0 0 auto; padding-top:50px; transition: .2s;}
 .left-sidebar .sidebartoggler{right:0; padding:10px 15px 15px 15px; width:100%; text-align:right;}
 .left-sidebar-inner{overflow-y:auto; height:100%;}
-.page-wrapper{-webkit-box-flex: 1; flex: 1 auto; -ms-flex: 1 0 0px; min-width: 0; max-width:100%; padding:66px 60px;}
+.page-wrapper{-webkit-box-flex: 1; flex: 1 auto; -ms-flex: 1 0 0px; min-width: 0; max-width:100%; padding:66px 15px;}
 .left-sidebar-hide .main-container {padding-left:60px;}
 .left-sidebar-hide .left-sidebar {width:60px;}
 .left-sidebar-hide .left-sidebar .sidebartoggler{text-align:center;}
@@ -74,7 +74,7 @@ a:hover{text-decoration:none;}
 #header .top-navbar .navbar-nav > .nav-item .pageName{font-size:18px; font-weight:300;}
 #header .top-navbar .navbar-nav > .nav-item > .user-dropdown{padding-top:7px; padding-left:15px;}
 #header .mainMenutoggler{padding:22px; width:70px; height:66px;}
-#header .navbar-brand{position:relative; padding-left:35px;}
+#header .navbar-brand{position:relative;}
 
 
 .mainMenuList{background-color:#f2f2f2; box-shadow:5px 5px 5px rgba(0,0,0,.2); top:65px; z-index:49; transition:.5s; transform:matrix(1, 0, 0, 1, 0, -500);}
@@ -101,7 +101,6 @@ a:hover{text-decoration:none;}
 .card .card-title{margin-bottom:0;}
 
 /*Left Sidebar*/
-.sidebar-nav{padding-top:30px;}
 .sidebar-nav ul{margin:0px; padding:0px;}
 .sidebar-nav > ul > li{margin-bottom:15px; margin-top:15px;}
 .sidebar-nav > ul > li > a{border-left:4px solid transparent;}

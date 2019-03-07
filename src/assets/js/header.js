@@ -1,5 +1,5 @@
 // Header
-headerScrollJs();
+// headerScrollJs();
 
 function headerScrollJs() {
     var scroll = $(window).scrollTop();
