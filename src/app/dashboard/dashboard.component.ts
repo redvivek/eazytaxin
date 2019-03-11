@@ -96,20 +96,20 @@ export class DashboardComponent implements OnInit {
         };
         localStorage.removeItem("currentUserApp");
         localStorage.setItem("currentUserApp", JSON.stringify(appdata));
-        var currStage  = this.appService.currentApplicationValue.applicationStage;
-        if(currStage == "")
+        //var currStage  = this.appService.currentApplicationValue.applicationStage;
+        if(appArray.AppStage == "" || appArray.AppStage == 0)
             this.router.navigate(['/taxfilling/taxperiod']);
-        else if(currStage == 1)
+        else if(appArray.AppStage == 1)
            this.router.navigate(['/taxfilling/basicinfo']);
-        else if(currStage >= 2 && currStage < 7)
+        else if(appArray.AppStage >= 2 && appArray.AppStage < 7)
             this.router.navigate(['/taxfilling/personalinfo']);
-        else if(currStage >= 7 && currStage < 12)
+        else if(appArray.AppStage >= 7 && appArray.AppStage < 12)
             this.router.navigate(['/taxfilling/earnings']);
-        else if(currStage >= 13 && currStage < 16)
+        else if(appArray.AppStage >= 13 && appArray.AppStage < 16)
             this.router.navigate(['/taxfilling/deductions']);
-        else if(currStage == 17)
+        else if(appArray.AppStage == 17)
             this.router.navigate(['/taxfilling/taxpaid']);
-        else if(currStage >= 18)
+        else if(appArray.AppStage >= 18)
             this.router.navigate(['/taxfilling/review']);
         else
             this.router.navigate(['/taxfilling/review']);

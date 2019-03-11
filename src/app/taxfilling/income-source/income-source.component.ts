@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-
+import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { environment } from '@environments/environment';
 import { ScriptService,AuthenticationService,ApplicationService, AlertService } from '@app/_services';
+
+const URL = `${environment.apiUrl}/tax/uploadproofDocuments`;
 
 @Component({
   selector: 'app-income-source',
@@ -40,18 +43,19 @@ export class IncomeSourceComponent implements OnInit {
   step1_income_salary_upload :boolean = true;
   step1_income_from_salary:boolean = false;
   //initilize & activate flag to by default active otherIncome subtab
-  step2_income_other_upload :boolean = true;
-  step2_income_other_data:boolean = false;
+  step2_income_other_upload :boolean = false;
+  step2_income_other_data:boolean = true;
   //initilize & activate flag to by default active houseIncome subtab
-  step3_house_property_upload :boolean = true;
-  step3_house_property_data:boolean = false;
+  step3_house_property_upload :boolean = false;
+  step3_house_property_data:boolean = true;
   //initilize & activate flag to by default active rentalIncome subtab
-  step4_rental_property_upload :boolean = true;
-  step4_rental_property_data:boolean = false;
+  step4_rental_property_upload :boolean = false;
+  step4_rental_property_data:boolean = true;
 
   //Global variables to save userdId and ApplictionID
   userId : number;
   ApplicationId : number;
+  fileName = '';
 
   //Read localstorage in progress application values
   localStoreg = JSON.parse(localStorage.getItem("currentUserApp"));
@@ -82,20 +86,24 @@ export class IncomeSourceComponent implements OnInit {
     }
   }
 
+  public uploader: FileUploader = new FileUploader({
+    url: URL, 
+    itemAlias: 'uploadIncomeProofs'
+  });
+
+  //public otherUploader
+
   ngOnInit() {
     this.salaryIncomeForm = this.formBuilder.group({
       uploadForm16File: [''],
       uploadFilePassword: [''],
-      uploadForm16FileFlag:[''],
+      uploadForm16FileFlag:['', Validators.required],
       inputEmployernm:['', Validators.required],
       inputEmployertype:['', Validators.required],
       inputSalary: ['', Validators.required]
     });
 
     this.otherIncomeForm = this.formBuilder.group({
-      uploadOtherIncomeProofFile: [''],
-      uploadOtherIncomeFilePwd: [''],
-      uploadOtherIncomeProofFlag:[''],
       inputSavingsIncome:[''],
       inputFDInterestIncome: [''],
       inputAnyOtherIncome: ['' ],
@@ -110,13 +118,14 @@ export class IncomeSourceComponent implements OnInit {
       inputDepPersonRel:[''],
       inputDepIncomeNature:[''],
       inputPFIncome: ['' ],
-      inputPFIncomeTax:['']
-    });
+      inputPFIncomeTax:[''],
+      uploadOtherIncomeProofFile: [''],
+      uploadOtherIncomeFilePwd: [''],
+      uploadOtherIncomeProofFlag:['']
+    },{validator: this.makeFileUploadMandatory('inputSavingsIncome','inputFDInterestIncome','inputAnyOtherIncome','inputSharesIncome','inputExemptIncome','inputOtherExemptIncome','inputAgriIncome','inputDepAmount','inputPFIncome','uploadOtherIncomeProofFlag')}
+    );
 
     this.housePropIncomeForm = this.formBuilder.group({
-      uploadHousePropDocs: [''],
-      uploadHousePropDocsPwd: [''],
-      uploadHouseIncomeProofFlag:[''],
       inpSelfOccPropFlatNo: ['' ],
       inpSelfOccPropPremise : [''],
       inpSelfOccPropStreet: [''],
@@ -133,13 +142,15 @@ export class IncomeSourceComponent implements OnInit {
       inpSelfShare:[''],
       inpCOName:[''],
       inpCOPan: ['' ],
-      inpCOShare:['']
-    });
+      inpCOShare:[''],
+
+      uploadHousePropDocs: [''],
+      uploadHousePropDocsPwd: [''],
+      uploadHouseIncomeProofFlag:[''],
+    },{validator: this.makeHouseFileUploadMandatory('inpSelfOccPropFlatNo','inpSelfOccPropPremise','inpSelfOccPropStreet','inpSelfOccPropArea','inpSelfOccPropCity','inpSelfOccPropPincode','uploadHouseIncomeProofFlag')}
+    );
 
     this.rentalPropIncomeForm = this.formBuilder.group({
-      uploadRentalPropDocs: [''],
-      uploadRentalPropDocsPwd: [''],
-      uploadRentalIncomeProofFlag:[''],
       inpRentalPropFlatNo: ['' ],
       inpRentalPropPremise : [''],
       inpRentalPropStreet: [''],
@@ -161,8 +172,13 @@ export class IncomeSourceComponent implements OnInit {
       inpRenUnRealRent:[''],
       inpRenCOName:[''],
       inpRenCOPan: ['' ],
-      inpRenCOShare:['']
-    });
+      inpRenCOShare:[''],
+
+      uploadRentalPropDocs: [''],
+      uploadRentalPropDocsPwd: [''],
+      uploadRentalIncomeProofFlag:[''],
+    },{validator: this.makeRentalFileUploadMandatory('inpRentalPropFlatNo','inpRentalPropPremise','inpRentalPropStreet','inpRentalPropArea','inpRentalPropCity','inpRenPropPincode','uploadRentalIncomeProofFlag')}
+    );
 
     this.captialIncomeForm = this.formBuilder.group({
       uploadShareIncomeProof: [''],
@@ -176,7 +192,74 @@ export class IncomeSourceComponent implements OnInit {
       uploadMFSaleIncomeProofFlag : [''],
     });
 
-    this.autoFillSalaryIncomeForm()
+    this.autoFillSalaryIncomeForm();
+
+    //File Uploader with form data
+    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+
+    this.uploader.onBuildItemForm = (fileItem: any, form: any) => { 
+      form.append('UserId', this.userId);
+      form.append('ApplicationId', this.ApplicationId);
+      if(this.step1 == true)
+      {
+        form.append('DocCategory', 'Form16');
+        form.append('FilePassword', this.salaryIncomeForm.get('uploadFilePassword').value);
+      }
+      if(this.step2 == true)
+      {
+        form.append('DocCategory', 'OtherIncome');
+        form.append('FilePassword', this.otherIncomeForm.get('uploadOtherIncomeFilePwd').value);
+      }
+      if(this.step3 == true)
+      {
+        form.append('DocCategory', 'HousePropIncome');
+        form.append('FilePassword', this.housePropIncomeForm.get('uploadHousePropDocsPwd').value);
+      }
+      if(this.step4 == true)
+      {
+        form.append('DocCategory', 'RentalPropIncome');
+        form.append('FilePassword', this.rentalPropIncomeForm.get('uploadRentalPropDocsPwd').value);
+      }
+      if(this.step5 == true)
+      {
+        form.append('DocCategory', 'CapitalsIncome');
+      }
+      
+    };
+
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+          console.log('ImageUpload:uploaded:', item, status, response);
+          console.log('Response '+ response); 
+          var res = JSON.parse(response);
+          //alert('File uploaded successfully');
+          if(res['statusCode'] == 200){                 
+            this.alertService.success('File Uploaded successfully');
+            if(this.step1 == true)
+            {
+              this.salaryIncomeForm.get('uploadForm16FileFlag').setValue('1');
+            }
+            if(this.step2 == true)
+            {
+              this.otherIncomeForm.get('uploadOtherIncomeProofFlag').setValue('1');
+            }
+            if(this.step3 == true)
+            {
+              this.housePropIncomeForm.get('uploadHouseIncomeProofFlag').setValue('1');
+            }
+            if(this.step4 == true)
+            {
+              this.rentalPropIncomeForm.get('uploadRentalIncomeProofFlag').setValue('1');
+            }
+            if(this.step5 == true)
+            {
+              this.captialIncomeForm.get('uploadShareIncomeProofFlag').setValue('1');
+            }
+
+          }else{
+            this.alertService.error('File Uploading Failed');
+          }
+    };
+    /*File Uploader with form data ends here */
   }
 
   get s() { return this.salaryIncomeForm.controls; }
@@ -185,20 +268,95 @@ export class IncomeSourceComponent implements OnInit {
   get r() { return this.rentalPropIncomeForm.controls; }
   get c() { return this.captialIncomeForm.controls; }
 
+  //validation to check passwords match or not
+  private makeFileUploadMandatory(inputSavingsIncome: string,inputFDInterestIncome:string,inputAnyOtherIncome:string,inputSharesIncome:string,inputExemptIncome:string,inputOtherExemptIncome:string,inputAgriIncome:string,inputDepAmount:string,inputPFIncome:string,uploadOtherIncomeProofFlag:string) {
+    return (group: FormGroup) => {
+      const savingsIncomeInput = group.controls[inputSavingsIncome];
+      const fdIncomeInput = group.controls[inputFDInterestIncome];
+      const otherIncomeInput = group.controls[inputAnyOtherIncome];
+      const shareIncomeInput = group.controls[inputSharesIncome];
+      const exemptIncomeInput = group.controls[inputExemptIncome];
+      const otherExmptIncomeInput = group.controls[inputOtherExemptIncome];
+      const agriIncomeInput = group.controls[inputAgriIncome];
+      const depIncomeInput = group.controls[inputDepAmount];
+      const pfIncomeInput = group.controls[inputPFIncome];
+      const upOthIncPrFlgInput = group.controls[uploadOtherIncomeProofFlag];
+      
+      if (upOthIncPrFlgInput.errors && !upOthIncPrFlgInput.errors.required) {
+        // return if another validator has already found an error on the matchingControl
+        return;
+      }
+      
+      if((savingsIncomeInput.value != "" || fdIncomeInput.value != "" || otherIncomeInput.value != "" || shareIncomeInput.value != "" || exemptIncomeInput.value != "" || otherExmptIncomeInput.value != "" || agriIncomeInput.value != "" || depIncomeInput.value != "" || pfIncomeInput.value != "") && upOthIncPrFlgInput.value != '1'){
+          return upOthIncPrFlgInput.setErrors({required: true});
+      } else {
+          return upOthIncPrFlgInput.setErrors(null);
+      }
+    };
+  }
+
+  //validation to check passwords match or not
+  private makeHouseFileUploadMandatory(inpSelfOccPropFlatNo : string,inpSelfOccPropPremise : string,inpSelfOccPropStreet: string,inpSelfOccPropArea: string,inpSelfOccPropCity: string,inpSelfOccPropPincode: string,uploadHouseIncomeProofFlag:string) {
+    return (group: FormGroup) => {
+      const flatnoInput = group.controls[inpSelfOccPropFlatNo];
+      const premiseInput = group.controls[inpSelfOccPropPremise];
+      const streetInput = group.controls[inpSelfOccPropStreet];
+      const areaInput = group.controls[inpSelfOccPropArea];
+      const cityInput = group.controls[inpSelfOccPropCity];
+      const pincodeInput = group.controls[inpSelfOccPropPincode];
+      const upHseIncPropFlgInput = group.controls[uploadHouseIncomeProofFlag];
+      
+      if (upHseIncPropFlgInput.errors && !upHseIncPropFlgInput.errors.required) {
+        // return if another validator has already found an error on the matchingControl
+        return;
+      }
+      
+      if((flatnoInput.value != "" || premiseInput.value != "" || streetInput.value != "" || areaInput.value != "" || cityInput.value != "" || pincodeInput.value != "") && upHseIncPropFlgInput.value != '1'){
+          return upHseIncPropFlgInput.setErrors({required: true});
+      } else {
+          return upHseIncPropFlgInput.setErrors(null);
+      }
+    };
+  }
+
+  //validation to check passwords match or not
+  private makeRentalFileUploadMandatory(inpRentalPropFlatNo : string,inpRentalPropPremise : string,inpRentalPropStreet: string,inpRentalPropArea: string,inpRentalPropCity: string,inpRenPropPincode: string,uploadRentalIncomeProofFlag:string) {
+    return (group: FormGroup) => {
+      const flatnoInput = group.controls[inpRentalPropFlatNo];
+      const premiseInput = group.controls[inpRentalPropPremise];
+      const streetInput = group.controls[inpRentalPropStreet];
+      const areaInput = group.controls[inpRentalPropArea];
+      const cityInput = group.controls[inpRentalPropCity];
+      const pincodeInput = group.controls[inpRenPropPincode];
+      const upHseIncPropFlgInput = group.controls[uploadRentalIncomeProofFlag];
+      
+      if (upHseIncPropFlgInput.errors && !upHseIncPropFlgInput.errors.required) {
+        // return if another validator has already found an error on the matchingControl
+        return;
+      }
+      
+      if((flatnoInput.value != "" || premiseInput.value != "" || streetInput.value != "" || areaInput.value != "" || cityInput.value != "" || pincodeInput.value != "") && upHseIncPropFlgInput.value != '1'){
+          return upHseIncPropFlgInput.setErrors({required: true});
+      } else {
+          return upHseIncPropFlgInput.setErrors(null);
+      }
+    };
+  }
+
   autoFillSalaryIncomeForm(){
-    this.salaryIncomeForm.get('uploadForm16FileFlag').setValue("1");
+    //this.salaryIncomeForm.get('uploadForm16FileFlag').setValue("1");
   }
 
   autoFillOtherIncomeForm(){
-    this.otherIncomeForm.get('uploadOtherIncomeProofFlag').setValue("1");
+    //this.otherIncomeForm.get('uploadOtherIncomeProofFlag').setValue("1");
   }
 
   autoFillHouseIncomeForm(){
-    this.housePropIncomeForm.get('uploadHouseIncomeProofFlag').setValue("1");
+    //this.housePropIncomeForm.get('uploadHouseIncomeProofFlag').setValue("1");
   }
 
   autoFillRentalIncomeForm(){
-    this.rentalPropIncomeForm.get('uploadRentalIncomeProofFlag').setValue("1");
+    //this.rentalPropIncomeForm.get('uploadRentalIncomeProofFlag').setValue("1");
   }
 
   autoFillCapitalIncomeForm(){
@@ -215,6 +373,7 @@ export class IncomeSourceComponent implements OnInit {
       this.loading = true;
       console.log("Capital Income submitted");
       if (this.captialIncomeForm.invalid) {
+        //this.alertService.error('Please enter all fields in all tabs');
         return;
       }else{
         this.onSubmit(this.captialIncomeForm,'capIncomeDetails');
@@ -226,6 +385,7 @@ export class IncomeSourceComponent implements OnInit {
       this.loading = true;
       console.log("Rental property details submitted");
       if (this.rentalPropIncomeForm.invalid) {
+        this.alertService.error('Please enter all fields in both tabs');
         return;
       }else{
         this.onSubmit(this.rentalPropIncomeForm,'renIncomeDetails');
@@ -237,6 +397,7 @@ export class IncomeSourceComponent implements OnInit {
       this.loading = true;
       console.log("House Prop details submitted");
       if (this.housePropIncomeForm.invalid) {
+        this.alertService.error('Please enter all fields in both tabs');
         return;
       }else{
         this.onSubmit(this.housePropIncomeForm,'houseIncomeDetails');
@@ -249,6 +410,7 @@ export class IncomeSourceComponent implements OnInit {
       console.log("Other Income details submitted");
       // stop here if form is invalid
       if (this.otherIncomeForm.invalid) {
+        this.alertService.error('Please enter all fields in both tabs');
         return;
       }else{
         this.onSubmit(this.otherIncomeForm,'otherIncomeDetails');
@@ -261,6 +423,7 @@ export class IncomeSourceComponent implements OnInit {
       console.log("Salary Income details submitted");
       // stop here if form is invalid
       if (this.salaryIncomeForm.invalid) {
+        this.alertService.error('Please enter all fields in both tabs');
         return;
       }else{
         this.onSubmit(this.salaryIncomeForm,'salIncomeDetails');
@@ -277,18 +440,16 @@ export class IncomeSourceComponent implements OnInit {
           salIncomeInputParam = {
               'appId':this.ApplicationId,
               'userId':this.userId,
-              "uploadDocFlag":this.s.uploadForm16FileFlag,
-              "employernm":this.s.inputEmployernm,
-              "employertype":this.s.inputEmployertype,
-              "salamount":this.s.inputSalary
+              "uploadDocFlag":this.s.uploadForm16FileFlag.value,
+              "employernm":this.s.inputEmployernm.value,
+              "employertype":this.s.inputEmployertype.value,
+              "salamount":this.s.inputSalary.value
             };
-            //this.submittedData.push({"salIncomeData":salIncomeInputParam});
-            //console.log('Submitted Data Array!! :-)' + JSON.stringify(this.submittedData));
             // start storing application data in database
             this.appService.saveSalIncomeDetails(salIncomeInputParam)
             .pipe(first())
             .subscribe(
-              data => {
+              data => { 
                       console.log("Response" + JSON.stringify(data));
                       //successfully inserted
                       if(data['statusCode'] == 200){                  
@@ -316,22 +477,22 @@ export class IncomeSourceComponent implements OnInit {
           othIncomeInputParam = {
             'appId':this.ApplicationId,
             'userId':this.userId,
-            "uploadDocFlag":this.o.uploadOtherIncomeProofFlag,
-            "savingsIncome":this.o.inputSavingsIncome,
-            "fdincome":this.o.inputFDInterestIncome,
-            "othericnome":this.o.inputAnyOtherIncome,
-            "shareincome":this.o.inputSharesIncome,
-            "exemptincome":this.o.inputExemptIncome,
-            "otherexemptincome":this.o.inputOtherExemptIncome,
-            "agriincome":this.o.inputAgriIncome,
-            "agriexpend":this.o.inputAgriExpend,
-            "agriloss":this.o.inputAgriLoss,
-            "depincome":this.o.inputDepAmount,
-            "depname":this.o.inputDepPersonName,
-            "deprelation":this.o.inputDepPersonRel,
-            "depincomeNature":this.o.inputDepIncomeNature,
-            "pfincome":this.o.inputPFIncome,
-            "pfincometax":this.o.inputPFIncomeTax
+            "uploadDocFlag":this.o.uploadOtherIncomeProofFlag.value,
+            "savingsIncome":this.o.inputSavingsIncome.value,
+            "fdincome":this.o.inputFDInterestIncome.value,
+            "othericnome":this.o.inputAnyOtherIncome.value,
+            "shareincome":this.o.inputSharesIncome.value,
+            "exemptincome":this.o.inputExemptIncome.value,
+            "otherexemptincome":this.o.inputOtherExemptIncome.value,
+            "agriincome":this.o.inputAgriIncome.value,
+            "agriexpend":this.o.inputAgriExpend.value,
+            "agriloss":this.o.inputAgriLoss.value,
+            "depincome":this.o.inputDepAmount.value,
+            "depname":this.o.inputDepPersonName.value,
+            "deprelation":this.o.inputDepPersonRel.value,
+            "depincomeNature":this.o.inputDepIncomeNature.value,
+            "pfincome":this.o.inputPFIncome.value,
+            "pfincometax":this.o.inputPFIncomeTax.value
           };
         this.submittedData.push({"otherIncomeData":othIncomeInputParam});
         // start storing application data in database
@@ -342,7 +503,7 @@ export class IncomeSourceComponent implements OnInit {
                   console.log("Response" + JSON.stringify(data));
                   //successfully inserted
                   if(data['statusCode'] == 200){                  
-                      this.alertService.success('Application - OtherIncome data saved successfully');
+                      this.alertService.success('Application - Other Income data saved successfully');
                       this.localStoreg['applicationStage'] = 10;
                       //console.log("LocalStore" + JSON.stringify(this.localStoreg));
                       localStorage.removeItem("currentUserApp");
@@ -358,7 +519,7 @@ export class IncomeSourceComponent implements OnInit {
                   }
               },
           error => {
-              this.alertService.error('Application - OtherIncome data save request failed '+error);
+              this.alertService.error('Application - Other Income data save request failed '+error);
               this.loading = false;
           });
         break;
@@ -366,24 +527,24 @@ export class IncomeSourceComponent implements OnInit {
           houseIncomeInputParam = {
             'appId':this.ApplicationId,
             'userId':this.userId,
-            "uploadDocFlag":this.h.uploadHouseIncomeProofFlag,
-            "flatno":this.h.inpSelfOccPropFlatNo,
-            "premises":this.h.inpSelfOccPropPremise,
-            "street":this.h.inpSelfOccPropStreet,
-            "area":this.h.inpSelfOccPropArea,
-            "city":this.h.inpSelfOccPropCity,
-            "pincode":this.h.inpSelfOccPropPincode,
-            "country":this.h.inpSelfOccPropCountry,
-            "state":this.h.inpSelfOccPropState,
+            "uploadDocFlag":this.h.uploadHouseIncomeProofFlag.value,
+            "flatno":this.h.inpSelfOccPropFlatNo.value,
+            "premises":this.h.inpSelfOccPropPremise.value,
+            "street":this.h.inpSelfOccPropStreet.value,
+            "area":this.h.inpSelfOccPropArea.value,
+            "city":this.h.inpSelfOccPropCity.value,
+            "pincode":this.h.inpSelfOccPropPincode.value,
+            "country":this.h.inpSelfOccPropCountry.value,
+            "state":this.h.inpSelfOccPropState.value,
 
-            "proploanflag":this.h.inpSelfOccPropLoanFlag,
-            "propinterestpaid":this.h.inpSelfOccPropInterset,
+            "proploanflag":this.h.inpSelfOccPropLoanFlag.value,
+            "propinterestpaid":this.h.inpSelfOccPropInterset.value,
 
-            "coflag":this.h.inpCOFlag,
-            "selfshare":this.h.inpSelfShare,
-            "coname":this.h.inpCOName,
-            "copan":this.h.inpCOPan,
-            "coshare":this.h.inpCOShare
+            "coflag":this.h.inpCOFlag.value,
+            "selfshare":this.h.inpSelfShare.value,
+            "coname":this.h.inpCOName.value,
+            "copan":this.h.inpCOPan.value,
+            "coshare":this.h.inpCOShare.value
           };
         this.submittedData.push({"bankInfoData":houseIncomeInputParam});
         // start storing application data in database
@@ -418,31 +579,31 @@ export class IncomeSourceComponent implements OnInit {
           rentIncomeInputParam = {
             'appId':this.ApplicationId,
             'userId':this.userId,
-            "uploadDocFlag":this.r.uploadRentalIncomeProofFlag,
+            "uploadDocFlag":this.r.uploadRentalIncomeProofFlag.value,
 
-            "flatno":this.r.inpRentalPropFlatNo,
-            "premises":this.r.inpRentalPropPremise,
-            "street":this.r.inpRentalPropStreet,
-            "area":this.r.inpRentalPropArea,
-            "city":this.r.inpRentalPropCity,
-            "pincode":this.r.inpRentalPropPincode,
-            "country":this.r.inpRentalPropCountry,
-            "state":this.r.inpRentalPropState,
+            "flatno":this.r.inpRentalPropFlatNo.value,
+            "premises":this.r.inpRentalPropPremise.value,
+            "street":this.r.inpRentalPropStreet.value,
+            "area":this.r.inpRentalPropArea.value,
+            "city":this.r.inpRentalPropCity.value,
+            "pincode":this.r.inpRentalPropPincode.value,
+            "country":this.r.inpRentalPropCountry.value,
+            "state":this.r.inpRentalPropState.value,
 
-            "rentAmountRcvd":this.r.inpRentalPropRentRec,
-            "rentHouseTaxPaid":this.r.inpRentalPropHousetax,
-            "rentalTenantNm":this.r.inpRentalPropTenName,
-            "rentalTenantPan":this.r.inpRentalPropTenPan,
+            "rentAmountRcvd":this.r.inpRentalPropRentRec.value,
+            "rentHouseTaxPaid":this.r.inpRentalPropHousetax.value,
+            "rentalTenantNm":this.r.inpRentalPropTenName.value,
+            "rentalTenantPan":this.r.inpRentalPropTenPan.value,
             
-            "rentalPropLoanFlag":this.r.inpRentalPropLoanFlag,
-            "rentalpropInterestPaid":this.r.inpRentalPropInterset,
+            "rentalPropLoanFlag":this.r.inpRentalPropLoanFlag.value,
+            "rentalpropInterestPaid":this.r.inpRentalPropInterset.value,
 
-            "coflag":this.r.inpRenCOFlag,
-            "selfshare":this.r.inpRenSelfShare,
-            "unRealizedRent":this.r.inpRenUnRealRent,
-            "coname":this.r.inpRenCOName,
-            "copan":this.r.inpRenCOPan,
-            "coshare":this.r.inpRenCOShare
+            "coflag":this.r.inpRenCOFlag.value,
+            "selfshare":this.r.inpRenSelfShare.value,
+            "unRealizedRent":this.r.inpRenUnRealRent.value,
+            "coname":this.r.inpRenCOName.value,
+            "copan":this.r.inpRenCOPan.value,
+            "coshare":this.r.inpRenCOShare.value
           };
         
         this.submittedData.push({"rentalIncomeData":rentIncomeInputParam});

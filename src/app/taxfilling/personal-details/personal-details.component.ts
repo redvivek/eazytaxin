@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { ScriptService,AuthenticationService,ApplicationService, AlertService } from '@app/_services';
 import { environment } from '@environments/environment';
 
@@ -191,6 +191,8 @@ export class PersonalDetailsComponent implements OnInit {
           if(res['statusCode'] == 200){                 
             this.alertService.error('File Uploaded successfully');
             this.assestsDetailsForm.get('uploadFAProofFlag').setValue('1');
+          }else{
+            this.alertService.error('File Uploading Failed');
           }
     };
     /*File Uploader with form data ends here */
@@ -704,7 +706,7 @@ export class PersonalDetailsComponent implements OnInit {
               this.assestsDetailsForm.get('MovInHandCashAmount').setValue(maindata.MovInHandCashAmount);
               this.assestsDetailsForm.get('TotalLiability').setValue(maindata.TotalLiability);
 
-              if(data[1].ImmData != null){
+              if(maindata.ImmovableAssetsFlag == 1){
                 var imdata = data[1].ImmData;
                 //console.log("Existing perInfo1 "+ JSON.stringify(imdata));
                 this.assestsDetailsForm.get('Description').setValue(imdata.Description);

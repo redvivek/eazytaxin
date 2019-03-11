@@ -8,6 +8,7 @@
               <h4 class="">Income Source</h4>
             </div>
           </div>
+          <alert></alert>
         </div>
         <div class="section-body">
           <div class="row">
@@ -139,18 +140,15 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                <div class="input-group prepend custom-file-wrap">
-                                                    <div class="input-group-prepend">
-                                                    <span class="input-group-text">Choose File</span>
+                                                    <div class="input-group prepend custom-file-wrap">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Choose File</span>
+                                                        </div>
+                                                        <div class="custom-file">
+                                                            <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="uploadForm16File" formControlName="uploadForm16File" >
+                                                            <label class="custom-file-label" for="uploadForm16File">No File Chosen</label>
+                                                        </div>
                                                     </div>
-                                                    <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="uploadForm16File" formControlName="uploadForm16File" [ngClass]="{ 'is-invalid': salFSubmitted && s.uploadForm16File.errors}">
-                                                    <!-- <div *ngIf="salFSubmitted && s.uploadForm16File.errors" class="invalid-feedback">
-                                                        <div *ngIf="s.uploadForm16File.errors.required">Please upload your form16</div>
-                                                    </div> -->
-                                                    <label class="custom-file-label" for="uploadForm16File">No File Chosen</label>
-                                                    </div>
-                                                </div>
                                                 </div>
                                             </div>
                                             <div class="col-4">
@@ -161,8 +159,15 @@
                                             </div>
                                             <div class="col">
                                                 <div class="form-group">
-                                                <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                                <input type="hidden" class="custom-file-input" id="uploadForm16FileFlag" formControlName="uploadForm16FileFlag" />
+                                                    <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <input type="hidden" class="form-control" id="uploadForm16FileFlag" formControlName="uploadForm16FileFlag"  [ngClass]="{ 'is-invalid': salFSubmitted && s.uploadForm16FileFlag.errors}">
+                                                <div *ngIf="salFSubmitted && s.uploadForm16FileFlag.errors" class="invalid-feedback">
+                                                    <div *ngIf="s.uploadForm16FileFlag.errors.required">Please upload Form16. Also enter the password if form16 is protected else type "NA"</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -230,15 +235,15 @@
                             <form id="otherIncomeForm" [formGroup]="otherIncomeForm">
                                 <ul class="nav nav-tabs scrollTabs" id="myTab" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="income-other-upload-tab" data-toggle="tab" href="#income-other-upload" role="tab" (click)="select_step2_subpart_form('income_other_upload')" [class.active]="step2_income_other_upload == true"  aria-selected="true">Upload Documents</a>
+                                        <a class="nav-link active" id="income-other-interest-income-tab" data-toggle="tab" href="#income-other-data" role="tab" (click)="select_step2_subpart_form('income_other_data')" [class.active]="step2_income_other_data == true" aria-selected="false">Other Income Sources</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="income-other-interest-income-tab" data-toggle="tab" href="#income-other-data" role="tab" (click)="select_step2_subpart_form('income_other_data')" [class.active]="step2_income_other_data == true" aria-selected="false">Other Income Data</a>
+                                        <a class="nav-link" id="income-other-upload-tab" data-toggle="tab" href="#income-other-upload" role="tab" (click)="select_step2_subpart_form('income_other_upload')" [class.active]="step2_income_other_upload == true"  aria-selected="true">Upload Proof Documents</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
                                     <!--other income Upload Form starts here-->
-                                    <div class="tab-pane fade active show" id="income-other-upload" role="tabpanel" [ngClass]="{ 'show': step2_income_other_upload == true , 'active': step2_income_other_upload == true }">
+                                    <div class="tab-pane fade" id="income-other-upload" role="tabpanel" [ngClass]="{ 'show': step2_income_other_upload == true , 'active': step2_income_other_upload == true }">
                                         <div class="row form-group mb-0">
                                             <div class="col">
                                                 <h6>Upload Other Income document</h6>
@@ -247,30 +252,34 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                <div class="input-group prepend custom-file-wrap">
-                                                    <div class="input-group-prepend">
-                                                    <span class="input-group-text">Choose File</span>
+                                                    <div class="input-group prepend custom-file-wrap">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Choose File</span>
+                                                        </div>
+                                                        <div class="custom-file">
+                                                            <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="uploadOtherIncomeProofFile" formControlName="uploadOtherIncomeProofFile">
+                                                            <label class="custom-file-label" for="uploadOtherIncomeProofFile">No File Chosen</label>
+                                                        </div>
                                                     </div>
-                                                    <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="uploadOtherIncomeProofFile" formControlName="uploadOtherIncomeProofFile" [ngClass]="{ 'is-invalid': othFSubmitted && o.uploadOtherIncomeProofFile.errors}">
-                                                    <div *ngIf="othFSubmitted && o.uploadOtherIncomeProofFile.errors" class="invalid-feedback">
-                                                        <div *ngIf="o.uploadOtherIncomeProofFile.errors.required">Salary amount is required</div>
-                                                    </div>
-                                                    <label class="custom-file-label" for="uploadOtherIncomeProofFile">No File Chosen</label>
-                                                    </div>
-                                                </div>
                                                 </div>
                                             </div>
                                             <div class="col-4">
                                                 <div class="form-group floating-label">
-                                                <input type="text" class="form-control" id="filepassword" formControlName="uploadOtherIncomeFilePwd">
-                                                <label for="filepassword">Enter Document Password</label>
+                                                    <input type="text" class="form-control" id="filepassword" formControlName="uploadOtherIncomeFilePwd">
+                                                    <label for="filepassword">Enter Document Password</label>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-group">
-                                                <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                                <input type="hidden" class="custom-file-input" id="uploadOtherIncomeProofFlag" formControlName="uploadOtherIncomeProofFlag" />
+                                                    <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <input type="hidden" class="form-control" id="uploadOtherIncomeProofFlag" formControlName="uploadOtherIncomeProofFlag"  [ngClass]="{ 'is-invalid': othFSubmitted && o.uploadOtherIncomeProofFlag.errors}">
+                                                <div *ngIf="othFSubmitted && o.uploadOtherIncomeProofFlag.errors" class="invalid-feedback">
+                                                    <div *ngIf="o.uploadOtherIncomeProofFlag.errors.required">Please upload proof documents. Also enter the password if form16 is protected else type "NA"</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -334,7 +343,7 @@
                                                 <div class="assetsLists">
                                                     <article>
                                                         <div class="row form-group floating-label">
-                                                        <label for="" class="col-sm-8 col-form-label">Any Other Income <span class="text-danger required">*</span>
+                                                        <label for="" class="col-sm-8 col-form-label">Any Other Income
                                                             <small class="d-block">Report any other income which is not part of Income from Salary, House Property or Capital Gain. Gifts can be declared as Income here</small>
                                                         </label>
                                                         <div class="col-sm-4">
@@ -365,7 +374,7 @@
                                                 <div class="assetsLists">
                                                     <article>
                                                         <div class="row form-group floating-label">
-                                                        <label for="" class="col-sm-8 col-form-label">Dividend earned <span class="text-danger required">*</span>
+                                                        <label for="" class="col-sm-8 col-form-label">Dividend earned
                                                             <small class="d-block">Dividend from shares. Income earned on investments in Mutual Funds, ULIPs, UTI. </small>
                                                         </label>
                                                         <div class="col-sm-4">
@@ -382,7 +391,7 @@
                                                         </div>
                                                         </div>
                                                         <div class="row form-group floating-label">
-                                                        <label for="" class="col-sm-8 col-form-label">Exempt Interest Income <span class="text-danger required">*</span>
+                                                        <label for="" class="col-sm-8 col-form-label">Exempt Interest Income
                                                             <small class="d-block">Example: Interest earned on PPF</small>
                                                         </label>
                                                         <div class="col-sm-4">
@@ -399,7 +408,7 @@
                                                         </div>
                                                         </div>
                                                         <div class="row form-group floating-label">
-                                                        <label for="" class="col-sm-8 col-form-label">Other Miscellaneous Exempt Income <span class="text-danger required">*</span>
+                                                        <label for="" class="col-sm-8 col-form-label">Other Miscellaneous Exempt Income
                                                             <small class="d-block">Specify any other exempt income</small>
                                                         </label>
                                                         <div class="col-sm-4">
@@ -444,7 +453,7 @@
                                                 <div class="assetsLists">
                                                     <article>
                                                         <div class="row form-group floating-label">
-                                                        <label for="" class="col-sm-8 col-form-label">Gross Agricultural Income Receipt <span class="text-danger required">*</span>
+                                                        <label for="" class="col-sm-8 col-form-label">Gross Agricultural Income Receipt
                                                             <small class="d-block">Specify gross agricultural income</small>
                                                         </label>
                                                         <div class="col-sm-4">
@@ -461,7 +470,7 @@
                                                         </div>
                                                         </div>
                                                         <div class="row form-group floating-label">
-                                                        <label for="" class="col-sm-8 col-form-label">Expenditure On Agriculture <span class="text-danger required">*</span>
+                                                        <label for="" class="col-sm-8 col-form-label">Expenditure On Agriculture
                                                             <small class="d-block">Specify expenditure on agriculture sources</small>
                                                         </label>
                                                         <div class="col-sm-4">
@@ -478,7 +487,7 @@
                                                         </div>
                                                         </div>
                                                         <div class="row form-group floating-label">
-                                                        <label for="" class="col-sm-8 col-form-label">Unabsorbed Agriculture Loss <span class="text-danger required">*</span>
+                                                        <label for="" class="col-sm-8 col-form-label">Unabsorbed Agriculture Loss
                                                             <small class="d-block">Specify unabsorbed agriculture loss</small>
                                                         </label>
                                                         <div class="col-sm-4">
@@ -518,7 +527,7 @@
                                                             <div *ngIf="othFSubmitted && o.inputDepAmount.errors" class="invalid-feedback">
                                                                 <div *ngIf="o.inputDepAmount.errors.required">Dependent amount is required</div>
                                                             </div>
-                                                            <label for="inputDepAmount">Amount <span class="text-danger required">*</span></label>
+                                                            <label for="inputDepAmount">Amount </label>
                                                             </div>
                                                         </div>
                                                         </div>
@@ -529,7 +538,7 @@
                                                         <div *ngIf="othFSubmitted && o.inputDepPersonName.errors" class="invalid-feedback">
                                                             <div *ngIf="o.inputDepPersonName.errors.required">Dependent Person name is required</div>
                                                         </div>
-                                                        <label for="inputDepPersonName">Name of Person <span class="text-danger required">*</span></label>
+                                                        <label for="inputDepPersonName">Name of Person </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -547,7 +556,7 @@
                                                         <div *ngIf="othFSubmitted && o.inputDepPersonRel.errors" class="invalid-feedback">
                                                             <div *ngIf="o.inputDepPersonRel.errors.required">Dependent person relationship is required</div>
                                                         </div>
-                                                        <label for="">Relationship <span class="text-danger required">*</span></label>
+                                                        <label for="">Relationship </label>
                                                         </div>
                                                     </div>
                                                     <div class="col">
@@ -561,11 +570,11 @@
                                                         <div *ngIf="othFSubmitted && o.inputDepIncomeNature.errors" class="invalid-feedback">
                                                             <div *ngIf="o.inputDepIncomeNature.errors.required">Dependent Income Nature is required</div>
                                                         </div>
-                                                        <label for="inputDepIncomeNature">Nature of Income <span class="text-danger required">*</span></label>
+                                                        <label for="inputDepIncomeNature">Nature of Income </label>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="assetsLists">
+                                                <!-- <div class="assetsLists">
                                                     <table class="table table-bordered">
                                                         <thead class="thead-light">
                                                         <tr>
@@ -591,7 +600,7 @@
                                                         </tr>
                                                         </tbody>
                                                     </table>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!--Dependent Income ends    -->
@@ -614,7 +623,7 @@
                                                             <div *ngIf="othFSubmitted && o.inputPFIncome.errors" class="invalid-feedback">
                                                                 <div *ngIf="o.inputPFIncome.errors.required">PF Withdrawal Income is required</div>
                                                             </div>
-                                                            <label for="inputPFIncome">PF Amount <span class="text-danger required">*</span></label>
+                                                            <label for="inputPFIncome">PF Amount</label>
                                                             </div>
                                                         </div>
                                                         </div>
@@ -633,7 +642,7 @@
                                                         <div *ngIf="othFSubmitted && o.inputPFIncomeTax.errors" class="invalid-feedback">
                                                             <div *ngIf="o.inputPFIncomeTax.errors.required">PF Withdrawal Income Tax rate is required</div>
                                                         </div>
-                                                        <label for="inputPFIncomeTax">Tax Rate <span class="text-danger required">*</span></label>
+                                                        <label for="inputPFIncomeTax">Tax Rate</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -651,15 +660,15 @@
                             <form id="housePropIncomeForm" [formGroup]="housePropIncomeForm">
                                 <ul class="nav nav-tabs scrollTabs" id="myTab" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="house_property_upload_tab" data-toggle="tab" href="#house_property_upload" role="tab" (click)="select_step3_subpart_form('house_property_upload')" [class.active]="step3_house_property_upload == true"  aria-selected="true">Upload Proof Documents</a>
+                                        <a class="nav-link active" id="house_property_data_tab" data-toggle="tab" href="#house_property_data" role="tab" (click)="select_step3_subpart_form('house_property_data')" [class.active]="step3_house_property_data == true" aria-selected="false">House Property Details</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="house_property_data_tab" data-toggle="tab" href="#house_property_data" role="tab" (click)="select_step3_subpart_form('house_property_data')" [class.active]="step3_house_property_data == true" aria-selected="false">House Property Details</a>
+                                        <a class="nav-link" id="house_property_upload_tab" data-toggle="tab" href="#house_property_upload" role="tab" (click)="select_step3_subpart_form('house_property_upload')" [class.active]="step3_house_property_upload == true"  aria-selected="true">Upload Proof Documents</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
                                     <!--Doc Upload starts-->
-                                    <div class="tab-pane fade show active" id="house_property_upload" role="tabpanel" [ngClass]="{ 'show': step3_house_property_upload == true , 'active': step3_house_property_upload == true }">
+                                    <div class="tab-pane fade" id="house_property_upload" role="tabpanel" [ngClass]="{ 'show': step3_house_property_upload == true , 'active': step3_house_property_upload == true }">
                                         <div class="row form-group mb-0">
                                             <div class="col">
                                                 <h6>Select document</h6>
@@ -673,10 +682,7 @@
                                                     <span class="input-group-text">Choose File</span>
                                                     </div>
                                                     <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="uploadHousePropDocs" formControlName="uploadHousePropDocs" [ngClass]="{ 'is-invalid': houFSubmitted && h.uploadHousePropDocs.errors}">
-                                                    <div *ngIf="houFSubmitted && h.uploadHousePropDocs.errors" class="invalid-feedback">
-                                                        <div *ngIf="h.uploadHousePropDocs.errors.required">PF Withdrawal Income is required</div>
-                                                    </div>
+                                                    <input type="file" type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="uploadHousePropDocs" formControlName="uploadHousePropDocs">
                                                     <label class="custom-file-label" for="uploadHousePropDocs">No File Chosen</label>
                                                     </div>
                                                 </div>
@@ -690,16 +696,21 @@
                                             </div>
                                             <div class="col">
                                                 <div class="form-group">
-                                                <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                                <input type="hidden" class="custom-file-input" id="uploadHouseIncomeProofFlag" formControlName="uploadHouseIncomeProofFlag" />
+                                                    <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class = "row">
+                                            <input type="hidden" class="custom-file-input" id="uploadHouseIncomeProofFlag" formControlName="uploadHouseIncomeProofFlag" [ngClass]="{ 'is-invalid': houFSubmitted && h.uploadHouseIncomeProofFlag.errors}">
+                                            <div *ngIf="houFSubmitted && h.uploadHouseIncomeProofFlag.errors" class="invalid-feedback">
+                                                <div *ngIf="h.uploadHouseIncomeProofFlag.errors.required">Please upload proof documents. Also enter the password if form16 is protected else type "NA"</div>
                                             </div>
                                         </div>
                                     </div>
                                     <!--Doc Upload ends-->
                                     
                                     <!--House data form starts-->
-                                    <div class="tab-pane fade" id="house_property_data" role="tabpanel" [ngClass]="{ 'show': step3_house_property_data == true , 'active': step3_house_property_data == true }">
+                                    <div class="tab-pane fade show active" id="house_property_data" role="tabpanel" [ngClass]="{ 'show': step3_house_property_data == true , 'active': step3_house_property_data == true }">
                                         <div class="boxBorderHeader px-5 py5 my-5 position-relative">
                                             <div class="text-uppercase boxHeader text-center">
                                                 <span class="d-inline-block"><h6>House Address</h6></span>
@@ -913,12 +924,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <!-- <div class="row">
                                                     <div class="col-6 form-group">
                                                         <button type="button" class="btn btn-outline-primary btn-sm">Add Co-Owner<i class="fas fa-plus mx-2"></i></button>
                                                     </div>
-                                                </div>
-                                                <table class="table table-bordered">
+                                                </div> -->
+                                                <!-- <table class="table table-bordered">
                                                     <thead class="thead-light">
                                                         <tr>
                                                         <th scope="col" width="70">Sl.No</th>
@@ -960,7 +971,7 @@
                                                         </td>
                                                         </tr>
                                                     </tbody>
-                                                </table>
+                                                </table> -->
                                                 
                                             </div>
                                         </div>
@@ -977,15 +988,15 @@
                             <form id="rentalPropIncomeForm" [formGroup]="rentalPropIncomeForm">
                                 <ul class="nav nav-tabs scrollTabs" id="myTab" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="rental_property_upload_tab" data-toggle="tab" href="#rental_property_upload" role="tab" (click)="select_step4_subpart_form('rental_property_upload')" [class.active]="step4_rental_property_upload == true"  aria-selected="true">Upload Proof Documents</a>
+                                        <a class="nav-link active" id="rental_property_data_tab" data-toggle="tab" href="#rental_property_data" role="tab" (click)="select_step4_subpart_form('rental_property_data')" [class.active]="step4_rental_property_data == true" aria-selected="false">Rental Property Details</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="rental_property_data_tab" data-toggle="tab" href="#rental_property_data" role="tab" (click)="select_step4_subpart_form('rental_property_data')" [class.active]="step4_rental_property_data == true" aria-selected="false">Rental Property Details</a>
+                                        <a class="nav-link" id="rental_property_upload_tab" data-toggle="tab" href="#rental_property_upload" role="tab" (click)="select_step4_subpart_form('rental_property_upload')" [class.active]="step4_rental_property_upload == true"  aria-selected="true">Upload Proof Documents</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
                                     <!--Doc Upload starts-->
-                                    <div class="tab-pane fade show active" id="rental_property_upload" role="tabpanel" [ngClass]="{ 'show': step4_rental_property_upload == true , 'active': step4_rental_property_upload == true }">
+                                    <div class="tab-pane fade" id="rental_property_upload" role="tabpanel" [ngClass]="{ 'show': step4_rental_property_upload == true , 'active': step4_rental_property_upload == true }">
                                         <div class="row form-group mb-0">
                                             <div class="col">
                                                 <h6>Select document</h6>
@@ -999,10 +1010,7 @@
                                                     <span class="input-group-text">Choose File</span>
                                                     </div>
                                                     <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="uploadRentalPropDocs" formControlName="uploadRentalPropDocs" [ngClass]="{ 'is-invalid': houFSubmitted && r.uploadRentalPropDocs.errors}">
-                                                    <div *ngIf="houFSubmitted && r.uploadRentalPropDocs.errors" class="invalid-feedback">
-                                                        <div *ngIf="h.uploadRentalPropDocs.errors.required">PF Withdrawal Income is required</div>
-                                                    </div>
+                                                    <input type="file" type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="uploadRentalPropDocs" formControlName="uploadRentalPropDocs">
                                                     <label class="custom-file-label" for="uploadRentalPropDocs">No File Chosen</label>
                                                     </div>
                                                 </div>
@@ -1016,16 +1024,21 @@
                                             </div>
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                                    <input type="hidden" class="custom-file-input" id="uploadRentalIncomeProofFlag" formControlName="uploadRentalIncomeProofFlag" />
+                                                    <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class = "row">
+                                            <input type="hidden" class="custom-file-input" id="uploadRentalIncomeProofFlag" formControlName="uploadRentalIncomeProofFlag" [ngClass]="{ 'is-invalid': renFSubmitted && r.uploadRentalIncomeProofFlag.errors}">
+                                            <div *ngIf="renFSubmitted && r.uploadHouseIncomeProofFlag.errors" class="invalid-feedback">
+                                                <div *ngIf="r.uploadHouseIncomeProofFlag.errors.required">Please upload proof documents. Also enter the password if form16 is protected else type "NA"</div>
                                             </div>
                                         </div>
                                     </div>
                                     <!--Doc Upload ends-->
                                     
                                     <!--House data form starts-->
-                                    <div class="tab-pane fade" id="rental_property_data" role="tabpanel" [ngClass]="{ 'show': step4_rental_property_data == true , 'active': step4_rental_property_data == true }">
+                                    <div class="tab-pane fade show active" id="rental_property_data" role="tabpanel" [ngClass]="{ 'show': step4_rental_property_data == true , 'active': step4_rental_property_data == true }">
                                         <div class="boxBorderHeader px-5 py5 my-5 position-relative">
                                             <div class="text-uppercase boxHeader text-center">
                                                 <span class="d-inline-block"><h6>Rental Property Address</h6></span>
@@ -1319,12 +1332,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <!-- <div class="row">
                                                     <div class="col-6 form-group">
                                                         <button type="button" class="btn btn-outline-primary btn-sm">Add Co-Owner<i class="fas fa-plus mx-2"></i></button>
                                                     </div>
-                                                </div>
-                                                <table class="table table-bordered">
+                                                </div> -->
+                                                <!-- <table class="table table-bordered">
                                                     <thead class="thead-light">
                                                         <tr>
                                                         <th scope="col" width="70">Sl.No</th>
@@ -1366,7 +1379,7 @@
                                                         </td>
                                                         </tr>
                                                     </tbody>
-                                                </table>
+                                                </table> -->
                                             </div>
                                         </div>
                                     </div>

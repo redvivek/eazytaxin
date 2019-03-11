@@ -35,6 +35,15 @@ module.exports = function(sequelize, DataTypes) {
     Share: {
       type: DataTypes.INTEGER(3),
       allowNull: true
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
     }
   }, {
     tableName: 'et_property_coownerdetails'

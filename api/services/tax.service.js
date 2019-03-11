@@ -69,7 +69,7 @@ exports.uploadPrefilledXML = (req, res) => {
             .then(function(appid){
                 req.files.forEach(function(item) {
                     console.log("File item "+ JSON.stringify(item));
-                    var filename = item.fieldname;
+                    var filename = item.filename;
                     var filepath = item.path;
 
                     //Save the uploaded document details in document upload table
@@ -157,7 +157,7 @@ exports.uploadproofDocuments = (req,res)=>{
             var docCategory =   req.body.DocCategory;
             req.files.forEach(function(item) {
                 console.log("File item "+ JSON.stringify(item));
-                var filename = item.fieldname;
+                var filename = item.filename;
                 var filepath = item.path;
                 DocumentUpload.findOne(
                     { where: {UserId:userid,ApplicationId: appid,DocumentCategory:docCategory} }
@@ -1004,13 +1004,13 @@ exports.saveImmAssestsInfoByAppId = (req,res)=>{
 };
 
 exports.saveSalIncomeInfoByAppId = (req,res) => {
-    //let inputdata = req.body;
+    console.log("Request param "+ JSON.stringify(req.body));
     let appid = req.body.appId;
     let userid = req.body.userId;
     let uploadDocFlag = req.body.uploadDocFlag;
     let employernm = req.body.employernm;
     let salamount = req.body.salamount;
-    let inputEmployertype = req.body.inputEmployertype;
+    let inputEmployertype = req.body.employertype;
 
     SalariedIncome.findOne(
 		{ where: {UserId:userid,ApplicationId: appid} }
@@ -1120,21 +1120,21 @@ exports.saveOthIncomeInfoByAppId = (req,res) => {
     let appid = req.body.appId;
     let userid = req.body.userId;
     let uploadDocFlag = req.body.uploadDocFlag;
-    let savingsIncome = req.body.savingsIncome;
-    let fdincome = req.body.fdincome;
-    let othericnome = req.body.othericnome;
-    let shareincome = req.body.shareincome;
-    let exemptincome = req.body.exemptincome;
-    let otherexemptincome = req.body.otherexemptincome;
-    let agriincome = req.body.agriincome;
-    let agriexpend = req.body.agriexpend;
-    let agriloss = req.body.agriloss;
-    let depincome = req.body.depincome;
+    let savingsIncome = req.body.savingsIncome!= "" ? parseFloat(req.body.savingsIncome) : 0.00;
+    let fdincome = req.body.fdincome!= "" ? parseFloat(req.body.fdincome) : 0.00;
+    let othericnome = req.body.othericnome!= "" ? parseFloat(req.body.othericnome) : 0.00;
+    let shareincome = req.body.shareincome!= "" ? parseFloat(req.body.shareincome) : 0.00;
+    let exemptincome = req.body.exemptincome!= "" ? parseFloat(req.body.exemptincome) : 0.00;
+    let otherexemptincome = req.body.otherexemptincome!= "" ? parseFloat(req.body.otherexemptincome) : 0.00;
+    let agriincome = req.body.agriincome!= "" ? parseFloat(req.body.agriincome) : 0.00;
+    let agriexpend = req.body.agriexpend!= "" ? parseFloat(req.body.agriexpend) : 0.00;
+    let agriloss = req.body.agriloss!= "" ? parseFloat(req.body.agriloss) : 0.00;
+    let depincome = req.body.depincome!= "" ? parseFloat(req.body.depincome) : 0.00;
     let depname = req.body.depname;
     let deprelation = req.body.deprelation;
     let depincomeNature = req.body.depincomeNature;
-    let pfincome = req.body.pfincome;
-    let pfincometax = req.body.pfincometax;
+    let pfincome = req.body.pfincome!= "" ? parseFloat(req.body.pfincome) : 0.00;
+    let pfincometax = req.body.pfincometax!= "" ? parseFloat(req.body.pfincometax) : 0.00;
 
     OtherIncome.findOne(
 		{ where: {UserId:userid,ApplicationId: appid} }
@@ -1151,8 +1151,7 @@ exports.saveOthIncomeInfoByAppId = (req,res) => {
                     type: sequelize.QueryTypes.INSERT 
                 }).then(result => {		
                     console.log("Result AppId  "+result[0]);
-                    insertDependentIncome(appid,userid,result[0],depincome,depname,deprelation,depincomeNature);
-                    res.json({"statusCode": 200,"Message": "Successful Request"});
+                    insertDependentIncome(appid,userid,result[0],depincome,depname,deprelation,depincomeNature,res);
                 })
                 .catch(function (err) {
                     console.log("Error "+err);
@@ -1167,8 +1166,7 @@ exports.saveOthIncomeInfoByAppId = (req,res) => {
                 type: sequelize.QueryTypes.INSERT 
             }).then(result => {		
                 console.log("Result AppId  "+result[0]);
-                insertDependentIncome(appid,userid,result[0],depincome,depname,deprelation,depincomeNature);
-                res.json({"statusCode": 200,"Message": "Successful Request"});
+                insertDependentIncome(appid,userid,result[0],depincome,depname,deprelation,depincomeNature,res);
             })
             .catch(function (err) {
                 console.log("Error "+err);
@@ -1183,7 +1181,7 @@ exports.saveOthIncomeInfoByAppId = (req,res) => {
 
 };
 
-function insertDependentIncome(appid,userid,otherIncomeId,depincome,depname,deprelation,depincomeNature){
+function insertDependentIncome(appid,userid,otherIncomeId,depincome,depname,deprelation,depincomeNature,res){
     OtherDepIncome.findOne(
 		{ where: {UserId:userid,ApplicationId: appid} }
 	)
@@ -1201,6 +1199,7 @@ function insertDependentIncome(appid,userid,otherIncomeId,depincome,depname,depr
                     console.log("Result AppId  "+result[0]);
                     //update flags to et_applicationsmain table */
                     updateApplicationMain(appid,userid,10);
+                    res.json({"statusCode": 200,"Message": "Successful Request"});
                 })
                 .catch(function (err) {
                     console.log("Error "+err);
@@ -1293,7 +1292,7 @@ exports.saveHouseIncomeInfoByAppId = (req,res) => {
 
 };
 
-function insertHousePropAddress(appid,userid,propertyId,propType,flatno,premises,street,area,city,pincode,country,state,res){
+function insertHousePropAddress(appid,userid,propertyId,propType,flatno,premises,street,area,city,pincode,country,state,coname,copan,coshare,res){
     if(propType == "Houseprop"){
         stage = 11;
     }else if(propType == "Rentalprop"){

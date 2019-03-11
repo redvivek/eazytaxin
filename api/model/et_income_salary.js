@@ -45,6 +45,15 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.ENUM('Yes','No'),
       allowNull: true,
       defaultValue: 'No'
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
     }
   }, {
     tableName: 'et_income_salary'
