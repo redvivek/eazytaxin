@@ -1,28 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup,FormControl, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import {ScriptService, AlertService, UserService, AuthenticationService } from '@app/_services';
+import * as Waves from 'node-waves';
+import { handleFloatingLabels } from '../app.helpers';
 
 @Component({templateUrl: 'register.component.html'})
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit,AfterViewInit {
     registerForm: FormGroup;
     loading = false;
     submitted = false;
 
     constructor(
-        private scriptservice : ScriptService,
         private formBuilder: FormBuilder,
         private router: Router,
         private authenticationService: AuthenticationService,
         private userService: UserService,
         private alertService: AlertService
     ) { 
-        this.scriptservice.load('mainJS').then(data => {
-            console.log('script loaded ', data);
-        }).catch(error => console.log(error));
-        
         // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) { 
             this.router.navigate(['/']);
@@ -50,6 +47,10 @@ export class RegisterComponent implements OnInit {
             
         },{validator: this.checkIfMatchingPasswords('nPassword','cPassword')}
         );
+    }
+
+    ngAfterViewInit(){
+        handleFloatingLabels(Waves);
     }
 
     //Validation to check if email already exisits or not

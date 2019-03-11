@@ -34,9 +34,6 @@ $(".mainMenutoggler").click(function() {
     return false;
   });
 
-
-
-
   // Cache selectors
   var lastId,
       topMenu = $("#header"),

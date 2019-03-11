@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { environment } from '@environments/environment';
 import { ScriptService,AuthenticationService,ApplicationService, AlertService } from '@app/_services';
+import { handleInsideHeaderBackground,handleFloatingLabels } from '../../app.helpers';
+import * as Waves from 'node-waves';
 
 const URL = `${environment.apiUrl}/tax/uploadproofDocuments`;
 
@@ -13,7 +15,7 @@ const URL = `${environment.apiUrl}/tax/uploadproofDocuments`;
   templateUrl: './income-source.component.html',
   styleUrls: ['./income-source.component.css']
 })
-export class IncomeSourceComponent implements OnInit {
+export class IncomeSourceComponent implements OnInit,AfterViewInit {
   //Initialize all sub forms
   salaryIncomeForm: FormGroup;
   otherIncomeForm: FormGroup;
@@ -70,10 +72,6 @@ export class IncomeSourceComponent implements OnInit {
     private scriptservice : ScriptService
   ) 
   {
-    this.scriptservice.load('mainJS').then(data => {
-      console.log('script loaded ', data);
-    }).catch(error => console.log(error));
-
     // redirect to login if not logged in
     if (!this.authenticationService.currentUserValue) { 
       this.router.navigate(['/login']);
@@ -261,6 +259,11 @@ export class IncomeSourceComponent implements OnInit {
     };
     /*File Uploader with form data ends here */
   }
+
+  ngAfterViewInit(){
+    handleInsideHeaderBackground();
+    handleFloatingLabels(Waves);
+	}
 
   get s() { return this.salaryIncomeForm.controls; }
   get o() { return this.otherIncomeForm.controls; }

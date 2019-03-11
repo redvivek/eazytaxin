@@ -1,15 +1,16 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit,OnDestroy,AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { ApplicationMain} from '@app/_models';
 import { ScriptService,ApplicationService, AuthenticationService,AlertService } from '@app/_services';
+import { handleInsideHeaderBackground } from '../app.helpers';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit,AfterViewInit {
   assesmentYears = [];
   selectedAssYear:any;
   showCurrAssYear:boolean;
@@ -25,18 +26,15 @@ export class DashboardComponent implements OnInit {
         private alertService : AlertService,
         private scriptservice : ScriptService
   ) {
-    this.scriptservice.load('mainJS').then(data => {
-        console.log('script loaded ', data);
-    }).catch(error => console.log(error));   
-    // redirect to login if not logged in
-    if (!this.authenticationService.currentUserValue) { 
-      this.router.navigate(['/login']);
-    }else{
-      //console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
-      //console.log("Current App value "+ this.appService.currentApplicationValue);
-      this.userId         = this.authenticationService.currentUserValue.userid;
-      console.log("Current User Id "+ this.userId);
-    }
+        // redirect to login if not logged in
+        if (!this.authenticationService.currentUserValue) { 
+        this.router.navigate(['/login']);
+        }else{
+        //console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
+        //console.log("Current App value "+ this.appService.currentApplicationValue);
+        this.userId         = this.authenticationService.currentUserValue.userid;
+        console.log("Current User Id "+ this.userId);
+        }
 }
 
     ngOnInit() {
@@ -45,6 +43,10 @@ export class DashboardComponent implements OnInit {
         this.selectedAssYear = this.assesmentYears[0];
         this.inProgressApps = this.fetchInProgressAppDataByUserID(this.userId);
     }
+
+    ngAfterViewInit(){
+		handleInsideHeaderBackground();
+	}
 
     onChange(newValue) {
         console.log(newValue);

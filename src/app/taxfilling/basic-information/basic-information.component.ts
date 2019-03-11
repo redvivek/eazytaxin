@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import {Basicinfo} from '@app/_models';
 import { ScriptService,AuthenticationService,ApplicationService, AlertService } from '@app/_services';
+import { handleInsideHeaderBackground,handleFloatingLabels } from '../../app.helpers';
+import * as Waves from 'node-waves';
 
 @Component({
   selector: 'app-basic-information',
   templateUrl: './basic-information.component.html',
   styleUrls: ['./basic-information.component.css']
 })
-export class BasicInformationComponent implements OnInit {
+export class BasicInformationComponent implements OnInit,AfterViewInit {
   basicInfoForm: FormGroup;
   disable = true;
   loading = false;
@@ -40,10 +42,6 @@ export class BasicInformationComponent implements OnInit {
     private alertService : AlertService,
     private scriptservice : ScriptService
   ) { 
-        this.scriptservice.load('waveJS','mainJS').then(data => {
-            console.log('script loaded ', data);
-        }).catch(error => console.log(error));
-    
         // redirect to login if not logged in
         if (!this.authenticationService.currentUserValue) { 
             this.router.navigate(['/login']);
@@ -61,25 +59,30 @@ export class BasicInformationComponent implements OnInit {
         }
     }
 
-  ngOnInit() {
+    ngOnInit() {
 
-    this.basicInfoForm = this.formBuilder.group({
-      incomeFromSalary: ['', Validators.required],
-      incomeFromOtherSources : ['',Validators.required],
-      selfOccupiedProp : ['',Validators.required],
-      rentalProperty : ['',Validators.required],
-      incomeFromCapitals: ['',Validators.required],
-      deductionsFlag: ['',Validators.required],
-      residentIndianFlag: ['',Validators.required],
-      nonResidentIndianFlag: ['',Validators.required],
-      ociResidentIndianFlag: ['',Validators.required],
-      presentIndiaFlag: ['',Validators.required],
-    });
+        this.basicInfoForm = this.formBuilder.group({
+        incomeFromSalary: ['', Validators.required],
+        incomeFromOtherSources : ['',Validators.required],
+        selfOccupiedProp : ['',Validators.required],
+        rentalProperty : ['',Validators.required],
+        incomeFromCapitals: ['',Validators.required],
+        deductionsFlag: ['',Validators.required],
+        residentIndianFlag: ['',Validators.required],
+        nonResidentIndianFlag: ['',Validators.required],
+        ociResidentIndianFlag: ['',Validators.required],
+        presentIndiaFlag: ['',Validators.required],
+        });
 
-    if(this.ApplicationId != null){
-        this.fetchAppMaindata(this.ApplicationId);
+        if(this.ApplicationId != null){
+            this.fetchAppMaindata(this.ApplicationId);
+        }
     }
-  }
+
+    ngAfterViewInit(){
+        handleInsideHeaderBackground();
+        handleFloatingLabels(Waves);
+    }
 
   // convenience getter for easy access to form fields
   get f() { return this.basicInfoForm.controls; }

@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { ScriptService,AlertService, AuthenticationService,ApplicationService } from '@app/_services';
+import { handleInsideHeaderBackground,handleFloatingLabels } from '../../app.helpers';
+import * as Waves from 'node-waves';
 
 @Component({
   selector: 'app-reviewdetails',
   templateUrl: './reviewdetails.component.html',
   styleUrls: ['./reviewdetails.component.css']
 })
-export class ReviewdetailsComponent implements OnInit {
+export class ReviewdetailsComponent implements OnInit,AfterViewInit {
 
   constructor(
     private scriptservice : ScriptService
@@ -19,5 +21,9 @@ export class ReviewdetailsComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  ngAfterViewInit(){
+    handleInsideHeaderBackground();
+	}
 
 }

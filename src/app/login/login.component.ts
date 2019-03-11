@@ -1,12 +1,14 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit ,AfterViewInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { ScriptService, AlertService, AuthenticationService } from '@app/_services';
+import * as Waves from 'node-waves';
+import { handleFloatingLabels } from '../app.helpers';
 
 @Component({templateUrl: 'login.component.html'})
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit,AfterViewInit {
     loginForm: FormGroup;
     loading = false;
     submitted = false;
@@ -20,9 +22,9 @@ export class LoginComponent implements OnInit {
         private authenticationService: AuthenticationService,
         private alertService: AlertService
     ) {
-        this.scriptservice.load('mainJS').then(data => {
+        /* this.scriptservice.load('mainJS').then(data => {
             console.log('script loaded ', data);
-        }).catch(error => console.log(error));
+        }).catch(error => console.log(error)); */
         
         // redirect to dashboard if already logged in
         if (this.authenticationService.currentUserValue) { 
@@ -38,6 +40,10 @@ export class LoginComponent implements OnInit {
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+    }
+
+    ngAfterViewInit(){
+        handleFloatingLabels(Waves);
     }
 
     // convenience getter for easy access to form fields

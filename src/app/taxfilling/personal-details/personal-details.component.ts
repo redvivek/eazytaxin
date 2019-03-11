@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { ScriptService,AuthenticationService,ApplicationService, AlertService } from '@app/_services';
 import { environment } from '@environments/environment';
+import { handleInsideHeaderBackground,handleFloatingLabels } from '../../app.helpers';
+import * as Waves from 'node-waves';
 
 const URL = `${environment.apiUrl}/tax/uploadproofDocuments`;
 
@@ -13,7 +15,7 @@ const URL = `${environment.apiUrl}/tax/uploadproofDocuments`;
   templateUrl: './personal-details.component.html',
   styleUrls: ['./personal-details.component.css']
 })
-export class PersonalDetailsComponent implements OnInit {
+export class PersonalDetailsComponent implements OnInit,AfterViewInit {
   //Initialize all sub forms
   personalDetailsForm: FormGroup;
   addressDetailsForm: FormGroup;
@@ -60,10 +62,6 @@ export class PersonalDetailsComponent implements OnInit {
     private alertService : AlertService,
     private scriptservice : ScriptService
   ) {
-      this.scriptservice.load('waveJS','mainJS').then(data => {
-        console.log('script loaded ', data);
-      }).catch(error => console.log(error));
-      
       // redirect to login if not logged in
       if (!this.authenticationService.currentUserValue) { 
         this.router.navigate(['/login']);
@@ -197,6 +195,13 @@ export class PersonalDetailsComponent implements OnInit {
     };
     /*File Uploader with form data ends here */
   }
+
+  ngAfterViewInit(){
+    handleInsideHeaderBackground();
+    handleFloatingLabels(Waves);
+  }
+  
+  ngAfter
 
   get f() { return this.personalDetailsForm.controls; }
   get a() { return this.addressDetailsForm.controls; }

@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators,FormArray } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { ScriptService,AuthenticationService,ApplicationService, AlertService } from '@app/_services';
+import { handleInsideHeaderBackground,handleFloatingLabels } from '../../app.helpers';
+import * as Waves from 'node-waves';
 
 @Component({
   selector: 'app-deductions',
   templateUrl: './deductions.component.html',
   styleUrls: ['./deductions.component.css']
 })
-export class DeductionsComponent implements OnInit {
+export class DeductionsComponent implements OnInit,AfterViewInit {
   mainDeductionForm: FormGroup;
   otherDeductionForm: FormGroup;
   proofDocUploadForm: FormGroup;
@@ -85,10 +87,6 @@ export class DeductionsComponent implements OnInit {
     private scriptservice : ScriptService
   ) 
   {
-      this.scriptservice.load('mainJS').then(data => {
-        console.log('script loaded ', data);
-      }).catch(error => console.log(error));
-
       // redirect to login if not logged in
       if (!this.authenticationService.currentUserValue) { 
         this.router.navigate(['/login']);
@@ -167,6 +165,11 @@ export class DeductionsComponent implements OnInit {
     //this.autoFillMainDeductionForm()
 
   }
+
+  ngAfterViewInit(){
+    handleInsideHeaderBackground();
+    handleFloatingLabels(Waves);
+	}
 
   get m() { return this.mainDeductionForm.controls; }
   get o() { return this.otherDeductionForm.controls; }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -6,6 +6,8 @@ import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-u
 import { environment } from '@environments/environment';
 import { ApplicationMain} from '@app/_models';
 import { ScriptService,AlertService, AuthenticationService,ApplicationService } from '@app/_services';
+import { handleInsideHeaderBackground,handleFloatingLabels } from '../../app.helpers';
+import * as Waves from 'node-waves';
 
 const URL = `${environment.apiUrl}/tax/uploadxml`;
 
@@ -14,7 +16,7 @@ const URL = `${environment.apiUrl}/tax/uploadxml`;
   templateUrl: './tax-period.component.html',
   styleUrls: ['./tax-period.component.css']
 })
-export class TaxPeriodComponent implements OnInit {
+export class TaxPeriodComponent implements OnInit,AfterViewInit {
   taxPeriodForm: FormGroup;
   loading = false;
   submitted = false;
@@ -35,23 +37,19 @@ export class TaxPeriodComponent implements OnInit {
     private scriptservice : ScriptService
   )
   {
-    this.scriptservice.load('waveJS','mainJS').then(data => {
-        console.log('script loaded ', data);
-    }).catch(error => console.log(error));  
-    
     // redirect to login if not logged in
-      if (!this.authenticationService.currentUserValue) { 
-        this.router.navigate(['/login']);
-      }else{
-        console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
-        this.userId = this.authenticationService.currentUserValue.userid;
-      }
+    if (!this.authenticationService.currentUserValue) { 
+      this.router.navigate(['/login']);
+    }else{
+      console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
+      this.userId = this.authenticationService.currentUserValue.userid;
+    }
 
-      if(this.appservice.currentApplicationValue != null){
-          this.selAssYear = this.appservice.currentApplicationValue.taxperiod;
-      }else{
-        this.selAssYear = this.taxperiods[0]
-      }
+    if(this.appservice.currentApplicationValue != null){
+        this.selAssYear = this.appservice.currentApplicationValue.taxperiod;
+    }else{
+      this.selAssYear = this.taxperiods[0]
+    }
   }
 
   public uploader: FileUploader = new FileUploader({
@@ -112,6 +110,11 @@ export class TaxPeriodComponent implements OnInit {
     };
     /*XML File Uploader with form data ends here */
   }
+
+  ngAfterViewInit(){
+    handleInsideHeaderBackground();
+    handleFloatingLabels(Waves);
+	}
 
   // convenience getter for easy access to form fields
   get f() { return this.taxPeriodForm.controls; }
