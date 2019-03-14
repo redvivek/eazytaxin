@@ -11,6 +11,7 @@ import { AppComponent }  from './app.component';
 import { routing }        from './app.routing';
 import {BaseModule} from './base/base.module';
 import{ SharedModule } from './shared.module';
+import { WINDOW_PROVIDERS } from "./_services/window.service";
 import { TaxfillingModule } from './taxfilling/taxfilling.module';
 
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
@@ -51,6 +52,7 @@ import { BuynowComponent } from './buynow/buynow.component';
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        WINDOW_PROVIDERS 
         // provider used to create fake backend
         //fakeBackendProvider,
     ],

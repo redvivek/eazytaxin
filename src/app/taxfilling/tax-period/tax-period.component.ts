@@ -147,9 +147,10 @@ export class TaxPeriodComponent implements OnInit,AfterViewInit {
         return;
     }
 
-    this.ApplicationId  = this.appservice.currentApplicationValue.appId;
-    console.log("Current App Id "+ this.ApplicationId);
-    if(this.ApplicationId == null){
+    if(this.appservice.currentApplicationValue.appId == null || this.appservice.currentApplicationValue.appId == ""){
+        this.ApplicationId  = this.appservice.currentApplicationValue.appId;
+        console.log("Current App Id "+ this.ApplicationId);
+        
         var randomNo = "App"+this.generateAppRefNo(this.userId);
         
         console.log('Input Values :-)\n\n' + JSON.stringify(this.taxPeriodForm.value));

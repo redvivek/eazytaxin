@@ -58,6 +58,8 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
   userId : number;
   ApplicationId : number;
   fileName = '';
+  nextButtonDisable = false;
+  previousButtonDisable = false;
 
   //Read localstorage in progress application values
   localStoreg = JSON.parse(localStorage.getItem("currentUserApp"));
@@ -79,7 +81,12 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
       //console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
       console.log("Current App value "+ this.appService.currentApplicationValue);
       this.userId         = this.authenticationService.currentUserValue.userid;
-      this.ApplicationId  = this.appService.currentApplicationValue.appId;
+      if(this.appService.currentApplicationValue != null){
+        this.ApplicationId  = this.appService.currentApplicationValue.appId;
+      }else{
+        this.nextButtonDisable = true;
+        this.previousButtonDisable = true;
+      }
       console.log("Current App Id "+ this.ApplicationId);
     }
   }

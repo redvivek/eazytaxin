@@ -1,43 +1,44 @@
 /*
- * Inspinia js helpers:
+ * js helpers:
  *
- * correctHeight() - fix the height of main wrapper
- * detectBody() - detect windows size
- * smoothlyMenu() - add smooth fade in/out on navigation show/hide
+ * handleHeaderBackground() - make header background transparent
+ * handleInsideHeaderBackground() - apply header background
+ * handleSmoothScroll() - add smooth scroll on menu items click on home page
+ * handleFloatingLabels() - handle the wave.js floating labels
  *
  */
 declare var $:any;
 
 export function handleHeaderBackground(){
-    console.log("Home Header");
+    //console.log("Home Header Top Init");
     $("body").removeClass("scrolled");
     $("#header").addClass("no-bg");
-    
 }
 
 export function handleInsideHeaderBackground(){
-    console.log("Insider Header");
+    //console.log("Insider Header");
     $("body").addClass("scrolled");
     $("#header").removeClass("no-bg");
 }
 
-export function handleSmoothScroll(){
-    // Cache selectors
-    var lastId,
-    topMenu = $("#header"),
-    topMenuHeight = topMenu.outerHeight()+15,
-    // All list items
-    menuItems = topMenu.find("a"),
-    // Anchors corresponding to menu items
-    scrollItems = menuItems.map(function(){
-        var item = $(this).attr("href");
+export function makeSelectedMenuActiveProp(topscroll,offsettop){
+  // Cache selectors
+  var lastId,
+  topMenu = $("#header"),
+  topMenuHeight = topMenu.outerHeight()+15,
+  // All list items
+  menuItems = topMenu.find("a"),
+  // Anchors corresponding to menu items
+  scrollItems = menuItems.map(function(){
+      var item = $(this).attr("href");
+      if(item != undefined){
         if (item.length) { return item; }
-    });
+      }
+  });
 
-
-    // Bind click handler to menu items
-    // so we can get a fancy scroll animation
-    menuItems.click(function(e){
+  // Bind click handler to menu items
+  // so we can get a fancy scroll animation
+  menuItems.click(function(e){
     //alert($(this).attr("href").offset());
     var href = $(this).attr("href"),
         offsetTop = href === "#" ? 0 : $(href).offset().top - topMenuHeight - 41;
@@ -45,32 +46,30 @@ export function handleSmoothScroll(){
         scrollTop: offsetTop
     }, 300);
     e.preventDefault();
-    });
+  });
 
-    // Bind to scroll
-    $(window).scroll(function(){
-    // Get container scroll position
-    var fromTop = $(this).scrollTop()+topMenuHeight;
+  // Get container scroll position
+  var fromTop = topscroll+topMenuHeight;
     
-    // Get id of current scroll item
-    var cur = scrollItems.map(function(){
-        var curTop = ($(this).offset()).top;
-        if ($(this).offset().top < fromTop) 
-        return this;
-    });
-    // Get the id of the current element
-    cur = cur[cur.length-1];
-    var id = cur && cur.length ? cur[0].id : "";
-    
-    if (lastId !== id) {
-        lastId = id;
-        // Set/remove active class
-        menuItems
-        .parent().removeClass("active")
-        .end().filter("[href='#"+id+"']").parent().addClass("active");
-    }                   
-    });
+  // Get id of current scroll item
+  var cur = scrollItems.map(function(){
+      //console.log("From TOP "+fromTop);
+      if (offsettop < fromTop) 
+      return this;
+  });
+  // Get the id of the current element
+  cur = cur[cur.length-1];
+  var id = cur && cur.length ? cur[0].id : "";
+  
+  if (lastId !== id) {
+      lastId = id;
+      // Set/remove active class
+      menuItems
+      .parent().removeClass("active")
+      .end().filter("[href='#"+id+"']").parent().addClass("active");
+  }
 }
+
 export function handleFloatingLabels(Waves){
     Waves.attach('.waves-effect', ['waves-button', 'waves-float']);
     Waves.init();

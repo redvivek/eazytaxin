@@ -24,7 +24,8 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
   
   loading = false;
   immAssestsForm = true;
-  disable = true;
+  nextButtonDisable = false;
+  previousButtonDisable = false;
   //flag to check submitted event on each subform
   perSubmitted = false;
   addSubmitted = false;
@@ -70,12 +71,12 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
         //console.log("Current App value "+ this.appService.currentApplicationValue);
         this.userId         = this.authenticationService.currentUserValue.userid;
         
-        if(this.appService.currentApplicationValue.appId != ""){
+        if(this.appService.currentApplicationValue != null){
           this.ApplicationId  = this.appService.currentApplicationValue.appId;
-          this.disable = false;
-      }else{
-          this.ApplicationId = null;
-      }
+        }else{
+          this.nextButtonDisable = true;
+          this.previousButtonDisable = true;
+        }
       console.log("Current App Id "+ this.ApplicationId);
       }
   }

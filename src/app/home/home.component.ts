@@ -1,7 +1,9 @@
-﻿import { Component, OnInit ,ViewChild,ElementRef ,AfterContentInit, AfterViewInit} from '@angular/core';
+﻿import { Component,HostListener,Inject, OnInit ,ViewChild,ElementRef ,AfterContentInit, AfterViewInit} from '@angular/core';
 import { Router } from '@angular/router';
+import { DOCUMENT } from '@angular/platform-browser';
 import { ScriptService,AlertService, AuthenticationService,ApplicationService } from '@app/_services';
-import { handleHeaderBackground,handleSmoothScroll } from '../app.helpers';
+import { handleHeaderBackground,handleInsideHeaderBackground,makeSelectedMenuActiveProp } from '../app.helpers';
+import { WINDOW } from "@app/_services/window.service";
 //import * as $ from 'jquery';
 declare var $ : any;
 @Component({ templateUrl: 'home.component.html' })
@@ -9,17 +11,29 @@ declare var $ : any;
 export class HomeComponent implements OnInit,AfterContentInit,AfterViewInit{
 	@ViewChild('carousel') el:ElementRef;
 	constructor(
-		private router: Router
+		private router: Router,
+		@Inject(DOCUMENT) private document: Document,
+    @Inject(WINDOW) private window
 	) {	}
 
+	@HostListener("window:scroll", [])
+	onWindowScroll() {
+    let number = this.window.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0;
+		let topoffset = this.window.offsettop || this.document.documentElement.offsetTop || this.document.body.offsetTop || 0 ;
+		if (number > 500) {
+      handleInsideHeaderBackground();
+    } else {
+			handleHeaderBackground();
+		}
+		makeSelectedMenuActiveProp(number,topoffset);
+  }
+
   ngOnInit() {
-		
+		handleHeaderBackground();
 	}
 	
-	ngAfterViewInit(){
-		handleHeaderBackground();
-		handleSmoothScroll();
-	}
+	ngAfterViewInit(){}
+
 	ngAfterContentInit(): void {
     //console.log(this.el);
     $(this.el.nativeElement).owlCarousel({

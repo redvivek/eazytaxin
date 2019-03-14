@@ -15,7 +15,8 @@ import * as Waves from 'node-waves';
 })
 export class BasicInformationComponent implements OnInit,AfterViewInit {
   basicInfoForm: FormGroup;
-  disable = true;
+  nextButtonDisable = false;
+  previousButtonDisable = false;
   loading = false;
   submitted = false;
   userId: number;
@@ -49,11 +50,11 @@ export class BasicInformationComponent implements OnInit,AfterViewInit {
             //console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
             console.log("Current App value "+ this.appService.currentApplicationValue);
             this.userId         = this.authenticationService.currentUserValue.userid;
-            if(this.appService.currentApplicationValue.appId != ""){
+            if(this.appService.currentApplicationValue != null){
                 this.ApplicationId  = this.appService.currentApplicationValue.appId;
-                this.disable = false;
             }else{
-                this.ApplicationId = null;
+            this.nextButtonDisable = true;
+            this.previousButtonDisable = true;
             }
             console.log("Current App Id "+ this.ApplicationId);
         }
