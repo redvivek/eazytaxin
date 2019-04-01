@@ -221,6 +221,7 @@ a:hover{text-decoration:none;}
 .wizard-content .wizard > .steps > ul > li:first-child a::before,
 .wizard-content .wizard > .steps > ul > li:last-child a::after {content:none}
 .wizard-content .wizard > .steps > ul > li a.active{cursor:default;}
+.stickyFooterForm{background-color:#FFF; top:66px;}
 .tab-wizard .form-actions .right .btn{margin-left:5px;}
 .tab-wizard-content .tab-pane{padding:20px 0;}
 .tab-wizard-content .form-actions .right .btn{margin-left:3px;}
@@ -429,9 +430,12 @@ a:hover{text-decoration:none;}
 
 /* Home Page */
 .homepage .mainBanner{min-height:620px; height:100vh;}
-.homepage .mainBanner .captions{left:5%; z-index:1; color:#FFF; top:50%; transform:translateY(-50%);}
+.homepage .mainBanner .captions{left:5%; z-index:1; color:#FFF; top:50%; transform:translateY(-50%); max-width:700px;}
 .homepage .mainBanner .captions h3{font-size:101px; font-weight:500; margin-bottom:0;}
+.homepage .mainBanner .captions h3.md{font-size:80px;}
 .homepage .mainBanner .captions h5{font-size:44px; font-weight:100; margin-bottom:25px;}
+.homepage .mainBanner .captions h5.md{font-size:35px;}
+.homepage .mainBanner .captions .readMore{color:#FFF; border-bottom:1px solid #FFF;}
 .homepage .mainBanner .captions .btn{font-size:16px; padding:17px 20px; min-width:145px;}
 
 .homepage .mainBanner .owl-carousel,

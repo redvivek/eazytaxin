@@ -18,7 +18,7 @@
                 <form class="clearfix" id="taxPeriodForm" [formGroup]="taxPeriodForm" (ngSubmit)="onSubmit()">
                   
                   <div class="row">
-                    <div class="col-4">
+                    <div class="col-md-4 col-sm-10">
                       <div class="form-group floating-label customDropdown">
                         <select name="taxperiod" class="form-control" id="taxperiod" formControlName="taxperiod" [ngClass]="{ 'is-invalid': submitted && f.taxperiod.errors}">
                             <option [value]="taxperiod" *ngFor="let taxperiod of taxperiods" [selected]="taxperiod == selAssYear">{{taxperiod}}</option>
