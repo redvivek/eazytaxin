@@ -1,5 +1,5 @@
 @import url(simple-line-icons.css);
-@import "~font-awesome/css/font-awesome.css";
+@import "fontawesome.css";
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
 @import "~owl.carousel/dist/assets/owl.carousel.min";
 
@@ -66,7 +66,7 @@ a:hover{text-decoration:none;}
 
 /* Header */
 #header{}
-#header .headerInner{background-color:#FFF; box-shadow:-1px 3px 10px rgba(0,0,0,0.1); position: fixed; z-index:50;}
+#header .headerInner{background-color:#FFF; box-shadow:-1px 3px 10px rgba(0,0,0,0.1); position: fixed; transition:all ease .3s; z-index:50;}
 #header a{color:#2e2e2c;}
 #header .top-navbar{min-height:50px; padding:0;}
 #header .top-navbar .profile-pic img{width:50px; border-radius:100%;}
@@ -76,6 +76,7 @@ a:hover{text-decoration:none;}
 #header .top-navbar .navbar-nav > .nav-item > .user-dropdown{padding-top:7px; padding-left:15px;}
 #header .mainMenutoggler{padding:22px; width:70px; height:66px;}
 #header .navbar-brand{position:relative;}
+#header .navbar-brand::before{content:""; position:absolute; left:-50px; top:-160px; background:#FFF; border-radius:50%; width:0; height:0; display:block; transform: rotate(11deg); transition:all ease .5s; z-index: -1;}
 
 
 .mainMenuList{background-color:#f2f2f2; box-shadow:5px 5px 5px rgba(0,0,0,.2); top:65px; z-index:49; transition:.5s; transform:matrix(1, 0, 0, 1, 0, -500);}
@@ -92,8 +93,8 @@ a:hover{text-decoration:none;}
 #header.no-bg a{color:#FFF;}
 #header.no-bg .dropdown-menu a{color:#2e2e2c;}
 #header.no-bg .dropdown-toggle::after{color:#FFF;}
-#header.no-bg .navbar-brand img{width:220px; height:34px;}
-#header.no-bg .navbar-brand::before{content:""; position:absolute; left:-50px; top:-160px; background:#FFF; border-radius:50%; width:396px; height:256px; display:block; transform: rotate(11deg); z-index: -1;}
+#header.no-bg .navbar-brand img{width:220px; height:34px; transition:all ease .3s; }
+#header.no-bg .navbar-brand::before{ width:396px; height:256px; transition:all ease .3s; }
 
 
 .card {border:none; border-radius:0;}
@@ -221,11 +222,17 @@ a:hover{text-decoration:none;}
 .wizard-content .wizard > .steps > ul > li:first-child a::before,
 .wizard-content .wizard > .steps > ul > li:last-child a::after {content:none}
 .wizard-content .wizard > .steps > ul > li a.active{cursor:default;}
-.stickyFooterForm{background-color:#FFF; top:66px;}
+
 .tab-wizard .form-actions .right .btn{margin-left:5px;}
 .tab-wizard-content .tab-pane{padding:20px 0;}
-.tab-wizard-content .form-actions .right .btn{margin-left:3px;}
-.tab-wizard-content .form-actions .btn i{font-size:14px;}
+
+
+.stickyFooterForm.affix{background-color:#FFF; position:fixed; padding:10px 75px 10px 75px; bottom:0; left:250px; right:0; box-shadow:10px 0 10px 5px rgba(0,0,0,0.1);}
+.stickyFooterForm .btn i{font-size:14px;}
+.stickyFooterForm .right .btn{margin-left:3px;}
+
+
+
 
 .table td .btn{padding: 2px 8px; font-size: 12px; margin: 0 2px;}
 
@@ -480,6 +487,8 @@ a:hover{text-decoration:none;}
 .homepage .testimonialSection .testimonial .title small{font-size:12px; font-weight:100;}
 
 #footer{background-color:#333; color:#FFF; padding:30px;}
+#footer.footer-inside{padding:10px 10px 10px 262px;}
+#footer.footer-inside .footer-logo{height:14px;}
 
 .social{list-style:none;}
 .social li {margin:0 10px; display:inline-block; vertical-align:top;}

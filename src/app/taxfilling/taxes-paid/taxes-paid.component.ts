@@ -1,5 +1,5 @@
 import { Component, OnInit,AfterViewInit } from '@angular/core';
-import { handleInsideHeaderBackground,handleFloatingLabels } from '../../app.helpers';
+import { handleInsideHeaderBackground,handleFloatingLabels,formSticky } from '../../app.helpers';
 import * as Waves from 'node-waves';
 
 @Component({
@@ -17,6 +17,7 @@ export class TaxesPaidComponent implements OnInit,AfterViewInit {
   ngAfterViewInit(){
     handleInsideHeaderBackground();
     handleFloatingLabels(Waves);
+    formSticky();
 	}
 
 }

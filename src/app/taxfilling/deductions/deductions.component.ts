@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators,FormArray } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { ScriptService,AuthenticationService,ApplicationService, AlertService } from '@app/_services';
-import { handleInsideHeaderBackground,handleFloatingLabels } from '../../app.helpers';
+import { handleInsideHeaderBackground,handleFloatingLabels,formSticky } from '../../app.helpers';
 import * as Waves from 'node-waves';
 
 @Component({
@@ -169,6 +169,7 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
   ngAfterViewInit(){
     handleInsideHeaderBackground();
     handleFloatingLabels(Waves);
+    formSticky();
 	}
 
   get m() { return this.mainDeductionForm.controls; }

@@ -92,6 +92,66 @@ export function handleFloatingLabels(Waves){
     }
     });
 }
+
+
+export function formSticky(){
+  //SCRIPT FOR THE STICKY BUTTONS AT THE BOTTOM
+  $(document).ready(function () {
+      var buttonDiv = $('.stickyFooterForm');
+      if (!buttonDiv.length) return;
+
+      var width = $(window).width();
+      var divHeight = buttonDiv.outerHeight();
+      var isFakeDivAppended = 1;
+      var isStickyFooterStuck;
+
+        console.log(buttonDiv);
+        console.log(width);
+
+      function createDeleteFakeDiv(isStickyFooterStuck) {
+          if ((isStickyFooterStuck === 1) && (isFakeDivAppended === 1)) {
+              $("<div class='fake span-24'></div>").insertAfter(".affix");
+              $('.fake').css({ 'height': divHeight, 'display': 'block' });
+              isFakeDivAppended = 0;
+          } else if (isStickyFooterStuck === 0) {
+              $('.fake').remove();
+              isFakeDivAppended = 1;
+          }
+      }
+
+      function attachDetachStickyFooter() {
+          var topOfElement = $("#footer").offset().top - 66; // 20 is to consider the  margin-top on the footer
+          var bottomOfScreen = $(window).scrollTop() + window.innerHeight;
+          if (bottomOfScreen >= topOfElement) {
+              isStickyFooterStuck = 0;
+              createDeleteFakeDiv(isStickyFooterStuck);
+              buttonDiv.removeClass('affix');
+          }
+          else {
+              buttonDiv.addClass('affix');
+              buttonDiv.css({ "display": "block" });
+              isStickyFooterStuck = 1;
+              createDeleteFakeDiv(isStickyFooterStuck);
+          }
+      }
+
+              attachDetachStickyFooter();
+
+              $(document).on('change', '.investmentSection', attachDetachStickyFooter);
+
+              $(window).scroll(function () {
+                  width = $(window).width();
+                  if (width > 640) {
+                      attachDetachStickyFooter();
+                  }
+                  else {
+                      buttonDiv.removeClass('affix');
+                      isStickyFooterStuck = 0;
+                      createDeleteFakeDiv(isStickyFooterStuck);
+                  }
+              });
+  });
+}
 /* export function correctHeight() {
 
   var pageWrapper = jQuery('#page-wrapper');

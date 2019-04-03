@@ -5,7 +5,7 @@ import { first } from 'rxjs/operators';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { environment } from '@environments/environment';
 import { ScriptService,AuthenticationService,ApplicationService, AlertService } from '@app/_services';
-import { handleInsideHeaderBackground,handleFloatingLabels } from '../../app.helpers';
+import { handleInsideHeaderBackground,handleFloatingLabels,formSticky } from '../../app.helpers';
 import * as Waves from 'node-waves';
 
 const URL = `${environment.apiUrl}/tax/uploadproofDocuments`;
@@ -270,6 +270,7 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
   ngAfterViewInit(){
     handleInsideHeaderBackground();
     handleFloatingLabels(Waves);
+    formSticky();
 	}
 
   get s() { return this.salaryIncomeForm.controls; }

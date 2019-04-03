@@ -5,7 +5,7 @@ import { first } from 'rxjs/operators';
 
 import {Basicinfo} from '@app/_models';
 import { ScriptService,AuthenticationService,ApplicationService, AlertService } from '@app/_services';
-import { handleInsideHeaderBackground,handleFloatingLabels } from '../../app.helpers';
+import { handleInsideHeaderBackground,handleFloatingLabels,formSticky } from '../../app.helpers';
 import * as Waves from 'node-waves';
 
 @Component({
@@ -83,6 +83,7 @@ export class BasicInformationComponent implements OnInit,AfterViewInit {
     ngAfterViewInit(){
         handleInsideHeaderBackground();
         handleFloatingLabels(Waves);
+        formSticky();
     }
 
   // convenience getter for easy access to form fields

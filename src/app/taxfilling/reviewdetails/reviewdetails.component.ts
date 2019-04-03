@@ -1,6 +1,6 @@
 import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { ScriptService,AlertService, AuthenticationService,ApplicationService } from '@app/_services';
-import { handleInsideHeaderBackground,handleFloatingLabels } from '../../app.helpers';
+import { handleInsideHeaderBackground,handleFloatingLabels,formSticky } from '../../app.helpers';
 import * as Waves from 'node-waves';
 
 @Component({
@@ -24,6 +24,7 @@ export class ReviewdetailsComponent implements OnInit,AfterViewInit {
 
   ngAfterViewInit(){
     handleInsideHeaderBackground();
+    formSticky();
 	}
 
 }
