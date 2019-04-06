@@ -196,4 +196,8 @@ export class ApplicationService {
         };
         return this.http.post(`${environment.apiUrl}/tax/fetchDeductionsDetails`, jsonInput);
     }
+
+    saveTaxexPaidDetails(taxesPaidParam){
+        return this.http.post(`${environment.apiUrl}/tax/saveTaxpaidInfo`, taxesPaidParam);
+    }
 }

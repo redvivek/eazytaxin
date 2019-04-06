@@ -2,9 +2,13 @@ import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators,FormArray } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { environment } from '@environments/environment';
 import { ScriptService,AuthenticationService,ApplicationService, AlertService } from '@app/_services';
 import { handleInsideHeaderBackground,handleFloatingLabels,formSticky } from '../../app.helpers';
 import * as Waves from 'node-waves';
+
+const URL = `${environment.apiUrl}/tax/uploadproofDocuments`;
 
 @Component({
   selector: 'app-deductions',
@@ -105,6 +109,11 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
       }
   }
 
+  public uploader: FileUploader = new FileUploader({
+    url: URL, 
+    itemAlias: 'uploadDeductionProofs'
+  });
+
   ngOnInit() {
     this.mainDeductionForm = this.formBuilder.group({
       itemRows: this.formBuilder.array([this.initItemRows()]),
@@ -159,10 +168,34 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
     });
 
     this.proofDocUploadForm = this.formBuilder.group({
-      itemUploadDocRows: this.formBuilder.array([])
+      //itemUploadDocRows: this.formBuilder.array([]),
+      inputGroupFile01: [''],
+      inputGroupFile01Pwd: [''],
+      investmentProof: ['']
     });
 
     //this.autoFillMainDeductionForm()
+
+    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+
+    this.uploader.onBuildItemForm = (fileItem: any, form: any) => { 
+      form.append('UserId', this.userId);
+      form.append('ApplicationId', this.ApplicationId);
+      form.append('DocCategory', 'InvestmentProofs');
+    };
+
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+          console.log('ImageUpload:uploaded:', item, status, response);
+          console.log('Response '+ response); 
+          var res = JSON.parse(response);
+          //alert('File uploaded successfully');
+          if(res['statusCode'] == 200){                 
+            this.alertService.success('File Uploaded successfully');
+            this.proofDocUploadForm.get('investmentProof').setValue('1');
+          }else{
+            this.alertService.error('File Uploading Failed');
+          }
+    };
 
   }
 
@@ -209,8 +242,7 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
       //console.log("Doc Upload Array "+this.uploadFieldsArr.length);
       const _fb = this.formBuilder.group({
         inputGroupFile01: ['',Validators.required],
-        inputGroupFile01Pwd: [''],
-        investmentProof: ['']
+        inputGroupFile01Pwd: ['']
       });
       ///this.uploadDocformArr.push(_fb);
     //}
@@ -492,7 +524,7 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
   autoFillDocUploadForm(){
     //this.proofDocUploadForm.get('uploadHouseIncomeProofFlag').setValue("1");
     // fetch deduction details to create proof doc upload list
-    this.appService.fetchDeductionDetails(this.userId,this.ApplicationId)
+    /* this.appService.fetchDeductionDetails(this.userId,this.ApplicationId)
     .pipe(first())
     .subscribe(
       data => {
@@ -502,8 +534,8 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
                     if(data['ResultData'].length > 0){
                       for(var i=0;i < data['ResultData'].length;i++){
                         console.log("Response" + JSON.stringify(data['ResultData'][i]));
-                        this.uploadFieldsArr.push(data['ResultData'][i]);
-                        this.addNewDocRow();
+                        //this.uploadFieldsArr.push(data['ResultData'][i]);
+                        //this.addNewDocRow();
                       }
                     }
                   }                
@@ -512,7 +544,7 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
       error => {
         this.alertService.error('Application - Not deduction details entered yet '+error);
         this.loading = false;
-      });
+      }); */
   }
 
   //Function Called on next button click
@@ -900,59 +932,16 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
               this.loading = false;
           });
       break;
-      /*case "houseIncomeDetails":
-        houseIncomeInputParam = {
-          'appId':this.ApplicationId,
-          'userId':this.userId,
-          "uploadDocFlag":this.h.uploadHouseIncomeProofFlag,
-          "flatno":this.h.inpSelfOccPropFlatNo,
-          "premises":this.h.inpSelfOccPropPremise,
-          "street":this.h.inpSelfOccPropStreet,
-          "area":this.h.inpSelfOccPropArea,
-          "city":this.h.inpSelfOccPropCity,
-          "pincode":this.h.inpSelfOccPropPincode,
-          "country":this.h.inpSelfOccPropCountry,
-          "state":this.h.inpSelfOccPropState,
 
-          "proploanflag":this.h.inpSelfOccPropLoanFlag,
-          "propinterestpaid":this.h.inpSelfOccPropInterset,
-
-          "coflag":this.h.inpCOFlag,
-          "selfshare":this.h.inpSelfShare,
-          "coname":this.h.inpCOName,
-          "copan":this.h.inpCOPan,
-          "coshare":this.h.inpCOShare
-        };
-      this.submittedData.push({"bankInfoData":houseIncomeInputParam});
-      // start storing application data in database
-      this.appService.saveHouseIncomeDetails(houseIncomeInputParam)
-      .pipe(first())
-      .subscribe(
-        data => {
-                console.log("Response" + JSON.stringify(data));
-                //successfully inserted
-                if(data['statusCode'] == 200){                  
-                    this.alertService.success('Application - House Property details saved successfully');
-                    this.localStoreg['applicationStage'] = 11;
-                    //console.log("LocalStore" + JSON.stringify(this.localStoreg));
-                    localStorage.removeItem("currentUserApp");
-                    localStorage.setItem("currentUserApp", JSON.stringify(this.localStoreg));
-                    this.loading = false;
-                    this.step1 = false;
-                    this.step2 = false;
-                    this.step3 = false;
-                    this.step4 = true;
-                    this.step5 = false;
-
-                    this.autoFillRentalIncomeForm();
-                }
-            },
-        error => {
-            this.alertService.error('Application - House property detailes save request failed '+error );
-            this.loading = false;
-        });
+      case "docUploadDetails":
+        this.localStoreg['applicationStage'] = 17;
+        //console.log("LocalStore" + JSON.stringify(this.localStoreg));
+        localStorage.removeItem("currentUserApp");
+        localStorage.setItem("currentUserApp", JSON.stringify(this.localStoreg));
+        this.loading = false;
+        this.router.navigate(['taxfilling/taxpaid']);
       break;
-      */
+      
       default:
         this.submittedData = [];
     }

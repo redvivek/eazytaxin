@@ -16,56 +16,48 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(10),
       allowNull: false
     },
-    AS_UploadFlag: {
+    doc26AS_UploadFlag: {
       type: DataTypes.INTEGER(1),
       allowNull: false,
       defaultValue: '0'
     },
-    BSR_Code1: {
+    BSR_Code: {
       type: DataTypes.STRING(20),
       allowNull: true
     },
-    PaymentDate1: {
-      type: DataTypes.DATEONLY,
+    PaymentDate: {
+      type: DataTypes.STRING(10),
       allowNull: true
     },
-    ChallanNo1: {
+    ChallanNo: {
       type: DataTypes.STRING(20),
       allowNull: true
     },
-    TaxPaid1: {
+    TaxPaid: {
       type: DataTypes.FLOAT,
       allowNull: true
     },
-    BSR_Code2: {
+    taxDeductorName: {
+      type: DataTypes.STRING(150),
+      allowNull: true
+    },
+    taxDeductorTan: {
+      type: DataTypes.STRING(10),
+      allowNull: true
+    },
+    taxReceiptNo: {
       type: DataTypes.STRING(20),
       allowNull: true
     },
-    PaymentDate2: {
-      type: DataTypes.DATEONLY,
+    taxPaidYear: {
+      type: DataTypes.STRING(10),
       allowNull: true
     },
-    ChallanNo2: {
-      type: DataTypes.STRING(20),
-      allowNull: true
-    },
-    TaxPaid2: {
+    taxPaidForAmount: {
       type: DataTypes.FLOAT,
       allowNull: true
     },
-    BSR_Code3: {
-      type: DataTypes.STRING(20),
-      allowNull: true
-    },
-    PaymentDate3: {
-      type: DataTypes.DATEONLY,
-      allowNull: true
-    },
-    ChallanNo3: {
-      type: DataTypes.STRING(20),
-      allowNull: true
-    },
-    TaxPaid3: {
+    taxPaidAmount: {
       type: DataTypes.FLOAT,
       allowNull: true
     },
@@ -73,6 +65,15 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.ENUM('Yes','No'),
       allowNull: true,
       defaultValue: 'No'
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
     }
   }, {
     tableName: 'et_challandetails'

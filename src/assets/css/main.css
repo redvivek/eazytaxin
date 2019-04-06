@@ -1,7 +1,7 @@
 @import url(simple-line-icons.css);
-@import "fontawesome.css";
+@import url(fontawesome.css);
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
-@import "~owl.carousel/dist/assets/owl.carousel.min";
+@import '~owl.carousel/dist/assets/owl.carousel.min';
 
 body{font-family: 'Roboto', sans-serif; font-size:14px; line-height:1.4;}
 html, body{height:100%;}

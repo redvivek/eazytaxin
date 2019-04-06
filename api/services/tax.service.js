@@ -27,6 +27,7 @@ const PropCoOwnerIncome = db.PropCoOwnerIncome;
 const CapitalGainsIncome = db.CapitalGainsIncome;
 const Deductions = db.Deductions;
 const DocumentUpload = db.DocumentUpload; 
+const ChallanDetails = db.ChallanDetails;
 
 const sequelize = db.sequelize;
 
@@ -137,7 +138,7 @@ exports.uploadproofDocuments = (req,res)=>{
             var userid      =   req.body.UserId;
             var category    =   req.body.DocCategory;
             var file_ext    =   file.originalname.split('.');
-            cb(null, userid + '_'+category+ "." +file_ext[1])
+            cb(null, userid+"_"+category+"_"+file_ext[0]+"." +file_ext[1])
         }
     });
     var upload = multer({
@@ -159,7 +160,7 @@ exports.uploadproofDocuments = (req,res)=>{
                 console.log("File item "+ JSON.stringify(item));
                 var filename = item.filename;
                 var filepath = item.path;
-                DocumentUpload.findOne(
+                /* DocumentUpload.findOne(
                     { where: {UserId:userid,ApplicationId: appid,DocumentCategory:docCategory} }
                 )
                 .then(function (resultData) {
@@ -181,7 +182,7 @@ exports.uploadproofDocuments = (req,res)=>{
                                 res.status(400).send(err);
                             });
                         });
-                    } else {
+                    } else { */
                         //res.status(200);
                         //Save to et_documentupload table */
                         sequelize.query("INSERT INTO `et_documentupload`(UserId,ApplicationId,DocumentCategory,DocumentName,FilePassword,DocumentPath,createdAt) VALUES (?,?,?,?,?,?,?)",{
@@ -195,12 +196,12 @@ exports.uploadproofDocuments = (req,res)=>{
                             console.log("Error "+err);
                             res.status(400).send(err);
                         });
-                    }
+                    /* }
                 })
                 .catch(function (err) {
                     console.log("Error "+err);
                     res.status(400).send(err);
-                });
+                }); */
             });
         }
     });
@@ -1060,7 +1061,7 @@ exports.saveSalIncomeInfoByAppId = (req,res) => {
 		res.status(400).send(err);
 	});
 
-};
+}
 
 function saveSalaryDetailsFromXML(userid,appid,salDetailInput){
     var deferred = Q.defer();
@@ -1240,12 +1241,12 @@ exports.saveHouseIncomeInfoByAppId = (req,res) => {
     let country = req.body.country;
     let state = req.body.state;
     let proploanflag = req.body.proploanflag;
-    let propinterestpaid = req.body.propinterestpaid;
+    let propinterestpaid = req.body.propinterestpaid!= "" ? parseFloat(req.body.propinterestpaid) : 0.00;
     let coflag = req.body.coflag;
-    let selfshare = req.body.selfshare;
+    let selfshare = req.body.selfshare!= "" ? parseFloat(req.body.selfshare) : 0;
     let coname = req.body.coname;
     let copan = req.body.copan;
-    let coshare = req.body.coshare;
+    let coshare = req.body.coshare!= "" ? parseFloat(req.body.coshare) : 0;
 
     PropertyIncome.findOne(
 		{ where: {UserId:userid,ApplicationId: appid, PropertyType:propType} }
@@ -1331,7 +1332,7 @@ function insertHousePropAddress(appid,userid,propertyId,propType,flatno,premises
             }).then(result => {			
                 console.log("Result AppId  "+result[0]);
                 //insert coowner details */
-                insertCoownerDetails(appid,userid,propertyId,coname,propType,copan,coshare,stage,res);
+                insertCoownerDetails(appid,userid,propertyId,propType,coname,copan,coshare,stage,res);
             })
             .catch(function (err) {
                 console.log("Error "+err);
@@ -1408,20 +1409,20 @@ exports.saveRentalIncomeInfoByAppId = (req,res) => {
     let country = req.body.country;
     let state = req.body.state;
     
-    let rentAmountRcvd = req.body.rentAmountRcvd;
-    let rentHouseTaxPaid = req.body.rentHouseTaxPaid;
+    let rentAmountRcvd = req.body.rentAmountRcvd!= "" ? parseFloat(req.body.rentAmountRcvd) : 0.00;
+    let rentHouseTaxPaid = req.body.rentHouseTaxPaid!= "" ? parseFloat(req.body.rentHouseTaxPaid) : 0.00;
     let rentalTenantNm = req.body.rentalTenantNm;
     let rentalTenantPan = req.body.rentalTenantPan;
     
     let rentalPropLoanFlag = req.body.rentalPropLoanFlag;
-    let rentalpropInterestPaid = req.body.rentalpropInterestPaid;
+    let rentalpropInterestPaid = req.body.rentalpropInterestPaid!= "" ? parseFloat(req.body.rentalpropInterestPaid) : 0.00;
 
     let coflag = req.body.coflag;
-    let selfshare = req.body.selfshare;
-    let unRealizedRent = req.body.unRealizedRent;
+    let selfshare = req.body.selfshare!= "" ? parseFloat(req.body.selfshare) : 0;
+    let unRealizedRent = req.body.unRealizedRent!= "" ? parseFloat(req.body.unRealizedRent) : 0.00;
     let coname = req.body.coname;
     let copan = req.body.copan;
-    let coshare = req.body.coshare;
+    let coshare = req.body.coshare!= "" ? parseFloat(req.body.coshare) : 0;
 
     PropertyIncome.findOne(
 		{ where: {UserId:userid,ApplicationId: appid, PropertyType:propType} }
@@ -1683,11 +1684,69 @@ DonDedLimit,DoneeQualPer,DonAddress,DoneeCity,DoneeState,DonPincode,DonCountry,R
     });
 }
 
-function saveTaxPaidDetailsFromXML(){
-    var deferred = Q.defer();
+exports.saveTaxPaidInfoByAppId = (req,res)=>{
+    console.log("Request param "+ JSON.stringify(req.body));
+    let appid = req.body.appId;
+    let userid = req.body.userId;
+    let doc26ASUploadFlag = req.body.doc26ASUploadFlag;
+    let inpBSRCode = req.body.inpBSRCode;
+    let inpChallanPaymentDate = req.body.inpChallanPaymentDate;
+    let inpChallanNumber = req.body.inpChallanNumber;
+    let inpChallanAmount = req.body.inpChallanAmount!= "" ? parseFloat(req.body.inpChallanAmount) : 0.00;
+    let inpTaxDedName = req.body.inpTaxDedName;
+    let inpTaxDedTAN =  req.body.inpTaxDedTAN;
+    let inpTaxReceiptNumber =  req.body.inpTaxReceiptNumber;
+    let inpPaidYear = req.body.inpPaidYear;
+    let inpTaxForAmt =  req.body.inpTaxForAmt!= "" ? parseFloat(req.body.inpTaxForAmt) : 0.00;
+    let inpTaxPaidAmt =  req.body.inpTaxPaidAmt!= "" ? parseFloat(req.body.inpTaxPaidAmt) : 0.00;
 
-    return deferred.promise;
+    ChallanDetails.findOne(
+		{ where: {UserId:userid,ApplicationId: appid} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Exisitng Challan details  "+JSON.stringify(resultData));
+            ChallanDetails.destroy({
+                where: { ChallanDetailsId: resultData.ChallanDetailsId}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + resultData.ChallanDetailsId);
+                sequelize.query("INSERT INTO `et_challandetails`(ApplicationId,UserId,doc26AS_UploadFlag,BSR_Code,PaymentDate,ChallanNo,TaxPaid,taxDeductorName,taxDeductorTan,taxReceiptNo,taxPaidYear,taxPaidForAmount,taxPaidAmount,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,doc26ASUploadFlag,inpBSRCode,inpChallanPaymentDate,inpChallanNumber,inpChallanAmount,inpTaxDedName,inpTaxDedTAN,inpTaxReceiptNumber,inpPaidYear,inpTaxForAmt,inpTaxPaidAmt,'Yes'],
+                    type: sequelize.QueryTypes.INSERT 
+                }).then(result => {		
+                    console.log("Result AppId  "+result[0]);
+                    //update flags to et_income_salary table */
+                    updateApplicationMain(appid,userid,18);
 
+                    res.json({"statusCode": 200,"Message": "Successful Request"});
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    res.status(400).send(err);
+                });
+            });
+        } else {
+			//res.status(200);
+			//Save to et_challandetails table */
+			sequelize.query("INSERT INTO `et_challandetails`(ApplicationId,UserId,doc26AS_UploadFlag,BSR_Code,PaymentDate,ChallanNo,TaxPaid,taxDeductorName,taxDeductorTan,taxReceiptNo,taxPaidYear,taxPaidForAmount,taxPaidAmount,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,doc26ASUploadFlag,inpBSRCode,inpChallanPaymentDate,inpChallanNumber,inpChallanAmount,inpTaxDedName,inpTaxDedTAN,inpTaxReceiptNumber,inpPaidYear,inpTaxForAmt,inpTaxPaidAmt,'Yes'],
+                type: sequelize.QueryTypes.INSERT 
+            }).then(result => {		
+                console.log("Result AppId  "+result[0]);
+                //update flags to et_applicationsmain table */
+                updateApplicationMain(appid,userid,18);
+                res.json({"statusCode": 200,"Message": "Successful Request"});
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
 }
 
 exports.fetchDeductionsDetails = (req,res)=>{

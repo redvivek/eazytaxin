@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { environment } from '@environments/environment';
-import { ScriptService,AuthenticationService,ApplicationService, AlertService } from '@app/_services';
 import { handleInsideHeaderBackground,handleFloatingLabels,formSticky } from '../../app.helpers';
+import { AuthenticationService,ApplicationService, AlertService } from '@app/_services';
 import * as Waves from 'node-waves';
 
 const URL = `${environment.apiUrl}/tax/uploadproofDocuments`;
@@ -57,7 +57,6 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
   //Global variables to save userdId and ApplictionID
   userId : number;
   ApplicationId : number;
-  fileName = '';
   nextButtonDisable = false;
   previousButtonDisable = false;
 
@@ -70,8 +69,7 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private appService : ApplicationService,
-    private alertService : AlertService,
-    private scriptservice : ScriptService
+    private alertService : AlertService
   ) 
   {
     // redirect to login if not logged in
@@ -96,7 +94,25 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
     itemAlias: 'uploadIncomeProofs'
   });
 
-  //public otherUploader
+  public shareuploader : FileUploader = new FileUploader({
+    url: URL, 
+    itemAlias: 'uploadShareIncomeProofs'
+  });
+
+  public landuploader : FileUploader = new FileUploader({
+    url: URL, 
+    itemAlias: 'uploadlandIncomeProofs'
+  });
+
+  public assetuploader : FileUploader = new FileUploader({
+    url: URL, 
+    itemAlias: 'uploadassetIncomeProofs'
+  });
+
+  public mfuploader : FileUploader = new FileUploader({
+    url: URL, 
+    itemAlias: 'uploadmfIncomeProofs'
+  });
 
   ngOnInit() {
     this.salaryIncomeForm = this.formBuilder.group({
@@ -193,7 +209,7 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
 
       uploadShareIncomeProofFlag: [''],
       uploadLandSaleIncomeProofFlag: [''],
-      uploadAssestSaleIncomeProofFlag: ['' ],
+      uploadAssestSaleIncomeProofFlag: [''],
       uploadMFSaleIncomeProofFlag : [''],
     });
 
@@ -225,11 +241,6 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
         form.append('DocCategory', 'RentalPropIncome');
         form.append('FilePassword', this.rentalPropIncomeForm.get('uploadRentalPropDocsPwd').value);
       }
-      if(this.step5 == true)
-      {
-        form.append('DocCategory', 'CapitalsIncome');
-      }
-      
     };
 
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
@@ -255,15 +266,99 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
             {
               this.rentalPropIncomeForm.get('uploadRentalIncomeProofFlag').setValue('1');
             }
-            if(this.step5 == true)
-            {
-              this.captialIncomeForm.get('uploadShareIncomeProofFlag').setValue('1');
-            }
-
           }else{
             this.alertService.error('File Uploading Failed');
           }
     };
+
+    this.shareuploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+
+    this.shareuploader.onBuildItemForm = (fileItem: any, form: any) => { 
+      form.append('UserId', this.userId);
+      form.append('ApplicationId', this.ApplicationId);
+      form.append('DocCategory', 'CapitalsShareIncome');
+    };
+
+    this.shareuploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+          console.log('ImageUpload:uploaded:', item, status, response);
+          console.log('Response '+ response); 
+          var res = JSON.parse(response);
+          //alert('File uploaded successfully');
+          if(res['statusCode'] == 200){                 
+            this.alertService.success('File Uploaded successfully');
+            this.captialIncomeForm.get('uploadShareIncomeProofFlag').setValue('1');
+              /* this.captialIncomeForm.get('uploadLandSaleIncomeProofFlag').setValue('1');
+              this.captialIncomeForm.get('uploadAssestSaleIncomeProofFlag').setValue('1');
+              this.captialIncomeForm.get('uploadMFSaleIncomeProofFlag').setValue('1'); */
+          }else{
+            this.alertService.error('File Uploading Failed');
+          }
+    };
+
+    this.landuploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+
+    this.landuploader.onBuildItemForm = (fileItem: any, form: any) => { 
+      form.append('UserId', this.userId);
+      form.append('ApplicationId', this.ApplicationId);
+      form.append('DocCategory', 'CapitalsLandIncome');
+    };
+
+    this.landuploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+          console.log('ImageUpload:uploaded:', item, status, response);
+          console.log('Response '+ response); 
+          var res = JSON.parse(response);
+          //alert('File uploaded successfully');
+          if(res['statusCode'] == 200){                 
+            this.alertService.success('File Uploaded successfully');
+            this.captialIncomeForm.get('uploadLandSaleIncomeProofFlag').setValue('1');
+          }else{
+            this.alertService.error('File Uploading Failed');
+          }
+    };
+
+    this.assetuploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+
+    this.assetuploader.onBuildItemForm = (fileItem: any, form: any) => { 
+      form.append('UserId', this.userId);
+      form.append('ApplicationId', this.ApplicationId);
+      form.append('DocCategory', 'CapitalsAssIncome');
+    };
+
+    this.assetuploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+          console.log('ImageUpload:uploaded:', item, status, response);
+          console.log('Response '+ response); 
+          var res = JSON.parse(response);
+          //alert('File uploaded successfully');
+          if(res['statusCode'] == 200){                 
+            this.alertService.success('File Uploaded successfully');
+            this.captialIncomeForm.get('uploadAssestSaleIncomeProofFlag').setValue('1');
+          }else{
+            this.alertService.error('File Uploading Failed');
+          }
+    };
+
+    this.mfuploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+
+    this.mfuploader.onBuildItemForm = (fileItem: any, form: any) => { 
+      form.append('UserId', this.userId);
+      form.append('ApplicationId', this.ApplicationId);
+      form.append('DocCategory', 'CapitalsMFIncome');
+    };
+
+    this.mfuploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+          console.log('ImageUpload:uploaded:', item, status, response);
+          console.log('Response '+ response); 
+          var res = JSON.parse(response);
+          //alert('File uploaded successfully');
+          if(res['statusCode'] == 200){                 
+            this.alertService.success('File Uploaded successfully');
+            this.captialIncomeForm.get('uploadMFSaleIncomeProofFlag').setValue('1');
+          }else{
+            this.alertService.error('File Uploading Failed');
+          }
+    };
+
+
     /*File Uploader with form data ends here */
   }
 
@@ -371,10 +466,10 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
   }
 
   autoFillCapitalIncomeForm(){
-    this.captialIncomeForm.get('uploadShareIncomeProofFlag').setValue("1");
-    this.captialIncomeForm.get('uploadLandSaleIncomeProofFlag').setValue("1");
-    this.captialIncomeForm.get('uploadAssestSaleIncomeProofFlag').setValue("1");
-    this.captialIncomeForm.get('uploadMFSaleIncomeProofFlag').setValue("1");
+    this.captialIncomeForm.get('uploadShareIncomeProofFlag').setValue("0");
+    this.captialIncomeForm.get('uploadLandSaleIncomeProofFlag').setValue("0");
+    this.captialIncomeForm.get('uploadAssestSaleIncomeProofFlag').setValue("0");
+    this.captialIncomeForm.get('uploadMFSaleIncomeProofFlag').setValue("0");
   }
 
   //Function Called on next button click
@@ -597,7 +692,7 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
             "street":this.r.inpRentalPropStreet.value,
             "area":this.r.inpRentalPropArea.value,
             "city":this.r.inpRentalPropCity.value,
-            "pincode":this.r.inpRentalPropPincode.value,
+            "pincode":this.r.inpRenPropPincode.value,
             "country":this.r.inpRentalPropCountry.value,
             "state":this.r.inpRentalPropState.value,
 
@@ -626,12 +721,11 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
                   console.log("Response" + JSON.stringify(data));
                   //successfully inserted
                   if(data['statusCode'] == 200){
-                        this.alertService.error('Application - Rental Income data saved successfully');
+                        this.alertService.success('Application - Rental Income data saved successfully');
                         this.localStoreg['applicationStage'] = 12;
                         //console.log("LocalStore" + JSON.stringify(this.localStoreg));
                         localStorage.removeItem("currentUserApp");
                         localStorage.setItem("currentUserApp", JSON.stringify(this.localStoreg));
-                        this.loading = false;
                         this.loading = false;
                         this.step1 = false;
                         this.step2 = false;

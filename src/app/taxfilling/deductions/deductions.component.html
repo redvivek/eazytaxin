@@ -8,6 +8,7 @@
             <h4 class="">Deductions</h4>
           </div>
         </div>
+        <alert></alert>
       </div>
       <div class="section-body">
         <div class="row">
@@ -869,8 +870,9 @@
                             <h6>Select your document</h6>
                           </div>
                         </div>
-                        <div formArrayName="itemUploadDocRows"> 
-                          <div class="row" *ngFor="let itemrow of proofDocUploadForm.controls.itemUploadDocRows.controls; let in=index"  [formGroupName]="in">
+                        <!-- <div formArrayName="itemUploadDocRows"> 
+                          <div class="row" *ngFor="let itemrow of proofDocUploadForm.controls.itemUploadDocRows.controls; let in=index"  [formGroupName]="in"> -->
+                          <div class="row">
                             <div class="col-6">
                               <div class="form-group">
                                 <div class="input-group prepend custom-file-wrap">
@@ -878,26 +880,28 @@
                                     <span class="input-group-text">Choose File</span>
                                   </div>
                                   <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="inputGroupFile01" formControlName="inputGroupFile01">
+                                    <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="inputGroupFile01" formControlName="inputGroupFile01">
                                     <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-6">
                               <div class="form-group floating-label">
                                 <input type="text" class="form-control" id="inputGroupFile01Pwd" formControlName="inputGroupFile01Pwd">
                                 <label for="">Enter Document Password</label>
                               </div>
                             </div>
+                          </div>
+                          <div class="row">
                             <div class="col">
-                              <div class="form-group">
+                              <div class="form-group" style="float:right;">
                                 <input type="hidden" class="form-control" formControlName="investmentProof" id="investmentProof">
-                                <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                                <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length"  class="btn btn-danger">Upload All <i class="icon-cloud-upload"></i></button>
                               </div>
                             </div>
                           </div>
-                        </div>
+                        <!-- </div> -->
                         <!--Proof doc upload section ends -->
                       </form>
                     </div>

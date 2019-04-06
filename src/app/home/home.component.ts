@@ -1,7 +1,7 @@
 ﻿import { Component,HostListener,Inject, OnInit ,ViewChild,ElementRef ,AfterContentInit, AfterViewInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/platform-browser';
-import { ScriptService,AlertService, AuthenticationService,ApplicationService } from '@app/_services';
+import { AlertService, AuthenticationService,ApplicationService } from '@app/_services';
 import { handleHeaderBackground,handleInsideHeaderBackground,makeSelectedMenuActiveProp } from '../app.helpers';
 import { WINDOW } from "@app/_services/window.service";
 //import * as $ from 'jquery';
@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit,AfterContentInit,AfterViewInit{
 
   ngOnInit() {
 		handleHeaderBackground();
+		makeSelectedMenuActiveProp(0,0);
 	}
 	
 	ngAfterViewInit(){}
@@ -39,7 +40,7 @@ export class HomeComponent implements OnInit,AfterContentInit,AfterViewInit{
     $(this.el.nativeElement).owlCarousel({
 			items: 1,
 			loop: true,
-			autoplay: false,
+			autoplay: true,
 			onInitialized: this.startProgressBar(),
 			onTranslate: this.resetProgressBar(),
 			onTranslated: this.startProgressBar()

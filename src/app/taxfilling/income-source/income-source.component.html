@@ -1030,8 +1030,8 @@
                                         </div>
                                         <div class = "row">
                                             <input type="hidden" class="custom-file-input" id="uploadRentalIncomeProofFlag" formControlName="uploadRentalIncomeProofFlag" [ngClass]="{ 'is-invalid': renFSubmitted && r.uploadRentalIncomeProofFlag.errors}">
-                                            <div *ngIf="renFSubmitted && r.uploadHouseIncomeProofFlag.errors" class="invalid-feedback">
-                                                <div *ngIf="r.uploadHouseIncomeProofFlag.errors.required">Please upload proof documents. Also enter the password if form16 is protected else type "NA"</div>
+                                            <div *ngIf="renFSubmitted && r.uploadRentalIncomeProofFlag.errors" class="invalid-feedback">
+                                                <div *ngIf="r.uploadRentalIncomeProofFlag.errors.required">Please upload proof documents. Also enter the password if form16 is protected else type "NA"</div>
                                             </div>
                                         </div>
                                     </div>
@@ -1077,8 +1077,8 @@
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group floating-label">
-                                                        <input type="text" class="form-control" id="inpRentalPropStreet" formControlName="inpRentalPropStreet" [ngClass]="{ 'is-invalid': renFSubmitted && h.inpRentalPropStreet.errors}">
-                                                        <div *ngIf="renFSubmitted && h.inpRentalPropStreet.errors" class="invalid-feedback">
+                                                        <input type="text" class="form-control" id="inpRentalPropStreet" formControlName="inpRentalPropStreet" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropStreet.errors}">
+                                                        <div *ngIf="renFSubmitted && r.inpRentalPropStreet.errors" class="invalid-feedback">
                                                             <div *ngIf="r.inpRentalPropStreet.errors.required">Road or Street name is required</div>
                                                         </div>
                                                         <label for="inpRentalPropStreet">Road / Street / Post Office <span class="text-danger required">*</span></label>
@@ -1112,10 +1112,10 @@
                                                         <select id="inpRentalPropState" class="form-control" formControlName="inpRentalPropState" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropState.errors}">
                                                             <option value="1">Maharashtra</option>
                                                         </select>
-                                                        <div *ngIf="renFSubmitted && r.inpSelfOccPropState.errors" class="invalid-feedback">
-                                                            <div *ngIf="r.inpSelfOccPropState.errors.required">State is required</div>
+                                                        <div *ngIf="renFSubmitted && r.inpRentalPropState.errors" class="invalid-feedback">
+                                                            <div *ngIf="r.inpRentalPropState.errors.required">State is required</div>
                                                         </div>
-                                                        <label for="inpSelfOccPropState">State <span class="text-danger required">*</span></label>
+                                                        <label for="inpRentalPropState">State <span class="text-danger required">*</span></label>
                                                         </div>
                                                     </div>
                                                     <div class="col">
@@ -1410,19 +1410,15 @@
                                             <span class="input-group-text">Choose File</span>
                                             </div>
                                             <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="uploadShareIncomeProof" formControlName="uploadShareIncomeProof" [ngClass]="{ 'is-invalid': capFSubmitted && c.uploadShareIncomeProof.errors}">
-                                            <div *ngIf="capFSubmitted && c.uploadShareIncomeProof.errors" class="invalid-feedback">
-                                                <div *ngIf="c.uploadShareIncomeProof.errors.required">Upload proof of income via shares</div>
-                                            </div>
-                                            <label class="custom-file-label" for="uploadShareIncomeProof">No File Chosen</label>
+                                                <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="shareuploader" class="custom-file-input" id="uploadShareIncomeProof" formControlName="uploadShareIncomeProof">  
+                                                <label class="custom-file-label" for="uploadShareIncomeProof">No File Chosen</label>
                                             </div>
                                         </div>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
-                                        <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                        <input type="hidden" class="custom-file-input" id="uploadShareIncomeProofFlag" formControlName="uploadShareIncomeProofFlag" />
+                                            <button type="button" (click)="shareuploader.uploadAll()" [disabled]="!shareuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -1439,19 +1435,15 @@
                                             <span class="input-group-text">Choose File</span>
                                             </div>
                                             <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="uploadLandSaleIncomeProof" formControlName="uploadLandSaleIncomeProof" [ngClass]="{ 'is-invalid': capFSubmitted && c.uploadLandSaleIncomeProof.errors}">
-                                            <div *ngIf="capFSubmitted && c.uploadLandSaleIncomeProof.errors" class="invalid-feedback">
-                                                <div *ngIf="c.uploadLandSaleIncomeProof.errors.required">Upload proof of income via land Sale</div>
-                                            </div>
-                                            <label class="custom-file-label" for="uploadLandSaleIncomeProof">No File Chosen</label>
+                                                <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="landuploader" class="custom-file-input" id="uploadLandSaleIncomeProof" formControlName="uploadLandSaleIncomeProof">
+                                                <label class="custom-file-label" for="uploadLandSaleIncomeProof">No File Chosen</label>
                                             </div>
                                         </div>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
-                                        <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                        <input type="hidden" class="custom-file-input" id="uploadLandSaleIncomeProofFlag" formControlName="uploadLandSaleIncomeProofFlag" />
+                                            <button type="button" (click)="landuploader.uploadAll()" [disabled]="!landuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -1468,19 +1460,15 @@
                                             <span class="input-group-text">Choose File</span>
                                             </div>
                                             <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="uploadAssestSaleIncomeProof" formControlName="uploadAssestSaleIncomeProof" [ngClass]="{ 'is-invalid': capFSubmitted && c.uploadAssestSaleIncomeProof.errors}">
-                                            <div *ngIf="capFSubmitted && c.uploadAssestSaleIncomeProof.errors" class="invalid-feedback">
-                                                <div *ngIf="c.uploadAssestSaleIncomeProof.errors.required">Upload proof of income via assests sale</div>
-                                            </div>
-                                            <label class="custom-file-label" for="uploadAssestSaleIncomeProof">No File Chosen</label>
+                                                <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="assetuploader" class="custom-file-input" id="uploadAssestSaleIncomeProof" formControlName="uploadAssestSaleIncomeProof">
+                                                <label class="custom-file-label" for="uploadAssestSaleIncomeProof">No File Chosen</label>
                                             </div>
                                         </div>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
-                                        <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                        <input type="hidden" class="custom-file-input" id="uploadAssestSaleIncomeProofFlag" formControlName="uploadAssestSaleIncomeProofFlag" />
+                                            <button type="button" (click)="assetuploader.uploadAll()" [disabled]="!assetuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -1497,21 +1485,23 @@
                                             <span class="input-group-text">Choose File</span>
                                             </div>
                                             <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="uploadMFSaleIncomeProof" formControlName="uploadMFSaleIncomeProof" [ngClass]="{ 'is-invalid': capFSubmitted && c.uploadMFSaleIncomeProof.errors}">
-                                            <div *ngIf="capFSubmitted && c.uploadMFSaleIncomeProof.errors" class="invalid-feedback">
-                                                <div *ngIf="c.uploadMFSaleIncomeProof.errors.required">Upload proof of income via MF sale</div>
-                                            </div>
-                                            <label class="custom-file-label" for="uploadMFSaleIncomeProof">No File Chosen</label>
+                                                <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="mfuploader" class="custom-file-input" id="uploadMFSaleIncomeProof" formControlName="uploadMFSaleIncomeProof" >
+                                                <label class="custom-file-label" for="uploadMFSaleIncomeProof">No File Chosen</label>
                                             </div>
                                         </div>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
-                                        <button type="button" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                        <input type="hidden" class="custom-file-input" id="uploadMFSaleIncomeProofFlag" formControlName="uploadMFSaleIncomeProofFlag" />
+                                            <button type="button" (click)="mfuploader.uploadAll()" [disabled]="!mfuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
                                         </div>
                                     </div>
+                                </div>
+                                <div class = "row">
+                                    <input type="hidden" class="custom-file-input" id="uploadShareIncomeProofFlag" formControlName="uploadShareIncomeProofFlag">
+                                    <input type="hidden" class="custom-file-input" id="uploadLandSaleIncomeProofFlag" formControlName="uploadLandSaleIncomeProofFlag">
+                                    <input type="hidden" class="custom-file-input" id="uploadAssestSaleIncomeProofFlag" formControlName="uploadAssestSaleIncomeProofFlag">
+                                    <input type="hidden" class="custom-file-input" id="uploadMFSaleIncomeProofFlag" formControlName="uploadMFSaleIncomeProofFlag">
                                 </div>
                             </form>
                         </div>

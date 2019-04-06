@@ -55,9 +55,8 @@ route.post('/tax/saveCapitalIncome', taxService.saveCapitalIncomeInfoByAppId);
 route.post('/tax/saveDeductions', taxService.saveDeductionsInfoByAppId);
 route.post('/tax/saveOtherDeductions', taxService.saveOtherDeductionsByAppId);
 route.post('/tax/fetchDeductionsDetails', taxService.fetchDeductionsDetails);
-/*route.post('/tax/saveTaxpaidInfo', taxService.saveTaxPaidInfoByAppId);
-route.post('/tax/uploadDocument', taxService.uploadDocument);
-route.post('/tax/payment', taxService.doPayment);
+route.post('/tax/saveTaxpaidInfo', taxService.saveTaxPaidInfoByAppId);
+/*route.post('/tax/payment', taxService.doPayment);
 route.post('/tax/generateReport', taxService.generateITRReport);
 
 route.get('/tax/fetchReportInExcel', taxService.fetchITRReportInExcel);

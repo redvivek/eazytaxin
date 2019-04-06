@@ -85,7 +85,6 @@ export class DashboardComponent implements OnInit,AfterViewInit {
     }
 
     continueApp(appArray){
-        console.log("Selected App details "+ JSON.stringify(appArray));
         this.selectedAssYear = appArray.AssYear;
         //Add newly created AppID in local storage
         const appdata:ApplicationMain = { 
@@ -99,17 +98,18 @@ export class DashboardComponent implements OnInit,AfterViewInit {
         localStorage.removeItem("currentUserApp");
         localStorage.setItem("currentUserApp", JSON.stringify(appdata));
         //var currStage  = this.appService.currentApplicationValue.applicationStage;
+        console.log("Selected App details "+ JSON.stringify(this.appService.currentApplicationValue));
         if(appArray.AppStage == "" || appArray.AppStage == 0)
             this.router.navigate(['/taxfilling/taxperiod']);
         else if(appArray.AppStage == 1)
            this.router.navigate(['/taxfilling/basicinfo']);
-        else if(appArray.AppStage >= 2 && appArray.AppStage < 7)
+        else if(appArray.AppStage >= 2 && appArray.AppStage < 8)
             this.router.navigate(['/taxfilling/personalinfo']);
-        else if(appArray.AppStage >= 7 && appArray.AppStage < 12)
+        else if(appArray.AppStage >= 7 && appArray.AppStage < 13)
             this.router.navigate(['/taxfilling/earnings']);
-        else if(appArray.AppStage >= 13 && appArray.AppStage < 16)
+        else if(appArray.AppStage >= 13 && appArray.AppStage < 17)
             this.router.navigate(['/taxfilling/deductions']);
-        else if(appArray.AppStage == 17)
+        else if(appArray.AppStage >= 17 && appArray.AppStage < 18)
             this.router.navigate(['/taxfilling/taxpaid']);
         else if(appArray.AppStage >= 18)
             this.router.navigate(['/taxfilling/review']);
