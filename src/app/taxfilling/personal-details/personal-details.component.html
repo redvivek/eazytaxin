@@ -195,7 +195,7 @@
                     <div class="tab-pane fade " id="personal-details-personal" role="tabpanel" [ngClass]="{ 'show': step2 == true , 'active': step2 == true }">
                         <form id="personalDetailsForm" [formGroup]="personalDetailsForm" >
                         <div class="row">
-                          <div class="col">
+                          <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label">
                               <input type="text" class="form-control" id="Firstname" formControlName="Firstname" [ngClass]="{ 'is-invalid': perSubmitted && f.Firstname.errors}">
                                 <div *ngIf="perSubmitted && f.Firstname.errors" class="invalid-feedback">
@@ -204,7 +204,7 @@
                               <label for="">First Name <span class="text-danger required">*</span></label>
                             </div>
                           </div>
-                          <div class="col">
+                          <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label">
                               <input type="text" class="form-control" id="Middlename" formControlName="Middlename">
                               <label for="">Middle Name</label>
@@ -212,7 +212,7 @@
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col">
+                          <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label">
                               <input type="text" class="form-control" id="Lastname" formControlName="Lastname" [ngClass]="{ 'is-invalid': perSubmitted && f.Lastname.errors}">
                                 <div *ngIf="perSubmitted && f.Lastname.errors" class="invalid-feedback">
@@ -221,7 +221,7 @@
                               <label for="">Last Name <span class="text-danger required">*</span></label>
                             </div>
                           </div>
-                          <div class="col">
+                          <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label">
                               <input type="text" class="form-control" id="Fathername" formControlName="Fathername" [ngClass]="{ 'is-invalid': perSubmitted && f.Fathername.errors}">
                                 <div *ngIf="perSubmitted && f.Fathername.errors" class="invalid-feedback">
@@ -232,7 +232,7 @@
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col">
+                          <div class="col-md-6 col-sm-12">
                               <div class="form-group floating-label">
                                 <input type="text" class="form-control" id="PanNumber" formControlName="PanNumber" [ngClass]="{ 'is-invalid': perSubmitted && f.PanNumber.errors}">
                                   <div *ngIf="perSubmitted && f.PanNumber.errors" class="invalid-feedback">
@@ -241,7 +241,7 @@
                                 <label for="">PAN Card Number <span class="text-danger required">*</span></label>
                               </div>
                             </div>
-                          <div class="col">
+                          <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label">
                               <input type="text" class="form-control" id="EmailId" formControlName="EmailId" [ngClass]="{ 'is-invalid': perSubmitted && f.EmailId.errors}" readonly>
                                 <div *ngIf="perSubmitted && f.EmailId.errors" class="invalid-feedback">
@@ -253,7 +253,7 @@
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col">
+                          <div class="col-md-6 col-sm-12">
                               <div class="form-group floating-label">
                                 <input type="number" class="form-control" id="MobileNo" formControlName="MobileNo" [ngClass]="{ 'is-invalid': perSubmitted && f.MobileNo.errors}">
                                   <div *ngIf="perSubmitted && f.MobileNo.errors" class="invalid-feedback">
@@ -263,7 +263,7 @@
                                 <label for="">Mobile No. <span class="text-danger required">*</span></label>
                               </div>
                           </div>
-                          <div class="col">
+                          <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label">
                               <input type="number" class="form-control" id="AltMobileNo" formControlName="AltMobileNo" [ngClass]="{ 'is-invalid': perSubmitted && f.AltMobileNo.errors}">
                               <div *ngIf="perSubmitted && f.AltMobileNo.errors" class="invalid-feedback">
@@ -280,7 +280,7 @@
                           </div>-->
                         </div>
                         <div class="row">
-                          <div class="col">
+                          <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label">
                               <input type="text" class="form-control" id="DateOfBirth" formControlName="DateOfBirth" [ngClass]="{ 'is-invalid': perSubmitted && f.DateOfBirth.errors}">
                                 <div *ngIf="perSubmitted && f.DateOfBirth.errors" class="invalid-feedback">
@@ -289,7 +289,7 @@
                               <label for="">Date of Birth <span class="text-danger required">*</span></label>
                             </div>
                           </div>
-                          <div class="col">
+                          <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label customDropdown">
                               <select id="Gender" class="form-control" formControlName="Gender" [ngClass]="{ 'is-invalid': perSubmitted && f.Gender.errors}">
                                 <option value=""></option>
@@ -305,7 +305,7 @@
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col">
+                          <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label">
                               <input type="text" class="form-control" id="EmployerName" formControlName="EmployerName" [ngClass]="{ 'is-invalid': perSubmitted && f.EmployerName.errors}">
                                 <div *ngIf="perSubmitted && f.EmployerName.errors" class="invalid-feedback">
@@ -314,7 +314,7 @@
                               <label for="">Employer Name <span class="text-danger required">*</span></label>
                             </div>
                           </div>
-                          <div class="col">
+                          <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label">
                               <input type="text" class="form-control" id="EmployerType" formControlName="EmployerType" [ngClass]="{ 'is-invalid': perSubmitted && f.EmployerType.errors}">
                                 <div *ngIf="perSubmitted && f.EmployerType.errors" class="invalid-feedback">
@@ -325,7 +325,7 @@
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col">
+                          <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label">
                               <input type="text" class="form-control" id="AadharNumber" formControlName="AadharNumber" [ngClass]="{ 'is-invalid': perSubmitted && f.AadharNumber.errors}">
                               <div *ngIf="perSubmitted && f.AadharNumber.errors" class="invalid-feedback">
@@ -334,7 +334,7 @@
                               <label for="">Aadhaar Card Number / Enrollment ID<span class="text-danger required">*</span></label>
                             </div>
                           </div>
-                          <div class="col-6">
+                          <div class="col-md-6 col-sm-12">
                               <div class="form-group floating-label">
                                 <input type="text" class="form-control" id="PassportNumber" formControlName="PassportNumber">
                                 <label for="">Passport Number (If available)</label>
@@ -350,7 +350,7 @@
                     <div class="tab-pane fade " id="personal-details-address" role="tabpanel" [ngClass]="{ 'show': step3 == true , 'active': step3 == true }">
                       <form id="addressDetailsForm" [formGroup]="addressDetailsForm" >
                         <div class="row">
-                          <div class="col">
+                          <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label">
                               <input type="text" class="form-control" id="Flatno_Blockno" formControlName="Flatno_Blockno" [ngClass]="{ 'is-invalid': addSubmitted && a.Flatno_Blockno.errors}">
                               <div *ngIf="addSubmitted && a.Flatno_Blockno.errors" class="invalid-feedback">
@@ -359,7 +359,7 @@
                               <label for="">Flat / Door / Block No. <span class="text-danger required">*</span></label>
                             </div>
                           </div>
-                          <div class="col">
+                          <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label">
                               <input type="text" class="form-control" id="Building_Village_Premises" formControlName="Building_Village_Premises" [ngClass]="{ 'is-invalid': addSubmitted && a.Building_Village_Premises.errors}">
                               <div *ngIf="addSubmitted && a.Building_Village_Premises.errors" class="invalid-feedback">
@@ -370,7 +370,7 @@
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col">
+                          <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label">
                               <input type="text" class="form-control" id="Road_Street_PO" formControlName="Road_Street_PO" [ngClass]="{ 'is-invalid': addSubmitted && a.Road_Street_PO.errors}">
                               <div *ngIf="addSubmitted && a.Road_Street_PO.errors" class="invalid-feedback">
@@ -379,7 +379,7 @@
                               <label for="">Road / Street / Post Office </label>
                             </div>
                           </div>
-                          <div class="col">
+                          <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label">
                               <input type="text" class="form-control" id="Area_Locality" formControlName="Area_Locality" [ngClass]="{ 'is-invalid': addSubmitted && a.Area_Locality.errors}">
                               <div *ngIf="addSubmitted && a.Area_Locality.errors" class="invalid-feedback">
@@ -390,7 +390,7 @@
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col">
+                          <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label">
                               <input type="number" class="form-control" id="Pincode" formControlName="Pincode" [ngClass]="{ 'is-invalid': addSubmitted && a.Pincode.errors}">
                                   <div *ngIf="addSubmitted && a.Pincode.errors" class="invalid-feedback">
@@ -399,7 +399,7 @@
                               <label for="">Pin Code <span class="text-danger required">*</span></label>
                             </div>
                           </div>
-                          <div class="col">
+                          <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label">
                               <input type="text" class="form-control" id="City_Town_District" formControlName="City_Town_District" [ngClass]="{ 'is-invalid': addSubmitted && a.City_Town_District.errors}">
                                   <div *ngIf="addSubmitted && a.City_Town_District.errors" class="invalid-feedback">
@@ -410,7 +410,7 @@
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-6">
+                          <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label">
                               <input type="text" class="form-control" id="State" formControlName="State" [ngClass]="{ 'is-invalid': addSubmitted && a.State.errors}">
                                   <div *ngIf="addSubmitted && a.State.errors" class="invalid-feedback">
@@ -421,7 +421,7 @@
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-6">
+                          <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label">
                               <input type="text" class="form-control" id="Country" formControlName="Country" [ngClass]="{ 'is-invalid': addSubmitted && a.Country.errors}">
                                   <div *ngIf="addSubmitted && a.Country.errors" class="invalid-feedback">
@@ -450,7 +450,7 @@
                         <div class="tab-content" id="myTabContent">
                           <div class="tab-pane fade active show" id="primary-bank-account" role="tabpanel" [ngClass]="{ 'show': step4_primary_bank_acc == true , 'active': step4_primary_bank_acc == true }">
                             <div class="row">
-                              <div class="col">
+                              <div class="col-md-6 col-sm-12">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="AccountNumber" formControlName="PrimaryAccNumber" [ngClass]="{ 'is-invalid': bankSubmitted && b.PrimaryAccNumber.errors}">
                                   <div *ngIf="bankSubmitted && b.PrimaryAccNumber.errors" class="invalid-feedback">
@@ -459,7 +459,7 @@
                                   <label for="">Account Number <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
-                              <div class="col">
+                              <div class="col-md-6 col-sm-12">
                                 <div class="form-group floating-label customDropdown">
                                   <select id="PrimaryAccType" class="form-control" formControlName="PrimaryAccType" [ngClass]="{ 'is-invalid': bankSubmitted && b.PrimaryAccType.errors}">
                                     <option value="">--Select Type --</option>
@@ -474,7 +474,7 @@
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col">
+                              <div class="col-md-6 col-sm-12">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="BankName" formControlName="PrimaryBankNm" [ngClass]="{ 'is-invalid': bankSubmitted && b.PrimaryBankNm.errors}">
                                   <div *ngIf="bankSubmitted && b.PrimaryBankNm.errors" class="invalid-feedback">
@@ -483,7 +483,7 @@
                                   <label for="">Bank Name <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
-                              <div class="col">
+                              <div class="col-md-6 col-sm-12">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="IFSCCode" formControlName="PrimaryIFSCCode" [ngClass]="{ 'is-invalid': bankSubmitted && b.PrimaryIFSCCode.errors}">
                                   <div *ngIf="bankSubmitted && b.PrimaryIFSCCode.errors" class="invalid-feedback">
@@ -496,7 +496,7 @@
                           </div>
                           <div class="tab-pane fade " id="all-other-bank-accounts" role="tabpanel" [ngClass]="{ 'show': step4_all_other_bank_acc == true , 'active': step4_all_other_bank_acc == true }">
                             <div class="row">
-                              <div class="col">
+                              <div class="col-md-6 col-sm-12">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="AccountNumber" formControlName="SecAccNumber" [ngClass]="{ 'is-invalid': bankSubmitted && b.SecAccNumber.errors}">
                                   <div *ngIf="bankSubmitted && b.SecAccNumber.errors" class="invalid-feedback">
@@ -505,7 +505,7 @@
                                   <label for="">Account Number <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
-                              <div class="col">
+                              <div class="col-md-6 col-sm-12">
                                 <div class="form-group floating-label customDropdown">
                                   <select id="SecAccType"  class="form-control" formControlName="SecAccType" [ngClass]="{ 'is-invalid': bankSubmitted && b.SecAccType.errors}">
                                     <option value="">--Select Type --</option>
@@ -520,7 +520,7 @@
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col">
+                              <div class="col-md-6 col-sm-12">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="BankName" formControlName="SecBankNm" [ngClass]="{ 'is-invalid': bankSubmitted && b.SecBankNm.errors}">
                                   <div *ngIf="bankSubmitted && b.SecBankNm.errors" class="invalid-feedback">
@@ -529,7 +529,7 @@
                                   <label for="">Bank Name <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
-                              <div class="col">
+                              <div class="col-md-6 col-sm-12">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="IFSCCode" formControlName="SecIFSCCode" [ngClass]="{ 'is-invalid': bankSubmitted && b.SecIFSCCode.errors}">
                                   <div *ngIf="bankSubmitted && b.SecIFSCCode.errors" class="invalid-feedback">
@@ -573,7 +573,7 @@
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col-6">
+                              <div class="col-md-6 col-sm-12">
                                 <div class="form-group floating-label customDropdown">
                                   <select id="select2" name="select2" class="form-control" formControlName="immovableAssetsFlag" (change)="onChange($event)">
                                     <option value="">--Select--</option>
@@ -592,7 +592,7 @@
                               </div>
                             </div>
                             <div class="row" *ngIf="immAssestsForm">
-                              <div class="col">
+                              <div class="col-md-6 col-sm-12">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="Description" formControlName="Description" [ngClass]="{ 'is-invalid': assSubmitted && s.Description.errors}">
                                   <div *ngIf="assSubmitted && s.Description.errors" class="invalid-feedback">
@@ -601,7 +601,7 @@
                                   <label for="">Description <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
-                              <div class="col">
+                              <div class="col-md-6 col-sm-12">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="FlatNo" formControlName="FlatNo" [ngClass]="{ 'is-invalid': assSubmitted && s.FlatNo.errors}">
                                   <div *ngIf="assSubmitted && s.FlatNo.errors" class="invalid-feedback">
@@ -612,7 +612,7 @@
                               </div>
                             </div>
                             <div class="row" *ngIf="immAssestsForm">
-                              <div class="col">
+                              <div class="col-md-6 col-sm-12">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="PremiseName" formControlName="PremiseName" [ngClass]="{ 'is-invalid': assSubmitted && s.PremiseName.errors}">
                                   <div *ngIf="assSubmitted && s.PremiseName.errors" class="invalid-feedback">
@@ -621,7 +621,7 @@
                                   <label for="">Name of Premise <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
-                              <div class="col">
+                              <div class="col-md-6 col-sm-12">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="StreetName" formControlName="StreetName" [ngClass]="{ 'is-invalid': assSubmitted && s.StreetName.errors}">
                                   <div *ngIf="assSubmitted && s.StreetName.errors" class="invalid-feedback">
@@ -632,7 +632,7 @@
                               </div>
                             </div>
                             <div class="row" *ngIf="immAssestsForm">
-                              <div class="col">
+                              <div class="col-md-6 col-sm-12">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="AreaLocality" formControlName="AreaLocality" [ngClass]="{ 'is-invalid': assSubmitted && s.AreaLocality.errors}">
                                   <div *ngIf="assSubmitted && s.AreaLocality.errors" class="invalid-feedback">
@@ -641,7 +641,7 @@
                                   <label for="">Area/Locality <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
-                              <div class="col">
+                              <div class="col-md-6 col-sm-12">
                                 <div class="form-group floating-label customDropdown">
                                   <select id="select2" name="select2" class="form-control" formControlName="country">
                                     <option value="india">India</option>
@@ -651,7 +651,7 @@
                               </div>
                             </div>
                             <div class="row" *ngIf="immAssestsForm">
-                              <div class="col">
+                              <div class="col-md-6 col-sm-12">
                                 <div class="form-group floating-label customDropdown">
                                   <select id="select2" name="select2" class="form-control" formControlName="immovable_State">
                                     <option value="1">Maharashtra</option>
@@ -659,7 +659,7 @@
                                   <label for="">State <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
-                              <div class="col">
+                              <div class="col-md-6 col-sm-12">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="Pincode" formControlName="immovable_Pincode" [ngClass]="{ 'is-invalid': assSubmitted && s.immovable_Pincode.errors}">
                                   <div *ngIf="assSubmitted && s.immovable_Pincode.errors" class="invalid-feedback">
@@ -670,7 +670,7 @@
                               </div>
                             </div>
                             <div class="row" *ngIf="immAssestsForm">
-                              <div class="col-6">
+                              <div class="col-md-6 col-sm-12">
                                 <div class="form-group floating-label">
                                   <div class="input-group prepend">
                                     <div class="input-group-prepend">
@@ -691,7 +691,7 @@
                               </div>
                             </div>-->
                             <div class="row" *ngIf="immAssestsForm">
-                              <div class="col-6">
+                              <div class="col-md-6 col-sm-12">
                                 <div class="form-group floating-label">
                                   <div class="input-group prepend">
                                     <div class="input-group-prepend">
@@ -902,7 +902,7 @@
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col-6">
+                              <div class="col-sm-6">
                                 <div>
                                     File upload progress:
                                     <div class="progress">

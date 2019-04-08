@@ -229,7 +229,7 @@ a:hover{text-decoration:none;}
 .tab-wizard-content .tab-pane{padding:20px 0;}
 
 
-.stickyFooterForm.affix{background-color:#FFF; position:fixed; padding:10px 75px 10px 75px; bottom:0; left:250px; right:0; box-shadow:10px 0 10px 5px rgba(0,0,0,0.1);}
+.stickyFooterForm.affix{background-color:#FFF; position:fixed; padding:10px 75px 10px 75px; bottom:0; left:60px; right:0; box-shadow:10px 0 10px 5px rgba(0,0,0,0.1); transition:.2s}
 .stickyFooterForm .btn i{font-size:14px;}
 .stickyFooterForm .right .btn{margin-left:3px;}
 
