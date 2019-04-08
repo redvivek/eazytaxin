@@ -73,7 +73,9 @@ a:hover{text-decoration:none;}
 #header .top-navbar .profile-pic img{width:50px; border-radius:100%;}
 #header .top-navbar .navbar-nav > .nav-item > .nav-link{padding-left:15px; padding-right:15px; font-size:14px; font-weight:500; line-height:50px; }
 #header .top-navbar .navbar-nav > .nav-item .pageName{font-size:18px; font-weight:300;}
-#header .top-navbar .navbar-nav > .nav-item > .user-dropdown{padding-top:7px; padding-left:15px;}
+#header .top-navbar .userLoginWrap {margin:8px 20px 8px 0px;}
+#header .top-navbar .navbar-nav > .nav-item > .user-dropdown{ padding-left:15px;}
+#header .top-navbar .navbar-nav > .nav-item > .user-dropdown::after{margin-top:-8px;}
 #header .mainMenutoggler{padding:22px; width:70px; height:66px;}
 #header .navbar-brand{position:relative;}
 #header .navbar-brand::before{content:""; position:absolute; left:-50px; top:-160px; background:#FFF; border-radius:50%; width:0; height:0; display:block; transform: rotate(11deg); transition:all ease .5s; z-index: -1;}
@@ -320,7 +322,7 @@ a:hover{text-decoration:none;}
 /* Boostrap Dropdown - Custom CSS */
 .dropdown {position: relative; display: block; overflow: inherit; }
 .dropdown .dropdown-toggle { color: #707070; display:block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; padding-right: 35px; letter-spacing: normal; }
-.dropdown .dropdown-menu {width:100%; border:1px solid #F5F5F5; display: block; visibility: hidden; opacity: 0; margin-top: 20px; box-shadow: 0 17px 34px 0 rgba(0, 0, 0, 0.05), 0 8px 14px 0 rgba(0, 0, 0, 0.02); transition: 0.2s; }
+.dropdown .dropdown-menu {width:100%; border:1px solid #F5F5F5; position:absolute; display: block; visibility: hidden; opacity: 0; margin-top: 20px; box-shadow: 0 17px 34px 0 rgba(0, 0, 0, 0.05), 0 8px 14px 0 rgba(0, 0, 0, 0.02); transition: 0.2s; }
 .dropdown .dropdown-menu.show {opacity: 1; visibility: visible; margin-top: 0; }
 .dropdown .dropdown-menu .dropdown-item {border-bottom: 1px solid #F5F5F5; transition: all ease 0.3s; }
 .dropdown .dropdown-menu .dropdown-item:hover {color: #707070; }
