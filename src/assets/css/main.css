@@ -38,9 +38,9 @@ a:hover{text-decoration:none;}
 .main-wrapper{min-height:100%;}
 .main-container{max-width:100%; padding-left:60px; transition: .2s;}
 .left-sidebar{width:60px; left:0; height:100%; background: #fefefe; -webkit-box-shadow: inset 1px 0px 20px rgba(0, 0, 0, 0.08); box-shadow: inset 1px 0px 20px rgba(0, 0, 0, 0.08); -webkit-box-flex: 0; -ms-flex: 0 0 auto; flex: 0 0 auto; padding-top:50px; transition: .2s;}
-.left-sidebar .sidebartoggler{right:0; padding:10px 15px 15px 15px; width:100%; text-align:right;}
+.left-sidebar .sidebartoggler{right:0; padding:10px 15px 15px 15px; width:100%; text-align:right; display:none;}
 .left-sidebar-inner{overflow-y:auto; height:100%;}
-.page-wrapper{-webkit-box-flex: 1; flex: 1 auto; -ms-flex: 1 0 0px; min-width: 0; max-width:100%; padding:66px 15px;}
+.page-wrapper{-webkit-box-flex: 1; flex: 1 auto; -ms-flex: 1 0 0px; min-width: 0; max-width:100%; padding:66px 15px 30px;}
 .left-sidebar-hide .main-container {padding-left:60px;}
 .left-sidebar-hide .left-sidebar {width:60px;}
 .left-sidebar-hide .left-sidebar .sidebartoggler{text-align:center;}
@@ -58,10 +58,11 @@ a:hover{text-decoration:none;}
 .halfLayoutContainer .left-half-inner.fullWidth{max-width:100%;}
 
 
-.page-titles{padding:30px 0;}
-.page-titles h4{font-size:30px; font-weight:500;}
-.page-titles h4 small{font-size:18px; font-weight:100;}
-.page-titles .col-right .customDropdown{margin:-16px 0 0;}
+/* Page Title */
+.page-titles{padding:15px 0;}
+.page-titles h4{font-size:24px; font-weight:500;}
+.page-titles h4 small{font-size:16px; font-weight:100;}
+.page-titles .col-right .customDropdown{margin:-12px 0 0;}
 
 
 /* Header */
@@ -229,7 +230,7 @@ a:hover{text-decoration:none;}
 .tab-wizard-content .tab-pane{padding:20px 0;}
 
 
-.stickyFooterForm.affix{background-color:#FFF; position:fixed; padding:10px 75px 10px 75px; bottom:0; left:60px; right:0; box-shadow:10px 0 10px 5px rgba(0,0,0,0.1); transition:.2s}
+.stickyFooterForm.affix{background-color:#FFF; position:fixed; padding:10px 30px 10px 30px; bottom:0; left:60px; right:0; box-shadow:10px 0 10px 5px rgba(0,0,0,0.1); transition:.2s; z-index:10;}
 .stickyFooterForm .btn i{font-size:14px;}
 .stickyFooterForm .right .btn{margin-left:3px;}
 
@@ -249,7 +250,7 @@ a:hover{text-decoration:none;}
 .tab-pane{padding:25px 0;}
 
 /* Floating Label */
-.form-group{position: relative; margin-bottom:30px; padding-top: 16px;}
+.form-group{position: relative; margin-bottom:20px; padding-top: 16px;}
 .form-control{padding: 0; height: 37px; border-left: none; border-right: none; border-top: none; border-bottom-color:#707070; background: transparent; color: #0c0c0c; font-size: 16px; -webkit-box-shadow: none; box-shadow: none; border-radius:0; }
 .form-control.allborder{border:1px solid #707070; padding:.375rem .75rem;}
 .form-control:focus {-webkit-box-shadow: none; box-shadow: none; border-color:#707070; }
@@ -287,8 +288,10 @@ a:hover{text-decoration:none;}
 .btn-lg{font-size:16px;}
 
 /* Custom File */
+.custom-file-wrap .input-group-prepend{cursor:pointer;}
 .custom-file-wrap .input-group-text{background-color:#00d689; border-radius:0; color:#FFF; font-size:14px; }
-.custom-file-wrap .custom-file{margin-left:25px;}
+.custom-file-wrap .custom-file{margin-left:25px; max-width:286px;}
+.custom-file-wrap .upload-btn{padding-left:25px; }
 .custom-file-wrap .custom-file-label{border:none; font-size:16px; border-bottom:1px solid #707070; border-radius:0; padding-left:0;}
 .custom-file-wrap .custom-file-label::after{display:none;}
 
@@ -410,7 +413,7 @@ a:hover{text-decoration:none;}
 
 
 /* Bos Border with Header Label - Companies */
-.boxBorderHeader{border:1px solid rgba(166, 181, 190, .4); padding:25px 45px;margin:50px 0;}
+.boxBorderHeader{border:1px solid rgba(166, 181, 190, .4); padding:25px 45px; margin:50px 0;}
 .boxBorderHeader.boxFooterCont{padding-bottom:0; padding-left:0; padding-right:0;}
 .boxBorderHeader.boxFooterCont .boxBody{padding-left:45px; padding-right:45px;}
 .boxBorderHeader.boxFooterCont .boxFooter{border-top:1px solid rgba(166, 181, 190, .4); padding:20px 45px; margin-top:45px;}
@@ -489,7 +492,7 @@ a:hover{text-decoration:none;}
 .homepage .testimonialSection .testimonial .title small{font-size:12px; font-weight:100;}
 
 #footer{background-color:#333; color:#FFF; padding:30px;}
-#footer.footer-inside{padding:10px 10px 10px 262px;}
+#footer.footer-inside{padding:10px 10px 10px 72px;}
 #footer.footer-inside .footer-logo{height:14px;}
 
 .social{list-style:none;}
