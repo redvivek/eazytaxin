@@ -28,6 +28,16 @@
 @media (min-width: 1200px) {
 }
 
+
+
+
+@media (max-width: 900px) {
+
+	/* Tabs */
+	.nav-tabs{overflow-x: auto; overflow-y: hidden; display: -webkit-box; display: -moz-box; flex-wrap:nowrap;}
+
+}
+
 @media (max-width: 700px) {
 	.wizard-content .wizard > .steps > ul {flex-wrap: nowrap; overflow-x: auto;}
 	.wizard-content .wizard > .steps > ul > li { max-width:110px; min-width:100px;}

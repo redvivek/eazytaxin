@@ -875,20 +875,22 @@
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col-6">
+                              <div class="col-md-6">
                                 <div class="form-group">
                                   <div class="input-group prepend custom-file-wrap">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">Choose File</span>
-                                    </div>
-                                    <div class="custom-file">
-                                      <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="uploadForeignAssetsFile" formControlName="uploadForeignAssetsFile" >
-                                      <label class="custom-file-label" for="uploadForeignAssetsFile">No File Chosen</label>
+                                    <div class="d-flex">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">Choose File</span>
+                                      </div>
+                                      <div class="custom-file">
+                                        <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="uploadForeignAssetsFile" formControlName="uploadForeignAssetsFile" >
+                                        <label class="custom-file-label" for="uploadForeignAssetsFile">No File Chosen</label>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                              <div class="col-4">
+                              <div class="col-md-4">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="uploadForeignAssetsFilepwd" formControlName="uploadForeignAssetsFilepwd">
                                   <label for="">Enter Document Password</label>
