@@ -604,53 +604,53 @@
                                       </div>
                                       <!--PF Income ends    -->
                                   </div>
-                                    <!--other income Upload Form starts here-->
-                                    <div class="tab-pane fade" id="income-other-upload" role="tabpanel" [ngClass]="{ 'show': step2_income_other_upload == true , 'active': step2_income_other_upload == true }">
-                                        <div class="row form-group mb-0">
-                                            <div class="col">
-                                                <h6>Upload Other Income document</h6>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <div class="input-group prepend custom-file-wrap">
+                                  <!--other income Upload Form starts here-->
+                                  <div class="tab-pane fade" id="income-other-upload" role="tabpanel" [ngClass]="{ 'show': step2_income_other_upload == true , 'active': step2_income_other_upload == true }">
+                                      <div class="row form-group mb-0">
+                                          <div class="col">
+                                              <h6>Upload Other Income document</h6>
+                                          </div>
+                                      </div>
+                                      <div class="row">
+                                          <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <div class="input-group prepend custom-file-wrap">
+                                                    <div class="d-flex">
                                                       <div class="d-flex">
-                                                        <div class="d-flex">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">Choose File</span>
-                                                            </div>
-                                                            <div class="custom-file">
-                                                                <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="uploadOtherIncomeProofFile" formControlName="uploadOtherIncomeProofFile">
-                                                                <label class="custom-file-label" for="uploadOtherIncomeProofFile">No File Chosen</label>
-                                                            </div>
-                                                        </div>
+                                                          <div class="input-group-prepend">
+                                                              <span class="input-group-text">Choose File</span>
+                                                          </div>
+                                                          <div class="custom-file">
+                                                              <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="uploadOtherIncomeProofFile" formControlName="uploadOtherIncomeProofFile">
+                                                              <label class="custom-file-label" for="uploadOtherIncomeProofFile">No File Chosen</label>
+                                                          </div>
                                                       </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group floating-label">
-                                                    <input type="text" class="form-control" id="filepassword" formControlName="uploadOtherIncomeFilePwd">
-                                                    <label for="filepassword">Enter Document Password</label>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <input type="hidden" class="form-control" id="uploadOtherIncomeProofFlag" formControlName="uploadOtherIncomeProofFlag"  [ngClass]="{ 'is-invalid': othFSubmitted && o.uploadOtherIncomeProofFlag.errors}">
-                                                <div *ngIf="othFSubmitted && o.uploadOtherIncomeProofFlag.errors" class="invalid-feedback">
-                                                    <div *ngIf="o.uploadOtherIncomeProofFlag.errors.required">Please upload proof documents. Also enter the password if form16 is protected else type "NA"</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--other income Upload Form ends here-->
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-4">
+                                              <div class="form-group floating-label">
+                                                  <input type="text" class="form-control" id="filepassword" formControlName="uploadOtherIncomeFilePwd">
+                                                  <label for="filepassword">Enter Document Password</label>
+                                              </div>
+                                          </div>
+                                          <div class="col">
+                                              <div class="form-group">
+                                                  <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="row">
+                                          <div class="col-6">
+                                              <input type="hidden" class="form-control" id="uploadOtherIncomeProofFlag" formControlName="uploadOtherIncomeProofFlag"  [ngClass]="{ 'is-invalid': othFSubmitted && o.uploadOtherIncomeProofFlag.errors}">
+                                              <div *ngIf="othFSubmitted && o.uploadOtherIncomeProofFlag.errors" class="invalid-feedback">
+                                                  <div *ngIf="o.uploadOtherIncomeProofFlag.errors.required">Please upload proof documents. Also enter the password if form16 is protected else type "NA"</div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <!--other income Upload Form ends here-->
                                 
                                 </div>
                             </form>

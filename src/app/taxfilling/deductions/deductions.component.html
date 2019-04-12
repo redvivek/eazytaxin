@@ -119,7 +119,7 @@
                             <p class="text-muted text-center">You can claim a deduction of upto ₹ 1,50,000 under this section. Add up all your 80C deduction and specify total amount here. Section 80C includes contributions to LIC / Insurance premium, PPF, EPF, NSC, ELSS Mutual Funds, Children school fees, Payment of Principal in Housing Loan & other eligible items.</p>
                             <div formArrayName="itemRows">  
                               <div class="row" *ngFor="let itemrow of mainDeductionForm.controls.itemRows.controls; let i=index"  [formGroupName]="i">
-                                <div class="col">
+                                <div class="col-md-6">
                                   <div class="form-group floating-label customDropdown">
                                     <select id="investmentCategory" class="form-control" formControlName="investmentCategory" (change)="onChangeInvestment($event)" [ngClass]="{ 'is-invalid': step1_section80C && mainFSubmitted && getInvesCatValidity(i)}" >
                                       <option [value]="invest.value" *ngFor="let invest of investmentCatArr">{{invest.caption}}</option>
@@ -130,7 +130,7 @@
                                     <label for="investmentCategory">Investment Category <span class="text-danger required">*</span></label>
                                   </div>
                                 </div>
-                                <div class="col">
+                                <div class="col-md-6">
                                   <div class="form-group mb-0">
                                     <div class=" floating-label">
                                       <div class="input-group prepend">
@@ -146,13 +146,13 @@
                                     </div>
                                   </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-md-6">
                                   <button type="button" (click)="deleteRow(i)" *ngIf="mainDeductionForm.controls.itemRows.controls.length > 1" >Remove</button>
                                 </div>
                               </div>
                             </div>
                             <div class="row mt-4" *ngIf="investmentCatArr.length > mainDeductionForm.controls.itemRows.controls.length">
-                              <div class="col-6">
+                              <div class="col-md-6">
                                 <button type="button" (click)="addNewRow()" class="btn btn-outline-primary btn-sm">Add Investment <i class="fas fa-plus mx-2"></i></button>
                               </div>
                             </div>
@@ -169,10 +169,10 @@
                           <div class="boxBody assetsLists">
                             <article>
                               <div class="row form-group floating-label">
-                                <label for="" class="col-sm-8 col-form-label">
+                                <label for="" class="col-md-8 col-form-label">
                                   Medical Insurance Premium for you, your spouse, or dependent children <span class="text-danger required">*</span>
                                 </label>
-                                <div class="col-sm-4">
+                                <div class="col-md-4">
                                   <div class="input-group prepend position-relative">
                                     <div class="input-group-prepend">
                                       <div class="input-group-text">₹</div>
@@ -186,10 +186,10 @@
                                 </div>
                               </div>
                               <div class="row form-group floating-label">
-                                <label for="" class="col-sm-8 col-form-label">
+                                <label for="" class="col-md-8 col-form-label">
                                   Preventive Health Check-Up fees for you, your spouse, or dependent children <span class="text-danger required">*</span>
                                 </label>
-                                <div class="col-sm-4">
+                                <div class="col-md-4">
                                   <div class="input-group prepend position-relative">
                                     <div class="input-group-prepend">
                                       <div class="input-group-text">₹</div>
@@ -203,13 +203,13 @@
                                 </div>
                               </div>
                               <div class="row form-group floating-label">
-                                <label for="" class="col-sm-8 col-form-label">
+                                <label for="" class="col-md-8 col-form-label">
                                   Medical Insurance Premium for your parents <span class="text-danger required">*</span>
                                   <small class="d-block text-muted">
                                     Note: Amount upto Rs 30,000 in respect of Medical Expenditure of a very senior citizen (80 Yrs or more) shall be allowed under section 80D. Provided such person is not having a health insurance
                                   </small>
                                 </label>
-                                <div class="col-sm-4">
+                                <div class="col-md-4">
                                   <div class="input-group prepend position-relative">
                                     <div class="input-group-prepend">
                                       <div class="input-group-text">₹</div>
@@ -223,10 +223,10 @@
                                 </div>
                               </div>
                               <div class="row form-group floating-label">
-                                <label for="" class="col-sm-8 col-form-label">Are your parents who hold the policy are senior citizens?
+                                <label for="" class="col-md-8 col-form-label">Are your parents who hold the policy are senior citizens?
                                   <small class="d-block text-muted">60 years or older</small>
                                 </label>
-                                <div class="col-sm-4">
+                                <div class="col-md-4">
                                   <div class="form-group floating-label customDropdown">
                                     <select id="parentSenCitizenFlag" class="form-control" formControlName="parentSenCitizenFlag" [ngClass]="{ 'is-invalid':  mainFSubmitted && m.parentSenCitizenFlag.errors}">
                                       <option value=""></option>
@@ -627,7 +627,7 @@
                             <div class="boxBody">
                               <p class="text-muted">Not a commonly applicable deduction. Please be careful while claiming. If you receive HRA benefit, then you cannot claim this deduction. If you are looking to claim HRA, this is NOT the section. Eligibility: Your spouse or minor child should not own House Property in same town where paying rent. Self occupied house property Interest deduction should not have been availed. </p>
                               <div class="row">
-                                <div class="col">
+                                <div class="col-md-6">
                                   <div class="form-group mb-0">
                                     <div class=" floating-label">
                                       <div class="input-group prepend">
@@ -643,7 +643,7 @@
                                     </div>
                                   </div>
                                 </div>
-                                <div class="col">
+                                <div class="col-md-6">
                                   <div class="form-group floating-label customDropdown">
                                     <select class="form-control" id="noOfMonthsRentPaid" formControlName="noOfMonthsRentPaid" [ngClass]="{ 'is-invalid': otherFSubmitted && o.noOfMonthsRentPaid.errors}">
                                        <option value=""></option>
@@ -679,7 +679,7 @@
                             <div class="boxBody">
                               <p class="text-muted text-center">This deduction is for certain specified diseases. (It is not a commonly applicable deduction). Please be careful while claiming this deduction.</p>
                               <div class="row">
-                                <div class="col">
+                                <div class="col-md-6">
                                   <div class="form-group mb-0">
                                     <div class=" floating-label">
                                       <div class="input-group prepend">
@@ -695,7 +695,7 @@
                                     </div>
                                   </div>
                                 </div>
-                                <div class="col">
+                                <div class="col-md-6">
                                   <div class="form-group floating-label customDropdown">
                                     <select class="form-control" id="personAge" formControlName="personAge" [ngClass]="{ 'is-invalid': otherFSubmitted && o.personAge.errors}">
                                       <option value=""></option>
@@ -751,7 +751,7 @@
                             <div class="boxBody">
                                 <p class="text-muted">Deduction for Author of literary/scientific/artistic book. Royalty/copyright-fees/lump-sum consideration are eligible for deduction.</p>
                               <div class="row">
-                                <div class="col">
+                                <div class="col-md-6">
                                   <div class="form-group mb-0">
                                     <div class=" floating-label">
                                       <div class="input-group prepend">
@@ -873,20 +873,22 @@
                         <!-- <div formArrayName="itemUploadDocRows"> 
                           <div class="row" *ngFor="let itemrow of proofDocUploadForm.controls.itemUploadDocRows.controls; let in=index"  [formGroupName]="in"> -->
                           <div class="row">
-                            <div class="col-6">
+                            <div class="col-md-6">
                               <div class="form-group">
                                 <div class="input-group prepend custom-file-wrap">
-                                  <div class="input-group-prepend">
-                                    <span class="input-group-text">Choose File</span>
-                                  </div>
-                                  <div class="custom-file">
-                                    <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="inputGroupFile01" formControlName="inputGroupFile01">
-                                    <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
+                                  <div class="d-flex">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">Choose File</span>
+                                    </div>
+                                    <div class="custom-file">
+                                      <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="inputGroupFile01" formControlName="inputGroupFile01">
+                                      <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-md-6">
                               <div class="form-group floating-label">
                                 <input type="text" class="form-control" id="inputGroupFile01Pwd" formControlName="inputGroupFile01Pwd">
                                 <label for="">Enter Document Password</label>

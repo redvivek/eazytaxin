@@ -64,20 +64,22 @@
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-6">
+                          <div class="col-md-6">
                             <div class="form-group">
                               <div class="input-group prepend custom-file-wrap">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">Choose File</span>
-                                </div>
-                                <div class="custom-file">
-                                  <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="upload26ASFile" formControlName="upload26ASFile">
-                                  <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
+                                <div class="d-flex">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">Choose File</span>
+                                  </div>
+                                  <div class="custom-file">
+                                    <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="upload26ASFile" formControlName="upload26ASFile">
+                                    <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                          <div class="col-4">
+                          <div class="col-md-4">
                             <div class="form-group floating-label">
                               <input type="text" class="form-control" id="upload26ASFilePassword" formControlName="upload26ASFilePassword">
                               <label for="">Enter Document Password</label>
@@ -114,13 +116,13 @@
                           <!--other taxes paid Form starts here-->
                           <div class="tab-pane fade" id="challanDetails-data" role="tabpanel" [ngClass]="{ 'show': step2_challanDetails_data == true , 'active': step2_challanDetails_data == true }">
                             <div class="row">
-                              <div class="col">
+                              <div class="col-md-6">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="inpBSRCode" formControlName="inpBSRCode" [ngClass]="{ 'is-invalid': taxSubmitted && o.inpBSRCode.errors}">
                                   <label for="">BSR Code </label>
                                 </div>
                               </div>
-                              <div class="col">
+                              <div class="col-md-6">
                                 <div class="form-group floating-label">
                                   <div class="input-group append">
                                     <input type="text" class="form-control" id="inpChallanPaymentDate" formControlName="inpChallanPaymentDate" [ngClass]="{ 'is-invalid': taxSubmitted && o.inpChallanPaymentDate.errors}">
@@ -133,13 +135,13 @@
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col">
+                              <div class="col-md-6">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="inpChallanNumber" formControlName="inpChallanNumber" [ngClass]="{ 'is-invalid': taxSubmitted && o.inpChallanNumber.errors}">
                                   <label for="">Challan Sr. No.</label>
                                 </div>
                               </div>
-                              <div class="col">
+                              <div class="col-md-6">
                                 <div class="form-group mb-0">
                                   <div class=" floating-label">
                                     <div class="input-group prepend">
@@ -162,30 +164,28 @@
 
                           <div class="tab-pane fade" id="other-taxespaid" role="tabpanel" [ngClass]="{ 'show': step2_other_taxespaid == true , 'active': step2_other_taxespaid == true }">
                             <div class="row">
-                              <div class="col">
+                              <div class="col-md-6">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="inpTaxDedName" formControlName="inpTaxDedName" [ngClass]="{ 'is-invalid': taxSubmitted && o.inpTaxDedName.errors}">
                                   <label for="">Tax Deductor Name</label>
                                 </div>
                               </div>
-                              <div class="col">
+                              <div class="col-md-6">
                                 <div class="form-group floating-label">
-                                  <div class="input-group append">
-                                    <input type="text" class="form-control" id="inpTaxDedTAN" formControlName="inpTaxDedTAN" [ngClass]="{ 'is-invalid': taxSubmitted && o.inpTaxDedTAN.errors}">
-                                    <label for="">TAN of Tax Deductor</label>
-                                  </div>
+                                  <input type="text" class="form-control" id="inpTaxDedTAN" formControlName="inpTaxDedTAN" [ngClass]="{ 'is-invalid': taxSubmitted && o.inpTaxDedTAN.errors}">
+                                  <label for="">TAN of Tax Deductor</label>
                                 </div>
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col">
+                              <div class="col-md-6">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="inpTaxReceiptNumber" formControlName="inpTaxReceiptNumber" [ngClass]="{ 'is-invalid': taxSubmitted && o.inpTaxReceiptNumber.errors}">
                                   <label for="">Receipt No.</label>
                                 </div>
                               </div>
-                              <div class="col">
-                                <div class="form-group mb-0">
+                              <div class="col-md-6">
+                                <div class="form-group">
                                   <div class=" floating-label">
                                     <div class="input-group prepend">
                                       <div class="input-group-prepend">
@@ -202,14 +202,14 @@
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col">
+                              <div class="col-md-6">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="inpTaxForAmt" formControlName="inpTaxForAmt" [ngClass]="{ 'is-invalid': taxSubmitted && o.inpTaxForAmt.errors}">
                                   <label for="">Amount For Tax Deducted </label>
                                 </div>
                               </div>
-                              <div class="col">
-                                <div class="form-group mb-0">
+                              <div class="col-md-6">
+                                <div class="form-group">
                                   <div class=" floating-label">
                                     <div class="input-group prepend">
                                       <div class="input-group-prepend">
@@ -237,7 +237,7 @@
                       <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
                     </div>
                     <div class="right ml-auto">
-                      <button type="button" class="btn btn-secondary btn-lg" [disabled]="previousButtonDisable" (click)="on_previous_click()"><i class="fas fa-arrow-left"></i> Previous</button>
+                      <button type="button" class="btn btn-link btn-lg" [disabled]="previousButtonDisable" (click)="on_previous_click()"><i class="fas fa-arrow-left"></i> Previous</button>
                       <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>
                       <button type="button" class="btn btn-primary btn-lg" [disabled]="nextButtonDisable" (click)="on_next_click()">Next <i class="fas fa-arrow-right"></i></button>
                       <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
