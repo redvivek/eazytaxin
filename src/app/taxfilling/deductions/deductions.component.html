@@ -89,20 +89,20 @@
                             <h6>Select Deduction Categories : For Additional Declaration</h6>
                           </div>
                       </div>
-                      <div class="d-flex flex-wrap boxBorderHeader bg-light" style="padding: 12px 45px; margin: 3px 0;">
-                        <div class="custom-control custom-checkbox col-3">
+                      <div class="d-flex flex-wrap boxBorderHeader bg-light mt-2">
+                        <div class="custom-control custom-checkbox col-md-3">
                           <input type="checkbox" class="custom-control-input" id="section80C"  name="section80C" value="section80C" [(ngModel)]="step1_section80C" (change)="onChange($event)">
                           <label class="custom-control-label" for="section80C">Section 80C</label>
                         </div>
-                        <div class="custom-control custom-checkbox col-3">
+                        <div class="custom-control custom-checkbox col-md-3">
                           <input type="checkbox" class="custom-control-input" id="section80D"  name="section80D" value="section80D" [(ngModel)]="step1_section80D" (change)="onChange($event)">
                           <label class="custom-control-label" for="section80D">Section 80D</label>
                         </div>
-                        <div class="custom-control custom-checkbox col-3">
+                        <div class="custom-control custom-checkbox col-md-3">
                           <input type="checkbox" class="custom-control-input" id="section80TTA" name="section80TTA" value="section80TTA" [(ngModel)]="step1_section80TTA" (change)="onChange($event)">
                           <label class="custom-control-label" for="section80TTA">Section 80TTA</label>
                         </div>
-                        <div class="custom-control custom-checkbox col-3">
+                        <div class="custom-control custom-checkbox col-md-3">
                           <input type="checkbox" class="custom-control-input" id="section80G" name="section80G" value="section80G" [(ngModel)]="step1_section80G" (change)="onChange($event)">
                           <label class="custom-control-label" for="section80G">Section 80G</label>
                         </div>
@@ -287,7 +287,7 @@
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col">
+                              <div class="col-md-6">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="doneeName" formControlName="doneeName" [ngClass]="{ 'is-invalid': mainFSubmitted && m.doneeName.errors}">
                                   <div *ngIf="mainFSubmitted && m.doneeName.errors" class="invalid-feedback">
@@ -296,7 +296,7 @@
                                   <label for="">Name of Donee <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
-                              <div class="col">
+                              <div class="col-md-6">
                                 <div class="form-group">
                                   <div class=" floating-label">
                                     <div class="input-group prepend">
@@ -314,7 +314,7 @@
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col">
+                              <div class="col-md-6">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="doneePan" formControlName="doneePan" [ngClass]="{ 'is-invalid': mainFSubmitted && m.doneePan.errors}">
                                   <div *ngIf="mainFSubmitted && m.doneePan.errors" class="invalid-feedback">
@@ -323,7 +323,7 @@
                                   <label for="doneePan">PAN of Donee <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
-                              <div class="col">
+                              <div class="col-md-6">
                                 <div class="form-group floating-label customDropdown">
                                   <select id="donDeductionLimit" class="form-control" formControlName="donDeductionLimit" [ngClass]="{ 'is-invalid': mainFSubmitted && m.donDeductionLimit.errors}">
                                     <option value=""></option>
@@ -338,7 +338,7 @@
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col-6">
+                              <div class="col-md-6">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="donQualPer" formControlName="donQualPer" [ngClass]="{ 'is-invalid': mainFSubmitted && m.donQualPer.errors}"> 
                                   <div *ngIf="mainFSubmitted && m.donQualPer.errors" class="invalid-feedback">
@@ -354,7 +354,7 @@
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col">
+                              <div class="col-md-6">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="donAddress" formControlName="donAddress" [ngClass]="{ 'is-invalid': mainFSubmitted && m.donAddress.errors}"> 
                                   <div *ngIf="mainFSubmitted && m.donAddress.errors" class="invalid-feedback">
@@ -363,7 +363,7 @@
                                   <label for="donAddress">Address <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
-                              <div class="col">
+                              <div class="col-md-6">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="donCity" formControlName="donCity" [ngClass]="{ 'is-invalid': mainFSubmitted && m.donCity.errors}"> 
                                   <div *ngIf="mainFSubmitted && m.donCity.errors" class="invalid-feedback">
@@ -374,7 +374,7 @@
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col">
+                              <div class="col-md-6">
                                 <div class="form-group floating-label customDropdown">
                                   <select id="select2" name="select2" class="form-control" formControlName="donCountry" [ngClass]="{ 'is-invalid': mainFSubmitted && m.donCountry.errors}"> 
                                     <option value="India">India</option>
@@ -382,7 +382,7 @@
                                   <label for="select2">Country <span class="text-danger required">*</span></label>
                                 </div>
                               </div>
-                              <div class="col">
+                              <div class="col-md-6">
                                 <div class="form-group floating-label customDropdown">
                                   <select id="donState" class="form-control" formControlName="donState" [ngClass]="{ 'is-invalid': mainFSubmitted && m.donState.errors}"> 
                                     <option value="1">Maharashtra</option>
@@ -392,7 +392,7 @@
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col-6">
+                              <div class="col-md-6">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="donPincode" formControlName="donPincode" [ngClass]="{ 'is-invalid': mainFSubmitted && m.donPincode.errors}"> 
                                   <div *ngIf="mainFSubmitted && m.donPincode.errors" class="invalid-feedback">
@@ -424,51 +424,51 @@
                             </div>
                           </div>
                           <div class="d-flex flex-wrap boxBorderHeader bg-light">
-                            <div class="form-group custom-control custom-checkbox col-3">
+                            <div class="form-group custom-control custom-checkbox col-md-3">
                               <input type="checkbox" class="custom-control-input" id="section80CCD-1-1B" value="section80CCD1" formControlName="section80CCD1" [(ngModel)]="step2_section80CCD1" (change)="onOtherChange($event)">
                               <label class="custom-control-label" for="section80CCD-1-1B">Section 80CCD (1) and (1B)</label>
                             </div>
-                            <div class="form-group custom-control custom-checkbox col-3">
+                            <div class="form-group custom-control custom-checkbox col-md-3">
                               <input type="checkbox" class="custom-control-input" id="section80CCD" value="section80CCD2" formControlName="section80CCD2" [(ngModel)]="step2_section80CCD2" (change)="onOtherChange($event)">
                               <label class="custom-control-label" for="section80CCD">Section 80CCD</label>
                             </div>
-                            <div class="form-group custom-control custom-checkbox col-3">
+                            <div class="form-group custom-control custom-checkbox col-md-3">
                               <input type="checkbox" class="custom-control-input" id="section80CCCG" value="section80CCCG" formControlName="section80CCCG" [(ngModel)]="step2_section80CCCG" (change)="onOtherChange($event)">
                               <label class="custom-control-label" for="section80CCCG">Section 80CCG</label>
                             </div>
-                            <div class="form-group custom-control custom-checkbox col-3">
+                            <div class="form-group custom-control custom-checkbox col-md-3">
                               <input type="checkbox" class="custom-control-input" id="section80E" value="section80E" formControlName="section80E" [(ngModel)]="step2_section80E" (change)="onOtherChange($event)">
                               <label class="custom-control-label" for="section80E">Section 80E</label>
                             </div>
-                            <div class="form-group custom-control custom-checkbox col-3">
+                            <div class="form-group custom-control custom-checkbox col-md-3">
                               <input type="checkbox" class="custom-control-input" id="section80CCA" value="section80CCA" formControlName="section80CCA" [(ngModel)]="step2_section80CCC" (change)="onOtherChange($event)">
                               <label class="custom-control-label" for="section80CCA">Section 80CCC</label>
                             </div>
-                            <div class="form-group custom-control custom-checkbox col-3">
+                            <div class="form-group custom-control custom-checkbox col-md-3">
                               <input type="checkbox" class="custom-control-input" id="section80GG" value="section80GG" formControlName="section80GG" [(ngModel)]="step2_section80GG" (change)="onOtherChange($event)">
                               <label class="custom-control-label" for="section80GG">Section 80GG</label>
                             </div>
-                            <div class="form-group custom-control custom-checkbox col-3">
+                            <div class="form-group custom-control custom-checkbox col-md-3">
                               <input type="checkbox" class="custom-control-input" id="section80DDB" value="section80DDB" formControlName="section80DDB" [(ngModel)]="step2_section80DDB" (change)="onOtherChange($event)">
                               <label class="custom-control-label" for="section80DDB">Section 80DDB</label>
                             </div>
-                            <div class="form-group custom-control custom-checkbox col-3">
+                            <div class="form-group custom-control custom-checkbox col-md-3">
                               <input type="checkbox" class="custom-control-input" id="section80EE" value="section80EE" formControlName="section80EE" [(ngModel)]="step2_section80EE" (change)="onOtherChange($event)">
                               <label class="custom-control-label" for="section80EE">Section 80EE</label>
                             </div>
-                            <div class="form-group custom-control custom-checkbox col-3">
+                            <div class="form-group custom-control custom-checkbox col-md-3">
                               <input type="checkbox" class="custom-control-input" id="section80QQB" value="section80QQB" formControlName="section80QQB" [(ngModel)]="step2_section80QQB" (change)="onOtherChange($event)">
                               <label class="custom-control-label" for="section80QQB">Section 80QQB</label>
                             </div>
-                            <div class="form-group custom-control custom-checkbox col-3">
+                            <div class="form-group custom-control custom-checkbox col-md-3">
                               <input type="checkbox" class="custom-control-input" id="section80RRB" value="section80RRB" formControlName="section80RRB" [(ngModel)]="step2_section80RRB" (change)="onOtherChange($event)">
                               <label class="custom-control-label" for="section80RRB">Section 80RRB</label>
                             </div>
-                            <div class="form-group custom-control custom-checkbox col-3">
+                            <div class="form-group custom-control custom-checkbox col-md-3">
                               <input type="checkbox" class="custom-control-input" id="section80GGA" value="section80GGA" formControlName="section80GGA" [(ngModel)]="step2_section80GGA" (change)="onOtherChange($event)">
                               <label class="custom-control-label" for="section80GGA">Section 80GGA</label>
                             </div>
-                            <div class="form-group custom-control custom-checkbox col-3">
+                            <div class="form-group custom-control custom-checkbox col-md-3">
                               <input type="checkbox" class="custom-control-input" id="section80GGC" value="section80GGC" formControlName="section80GGC" [(ngModel)]="step2_section80GGC" (change)="onOtherChange($event)">
                               <label class="custom-control-label" for="section80GGC">Section 80GGC</label>
                             </div>
@@ -506,31 +506,31 @@
                             </div>
                           </div>
                           <div class="boxBorderHeader position-relative" id="section_80CCD2" *ngIf="step2_section80CCD2" >
-                              <div class="text-uppercase boxHeader text-center">
-                                <span class="d-inline-block"><h6>Section 80CCD(2) - Employer Contribution in NPS</h6></span>
-                              </div>
-                              <div class="boxBody">
-                                <p class="text-muted">Employers contribution towards NPS (upto 10% of Salary).</p>
-                                <div class="row" *ngIf="step2_section80CCD2">
-                                  <div class="col">
-                                    <div class="form-group mb-0">
-                                      <div class=" floating-label">
-                                        <div class="input-group prepend">
-                                          <div class="input-group-prepend">
-                                            <div class="input-group-text">₹</div>
-                                          </div>
-                                          <input type="text" class="form-control" id="S80CDD2EmprAmount" formControlName="S80CDD2EmprAmount" [ngClass]="{ 'is-invalid': otherFSubmitted && o.S80CDD2EmprAmount.errors}">
-                                          <div *ngIf="otherFSubmitted && o.S80CDD2EmprAmount.errors" class="invalid-feedback">
-                                              <div *ngIf="o.S80CDD2EmprAmount.errors.required">Employers contribution amount towards NPS is required</div>
-                                          </div>
-                                          <label for="S80CDD2EmprAmount">Employers contribution towards NPS (upto 10% of Salary) <span class="text-danger required">*</span></label>
+                            <div class="text-uppercase boxHeader text-center">
+                              <span class="d-inline-block"><h6>Section 80CCD(2) - Employer Contribution in NPS</h6></span>
+                            </div>
+                            <div class="boxBody">
+                              <p class="text-muted">Employers contribution towards NPS (upto 10% of Salary).</p>
+                              <div class="row" *ngIf="step2_section80CCD2">
+                                <div class="col">
+                                  <div class="form-group mb-0">
+                                    <div class=" floating-label">
+                                      <div class="input-group prepend">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">₹</div>
                                         </div>
+                                        <input type="text" class="form-control" id="S80CDD2EmprAmount" formControlName="S80CDD2EmprAmount" [ngClass]="{ 'is-invalid': otherFSubmitted && o.S80CDD2EmprAmount.errors}">
+                                        <div *ngIf="otherFSubmitted && o.S80CDD2EmprAmount.errors" class="invalid-feedback">
+                                            <div *ngIf="o.S80CDD2EmprAmount.errors.required">Employers contribution amount towards NPS is required</div>
+                                        </div>
+                                        <label for="S80CDD2EmprAmount">Employers contribution towards NPS (upto 10% of Salary) <span class="text-danger required">*</span></label>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-                            </div>
+                              </div>
                           </div>
+                        </div>
                           <!--Section 80CCD form ends-->
 
                           <!--Section 80CCG form starts-->
@@ -628,7 +628,7 @@
                               <p class="text-muted">Not a commonly applicable deduction. Please be careful while claiming. If you receive HRA benefit, then you cannot claim this deduction. If you are looking to claim HRA, this is NOT the section. Eligibility: Your spouse or minor child should not own House Property in same town where paying rent. Self occupied house property Interest deduction should not have been availed. </p>
                               <div class="row">
                                 <div class="col-md-6">
-                                  <div class="form-group mb-0">
+                                  <div class="form-group">
                                     <div class=" floating-label">
                                       <div class="input-group prepend">
                                         <div class="input-group-prepend">
@@ -680,7 +680,7 @@
                               <p class="text-muted text-center">This deduction is for certain specified diseases. (It is not a commonly applicable deduction). Please be careful while claiming this deduction.</p>
                               <div class="row">
                                 <div class="col-md-6">
-                                  <div class="form-group mb-0">
+                                  <div class="form-group">
                                     <div class=" floating-label">
                                       <div class="input-group prepend">
                                         <div class="input-group-prepend">
