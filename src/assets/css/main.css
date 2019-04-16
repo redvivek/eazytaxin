@@ -278,6 +278,8 @@ a:hover{text-decoration:none;}
 .floating-label .input-group > .custom-file .custom-file-input:focus ~ .custom-file-label, 
 .floating-label .input-group > .custom-select:focus, 
 .floating-label .input-group > .form-control:focus{z-index:inherit;}
+.floating-label.close-row .close{right:0; bottom:10px; font-size:14px;}
+
 
 
 /* Custom Dropdown */
@@ -398,10 +400,11 @@ a:hover{text-decoration:none;}
 .dashboard .page-titles{padding-bottom:10px;}
 .dashboard {font-size:16px;}
 .dashboard .user-info .user-name{font-size:30px;}
-.dashboard .user-info .user-avatar{width:120px; margin-right:20px;}
+.dashboard .user-info .user-avatar{margin-right:20px;}
 .dashboard .user-info .row{margin-bottom:5px;}
 .dashboard .user-info .key{width:70px;}
 .dashboard .user-info .value{font-weight:500;}
+.dashboard .user-cont > .row{min-width:180px;}
 .dashboard .table tr:first-child th,
 .dashboard .table tr:first-child td{border-top:none;}
 .dashboard .table .badge{display:inline-block; margin-right:5px; margin-left:0; min-width:10px; width:10px; height:10px; border-radius:100em;}

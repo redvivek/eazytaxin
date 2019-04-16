@@ -131,8 +131,8 @@
                                   </div>
                                 </div>
                                 <div class="col-md-6">
-                                  <div class="form-group mb-0">
-                                    <div class=" floating-label">
+                                  <div class="form-group">
+                                    <div class="floating-label close-row">
                                       <div class="input-group prepend">
                                         <div class="input-group-prepend">
                                           <div class="input-group-text">₹</div>
@@ -143,11 +143,9 @@
                                         </div>
                                         <label for="">Investment Amount <span class="text-danger required">*</span></label>
                                       </div>
+                                      <a href="javascript:void(0);" (click)="deleteRow(i)" *ngIf="mainDeductionForm.controls.itemRows.controls.length > 1" class="position-absolute close"><i class="fas fa-times"></i></a>
                                     </div>
                                   </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <button type="button" (click)="deleteRow(i)" *ngIf="mainDeductionForm.controls.itemRows.controls.length > 1" >Remove</button>
                                 </div>
                               </div>
                             </div>
