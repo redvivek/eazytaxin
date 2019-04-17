@@ -24,6 +24,9 @@
 }
 
 @media (min-width: 992px) {
+	/* Home Page */
+	.homepage .featuresList figure{padding:0 35px;}
+
 }
 
 @media (min-width: 1200px) {
@@ -49,6 +52,24 @@
 	/* Tabs */
 	.nav-tabs{overflow-x: auto; overflow-y: hidden; display: -webkit-box; display: -moz-box; flex-wrap:nowrap;}
 
+	#header .navbar-brand::before{ left:-60px; top:-60px;}
+	#header.no-bg .navbar-brand img{width:130px; height:20px;}
+	#header.no-bg .navbar-brand::before{ width:200px; height:129px; }
+	
+	/* Home Page */
+	.homepage .mainBanner{min-height:inherit;}
+	.homepage .mainBanner .captions h3,
+	.homepage .mainBanner .captions h3.md{font-size:50px;}
+	.homepage .mainBanner .captions h5{font-size:24px;}
+	.homepage .mainBanner .captions p{display:none;}
+}
+
+@media (max-width: 991px) {
+	/* Home Page */
+	.homepage .featuresList > .d-flex{flex-wrap:wrap;}
+	.homepage .featuresList figure{width:50%;}
+
+
 }
 
 @media (max-width: 700px) {
@@ -70,6 +91,11 @@
 	.wizard-content .wizard > .steps .step-icon{line-height:40px;}
 	.wizard-content .wizard > .steps > ul > li a::after,
 	.wizard-content .wizard > .steps > ul > li a::before {bottom:34px;}
+
+	/* Home Page */
+	.homepage .mainBanner .captions h3,
+	.homepage .mainBanner .captions h3.md{font-size:35px;}
+	.homepage .mainBanner .captions h5{font-size:18px;}
 }
 @media (max-width: 480px) {
 	.container-fluid{padding-left:0; padding-right:0;}
@@ -79,6 +105,12 @@
 	/* Dashboard */
 	.dashboard .stats.col4 .stats-col{width:50%;}
 	.dashboard .stats.col4 .stats-col:nth-child(even){text-align:right;}
+
+	/* Home Page */
+	.homepage .featuresList figure{width:100%;}
+	.homepage .pricing .priceList > .d-flex{flex-wrap:wrap;}
+	.homepage .pricing .priceList li{ max-width:400px; height:auto; margin-right:0; margin-left:0;}
+	.homepage .pricing .priceList li h3{margin-bottom:10px;}
 }
 @media (max-width: 420px) {
 	.custom-file-wrap>.d-flex{flex-wrap:wrap; }
