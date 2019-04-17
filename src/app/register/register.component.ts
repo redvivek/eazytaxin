@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup,FormControl, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import {ScriptService, AlertService, UserService, AuthenticationService } from '@app/_services';
+import {AlertService, UserService, AuthenticationService } from '@app/_services';
 import * as Waves from 'node-waves';
-import { handleFloatingLabels } from '../app.helpers';
+import { handleInsideHeaderBackground,handleFloatingLabels } from '../app.helpers';
 
 @Component({templateUrl: 'register.component.html'})
 export class RegisterComponent implements OnInit,AfterViewInit {
@@ -50,6 +50,7 @@ export class RegisterComponent implements OnInit,AfterViewInit {
     }
 
     ngAfterViewInit(){
+        handleInsideHeaderBackground();
         handleFloatingLabels(Waves);
     }
 
@@ -107,8 +108,11 @@ export class RegisterComponent implements OnInit,AfterViewInit {
                         this.alertService.error('Username/Email is already registered');
                         this.loading = false;
                     }else if(data['Message'] == 'Successful Request'){
-                        this.alertService.success('Registration successful', true);
-                        this.router.navigate(['/login']); 
+                        var msgtemplate = "Registration successfully completed.";
+                        this.alertService.success(msgtemplate, true);
+                        this.userService.changeMessage(data['userid']);
+                        //this.newUserId = data['userid'];
+                        this.router.navigate(['/activateuser']); 
                     }
                 },
             error => {

@@ -25,6 +25,8 @@ import { DashboardComponent } from './dashboard';
 import { PricingComponent } from './pricing';
 import { ContactusComponent } from './contactus/contactus.component';
 import { BuynowComponent } from './buynow/buynow.component';
+import { UseractivationComponent } from './useractivation';
+import { UserverificationComponent } from './userverification';
 
 @NgModule({
     imports: [
@@ -47,6 +49,8 @@ import { BuynowComponent } from './buynow/buynow.component';
         PricingComponent,
         ContactusComponent,
         BuynowComponent,
+        UseractivationComponent,
+        UserverificationComponent,
     ],
         
     providers: [

@@ -3,9 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { ScriptService, AlertService, AuthenticationService } from '@app/_services';
+import {AlertService, UserService,AuthenticationService } from '@app/_services';
 import * as Waves from 'node-waves';
-import { handleFloatingLabels } from '../app.helpers';
+import { handleInsideHeaderBackground,handleFloatingLabels } from '../app.helpers';
 
 @Component({templateUrl: 'login.component.html'})
 export class LoginComponent implements OnInit,AfterViewInit {
@@ -15,18 +15,14 @@ export class LoginComponent implements OnInit,AfterViewInit {
     returnUrl: string;
 
     constructor(
-        private scriptservice : ScriptService,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
+        private userService: UserService,
         private alertService: AlertService
     ) {
-        /* this.scriptservice.load('mainJS').then(data => {
-            console.log('script loaded ', data);
-        }).catch(error => console.log(error)); */
-        
-        // redirect to dashboard if already logged in
+       // redirect to dashboard if already logged in
         if (this.authenticationService.currentUserValue) { 
             this.router.navigate(['/dashboard']);
         }
@@ -43,6 +39,7 @@ export class LoginComponent implements OnInit,AfterViewInit {
     }
 
     ngAfterViewInit(){
+        handleInsideHeaderBackground();
         handleFloatingLabels(Waves);
     }
 
@@ -63,12 +60,19 @@ export class LoginComponent implements OnInit,AfterViewInit {
         .subscribe(
             data => {
                 console.log("Response"+JSON.stringify(data));
-                if(data['Message'] == 'Invalid User'){
+                if(data['Message'] == 'Invalid Cred'){
                     this.alertService.error('Username or Password is invalid');
                     this.loading = false;
                 }else if(data['Message'] == 'Valid User'){
                     this.alertService.success('Login successful', true);
                     this.router.navigate([this.returnUrl]);
+                    this.loading = false;
+                }else if(data['Message'] == 'Inactive User'){
+                    this.userService.changeMessage(data['userid']);
+                    this.router.navigate(['/activateuser']);
+                    this.loading = false;
+                }else{
+                    this.alertService.error('Not a valid user. Please signup!!');
                     this.loading = false;
                 }    
             },

@@ -52,6 +52,10 @@ export class HeaderComponent implements OnInit,AfterContentInit {
     this.router.navigate(['/login']);
   }
 
+  goRegister(){
+    this.router.navigate(['/register']);
+  }
+
   goHome(){
     this.router.navigate(['/home']);
   }

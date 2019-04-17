@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable ,BehaviorSubject} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 //import 'rxjs/add/operators/catch';
@@ -10,7 +10,19 @@ import { NewUser} from '@app/_models';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
+    
+    private messageSource = new BehaviorSubject('');
+    currentMessage = this.messageSource.asObservable();
+
     constructor(private http: HttpClient) { }
+
+    changeMessage(message: string) {
+        this.messageSource.next(message)
+    }
+
+    public get currentMessageValue(){
+        return this.messageSource.value;
+    }
 
     /*getAll() {
         return this.http.get<User[]>(`${environment.apiUrl}/users`);
@@ -22,6 +34,29 @@ export class UserService {
 
     register(user: NewUser) {
         return this.http.post(`${environment.apiUrl}/users/register`, user);
+    }
+
+    sendActivationLink(userid:string){
+        var inputdata = {
+            "userid" : userid
+        };
+        return this.http.post(`${environment.apiUrl}/users/sendActivationMail`, inputdata);
+    }
+
+    verifyCode(resetcode:string,userid:string){
+        var inputdata = {
+            "userid" : userid,
+            "resetcode" : resetcode
+        };
+        return this.http.post(`${environment.apiUrl}/users/checkResetCode`, inputdata);
+    }
+
+    resetPassword(userid:string,password:string){
+        var inputdata = {
+            "userid" : userid,
+            "password" : password
+        };
+        return this.http.post(`${environment.apiUrl}/users/updatePassword`, inputdata);
     }
 
     /*update(user: User) {
@@ -41,6 +76,15 @@ export class UserService {
             map((response: Response) => response.json()),
             catchError (this.handleError)
             )
+    }
+
+    forgetPassword(emailid: string){
+        console.log("Email " + emailid);
+        var inputdata = {
+            "emailid" : emailid
+        };
+        return this.http.post(`${environment.apiUrl}/users/sendForgetPwdLink`, inputdata);
+
     }
 
     private handleError(error: any) {

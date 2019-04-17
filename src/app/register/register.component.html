@@ -32,8 +32,7 @@
               <label for="">Password</label>
             </div>
             <div class="form-group floating-label mb-3">
-              <input type="text" class="form-control" id="cPassword" formControlName="cPassword" [ngClass]="{ 'is-invalid': submitted && f.cPassword.errors }">
-              <label for="">Confirm Password</label>
+              <input type="password" class="form-control" id="cPassword" formControlName="cPassword" [ngClass]="{ 'is-invalid': submitted && f.cPassword.errors }">
               <div *ngIf="submitted && f.cPassword.errors" class="invalid-feedback">
                   <div *ngIf="f.cPassword.errors.required">Re-Enter your password</div>
                   <div *ngIf="f.cPassword.errors.notEquivalent">Passwords did not match</div>

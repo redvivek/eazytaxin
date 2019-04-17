@@ -72,6 +72,9 @@
             <li class="nav-item" *ngIf="!currentUser">
               <a class="nav-link" href="#" (click)="goLogin()">Login</a>
             </li>
+            <li class="nav-item" *ngIf="!currentUser">
+              <a class="nav-link" href="#" (click)="goRegister()">Signup</a>
+            </li>
             <li class="nav-item dropdown u-pro" *ngIf="currentUser">
               <a class="user-dropdown dropdown-toggle waves-effect profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="/assets/img/1.jpg" alt="user" class="">

@@ -1,3 +1,6 @@
 {
-    "secret": "easytaxin"
+    "secret": "easytaxin",
+    "protocol" : "http://",
+    "host" : "localhost:3000",
+    "fehost" : "localhost:4200"
 }

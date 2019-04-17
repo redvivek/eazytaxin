@@ -36,7 +36,7 @@ module.exports = function(sequelize, DataTypes) {
     Status: {
       type: DataTypes.ENUM('Active','Disabled','Delete'),
       allowNull: false,
-      defaultValue: 'Active'
+      defaultValue: 'Disabled'
     },
     LastLoginTime: {
       type: DataTypes.DATE,
@@ -71,7 +71,16 @@ module.exports = function(sequelize, DataTypes) {
     updatedAt: {
       type: DataTypes.DATE,
       allowNull: true
+    },
+    activationCode:{
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    pwdResetCode:{
+      type: DataTypes.STRING(50),
+      allowNull: true
     }
+
   }, {
     tableName: 'et_userinfo'
   });
