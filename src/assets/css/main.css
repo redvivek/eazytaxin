@@ -48,9 +48,9 @@ a:hover{text-decoration:none;}
 .static-wrapper{padding-top:66px;}
 
 /* Half Layout */
-.halfLayoutContainer{display:table; width:100%;}
+.halfLayoutContainer{display:flex; width:100%;}
 .halfLayoutContainer .left-half,
-.halfLayoutContainer .right-half{display:table-cell; width:50%;}
+.halfLayoutContainer .right-half{ width:50%;}
 .halfLayoutContainer .right-half{background-color:#0095e3;}
 .halfLayoutContainer .right-half .banner{background-repeat:no-repeat; background-position:center center; background-size:cover; height:100%; width:100%; left:0; top:0;}
 .halfLayoutContainer .left-half{padding:0 60px 60px;}
@@ -570,9 +570,9 @@ a:hover{text-decoration:none;}
 .contactusPage .actionRow .btn{font-size:16px; padding:17px 20px; min-width:145px;}
 
 /* Pricing */
-.pricingPage .nav-tabs{font-size:20px; font-weight:500; border-bottom:none;}
-.pricingPage .nav-tabs .nav-item{padding:0;}
-.pricingPage .nav-tabs .nav-item .nav-link{padding:8px 80px;}
+.pricingPage .nav-tabs{font-size:20px; font-weight:500; border-bottom:none; text-align:center;}
+.pricingPage .nav-tabs .nav-item{padding:0; width:50%; max-width:190px;}
+.pricingPage .nav-tabs .nav-item .nav-link{padding:8px 40px;}
 
 .pricingPage .nav-tabs .nav-item.show .nav-link,
 .pricingPage .nav-tabs .nav-link.active,

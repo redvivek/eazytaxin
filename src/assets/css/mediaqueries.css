@@ -10,6 +10,7 @@
 	.page-titles h4{font-size:30px; }
 	.page-titles h4 small{font-size:18px;}
 	.page-titles .col-right .customDropdown{margin-top:-16px;}
+
 }
 @media (min-width: 900px) {
 	#header .navbar-brand{padding-left:35px;}
@@ -21,6 +22,8 @@
 	.stickyFooterForm.affix{left:250px; padding-left:75px; padding-right:75px;}
 	#footer.footer-inside{padding-left:262px;}
 	.left-sidebar .sidebartoggler{display:block;}
+
+
 }
 
 @media (min-width: 992px) {
@@ -30,6 +33,7 @@
 }
 
 @media (min-width: 1200px) {
+
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
@@ -68,7 +72,20 @@
 	/* Home Page */
 	.homepage .featuresList > .d-flex{flex-wrap:wrap;}
 	.homepage .featuresList figure{width:50%;}
+	.homepage .sectionHeader h3{font-size:26px;}
+	.homepage .testimonialSection .testimonial{padding:0 80px;}
+	.homepage .testimonialSection .testimonial:before,
+	.homepage .testimonialSection .testimonial:after{font-size:60px; }
+	
+	#footer{padding:15px;}
+	#footer .left img{max-width:130px;}
+	
+	.social li{margin:0 3px;}
+	.social li a{width:35px; height:35px; font-size:18px;}
 
+	/* Half Layout */
+	.halfLayoutContainer .left-half{padding:0 25px 25px;}
+	.halfLayoutContainer .left-half-inner{max-width:100%;}
 
 }
 
@@ -80,6 +97,11 @@
 
 	/* Dashboard */
 	.dashboard .stats.col4 .stats-col{width:33.33333%;}
+
+	/* Half Layout */
+	.halfLayoutContainer {flex-wrap:wrap;}
+	.halfLayoutContainer .right-half{min-height:350px; width:100%;}
+	.halfLayoutContainer .left-half{padding:0 25px 25px; order:2; width:100%;}
 
 }
 @media (max-width: 640px) {
@@ -96,6 +118,11 @@
 	.homepage .mainBanner .captions h3,
 	.homepage .mainBanner .captions h3.md{font-size:35px;}
 	.homepage .mainBanner .captions h5{font-size:18px;}
+	.homepage .sectionHeader h3{font-size:22px;}
+	.homepage .testimonialSection .testimonial{padding:0 65px;}
+	.homepage .testimonialSection .testimonial:before,
+	.homepage .testimonialSection .testimonial:after{font-size:45px; }
+	.homepage .testimonialSection .testimonial .title{font-size:20px;}
 }
 @media (max-width: 480px) {
 	.container-fluid{padding-left:0; padding-right:0;}
@@ -109,13 +136,29 @@
 	/* Home Page */
 	.homepage .featuresList figure{width:100%;}
 	.homepage .pricing .priceList > .d-flex{flex-wrap:wrap;}
-	.homepage .pricing .priceList li{ max-width:400px; height:auto; margin-right:0; margin-left:0;}
+	.homepage .pricing .priceList li{ max-width:400px; height:auto; min-height:200px; margin-right:0; margin-left:0;}
+	.homepage .pricing .priceList li:after{display:none;}
 	.homepage .pricing .priceList li h3{margin-bottom:10px;}
+
+	/* Half Layout */
+	.halfLayoutContainer .right-half{min-height:180px;}
+
+
 }
 @media (max-width: 420px) {
 	.custom-file-wrap>.d-flex{flex-wrap:wrap; }
 	.custom-file-wrap .input-group-prepend{display:none;}
 	.custom-file-wrap .custom-file{margin-left:0;}
+	.homepage .testimonialSection .testimonial{padding:0 50px; margin-top:0; font-size:15px;}
+	.homepage .testimonialSection .testimonial:before,
+	.homepage .testimonialSection .testimonial:after{font-size:35px; }
+	.homepage .testimonialSection .testimonial .title{font-size:18px;}
+
+	/* Pricing */
+	.pricingPage .nav-tabs {font-size:18px;}
+	.pricingPage .nav-tabs .nav-item .nav-link{padding:8px 30px;}
+	.pricingPage .actionRow .btn{padding:12px 20px; }
+
 }
 @media (max-width: 380px) {
 	#footer.footer-inside{flex-wrap:wrap;}
