@@ -5,7 +5,7 @@ import { first } from 'rxjs/operators';
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { environment } from '@environments/environment';
 import { ApplicationMain} from '@app/_models';
-import { ScriptService,AlertService, AuthenticationService,ApplicationService } from '@app/_services';
+import { AlertService, AuthenticationService,ApplicationService } from '@app/_services';
 import { handleInsideHeaderBackground,handleFloatingLabels } from '../../app.helpers';
 import * as Waves from 'node-waves';
 
@@ -17,104 +17,111 @@ const URL = `${environment.apiUrl}/tax/uploadxml`;
   styleUrls: ['./tax-period.component.css']
 })
 export class TaxPeriodComponent implements OnInit,AfterViewInit {
-  taxPeriodForm: FormGroup;
-  loading = false;
-  submitted = false;
-  showUploadField = false;
-  userId : number;
-  ApplicationId : number;
-  selAssYear : any = null;
-  //dataSubmitted = false;
+    taxPeriodForm: FormGroup;
+    loading = false;
+    submitted = false;
+    showUploadField = false;
+    userId : number;
+    ApplicationId : number;
+    selAssYear : any = null;
+    selFinYear : any = null;
+    //dataSubmitted = false;
 
-  taxperiods = this.getCurrentAssesmentYear();
+    taxperiods = this.getCurrentAssesmentYear();
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private authenticationService: AuthenticationService,
-    private appservice: ApplicationService,
-    private alertService: AlertService,
-    private scriptservice : ScriptService
-  )
-  {
-    // redirect to login if not logged in
-    if (!this.authenticationService.currentUserValue) { 
-      this.router.navigate(['/login']);
-    }else{
-      console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
-      this.userId = this.authenticationService.currentUserValue.userid;
+    constructor(
+        private formBuilder: FormBuilder,
+        private router: Router,
+        private authenticationService: AuthenticationService,
+        private appservice: ApplicationService,
+        private alertService: AlertService
+    )
+    {
+        // redirect to login if not logged in
+        if (!this.authenticationService.currentUserValue) { 
+        this.router.navigate(['/login']);
+        }else{
+        console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
+        this.userId = this.authenticationService.currentUserValue.userid;
+        }
+
+        if(this.appservice.currentApplicationValue != null){
+            this.selAssYear = this.appservice.currentApplicationValue.taxperiod;
+        }else{
+            var today = new Date();
+            if (today.getMonth() > 7) {
+                this.selAssYear = this.taxperiods[0];
+                this.selFinYear = this.taxperiods[1];
+            }else{
+                this.selAssYear = this.taxperiods[1];
+                this.selFinYear = this.taxperiods[2];
+            }
+        }
     }
 
-    if(this.appservice.currentApplicationValue != null){
-        this.selAssYear = this.appservice.currentApplicationValue.taxperiod;
-    }else{
-      this.selAssYear = this.taxperiods[0]
-    }
-  }
-
-  public uploader: FileUploader = new FileUploader({
+    public uploader: FileUploader = new FileUploader({
     url: URL, 
     itemAlias: 'uploadPreFillXMLFile'
-  });
-
-  ngOnInit() {
-    this.taxPeriodForm = this.formBuilder.group({
-        taxperiod: ['', Validators.required],
-        xmluploadflag : ['',Validators.required],
-        uploadPreFillXMLFile : [null]
     });
 
-    //Preload form with existing or default values
-    this.taxPeriodForm.get('taxperiod').setValue(this.selAssYear);
-    this.taxPeriodForm.get('xmluploadflag').setValue('0');
+    ngOnInit() {
+        this.taxPeriodForm = this.formBuilder.group({
+            taxperiod: ['', Validators.required],
+            xmluploadflag : ['',Validators.required],
+            uploadPreFillXMLFile : [null]
+        });
 
-    //call this to enable/disable & validate file upload form field on Radio change event
-    this.formControlValueChanged();
-    
-    //XML File Uploader with form data
-    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-    
-    this.uploader.onBuildItemForm = (fileItem: any, form: any) => {
-      var randomNo = "App"+this.generateAppRefNo(this.userId);  
-      form.append('AppRefNo', randomNo); //note comma separating key and value
-      form.append('UserId', this.userId);
-      form.append('AssesmentYear', this.selAssYear);
-      form.append('XmlUploadFlag', 1);
-      form.append('ApplicationStatus', 'Initiated');
-      form.append('DocCategory', 'PreUploadXML');
-     };
+        //Preload form with existing or default values
+        this.taxPeriodForm.get('taxperiod').setValue(this.selAssYear);
+        this.taxPeriodForm.get('xmluploadflag').setValue('0');
 
-    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-        //console.log('ImageUpload:uploaded:', item, status, response);
-        console.log('Response '+ response); 
-        var res = JSON.parse(response);
-        //alert('File uploaded successfully');
-        if(res['statusCode'] == 200){                 
-            this.alertService.success('Prefilled XML File Uploaded successfully');
-            localStorage.removeItem("currentUserApp");
-            //Add newly created AppID in local storage
-            const appdata:ApplicationMain = { 
-                'appId': res['AppId'],
-                'taxperiod':this.selAssYear,
-                'xmluploadflag':1, 
-                'appRefno':"", 
-                'applicationStage':1, 
-                'appStatus':'initiated' 
-            };
-            localStorage.setItem("currentUserApp", JSON.stringify(appdata));
-            //this.dataSubmitted = true;
-            this.loading = false;
-        }else{
-            this.alertService.error('Prefilled XML File Upload Failed');
-        }
-    };
-    /*XML File Uploader with form data ends here */
-  }
+        //call this to enable/disable & validate file upload form field on Radio change event
+        this.formControlValueChanged();
+        
+        //XML File Uploader with form data
+        this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+        
+        this.uploader.onBuildItemForm = (fileItem: any, form: any) => {
+        var randomNo = "App"+this.generateAppRefNo(this.userId);  
+        form.append('AppRefNo', randomNo); //note comma separating key and value
+        form.append('UserId', this.userId);
+        form.append('AssesmentYear', this.selAssYear);
+        form.append('XmlUploadFlag', 1);
+        form.append('ApplicationStatus', 'Initiated');
+        form.append('DocCategory', 'PreUploadXML');
+        };
 
-  ngAfterViewInit(){
-    handleInsideHeaderBackground();
-    handleFloatingLabels(Waves);
-	}
+        this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+            //console.log('ImageUpload:uploaded:', item, status, response);
+            //console.log('Response '+ response); 
+            var res = JSON.parse(response);
+            //alert('File uploaded successfully');
+            if(res['statusCode'] == 200){                 
+                this.alertService.success('Prefilled XML File Uploaded successfully');
+                localStorage.removeItem("currentUserApp");
+                //Add newly created AppID in local storage
+                const appdata:ApplicationMain = { 
+                    'appId': res['AppId'],
+                    'taxperiod':this.selAssYear,
+                    'xmluploadflag':1, 
+                    'appRefno':"", 
+                    'applicationStage':1, 
+                    'appStatus':'initiated' 
+                };
+                localStorage.setItem("currentUserApp", JSON.stringify(appdata));
+                //this.dataSubmitted = true;
+                this.loading = false;
+            }else{
+                this.alertService.error('Prefilled XML File Upload Failed');
+            }
+        };
+        /*XML File Uploader with form data ends here */
+    }
+
+    ngAfterViewInit(){
+        handleInsideHeaderBackground();
+        handleFloatingLabels(Waves);
+    }
 
   // convenience getter for easy access to form fields
   get f() { return this.taxPeriodForm.controls; }
@@ -147,12 +154,8 @@ export class TaxPeriodComponent implements OnInit,AfterViewInit {
         return;
     }
 
-    if(this.appservice.currentApplicationValue.appId == null || this.appservice.currentApplicationValue.appId == ""){
-        this.ApplicationId  = this.appservice.currentApplicationValue.appId;
-        console.log("Current App Id "+ this.ApplicationId);
-        
+    if(!this.appservice.currentApplicationValue){
         var randomNo = "App"+this.generateAppRefNo(this.userId);
-        
         console.log('Input Values :-)\n\n' + JSON.stringify(this.taxPeriodForm.value));
         //create the input params for post request
         const appData = {
@@ -234,7 +237,7 @@ export class TaxPeriodComponent implements OnInit,AfterViewInit {
     if ((today.getMonth() + 1) <= 3) {
         prevLAYear = (today.getFullYear()-2) + "-" + (today.getFullYear()-1);
     } else {
-        prevLAYear = (today.getFullYear()-1) + "-" + today.getFullYear() + 1;
+        prevLAYear = (today.getFullYear()-1) + "-" + today.getFullYear();
     }
     assYearList.push(currentAYear);
     assYearList.push(prevAYear);

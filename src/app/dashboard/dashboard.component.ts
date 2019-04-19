@@ -2,7 +2,7 @@ import { Component, OnInit,OnDestroy,AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { ApplicationMain} from '@app/_models';
-import { ScriptService,ApplicationService, AuthenticationService,AlertService } from '@app/_services';
+import { ApplicationService, AuthenticationService,AlertService } from '@app/_services';
 import { handleInsideHeaderBackground } from '../app.helpers';
 
 @Component({
@@ -23,8 +23,7 @@ export class DashboardComponent implements OnInit,AfterViewInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private appService : ApplicationService,
-        private alertService : AlertService,
-        private scriptservice : ScriptService
+        private alertService : AlertService
   ) {
         // redirect to login if not logged in
         if (!this.authenticationService.currentUserValue) { 
@@ -33,15 +32,21 @@ export class DashboardComponent implements OnInit,AfterViewInit {
         //console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
         //console.log("Current App value "+ this.appService.currentApplicationValue);
         this.userId         = this.authenticationService.currentUserValue.userid;
-        console.log("Current User Id "+ this.userId);
+        //console.log("Current User Id "+ this.userId);
         }
 }
 
     ngOnInit() {
         this.assesmentYears = this.getCurrentAssesmentYear();
-        console.log("Current Assesment Year "+this.assesmentYears);
-        this.selectedAssYear = this.assesmentYears[0];
-        this.inProgressApps = this.fetchInProgressAppDataByUserID(this.userId);
+        //console.log("Current Assesment Year "+this.assesmentYears);
+        var today = new Date();
+        if (today.getMonth() > 7) {
+            this.selectedAssYear = this.assesmentYears[0];
+        }else{
+            this.selectedAssYear = this.assesmentYears[1];
+        }
+        
+        this.inProgressApps = this.fetchInProgressAppDataByUserID(this.selectedAssYear,this.userId);
     }
 
     ngAfterViewInit(){
@@ -49,17 +54,18 @@ export class DashboardComponent implements OnInit,AfterViewInit {
 	}
 
     onChange(newValue) {
-        console.log(newValue);
+        //console.log(newValue);
         this.selectedAssYear = newValue;
         //Fetch and refresh data on change of assesment year
         this.appService.fetchDashboardDataByAssYearUserId(this.selectedAssYear,this.userId)
         .pipe(first())
         .subscribe(
         data => {
-                console.log("Response" + JSON.stringify(data));
+                //console.log("Response" + JSON.stringify(data));
                 //successfully inserted
                 if(data['statusCode'] == 200){                  
                     this.alertService.error('Application - Dashboard Info data fetched successfully');
+                    this.inProgressApps = this.fetchInProgressAppDataByUserID(this.selectedAssYear,this.userId);
                }
             },
         error => {
@@ -98,7 +104,7 @@ export class DashboardComponent implements OnInit,AfterViewInit {
         localStorage.removeItem("currentUserApp");
         localStorage.setItem("currentUserApp", JSON.stringify(appdata));
         //var currStage  = this.appService.currentApplicationValue.applicationStage;
-        console.log("Selected App details "+ JSON.stringify(this.appService.currentApplicationValue));
+        //console.log("Selected App details "+ JSON.stringify(this.appService.currentApplicationValue));
         if(appArray.AppStage == "" || appArray.AppStage == 0)
             this.router.navigate(['/taxfilling/taxperiod']);
         else if(appArray.AppStage == 1)
@@ -138,7 +144,7 @@ export class DashboardComponent implements OnInit,AfterViewInit {
         if ((today.getMonth() + 1) <= 3) {
             prevLAYear = (today.getFullYear()-2) + "-" + (today.getFullYear()-1);
         } else {
-            prevLAYear = (today.getFullYear()-1) + "-" + today.getFullYear() + 1;
+            prevLAYear = (today.getFullYear()-1) + "-" + today.getFullYear();
         }
         assYearList.push(currentAYear);
         assYearList.push(prevAYear);
@@ -146,10 +152,10 @@ export class DashboardComponent implements OnInit,AfterViewInit {
         return assYearList;
     }
 
-    fetchInProgressAppDataByUserID(userid){
+    fetchInProgressAppDataByUserID(selYear,userid){
         var resultArray = [];
         // start storing application data in database
-        this.appService.fetchInProgAppDataByUserid(userid)
+        this.appService.fetchInProgAppDataByUserid(userid,selYear)
         .pipe(first())
         .subscribe(
             data => {
@@ -157,20 +163,20 @@ export class DashboardComponent implements OnInit,AfterViewInit {
                     if(data['statusCode'] == 200){                  
                         if(data['ResultData'].length > 0){
                             for(var i=0;i<data['ResultData'].length;i++){
-                                if(data['ResultData'][i].AssesmentYear == this.assesmentYears[0]){
+                                if(data['ResultData'][i].AssesmentYear == this.selectedAssYear){
                                     this.showCurrAssYear = false;
                                 }else{
                                     this.showCurrAssYear = true;
                                 }
                                 
                                 resultArray.push(
-                                    {
-                                        "AppId":data['ResultData'][i].ApplicationId,
-                                        "AppRefno":data['ResultData'][i].AppRefNo,
-                                        "AssYear":data['ResultData'][i].AssesmentYear,
-                                        "AppStage":data['ResultData'][i].ApplicationStage,
-                                        "xmlFlag":data['ResultData'][i].XmlUploadFlag
-                                    }
+                                {
+                                    "AppId":data['ResultData'][i].ApplicationId,
+                                    "AppRefno":data['ResultData'][i].AppRefNo,
+                                    "AssYear":data['ResultData'][i].AssesmentYear,
+                                    "AppStage":data['ResultData'][i].ApplicationStage,
+                                    "xmlFlag":data['ResultData'][i].XmlUploadFlag
+                                }
                                 )
                             }
                         }else{

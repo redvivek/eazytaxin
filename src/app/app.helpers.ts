@@ -105,8 +105,8 @@ export function formSticky(){
       var isFakeDivAppended = 1;
       var isStickyFooterStuck;
 
-        console.log(buttonDiv);
-        console.log(width);
+        //console.log(buttonDiv);
+        //console.log(width);
 
       function createDeleteFakeDiv(isStickyFooterStuck) {
           if ((isStickyFooterStuck === 1) && (isFakeDivAppended === 1)) {

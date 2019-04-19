@@ -30,8 +30,8 @@ export class ApplicationService {
         return this.http.post(`${environment.apiUrl}/tax/fetchDashboardInfo`, inputdata);
     }
 
-    fetchInProgAppDataByUserid(userid){
-        return this.http.post(`${environment.apiUrl}/tax/fetchInProgApps`,{"userid":userid});
+    fetchInProgAppDataByUserid(userid,selYear){
+        return this.http.post(`${environment.apiUrl}/tax/fetchInProgApps`,{"userid":userid,"selYear":selYear});
     }
 
     getByAppId(id: number) {

@@ -47,14 +47,14 @@ export class BasicInformationComponent implements OnInit,AfterViewInit {
         if (!this.authenticationService.currentUserValue) { 
             this.router.navigate(['/login']);
         }else{
-            //console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
+            console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
             console.log("Current App value "+ this.appService.currentApplicationValue);
             this.userId         = this.authenticationService.currentUserValue.userid;
             if(this.appService.currentApplicationValue != null){
                 this.ApplicationId  = this.appService.currentApplicationValue.appId;
             }else{
-            this.nextButtonDisable = true;
-            this.previousButtonDisable = true;
+                this.nextButtonDisable = true;
+                this.previousButtonDisable = true;
             }
             console.log("Current App Id "+ this.ApplicationId);
         }

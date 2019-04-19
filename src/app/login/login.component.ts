@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit,AfterViewInit {
         .pipe(first())
         .subscribe(
             data => {
-                console.log("Response"+JSON.stringify(data));
+                //console.log("Response"+JSON.stringify(data));
                 if(data['Message'] == 'Invalid Cred'){
                     this.alertService.error('Username or Password is invalid');
                     this.loading = false;

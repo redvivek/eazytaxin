@@ -12,12 +12,12 @@
 			    	</div>
 			    	<div class="col">
 				    	<div class="form-group floating-label customDropdown">
-							<select class="form-control" id="assesmentyears" name="assesmentyears"  (change)="onChange($event.target.value)" >
-								<option [value]="assYear" *ngFor="let assYear of assesmentYears">{{assYear}}</option>
+							<select class="form-control" id="assesmentyears" name="assesmentyears" [(ngModel)]="selectedAssYear"  (change)="onChange($event.target.value)" >
+								<option value="{{assYear}}" *ngFor="let assYear of assesmentYears">{{assYear}}</option>
 							</select>
 				    	</div>
 			    	</div>
-			    	<!--<button type="button" class="btn btn-success btn-lg">Start FIlling</button> -->
+			    	<button *ngIf="showCurrAssYear" type="button" class="btn btn-success btn-lg" (click)="startFilling(selectedAssYear)">Start FIlling</button>
 			    </div>
 		    </div>
 		  </div>
@@ -272,20 +272,29 @@
     				<div class="card-header d-flex align-items-center no-block">
     					<h5 class="card-title ">Yearly Summary</h5>
     				</div>
-  					<div class="card-body">
+  					<div class="card-body" *ngIf="inProgressApps.length > 0">
   						<table class="table px-0 mb-0 yearlySumTable">
   							<tbody>
-								<tr *ngIf="showCurrAssYear">
+								<!-- <tr *ngIf="showCurrAssYear">
 									<th><span class="badge badge-primary"></span>{{assesmentYears[0]}}</th>
 									<td align ="right"><button type="button" class="btn btn-success" (click)="startFilling(assesmentYears[0])">Start Filing</button></td>
-								</tr>
+								</tr> -->
   								<tr *ngFor="let items of inProgressApps">
   									<th><span class="badge badge-primary"></span>{{items.AssYear}}</th>
-  									<td align="right"><button type="button" (click)="continueApp(items)" class="btn btn-primary">Continue</button></td>
+  									<td align ="right"><button type="button" (click)="continueApp(items)" class="btn btn-primary">Continue</button></td>
   								</tr>
   							</tbody>
   						</table>
-  					</div>
+					</div>
+					<div class="card-body" *ngIf="inProgressApps.length == 0">
+						<table class="table px-0 mb-0 yearlySumTable">
+							<tbody>
+								<tr>
+									<th>No application available for selected year.</th>
+								</tr>
+							</tbody>
+						</table>
+					</div>
   				</div>
 	    	</div>
     	</div>

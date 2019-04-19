@@ -66,7 +66,7 @@ exports.uploadPrefilledXML = (req, res) => {
             var assYear         =   req.body.AssesmentYear; 
             var xmlFlag         =   req.body.XmlUploadFlag;
             var docCategory     =   req.body.DocCategory;
-            createApplicationMain(userid,appRefNo,assYear,xmlFlag,res)
+            createApplicationMain(userid,appRefNo,assYear,xmlFlag)
             .then(function(appid){
                 req.files.forEach(function(item) {
                     console.log("File item "+ JSON.stringify(item));
@@ -217,7 +217,7 @@ exports.createApplication = (req, res) => {
     let xmluploadflag = appParam.xmluploadflag;
     let appRefNo = appParam.appRefNo;
     let files = [];
-    createApplicationMain(userid,appRefNo,assYear,xmlFlag,res)
+    createApplicationMain(userid,appRefNo,assesmentYear,xmluploadflag)
     .then(function(appid){
         res.json({"statusCode": 200,"Message": "Successful Request","AppId":appid});
     })
@@ -228,7 +228,7 @@ exports.createApplication = (req, res) => {
 
 }
 
-function createApplicationMain(userid,appRefNo,assYear,xmlFlag,res){
+function createApplicationMain(userid,appRefNo,assYear,xmlFlag){
     var deferred = Q.defer();
     ApplicationMain.findOne(
 		{ where: {UserId:userid,AssesmentYear: assYear} }
@@ -241,26 +241,19 @@ function createApplicationMain(userid,appRefNo,assYear,xmlFlag,res){
                 deferred.resolve(application.ApplicationId);
             }else{
                 deferred.resolve(application.ApplicationId);
-                //res.json({"statusCode": 301,"Message": "Existing AppId","AppId":application.ApplicationId});
             }
         } else {
-			//res.status(200);
 			//Save to et_applicationsmain table */
 			sequelize.query("INSERT INTO `et_applicationsmain`(UserId,AppRefNo,AssesmentYear,xmluploadflag,createdAt,ApplicationStage,ApplicationStatus,AppPaymentStatus,AppITRUploadStatus) VALUES (?,?,?,?,?,?,?,?,?)",{
 				replacements: [userid,appRefNo,assYear,xmlFlag,formattedDT,1,'Initiated','NotStarted','No'],
 				type: sequelize.QueryTypes.INSERT 
 			}).then(result => {		
                 console.log("Result AppId  "+result[0]);
-                //if(xmlFlag == 1){
-                    deferred.resolve(result[0]);
-                //}else{
-                  //  res.json({"statusCode": 200,"Message": "Successful Request","AppId":result[0]});
-                //}
+                deferred.resolve(result[0]);
 			})
 			.catch(function (err) {
                 console.log("Error "+err);
                 deferred.reject(err);
-				//res.status(400).send(err);
 			});
 		}
 	})
@@ -1769,14 +1762,15 @@ exports.fetchDeductionsDetails = (req,res)=>{
 }
 
 exports.fetchInProgressAppsByUserid = (req,res)=>{
-    console.log("Request "+req.body.userid);
+    //console.log("Request "+req.body.userid);
     let userid = req.body.userid;
+    let selYear = req.body.selYear;
     ApplicationMain.findAll({ 
-        where: {UserId:userid,ApplicationStatus:'Progress'} 
+        where: {UserId:userid,AssesmentYear:selYear,ApplicationStatus:'Progress',ApplicationStatus:'Initiated'} 
     })
     .then(function (resultData) {
         if (resultData) {
-            console.log("Result -In Progress Applications  "+JSON.stringify(resultData));
+            //console.log("Result -In Progress Applications  "+JSON.stringify(resultData));
             res.json({"statusCode": 200,"Message": "Successful Request","ResultData":resultData});
         } 
     })

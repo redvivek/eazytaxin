@@ -30,7 +30,7 @@ export class AuthenticationService {
                         // store user details and jwt token in local storage to keep user logged in between page refreshes
                         localStorage.setItem('currentUser', JSON.stringify(user['body']));
                         this.currentUserSubject.next(user['body']);
-                        console.log("Current user value"+ JSON.stringify(this.currentUserSubject.value));
+                        //console.log("Current user value"+ JSON.stringify(this.currentUserSubject.value));
                     }
                 }
                 
