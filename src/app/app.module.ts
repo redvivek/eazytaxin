@@ -27,6 +27,7 @@ import { ContactusComponent } from './contactus/contactus.component';
 import { BuynowComponent } from './buynow/buynow.component';
 import { UseractivationComponent } from './useractivation';
 import { UserverificationComponent } from './userverification';
+import { FaqComponent } from './faq/faq.component';
 
 @NgModule({
     imports: [
@@ -51,6 +52,7 @@ import { UserverificationComponent } from './userverification';
         BuynowComponent,
         UseractivationComponent,
         UserverificationComponent,
+        FaqComponent,
     ],
         
     providers: [

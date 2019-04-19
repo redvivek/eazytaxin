@@ -12,6 +12,7 @@ import { ContactusComponent } from './contactus';
 import { BuynowComponent } from './buynow';
 import { UseractivationComponent } from './useractivation';
 import { UserverificationComponent } from './userverification';
+import { FaqComponent } from './faq';
 
 const appRoutes: Routes = [
    { path: '', component: HomeComponent },
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
    { path: 'verifyuser', component: UserverificationComponent },
    { path: 'contactus', component: ContactusComponent },
    { path: 'buynow', component: BuynowComponent },
+   { path: 'faqs', component: FaqComponent },
    {
       path: '',
       canActivate: [ AuthGuard ],
