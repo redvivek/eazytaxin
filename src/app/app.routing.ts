@@ -26,7 +26,7 @@ const appRoutes: Routes = [
    { path: 'verifyuser', component: UserverificationComponent },
    { path: 'contactus', component: ContactusComponent },
    { path: 'buynow', component: BuynowComponent },
-   { path: 'faqs', component: FaqComponent },
+   { path: 'faq', component: FaqComponent },
    {
       path: '',
       canActivate: [ AuthGuard ],

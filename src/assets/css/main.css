@@ -59,7 +59,7 @@ a:hover{text-decoration:none;}
 
 
 /* Page Title */
-.page-titles{padding:15px 0;}
+.page-titles{padding:30px 0 20px;}
 .page-titles h4{font-size:24px; font-weight:500;}
 .page-titles h4 small{font-size:16px; font-weight:100;}
 .page-titles .col-right .customDropdown{margin:-12px 0 0;}
@@ -79,7 +79,7 @@ a:hover{text-decoration:none;}
 #header .mainMenutoggler{padding:22px; width:70px; height:66px;}
 #header .navbar-brand{position:relative;}
 #header .navbar-brand::before{content:""; position:absolute; left:-50px; top:-160px; background:#FFF; border-radius:50%; width:0; height:0; display:block; transform: rotate(11deg); transition:all ease .5s; z-index: -1;}
-
+#header .navbar-brand img{margin:-12px 0 0;}
 
 .mainMenuList{background-color:#f2f2f2; box-shadow:5px 5px 5px rgba(0,0,0,.2); top:65px; z-index:49; transition:.5s; transform:matrix(1, 0, 0, 1, 0, -500);}
 .mainMenuList.show{transform:matrix(1, 0, 0, 1, 0, 0);}
@@ -95,7 +95,7 @@ a:hover{text-decoration:none;}
 #header.no-bg a{color:#FFF;}
 #header.no-bg .dropdown-menu a{color:#2e2e2c;}
 #header.no-bg .dropdown-toggle::after{color:#FFF;}
-#header.no-bg .navbar-brand img{width:220px; height:34px; transition:all ease .3s; }
+#header.no-bg .navbar-brand img{width:220px; height:41px; transition:all ease .3s; }
 #header.no-bg .navbar-brand::before{ width:396px; height:256px; transition:all ease .3s; }
 
 
@@ -120,6 +120,7 @@ a:hover{text-decoration:none;}
 .sidebar-nav .has-arrow{position: relative;}
 .left-sidebar-hide .sidebar-nav ul li a {padding-right:0;}
 .left-sidebar-hide .sidebar-nav ul li a .text{opacity:0; left:0;}
+
 /* Wizard FOrm */
 .wizard-content {padding:0;}
 .wizard-content .wizard{width: 100%; overflow: hidden;}

@@ -64,6 +64,10 @@ export class HeaderComponent implements OnInit,AfterContentInit {
     this.router.navigate(['/contactus']);
   }
 
+  goFaq(){
+    this.router.navigate(['/faq']);
+  }
+
   goTaxFilling(){
     this.router.navigate(['/taxfilling']);
   }
