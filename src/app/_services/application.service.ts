@@ -22,6 +22,10 @@ export class ApplicationService {
         return this.currentAppSubject.value;
     }
 
+    public setCurrApplicationValue(data): void {
+        this.currentAppSubject.next(data);
+    }
+
     fetchDashboardDataByAssYearUserId(assYear,userid){
         var inputdata = {
             "assYear" : assYear,
@@ -31,7 +35,28 @@ export class ApplicationService {
     }
 
     fetchInProgAppDataByUserid(userid,selYear){
-        return this.http.post(`${environment.apiUrl}/tax/fetchInProgApps`,{"userid":userid,"selYear":selYear});
+        return this.http.post(`${environment.apiUrl}/tax/fetchInProgApps`,{"userid":userid,"selYear":selYear})
+        .pipe(map(data => {
+            if(data['statusCode'] == 200){
+                if (data['ResultData']) {
+                    //console.log("Current InProg App value"+ JSON.stringify(data['ResultData']));
+                    if(data['ResultData'].length > 0){
+                        const appdata:ApplicationMain = { 
+                            'appId': data['ResultData'][0].ApplicationId,
+                            'taxperiod':data['ResultData'][0].AssesmentYear,
+                            'xmluploadflag':data['ResultData'][0].XmlUploadFlag, 
+                            'appRefno':data['ResultData'][0].AppRefNo, 
+                            'applicationStage':data['ResultData'][0].ApplicationStage, 
+                            'appStatus':'Progress' 
+                        };
+                        localStorage.removeItem("currentUserApp");
+                        localStorage.setItem("currentUserApp", JSON.stringify(appdata));
+                        this.currentAppSubject.next(appdata);
+                    }
+                }
+            }
+            return data;
+        }));
     }
 
     getByAppId(id: number) {

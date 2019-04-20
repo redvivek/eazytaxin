@@ -83,28 +83,16 @@ export class DashboardComponent implements OnInit,AfterViewInit {
             'xmluploadflag':'', 
             'appRefno':'', 
             'applicationStage':1, 
-            'appStatus':'Initiated' 
+            'appStatus':'Progress' 
         };
         localStorage.removeItem("currentUserApp");
         localStorage.setItem("currentUserApp", JSON.stringify(appdata));
+        this.appService.setCurrApplicationValue(appdata);
         this.router.navigate(['/taxfilling/taxperiod']);
     }
 
     continueApp(appArray){
         this.selectedAssYear = appArray.AssYear;
-        //Add newly created AppID in local storage
-        const appdata:ApplicationMain = { 
-            'appId': appArray.AppId,
-            'taxperiod':this.selectedAssYear,
-            'xmluploadflag':appArray.xmlFlag, 
-            'appRefno':appArray.AppRefno, 
-            'applicationStage':appArray.AppStage, 
-            'appStatus':'Progress' 
-        };
-        localStorage.removeItem("currentUserApp");
-        localStorage.setItem("currentUserApp", JSON.stringify(appdata));
-        //var currStage  = this.appService.currentApplicationValue.applicationStage;
-        //console.log("Selected App details "+ JSON.stringify(this.appService.currentApplicationValue));
         if(appArray.AppStage == "" || appArray.AppStage == 0)
             this.router.navigate(['/taxfilling/taxperiod']);
         else if(appArray.AppStage == 1)

@@ -7,6 +7,7 @@ var sgMail = require('../config/mailConfig');
 
 const Users = db.Userinfo;
 const sequelize = db.sequelize;
+
  
 // Find if email is already registered
 exports.isEmailRegisterd = (req, res) => {
@@ -127,8 +128,8 @@ exports.sendActivationMail = (req,res) =>{
 				type: sequelize.QueryTypes.UPDATE 
 			}).then(result => {		
 				console.log("Activation code updated successfully");
-				var host=req.get('host');
-				var link="http://"+host+"/api/users/verifyUser?id="+activationCode+"&uid="+userid;
+				var host = req.get('host');
+				var link = "http://"+host+"/api/users/verifyUser?id="+activationCode+"&uid="+userid;
 				mailOptions={
 					to : email, //'sg.viv09@gmail.com',
 					from: 'admin@easytaxin.com',
@@ -179,51 +180,51 @@ exports.verifyUser = (req,res) =>{
 
 	var host = req.get('host');
 	console.log(req.protocol+":/"+req.get('host'));
-	if((req.protocol+"://"+req.get('host'))==(config.protocol+config.host))
-	{
-		console.log("Domain is matched. Information is from Authentic email");
-		Users.findOne(
-			{ where: {UserId: uid,Status:'Disabled'} }
-		)
-		.then(function (user) {
-			if (user) {
-				let rand = user.activationCode;
-				let email = user.EmailId;
-				if( rand == id){
-					console.log("email is verified");
-					//return res.redirect(config.protocol+config.host+'/login');
-					//update last login timestamp to et_userinfo table */
-					sequelize.query("UPDATE `et_userinfo` SET Status = ? ,activationCode = ?, UpdatedAt = ? WHERE  UserId = ? ",{
-						replacements: ['Active' ,'',formatted,user.UserId],
-						type: sequelize.QueryTypes.UPDATE 
-					}).then(result => {		
-						console.log("User status updated successfully");
-						let redirectURL = config.protocol+config.fehost;
-						console.log("Redirect URL "+redirectURL)
-						res.end("<h1>Email "+email+" is been Successfully verified. Click on <a href = '"+redirectURL+"'> Login");
-						//res.redirect(redirectURL);
-					})
-					.catch(function (err) {
-						console.log("user status updatation failed");
-					});
-				}else{
-					console.log("email is not verified");
-					res.end("<h1>Bad Request</h1>");
-				}
+	//if((req.protocol+"://"+req.get('host'))==(config.protocol+config.host))
+	//{
+		//console.log("Domain is matched. Information is from Authentic email");
+	Users.findOne(
+		{ where: {UserId: uid,Status:'Disabled'} }
+	)
+	.then(function (user) {
+		if (user) {
+			let rand = user.activationCode;
+			let email = user.EmailId;
+			if( rand == id){
+				console.log("email is verified");
+
+				//update last login timestamp to et_userinfo table */
+				sequelize.query("UPDATE `et_userinfo` SET Status = ? ,activationCode = ?, UpdatedAt = ? WHERE  UserId = ? ",{
+					replacements: ['Active' ,'',formatted,user.UserId],
+					type: sequelize.QueryTypes.UPDATE 
+				}).then(result => {		
+					console.log("User status updated successfully");
+					let redirectURL = req.protocol+"://"+req.get('host');//config.protocol+config.fehost;
+					console.log("Redirect URL "+redirectURL)
+					res.end("<h1>Email "+email+" is been Successfully verified. Click on <a href = '"+redirectURL+"'> Login");
+					//res.redirect(redirectURL);
+				})
+				.catch(function (err) {
+					console.log("user status updatation failed");
+				});
 			}else{
 				console.log("email is not verified");
 				res.end("<h1>Bad Request</h1>");
 			}
-		})
-		.catch(function (err) {
-			console.log("Error "+err);
+		}else{
+			console.log("email is not verified");
 			res.end("<h1>Bad Request</h1>");
-		});
-	}
-	else
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.end("<h1>Bad Request</h1>");
+	});
+	//}
+	/* else
 	{
 		res.end("<h1>Request is from unknown source");
-	}
+	} */
 }
 
 /*****Function for user authentication*/
@@ -325,8 +326,10 @@ exports.forgetPassword = (req,res)=>{
 				type: sequelize.QueryTypes.UPDATE 
 			}).then(result => {		
 				console.log("Pwd reset code updated successfully");
-				var host= config.fehost;
-				var link="http://"+host+"/resetpassword?id="+pwdResetCode+"&uid="+userid;
+				//var host= config.fehost;
+				let redirectURL = req.protocol+"://"+req.get('host'); //config.protocol+config.fehost;
+				console.log("Redirect URL "+redirectURL)
+				var link = redirectURL+"/resetpassword?id="+pwdResetCode+"&uid="+userid;
 				mailOptions={
 					to : email, //'sg.viv09@gmail.com',
 					from: 'admin@easytaxin.com',
@@ -374,41 +377,36 @@ exports.checkResetpwdCode = (req,res)=>{
 	let id = userParam.resetcode;
 	let uid = userParam.userid;
 
-	var dt = dateTime.create();
-	var formatted = dt.format('Y-m-d H:M:S');
-
-	var host = req.get('host');
-	console.log(req.protocol+":/"+req.get('host'));
-	if((req.protocol+"://"+req.get('host'))==(config.protocol+config.host))
+	/* if((req.protocol+"://"+req.get('host'))==(config.protocol+config.host))
 	{
-		console.log("Domain is matched. Information is from Authentic email");
-		Users.findOne(
-			{ where: {UserId: uid,Status:'Active'} }
-		)
-		.then(function (user) {
-			if (user) {
-				let rand = user.pwdResetCode;
-				if( rand == id){
-					console.log("reset code is verified");
-					res.json({"statusCode": 200,"Message": "Valid User"});
-				}else{
-					console.log("code is not verified");
-					res.json({"statusCode": 200,"Message": "InValid link"});
-				}
+		console.log("Domain is matched. Information is from Authentic email"); */
+	Users.findOne(
+		{ where: {UserId: uid,Status:'Active'} }
+	)
+	.then(function (user) {
+		if (user) {
+			let rand = user.pwdResetCode;
+			if( rand == id){
+				console.log("reset code is verified");
+				res.json({"statusCode": 200,"Message": "Valid User"});
 			}else{
-				console.log("email is not verified");
-				res.json({"statusCode": 200,"Message": "Invalid User"});
+				console.log("code is not verified");
+				res.json({"statusCode": 200,"Message": "InValid link"});
 			}
-		})
-		.catch(function (err) {
-			console.log("Error "+err);
-			res.status(400).send(err);
-		});
-	}
+		}else{
+			console.log("email is not verified");
+			res.json({"statusCode": 200,"Message": "Invalid User"});
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+	/* }
 	else
 	{
 		res.status(400).send('Request is from unknown source');
-	}
+	} */
 }
 
 /*****Function for reset password*/

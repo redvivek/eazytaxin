@@ -28,53 +28,47 @@ module.exports = function(sequelize, DataTypes) {
     },
     IncomeSalaryFlag: {
       type: DataTypes.INTEGER(1),
-      allowNull: false,
-      defaultValue: 0
+      allowNull: true
     },
     IncomeOthersFlag: {
       type: DataTypes.INTEGER(1),
-      allowNull: false,
-      defaultValue: 0
+      allowNull: true
     },
     IncomeHouseFlag: {
       type: DataTypes.INTEGER(1),
-      allowNull: false,
-      defaultValue: 0
+      allowNull: true
     },
     IncomeRentalFlag: {
       type: DataTypes.INTEGER(1),
-      allowNull: false,
-      defaultValue: 0
+      allowNull: true
     },
     IncomeCapitalGainsFlag: {
       type: DataTypes.INTEGER(1),
-      allowNull: false,
-      defaultValue: 0
+      allowNull: true
     },
     DeductionsFlag: {
       type: DataTypes.INTEGER(1),
-      allowNull: false,
-      defaultValue: 0
+      allowNull: true
     },
     ResidentIndianFlag:{
       type : DataTypes.INTEGER(1),
-      allowNull : false,
-      defaultValue:0
+      allowNull: true
     },
     NonResidentIndianFlag:{
       type : DataTypes.INTEGER(1),
-      allowNull : false,
-      defaultValue:0
+      allowNull: true
     },
     OciResidentIndianFlag:{
       type : DataTypes.INTEGER(1),
-      allowNull : false,
-      defaultValue:0
+      allowNull: true
     },
-    PresentIndiaFlag:{
+    LngPresentIndiaFlag:{
       type : DataTypes.INTEGER(1),
-      allowNull : false,
-      defaultValue:0
+      allowNull: true
+    },
+    ShrtPresentIndiaFlag:{
+      type : DataTypes.INTEGER(1),
+      allowNull: true
     },
     createdAt: {
       type: DataTypes.DATE,

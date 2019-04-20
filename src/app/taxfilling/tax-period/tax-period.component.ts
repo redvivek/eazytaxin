@@ -39,13 +39,14 @@ export class TaxPeriodComponent implements OnInit,AfterViewInit {
     {
         // redirect to login if not logged in
         if (!this.authenticationService.currentUserValue) { 
-        this.router.navigate(['/login']);
+            this.router.navigate(['/login']);
         }else{
-        console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
-        this.userId = this.authenticationService.currentUserValue.userid;
+        //console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
+            this.userId = this.authenticationService.currentUserValue.userid;
         }
 
         if(this.appservice.currentApplicationValue != null){
+            //var currStage  = this.appservice.currentApplicationValue.applicationStage;
             this.selAssYear = this.appservice.currentApplicationValue.taxperiod;
         }else{
             var today = new Date();
@@ -109,7 +110,7 @@ export class TaxPeriodComponent implements OnInit,AfterViewInit {
                     'appStatus':'initiated' 
                 };
                 localStorage.setItem("currentUserApp", JSON.stringify(appdata));
-                //this.dataSubmitted = true;
+                this.appservice.setCurrApplicationValue(appdata);
                 this.loading = false;
             }else{
                 this.alertService.error('Prefilled XML File Upload Failed');
@@ -123,134 +124,131 @@ export class TaxPeriodComponent implements OnInit,AfterViewInit {
         handleFloatingLabels(Waves);
     }
 
-  // convenience getter for easy access to form fields
-  get f() { return this.taxPeriodForm.controls; }
+    // convenience getter for easy access to form fields
+    get f() { return this.taxPeriodForm.controls; }
 
-  /* Function to enable/disable & validate file upload form field on Radio change event */
-  formControlValueChanged() {
-    const xmlFileUpload = this.taxPeriodForm.get('uploadPreFillXMLFile');
+    /* Function to enable/disable & validate file upload form field on Radio change event */
+    formControlValueChanged() {
+        const xmlFileUpload = this.taxPeriodForm.get('uploadPreFillXMLFile');
 
-    this.taxPeriodForm.get('xmluploadflag').valueChanges.subscribe(
-      (mode: boolean) => {
-        console.log(mode);
-        if (mode == true) {
-          this.showUploadField = true;
-          xmlFileUpload.setValidators([Validators.required]);
-        }
-        else {
-          this.showUploadField = false;
-          xmlFileUpload.clearValidators();
-        }
-        xmlFileUpload.updateValueAndValidity();
-    });
-  }
-
-  /*Function called on Next Button. Saves data to table if there is no file upload */
-  onSubmit() {
-    this.submitted = true;
-    this.loading = true;
-    // stop here if form is invalid
-    if (this.taxPeriodForm.invalid) {
-        return;
+        this.taxPeriodForm.get('xmluploadflag').valueChanges.subscribe(
+        (mode: boolean) => {
+            console.log(mode);
+            if (mode == true) {
+            this.showUploadField = true;
+            xmlFileUpload.setValidators([Validators.required]);
+            }
+            else {
+            this.showUploadField = false;
+            xmlFileUpload.clearValidators();
+            }
+            xmlFileUpload.updateValueAndValidity();
+        });
     }
 
-    if(!this.appservice.currentApplicationValue){
-        var randomNo = "App"+this.generateAppRefNo(this.userId);
-        console.log('Input Values :-)\n\n' + JSON.stringify(this.taxPeriodForm.value));
-        //create the input params for post request
-        const appData = {
-            'userId':this.userId,
-            'taxperiod' : this.f.taxperiod.value,
-            'xmluploadflag':this.f.xmluploadflag.value,
-            'appRefNo': randomNo
-        };
-        // start storing application data in database
-        this.appservice.createApplication(appData)
-        .pipe(first())
-        .subscribe(
-            data => {
-                    console.log("Response" + JSON.stringify(data));
-                    //successfully inserted
-                    if(data['statusCode'] == 200){                  
-                        this.alertService.error('Application data saved successfully');
-                        
-                        //Add newly created AppID in local storage
-                        const appdata:ApplicationMain = { 
-                            'appId': data['AppId'],
-                            'taxperiod':this.f.taxperiod.value,
-                            'xmluploadflag':this.f.xmluploadflag.value, 
-                            'appRefno':randomNo, 
-                            'applicationStage':1, 
-                            'appStatus':'initiated' 
-                        };
-                        localStorage.setItem("currentUserApp", JSON.stringify(appdata));
-                        
-                        //this.appservice.currentAppValue(appdata);
-                        this.loading = false;
-                        this.router.navigate(['taxfilling/basicinfo']);
-                    }else if(data['statusCode'] == 301){    //Application already exist for same ass year and userId
-                        this.alertService.error('Application already exist for selected Assesment Year');
-                        //update fetched AppID in local storage
-                        localStorage.removeItem("currentUserApp");
-                        const appdata:ApplicationMain = { 
-                            'appId': data['AppId'],
-                            'taxperiod':this.f.taxperiod.value,
-                            'xmluploadflag':this.f.xmluploadflag.value, 
-                            'appRefno':randomNo, 
-                            'applicationStage':1, 
-                            'appStatus':'initiated' 
-                        };
-                        localStorage.setItem("currentUserApp", JSON.stringify(appdata));
-                        //this.appservice.currentAppValue(appdata);
-                        this.loading = false;
-                        this.router.navigate(['taxfilling/basicinfo']);
-                    }
-                },
-            error => {
-                this.alertService.error(error);
+    /*Function called on Next Button. Saves data to table if there is no file upload */
+    onSubmit() {
+        this.submitted = true;
+        this.loading = true;
+        // stop here if form is invalid
+        if (this.taxPeriodForm.invalid) {
+            return;
+        }
+
+        if(!this.appservice.currentApplicationValue){
+            var randomNo = "App"+this.generateAppRefNo(this.userId);
+            console.log('Input Values :-)\n\n' + JSON.stringify(this.taxPeriodForm.value));
+            //create the input params for post request
+            const appData = {
+                'userId':this.userId,
+                'taxperiod' : this.f.taxperiod.value,
+                'xmluploadflag':this.f.xmluploadflag.value,
+                'appRefNo': randomNo
+            };
+            // start storing application data in database
+            this.appservice.createApplication(appData)
+            .pipe(first())
+            .subscribe(
+                data => {
+                        console.log("Response" + JSON.stringify(data));
+                        //successfully inserted
+                        if(data['statusCode'] == 200){                  
+                            this.alertService.error('Application data saved successfully');
+                            
+                            //Add newly created AppID in local storage
+                            const appdata:ApplicationMain = { 
+                                'appId': data['AppId'],
+                                'taxperiod':this.f.taxperiod.value,
+                                'xmluploadflag':this.f.xmluploadflag.value, 
+                                'appRefno':randomNo, 
+                                'applicationStage':1, 
+                                'appStatus':'Progress' 
+                            };
+                            localStorage.setItem("currentUserApp", JSON.stringify(appdata));
+                            this.appservice.setCurrApplicationValue(appdata);
+                            this.loading = false;
+                            this.router.navigate(['taxfilling/basicinfo']);
+                        }else if(data['statusCode'] == 301){    //Application already exist for same ass year and userId
+                            this.alertService.error('Application already exist for selected Assesment Year');
+                            //update fetched AppID in local storage
+                            localStorage.removeItem("currentUserApp");
+                            const appdata:ApplicationMain = { 
+                                'appId': data['AppId'],
+                                'taxperiod':this.f.taxperiod.value,
+                                'xmluploadflag':this.f.xmluploadflag.value, 
+                                'appRefno':randomNo, 
+                                'applicationStage':1, 
+                                'appStatus':'Progress' 
+                            };
+                            localStorage.setItem("currentUserApp", JSON.stringify(appdata));
+                            this.appservice.setCurrApplicationValue(appdata);
+                            this.loading = false;
+                            this.router.navigate(['taxfilling/basicinfo']);
+                        }
+                    },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
+            }else{
                 this.loading = false;
-            });
-        }else{
-            this.router.navigate(['taxfilling/basicinfo']);
+                this.router.navigate(['taxfilling/basicinfo']);
+            }
+    }
+
+    /*Function to create list of Assesment year dropdowns */
+    getCurrentAssesmentYear() {
+        var currentAYear = "";
+        var prevAYear = "";
+        var prevLAYear = "";
+        var assYearList = [];
+        var today = new Date();
+        if ((today.getMonth() + 1) <= 3) {
+            currentAYear = today.getFullYear() + "-" + (today.getFullYear()+1);
+        } else {
+            currentAYear = (today.getFullYear()+1) + "-" + (today.getFullYear() + 2);
         }
-  }
 
-  /*Function to create list of Assesment year dropdowns */
-  getCurrentAssesmentYear() {
-    var currentAYear = "";
-    var prevAYear = "";
-    var prevLAYear = "";
-    var assYearList = [];
-    var today = new Date();
-    if ((today.getMonth() + 1) <= 3) {
-        currentAYear = today.getFullYear() + "-" + (today.getFullYear()+1);
-    } else {
-        currentAYear = (today.getFullYear()+1) + "-" + (today.getFullYear() + 2);
+        if ((today.getMonth() + 1) <= 3) {
+            prevAYear = (today.getFullYear()-1) + "-" + today.getFullYear();
+        } else {
+            prevAYear = today.getFullYear() + "-" + (today.getFullYear() + 1);
+        }
+
+        if ((today.getMonth() + 1) <= 3) {
+            prevLAYear = (today.getFullYear()-2) + "-" + (today.getFullYear()-1);
+        } else {
+            prevLAYear = (today.getFullYear()-1) + "-" + today.getFullYear();
+        }
+        assYearList.push(currentAYear);
+        assYearList.push(prevAYear);
+        assYearList.push(prevLAYear);
+        return assYearList;
     }
 
-    if ((today.getMonth() + 1) <= 3) {
-        prevAYear = (today.getFullYear()-1) + "-" + today.getFullYear();
-    } else {
-        prevAYear = today.getFullYear() + "-" + (today.getFullYear() + 1);
+    /*Function to generate random ref number for each newly created application */
+    generateAppRefNo(userid){
+        return  userid + Date.now();
+        //console.log("Random no "+randomno);
     }
-
-    if ((today.getMonth() + 1) <= 3) {
-        prevLAYear = (today.getFullYear()-2) + "-" + (today.getFullYear()-1);
-    } else {
-        prevLAYear = (today.getFullYear()-1) + "-" + today.getFullYear();
-    }
-    assYearList.push(currentAYear);
-    assYearList.push(prevAYear);
-    assYearList.push(prevLAYear);
-    return assYearList;
-}
-
-/*Function to generate random ref number for each newly created application */
-generateAppRefNo(userid){
-    return  userid + Date.now();
-    //console.log("Random no "+randomno);
-}
-
-
-
 }

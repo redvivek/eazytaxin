@@ -1766,7 +1766,7 @@ exports.fetchInProgressAppsByUserid = (req,res)=>{
     let userid = req.body.userid;
     let selYear = req.body.selYear;
     ApplicationMain.findAll({ 
-        where: {UserId:userid,AssesmentYear:selYear,ApplicationStatus:'Progress',ApplicationStatus:'Initiated'} 
+        where: {UserId:userid,AssesmentYear:selYear,ApplicationStatus:'Progress'} 
     })
     .then(function (resultData) {
         if (resultData) {

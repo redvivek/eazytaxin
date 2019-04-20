@@ -5,7 +5,7 @@
       <div class="section-header">
         <div class="row page-titles">
           <div class="col-md-5 align-self-center">
-            <h4 class="">Basic Information </h4>
+            <h4 class="">Nationality Questionaire </h4>
           </div>
         </div>
         <alert></alert>
@@ -16,7 +16,7 @@
             <div class="card">
               <div class="card-body wizard-content">
                 <form class="clearfix" id="basicInfoForm" [formGroup]="basicInfoForm" (ngSubmit)="onSubmit()" >
-                  <div class="row form-group">
+                  <!-- <div class="row form-group">
                     <div class="col-12">
                       <label class="control-label">Do you have Income from Salary?</label>
                     </div>
@@ -33,8 +33,8 @@
                         <div *ngIf="f.incomeFromSalary.errors.required">Please choose one option</div>
                       </div>
                     </div>
-                  </div>
-                  <div class="row form-group">
+                  </div> -->
+                  <!-- <div class="row form-group">
                     <div class="col-12">
                       <label class="control-label">Do you have Income from Other Sources? (e.g. Interest Income, Royalty Income etc.)?</label>
                     </div>
@@ -51,8 +51,8 @@
                           <div *ngIf="f.incomeFromOtherSources.errors.required">Please choose one option</div>
                       </div>
                     </div>
-                  </div>
-                  <div class="row form-group">
+                  </div> -->
+                  <!-- <div class="row form-group">
                     <div class="col-12">
                       <label class="control-label">Do you paid any Interest on Self occupied house property?</label>
                     </div>
@@ -69,8 +69,8 @@
                           <div *ngIf="f.selfOccupiedProp.errors.required">Please choose one option</div>
                       </div>
                     </div>
-                  </div>
-                  <div class="row form-group">
+                  </div> -->
+                  <!-- <div class="row form-group">
                     <div class="col-12">
                       <label class="control-label">Do you have Income/losses from rental property? </label>
                     </div>
@@ -87,8 +87,8 @@
                           <div *ngIf="f.rentalProperty.errors.required">Please choose one option</div>
                       </div>
                     </div>
-                  </div>
-                  <div class="row form-group">
+                  </div> -->
+                  <!-- <div class="row form-group">
                     <div class="col-12">
                       <label class="control-label">Do you have any Income/losses from Capital gains?</label>
                     </div>
@@ -105,8 +105,8 @@
                           <div *ngIf="f.incomeFromCapitals.errors.required">Please choose one option</div>
                       </div>
                     </div>
-                  </div>
-                  <div class="row form-group">
+                  </div> -->
+                  <!-- <div class="row form-group">
                     <div class="col-12">
                       <label class="control-label">Do you have any deductions? (e.g Tax Investments and other Deductions)</label>
                     </div>
@@ -123,7 +123,7 @@
                           <div *ngIf="f.deductionsFlag.errors.required">Please choose one option</div>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="row form-group">
                     <div class="col-12">
                       <label class="control-label">Were you present in India for more than 181 days between 1 April 2018 and 31 March 2019?</label>
@@ -142,7 +142,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row form-group">
+                  <div class="row form-group" *ngIf="showNonResidentQues">
                     <div class="col-12">
                       <label class="control-label">Are you a citizen of India who has left India between 1 April 2018 and 31 March 2019 for the purpose of employment outside India?</label>
                     </div>
@@ -160,7 +160,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row form-group">
+                  <div class="row form-group" *ngIf="showOciResidentQues">
                     <div class="col-12">
                       <label class="control-label">Are you a citizen of India or a person of Indian origin who, being outside of India, comes on a visit to India between 1 April 2018 and 31 March 2019?</label>
                     </div>
@@ -170,29 +170,48 @@
                         <label class="custom-control-label" for="ociResidentIndianYes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="ociResidentIndianYes" class="custom-control-input" value="0" formControlName="ociResidentIndianFlag" [checked]="!checked8" [ngClass]="{ 'is-invalid': submitted && f.ociResidentIndianFlag.errors}">
-                        <label class="custom-control-label" for="ociResidentIndianYes">No</label>
+                        <input type="radio" id="ociResidentIndianNo" class="custom-control-input" value="0" formControlName="ociResidentIndianFlag" [checked]="!checked8" [ngClass]="{ 'is-invalid': submitted && f.ociResidentIndianFlag.errors}">
+                        <label class="custom-control-label" for="ociResidentIndianNo">No</label>
                       </div>
                       <div *ngIf="submitted && f.ociResidentIndianFlag.errors" class="invalid-feedback">
                           <div *ngIf="f.ociResidentIndianFlag.errors.required">Please choose one option</div>
                       </div>
                     </div>
                   </div>
-                  <div class="row form-group">
+                  <div class="row form-group" *ngIf="showShortPresentResidentQues">
                     <div class="col-12">
-                      <label class="control-label">Were you present in India for more than 59 days between 1 April 2018 and 31 March 2019? AND were you present in India for more than 364 days between 1 April 2018 and 31 March 2019?</label>
+                      <label class="control-label">Were you present in India for more than 59 days between 1 April 2018 and 31 March 2019?</label>
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="presentIndiaYes" class="custom-control-input" value="1" formControlName="presentIndiaFlag" [checked]="checked9" [ngClass]="{ 'is-invalid': submitted && f.presentIndiaFlag.errors}" >
-                        <label class="custom-control-label" for="presentIndiaYes">Yes</label>
+                        <input type="radio" id="srtPresentIndiaYes" class="custom-control-input" value="1" formControlName="srtPresentIndiaFlag" [checked]="checked9" [ngClass]="{ 'is-invalid': submitted && f.srtPresentIndiaFlag.errors}" >
+                        <label class="custom-control-label" for="srtPresentIndiaYes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="presentIndiaNo" class="custom-control-input" value="0" formControlName="presentIndiaFlag" [checked]="!checked9" [ngClass]="{ 'is-invalid': submitted && f.presentIndiaFlag.errors}" >
-                        <label class="custom-control-label" for="presentIndiaNo">No</label>
+                        <input type="radio" id="srtPresentIndiaNo" class="custom-control-input" value="0" formControlName="srtPresentIndiaFlag" [checked]="!checked9" [ngClass]="{ 'is-invalid': submitted && f.srtPresentIndiaFlag.errors}" >
+                        <label class="custom-control-label" for="srtPresentIndiaNo">No</label>
                       </div>
-                      <div *ngIf="submitted && f.presentIndiaFlag.errors" class="invalid-feedback">
-                          <div *ngIf="f.presentIndiaFlag.errors.required">Please choose one option</div>
+                      <div *ngIf="submitted && f.srtPresentIndiaFlag.errors" class="invalid-feedback">
+                          <div *ngIf="f.srtPresentIndiaFlag.errors.required">Please choose one option</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row form-group" *ngIf="showLongPresentResidentQues">
+                    <div class="col-12">
+                      <label class="control-label">Were you present in India for more than 364 days between 1 April 2018 and 31 March 2019?</label>
+                    </div>
+                    <div class="col">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="lngPresentIndiaYes" class="custom-control-input" value="1" formControlName="lngPresentIndiaFlag" [checked]="checked10" [ngClass]="{ 'is-invalid': submitted && f.lngPresentIndiaFlag.errors}" >
+                        <label class="custom-control-label" for="lngPresentIndiaYes">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="lngPresentIndiaNo" class="custom-control-input" value="0" formControlName="lngPresentIndiaFlag" [checked]="!checked10" [ngClass]="{ 'is-invalid': submitted && f.lngPresentIndiaFlag.errors}" >
+                        <label class="custom-control-label" for="lngPresentIndiaNo">No</label>
+                      </div>
+                      <div *ngIf="submitted && f.lngPresentIndiaFlag.errors" class="invalid-feedback">
+                          <div *ngIf="f.lngPresentIndiaFlag.errors.required">Please choose one option</div>
                       </div>
                     </div>
                   </div>
