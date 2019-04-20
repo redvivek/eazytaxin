@@ -152,6 +152,12 @@ export function formSticky(){
               });
   });
 }
+
+export function navbarToggle(){
+  $(".navbar-toggler").click(function(){
+    $(this).parents('.navbar').toggleClass('navbar-open');
+  });
+}
 /* export function correctHeight() {
 
   var pageWrapper = jQuery('#page-wrapper');

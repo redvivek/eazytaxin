@@ -46,12 +46,13 @@
 
 }
 @media (max-width: 899px) {
-	#header .top-navbar .navbar-nav > .nav-item > .nav-link{line-height:35px; }
+	#header .top-navbar .navbar-nav > .nav-item > .nav-link{line-height:35px; color:#2e2e2c;}
 	.collapse:not(.show) {display:none !important; }
 	.navbar{justify-content: space-between;}
 	.navbar-expand-md .navbar-toggler{display:inline-block;}
-	.navbar-expand-md .navbar-collapse .navbar-nav{flex-direction:column; width:100%;}
-	.navbar-collapse{background-color:#FFF; position:absolute; top:66px; width:100%; box-shadow:-1px 10px 10px rgba(0,0,0,0.1);}
+	.navbar-collapse{background-color:#FFF; width:100%; box-shadow:-1px 10px 10px rgba(0,0,0,0.1);}
+	.navbar.navbar-open{background-color:#FFF;}
+	.navbar-collapse .navbar-nav{flex-direction:column; width:100%;}
 
 	/* Tabs */
 	.nav-tabs{overflow-x: auto; overflow-y: hidden; display: -webkit-box; display: -moz-box; flex-wrap:nowrap;}
@@ -164,6 +165,7 @@
 	.homepage .pricing .priceList li:after{display:none;}
 	.homepage .pricing .priceList li h2{font-size:40px;}
 	.homepage .pricing .priceList li h3{font-size:20px; margin-bottom:10px;}
+	.homepage .featuresList .actionRow .btn{font-size:14px; padding:8px 20px; min-width:120px;}
 
 	/* Half Layout */
 	.halfLayoutContainer .right-half{min-height:180px;}
@@ -183,7 +185,9 @@
 	.pricingPage .nav-tabs {font-size:18px;}
 	.pricingPage .nav-tabs .nav-item .nav-link{padding:8px 30px;}
 	.pricingPage .actionRow .btn{padding:12px 20px; }
-
+	
+	.social li a{width:30px; height:30px; font-size:14px;}
+	#footer .left img{height:14px;}
 }
 @media (max-width: 380px) {
 	#footer.footer-inside{flex-wrap:wrap;}

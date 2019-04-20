@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { ScriptService,AuthenticationService } from '@app/_services';
+import { navbarToggle } from '../../app.helpers';
 import { User } from '@app/_models';
 
 @Component({
@@ -31,6 +32,9 @@ export class HeaderComponent implements OnInit,AfterContentInit {
     //this.currentUser = this.authenticationService.currentUserValue;
   }
 
+  ngAfterViewInit(){
+    navbarToggle();
+  }
   ngAfterContentInit() {
     
   }
