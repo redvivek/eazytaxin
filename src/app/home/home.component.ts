@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit,AfterContentInit,AfterViewInit{
     $(this.el.nativeElement).owlCarousel({
 			items: 1,
 			loop: true,
-			autoplay: false,
+			autoplay: true,
 			onInitialized: this.startProgressBar(),
 			onTranslate: this.resetProgressBar(),
 			onTranslated: this.startProgressBar()

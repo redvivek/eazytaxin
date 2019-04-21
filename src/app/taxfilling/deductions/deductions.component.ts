@@ -105,7 +105,7 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
           this.previousButtonDisable = true;
         }
         
-        console.log("Current App Id "+ this.ApplicationId);
+        //console.log("Current App Id "+ this.ApplicationId);
       }
   }
 

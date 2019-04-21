@@ -299,6 +299,28 @@ exports.fetchPersonalInfoByAppId = (req,res)=>{
 	});
 };
 
+exports.checkExistingPan = (req,res)=>{
+    console.log("Request param "+req.body.panVal);
+    let panValue = req.body.panVal;
+    PersonalDetails.findOne(
+		{ where: {PanNumber: panValue} }
+	)
+	.then(function (resultData) {
+        console.log("Result - Exisitng PAN Details  "+ resultData);
+        if (resultData) {
+            //console.log("Result - Exisitng PAN Details "+JSON.stringify(resultData));
+            res.json({"statusCode": 200,"Message": "InValid"});
+        }else{
+            res.json({"statusCode": 200,"Message": "Valid"});
+        }
+
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+}
+
 exports.fetchAddressInfoByAppId = (req,res)=>{
     console.log("Request param "+req.body.id);
     console.log("Request param "+req.body.addresstype);
@@ -382,21 +404,16 @@ exports.saveBasicInfoByAppId = (req,res)=>{
     //let inputdata = req.body;
     let appid = req.body.appId;
     let userid = req.body.userId;
-    let incomeFromSalary = req.body.incomeFromSalary;
-    let incomeFromOtherSources = req.body.incomeFromOtherSources;
-    let selfOccupiedProp = req.body.selfOccupiedProp;
-    let rentalProperty = req.body.rentalProperty;
-    let incomeFromCapitals = req.body.incomeFromCapitals;
-    let deductionsFlag = req.body.deductionsFlag;
     let residentIndianFlag = req.body.residentIndianFlag;
     let nonResidentIndianFlag = req.body.nonResidentIndianFlag;
     let ociResidentIndianFlag = req.body.ociResidentIndianFlag;
-    let presentIndiaFlag = req.body.presentIndiaFlag;
+    let srtPresentIndiaFlag = req.body.srtPresentIndiaFlag;
+    let lngPresentIndiaFlag = req.body.lngPresentIndiaFlag;
     let updateAt = formattedDT;
 
     //update basic info flags to et_applicationsmain table */
-    sequelize.query("UPDATE `et_applicationsmain` SET IncomeSalaryFlag = ?, IncomeOthersFlag = ?, IncomeHouseFlag = ?, IncomeRentalFlag=?, IncomeCapitalGainsFlag=?, DeductionsFlag=?, ResidentIndianFlag=?, NonResidentIndianFlag=?, OciResidentIndianFlag=?, PresentIndiaFlag=?, updatedAt = ?, ApplicationStage=?, ApplicationStatus=? WHERE ApplicationId = ? AND UserId = ? ",{
-        replacements: [incomeFromSalary,incomeFromOtherSources,selfOccupiedProp,rentalProperty,incomeFromCapitals,deductionsFlag,residentIndianFlag,nonResidentIndianFlag,ociResidentIndianFlag,presentIndiaFlag,updateAt,2,'Progress',appid,userid],
+    sequelize.query("UPDATE `et_applicationsmain` SET ResidentIndianFlag=?, NonResidentIndianFlag=?, OciResidentIndianFlag=?, LngPresentIndiaFlag=?,ShrtPresentIndiaFlag=?, updatedAt = ?, ApplicationStage=?, ApplicationStatus=? WHERE ApplicationId = ? AND UserId = ? ",{
+        replacements: [residentIndianFlag,nonResidentIndianFlag,ociResidentIndianFlag,lngPresentIndiaFlag,srtPresentIndiaFlag,updateAt,2,'Progress',appid,userid],
         type: sequelize.QueryTypes.UPDATE 
     }).then(result => {		
         console.log("Result AppId  "+result);
@@ -422,11 +439,9 @@ exports.savePersonalInfoByAppId = (req,res)=>{
     let altMob = req.body.AltMobileNo;
     let dob = req.body.DateOfBirth;
     let gender = req.body.Gender;
-    let empName = req.body.EmployerName;
     let empType = req.body.EmployerType;
     let panNumber = req.body.PanNumber;
     let aadharNumber = req.body.AadharNumber;
-    let passportNumber = req.body.PassportNumber;
     let updateAt = formattedDT;
 
     PersonalDetails.findOne(
@@ -439,8 +454,8 @@ exports.savePersonalInfoByAppId = (req,res)=>{
                 where: { PersonalDetailsId: resultData.PersonalDetailsId}
             }).then(() => {
                 console.log('deleted successfully with id = ' + resultData.PersonalDetailsId);
-                sequelize.query("INSERT INTO `et_personaldetails`(ApplicationId,UserId,Firstname,Middlename,Lastname,EmailId,Fathername,MobileNo,AltMobileNo,DateOfBirth,Gender,EmployerName,EmployerType,PanNumber,AadharNumber,PassportNumber,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                    replacements: [appid,userid,firstName,middleName,lastName,emailId,fatherName,mob,altMob,dob,gender,empName,empType,panNumber,aadharNumber,passportNumber,updateAt,'Yes'],
+                sequelize.query("INSERT INTO `et_personaldetails`(ApplicationId,UserId,Firstname,Middlename,Lastname,EmailId,Fathername,MobileNo,AltMobileNo,DateOfBirth,Gender,EmployerType,PanNumber,AadharNumber,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,firstName,middleName,lastName,emailId,fatherName,mob,altMob,dob,gender,empType,panNumber,aadharNumber,updateAt,'Yes'],
                     type: sequelize.QueryTypes.INSERT 
                 }).then(result => {		
                     console.log("Result AppId  "+result[0]);
@@ -457,8 +472,8 @@ exports.savePersonalInfoByAppId = (req,res)=>{
         } else {
 			//res.status(200);
 			//Save to et_personaldetails table */
-			sequelize.query("INSERT INTO `et_personaldetails`(ApplicationId,UserId,Firstname,Middlename,Lastname,EmailId,Fathername,MobileNo,AltMobileNo,DateOfBirth,Gender,EmployerName,EmployerType,PanNumber,AadharNumber,PassportNumber,createdAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                replacements: [appid,userid,firstName,middleName,lastName,emailId,fatherName,mob,altMob,dob,gender,empName,empType,panNumber,aadharNumber,passportNumber,updateAt,'Yes'],
+			sequelize.query("INSERT INTO `et_personaldetails`(ApplicationId,UserId,Firstname,Middlename,Lastname,EmailId,Fathername,MobileNo,AltMobileNo,DateOfBirth,Gender,EmployerType,PanNumber,AadharNumber,createdAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,firstName,middleName,lastName,emailId,fatherName,mob,altMob,dob,gender,empType,panNumber,aadharNumber,updateAt,'Yes'],
                 type: sequelize.QueryTypes.INSERT 
             }).then(result => {		
                 console.log("Result AppId  "+result[0]);
@@ -477,60 +492,6 @@ exports.savePersonalInfoByAppId = (req,res)=>{
 		res.status(400).send(err);
 	});
 };
-
-function savePersonalInfofromXML(appid,userid,firstnm,middlenm,lastnm,panno,landline,mobileno,altMobileno,email,dob,emptype,genVal,aadhar,resiStatus){
-    var deferred = Q.defer();
-    let updateAt = formattedDT;
-    //let resiStatus = resiStatus;
-    
-    PersonalDetails.findOne(
-		{ where: {UserId:userid,ApplicationId: appid} }
-	)
-	.then(function (resultData) {
-		if (resultData) {
-            console.log("Result - Personal Details  "+JSON.stringify(resultData));
-            PersonalDetails.destroy({
-                where: { PersonalDetailsId: resultData.PersonalDetailsId}
-            }).then(() => {
-                console.log('deleted successfully with id = ' + resultData.PersonalDetailsId);
-                sequelize.query("INSERT INTO `et_personaldetails`(ApplicationId,UserId,Firstname,Middlename,Lastname,EmailId,MobileNo,AltMobileNo,landlineNo,DateOfBirth,Gender,EmployerType,PanNumber,AadharNumber,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                    replacements: [appid,userid,firstnm,middlenm,lastnm,email,mobileno,altMobileno,landline,dob,genVal,emptype,panno,aadhar,updateAt,'No'],
-                    type: sequelize.QueryTypes.INSERT 
-                }).then(result => {		
-                    console.log("Result AppId  "+result[0]);
-                    //update flags to et_applicationsmain table */
-                    updateApplicationMain(appid,userid,4);
-                    deferred.resolve();
-                })
-                .catch(function (err) {
-                    console.log("Error "+err);
-                    deferred.reject(err);
-                });
-            });
-        } else {
-			//Save to et_personaldetails table */
-			sequelize.query("INSERT INTO `et_personaldetails`(ApplicationId,UserId,Firstname,Middlename,Lastname,EmailId,MobileNo,AltMobileNo,landlineNo,DateOfBirth,Gender,EmployerType,PanNumber,AadharNumber,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                replacements: [appid,userid,firstnm,middlenm,lastnm,email,mobileno,altMobileno,landline,dob,genVal,emptype,panno,aadhar,updateAt,'No'],
-                type: sequelize.QueryTypes.INSERT
-            }).then(result => {		
-                console.log("Result AppId  "+result[0]);
-                //update flags to et_applicationsmain table */
-                updateApplicationMain(appid,userid,4);
-                deferred.resolve();
-            })
-            .catch(function (err) {
-                console.log("Error "+err);
-                deferred.reject(err);
-            });
-		}
-	})
-	.catch(function (err) {
-		console.log("Error "+err);
-		deferred.reject(err);
-	});
-    
-    return deferred.promise;
-}
 
 exports.saveAddressInfoByAppId = (req,res)=>{
     //res.status(200);
@@ -597,63 +558,6 @@ exports.saveAddressInfoByAppId = (req,res)=>{
 	});
 };
 
-function saveAddressInfofromXML(appid,userid,flatno,roadStreetnm,areaLocalitynm,citynm,state,pincode){
-    var deferred = Q.defer();
-    let addressType = "Residence";
-    let building = "";
-    country = "India";
-
-    AddressDetails.findOne(
-		{ where: {UserId:userid,ApplicationId: appid} }
-	)
-	.then(function (resultData) {
-		if (resultData) {
-            console.log("Result - Personal Details  "+JSON.stringify(resultData));
-            AddressDetails.destroy({
-                where: { AdressDetailsId: resultData.AdressDetailsId}
-            }).then(() => {
-                console.log('deleted successfully with id = ' + resultData.AdressDetailsId);
-                sequelize.query("INSERT INTO `et_addressdetails`(ApplicationId,UserId,AddressType,Flatno_Blockno,Building_Village_Premises,Road_Street_PO,Area_Locality,City_Town_District,State,Country,Pincode,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                    replacements: [appid,userid,addressType,flatno,building,roadStreetnm,areaLocalitynm,citynm,state,country,pincode,updateAt,'No'],
-                    type: sequelize.QueryTypes.INSERT 
-                }).then(result => {		
-                    console.log("Result AppId  "+result[0]);
-                    //update flags to et_applicationsmain table */
-                    updateApplicationMain(appid,userid,5);
-
-                    deferred.resolve();
-                })
-                .catch(function (err) {
-                    console.log("Error "+err);
-                    deferred.reject(err);
-                });
-            });
-        } else {
-			//res.status(200);
-			//Save to et_personaldetails table */
-			sequelize.query("INSERT INTO `et_addressdetails`(ApplicationId,UserId,AddressType,Flatno_Blockno,Building_Village_Premises,Road_Street_PO,Area_Locality,City_Town_District,State,Country,Pincode,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                replacements: [appid,userid,addressType,flatno,building,roadStreetnm,areaLocalitynm,citynm,state,country,pincode,updateAt,'No'],
-                type: sequelize.QueryTypes.INSERT 
-            }).then(result => {			
-                console.log("Result AppId  "+result[0]);
-                //update flags to et_applicationsmain table */
-                updateApplicationMain(appid,userid,5);
-                deferred.resolve();
-            })
-            .catch(function (err) {
-                console.log("Error "+err);
-                deferred.reject(err);
-            });
-		}
-	})
-	.catch(function (err) {
-		console.log("Error "+err);
-		deferred.reject(err);
-    });
-    
-    return deferred.promise;
-}
-
 exports.saveBankDetailsByAppId = (req,res)=>{
     //res.status(200);
     //let inputdata = req.body;
@@ -677,12 +581,11 @@ exports.saveBankDetailsByAppId = (req,res)=>{
                     for(var i=0;i < details.length;i++){
                         let accPriority = details[i].AccPriority;
                         let accNumber = details[i].AccNumber;
-                        let accType = details[i].AccType;
                         let bankNm = details[i].BankNm;
                         let ifscCode = details[i].IFSCCode;
                         console.log("Result cnt  "+ i);
                         if( i != details.length-1){
-                            insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt)
+                            insertBankDetails(appid,userid,accPriority,accNumber,bankNm,ifscCode,updateAt)
                             .then(result =>{
                                 console.log("Result AppId  "+result);
                             })
@@ -692,7 +595,7 @@ exports.saveBankDetailsByAppId = (req,res)=>{
                             });
                         }
                         else{
-                            insertBankDetailsAndSendResponse(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt)
+                            insertBankDetailsAndSendResponse(appid,userid,accPriority,accNumber,bankNm,ifscCode,updateAt)
                             .then(result =>{
                                 console.log("Result AppId  "+result);
                                 res.json({"statusCode": 200,"Message": "Successful Request"});
@@ -711,13 +614,12 @@ exports.saveBankDetailsByAppId = (req,res)=>{
                 for(i=0;i < details.length;i++){
                     let accPriority = details[i].AccPriority;
                     let accNumber = details[i].AccNumber;
-                    let accType = details[i].AccType;
                     let bankNm = details[i].BankNm;
                     let ifscCode = details[i].IFSCCode;
 
                     console.log("Result cnt  "+ i);
                     if( i != details.length-1){
-                        insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt)
+                        insertBankDetails(appid,userid,accPriority,accNumber,bankNm,ifscCode,updateAt)
                         .then(result =>{
                             console.log("Result AppId  "+result);
                         })
@@ -727,7 +629,7 @@ exports.saveBankDetailsByAppId = (req,res)=>{
                         });
                     }
                     else{
-                        insertBankDetailsAndSendResponse(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt)
+                        insertBankDetailsAndSendResponse(appid,userid,accPriority,accNumber,bankNm,ifscCode,updateAt)
                         .then(result =>{
                             console.log("Result AppId  "+result);
                             res.json({"statusCode": 200,"Message": "Successful Request"});
@@ -747,96 +649,10 @@ exports.saveBankDetailsByAppId = (req,res)=>{
     });
 };
 
-function saveBankDetailsFromXML(userid,appid,bankDetailsArr){
+function insertBankDetails(appid,userid,accPriority,accNumber,bankNm,ifscCode,updateAt){
     var deferred = Q.defer();
-
-    BankDetails.findOne(
-        { where: {UserId:userid,ApplicationId: appid} }
-    )
-    .then(function (resultData) {
-        if (resultData) {
-            console.log("Result - Bank Details  "+JSON.stringify(resultData));
-            BankDetails.destroy({
-                where: {UserId:userid,ApplicationId: appid}
-            }).then(() => {
-                console.log('deleted successfully with id = ' + appid);
-                
-                if(bankDetailsArr.length > 0){
-                    for(var i=0;i < bankDetailsArr.length;i++){
-                        let accPriority = bankDetailsArr[i].AccPriority;
-                        let accNumber = bankDetailsArr[i].AccNumber;
-                        let accType = "Savings";
-                        let bankNm = bankDetailsArr[i].BankNm;
-                        let ifscCode = bankDetailsArr[i].IFSCCode;
-                        console.log("Result cnt  "+ i);
-                        if( i != details.length-1){
-                            insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt)
-                            .then(result =>{
-                                console.log("Result AppId  "+result);
-                            })
-                            .catch(function (err) {
-                                console.log("Error "+err);
-                            });
-                        }
-                        else{
-                            insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt)
-                            .then(result =>{
-                                console.log("Result AppId  "+result);
-                                deferred.resolve();
-                            })
-                            .catch(function (err) {
-                                console.log("Error "+err);
-                                deferred.reject(err);
-                            });
-                        }
-                    }
-                }
-            });
-        } else {
-            if(bankDetailsArr.length > 0){
-                for(var i=0;i < bankDetailsArr.length;i++){
-                    let accPriority = bankDetailsArr[i].AccPriority;
-                    let accNumber = bankDetailsArr[i].AccNumber;
-                    let accType = "Savings";
-                    let bankNm = bankDetailsArr[i].BankNm;
-                    let ifscCode = bankDetailsArr[i].IFSCCode;
-                    console.log("Result cnt  "+ i);
-                    if( i != details.length-1){
-                        insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt)
-                        .then(result =>{
-                            console.log("Result AppId  "+result);
-                        })
-                        .catch(function (err) {
-                            console.log("Error "+err);
-                        });
-                    }
-                    else{
-                        insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt)
-                        .then(result =>{
-                            console.log("Result AppId  "+result);
-                            deferred.resolve();
-                        })
-                        .catch(function (err) {
-                            console.log("Error "+err);
-                            deferred.reject(err);
-                        });
-                    }
-                }
-            }
-        }
-    })
-    .catch(function (err) {
-        console.log("Error "+err);
-        deferred.reject(err);
-    });
-
-    return deferred.promise;
-}
-
-function insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt){
-    var deferred = Q.defer();
-    sequelize.query("INSERT INTO `et_bankdetails`(ApplicationId,UserId,AccountPriority,AccountNumber,AccountType,BankName,IFSCCode,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?)",{
-        replacements: [appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt,'Yes'],
+    sequelize.query("INSERT INTO `et_bankdetails`(ApplicationId,UserId,AccountPriority,AccountNumber,BankName,IFSCCode,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?)",{
+        replacements: [appid,userid,accPriority,accNumber,bankNm,ifscCode,updateAt,'Yes'],
         type: sequelize.QueryTypes.INSERT 
     }).then(result => {		
         console.log("Result AppId  "+result[0]);
@@ -849,10 +665,10 @@ function insertBankDetails(appid,userid,accPriority,accNumber,accType,bankNm,ifs
     return deferred.promise;
 }
 
-function insertBankDetailsAndSendResponse(appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt){
+function insertBankDetailsAndSendResponse(appid,userid,accPriority,accNumber,bankNm,ifscCode,updateAt){
     var deferred = Q.defer();
-    sequelize.query("INSERT INTO `et_bankdetails`(ApplicationId,UserId,AccountPriority,AccountNumber,AccountType,BankName,IFSCCode,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?)",{
-        replacements: [appid,userid,accPriority,accNumber,accType,bankNm,ifscCode,updateAt,'Yes'],
+    sequelize.query("INSERT INTO `et_bankdetails`(ApplicationId,UserId,AccountPriority,AccountNumber,BankName,IFSCCode,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?)",{
+        replacements: [appid,userid,accPriority,accNumber,bankNm,ifscCode,updateAt,'Yes'],
         type: sequelize.QueryTypes.INSERT 
     }).then(result => {		
         console.log("Result AppId  "+result[0]);
@@ -875,15 +691,15 @@ exports.saveAssestsInfoByAppId = (req,res)=>{
     let appid = req.body.appId;
     let userid = req.body.userId;
     let immovableAssetsFlag = req.body.immovableAssetsFlag;
-    let movJwellaryItemsAmount = req.body.movJwellaryItemsAmount;
-    let movCraftItemsAmount = req.body.movCraftItemsAmount;
-    let movConveninceItemsAmount = req.body.movConveninceItemsAmount;
-    let movFABankAmount = req.body.movFABankAmount;
-    let movFASharesAmount = req.body.movFASharesAmount;
-    let movFAInsAmount = req.body.movFAInsAmount;
-    let movFALoansGivenAmount = req.body.movFALoansGivenAmount;
-    let movInHandCashAmount = req.body.movInHandCashAmount;
-    let totalLiability = req.body.totalLiability;
+    let movJwellaryItemsAmount = req.body.movJwellaryItemsAmount!= "" ? parseFloat(req.body.movJwellaryItemsAmount) : 0.00;
+    let movCraftItemsAmount = req.body.movCraftItemsAmount!= "" ? parseFloat(req.body.movCraftItemsAmount) : 0.00;
+    let movConveninceItemsAmount = req.body.movConveninceItemsAmount!= "" ? parseFloat(req.body.movConveninceItemsAmount) : 0.00; 
+    let movFABankAmount = req.body.movFABankAmount!= "" ? parseFloat(req.body.movFABankAmount) : 0.00;
+    let movFASharesAmount = req.body.movFASharesAmount!= "" ? parseFloat(req.body.movFASharesAmount) : 0.00;
+    let movFAInsAmount = req.body.movFAInsAmount!= "" ? parseFloat(req.body.movFAInsAmount) : 0.00;
+    let movFALoansGivenAmount = req.body.movFALoansGivenAmount!= "" ? parseFloat(req.body.movFALoansGivenAmount) : 0.00;
+    let movInHandCashAmount = req.body.movInHandCashAmount!= "" ? parseFloat(req.body.movInHandCashAmount) : 0.00;
+    let totalLiability = req.body.totalLiability!= "" ? parseFloat(req.body.totalLiability) : 0.00;
     let foreignAssFlag = req.body.foreignAssFlag;
     let updateAt = formattedDT;
     AssetsDetails.findOne(
@@ -946,11 +762,12 @@ exports.saveImmAssestsInfoByAppId = (req,res)=>{
     let premiseName = immovableAssInput.premiseName;
     let streetName = immovableAssInput.streetName;
     let locality = immovableAssInput.locality;
+    let city = immovableAssInput.city;
     let state = immovableAssInput.state;
     let pincode = immovableAssInput.pincode;
     let country = immovableAssInput.country;
-    let purchaseCost = parseFloat(immovableAssInput.purchaseCost);
-    let totalLiabilites = immovableAssInput.totalLiabilites;
+    let purchaseCost = immovableAssInput.purchaseCost!= "" ? parseFloat(immovableAssInput.purchaseCost) : 0.00;
+    let totalLiabilites = immovableAssInput.totalLiabilites!= "" ? parseFloat(immovableAssInput.totalLiabilites) : 0.00;
     let updateAt = formattedDT;
     console.log("Input Req "+ JSON.stringify(inputdata));
     ImAssetsAddDetails.findOne(
@@ -963,8 +780,8 @@ exports.saveImmAssestsInfoByAppId = (req,res)=>{
                 where: { ImmovableAssetsDetailsId: resultData.ImmovableAssetsDetailsId}
             }).then(() => {
                 console.log('deleted successfully with id = ' + resultData.ImmovableAssetsDetailsId);
-                sequelize.query("INSERT INTO `et_immovableassetsdetails`(ALDetailsId,ApplicationId,UserId,Description,FlatNo,PremiseName,StreetName,AreaLocality,State,Pincode,Amount,updatedAt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",{
-                    replacements: [assInfoId,appid,userid,description,flatNo,premiseName,streetName,locality,state,pincode,purchaseCost,updateAt],
+                sequelize.query("INSERT INTO `et_immovableassetsdetails`(ALDetailsId,ApplicationId,UserId,Description,FlatNo,PremiseName,StreetName,AreaLocality,City,State,Country,Pincode,Amount,Immlaibilityamt,updatedAt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                    replacements: [assInfoId,appid,userid,description,flatNo,premiseName,streetName,locality,city,state,country,pincode,purchaseCost,totalLiabilites,updateAt],
                     type: sequelize.QueryTypes.INSERT 
                 }).then(result => {		
                     console.log("Result AppId  "+result[0]);
@@ -976,10 +793,9 @@ exports.saveImmAssestsInfoByAppId = (req,res)=>{
                 });
             });
         } else {
-			//res.status(200);
 			//Save to et_immovableassetsdetails table */
-			sequelize.query("INSERT INTO `et_immovableassetsdetails`(ALDetailsId,ApplicationId,UserId,Description,FlatNo,PremiseName,StreetName,AreaLocality,State,Pincode,Amount,updatedAt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",{
-                replacements: [assInfoId,appid,userid,description,flatNo,premiseName,streetName,locality,state,pincode,purchaseCost,updateAt],
+			sequelize.query("INSERT INTO `et_immovableassetsdetails`(ALDetailsId,ApplicationId,UserId,Description,FlatNo,PremiseName,StreetName,AreaLocality,City,State,Country,Pincode,Amount,Immlaibilityamt,updatedAt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                replacements: [assInfoId,appid,userid,description,flatNo,premiseName,streetName,locality,city,state,country,pincode,purchaseCost,totalLiabilites,updateAt],
                 type: sequelize.QueryTypes.INSERT 
             }).then(result => {		
                 console.log("Result AppId  "+result[0]);
@@ -1005,6 +821,7 @@ exports.saveSalIncomeInfoByAppId = (req,res) => {
     let employernm = req.body.employernm;
     let salamount = req.body.salamount;
     let inputEmployertype = req.body.employertype;
+    let employertan = req.body.employerTan;
 
     SalariedIncome.findOne(
 		{ where: {UserId:userid,ApplicationId: appid} }
@@ -1016,8 +833,8 @@ exports.saveSalIncomeInfoByAppId = (req,res) => {
                 where: { IncomeSourceSalId: resultData.IncomeSourceSalId}
             }).then(() => {
                 console.log('deleted successfully with id = ' + resultData.IncomeSourceSalId);
-                sequelize.query("INSERT INTO `et_income_salary`(ApplicationId,UserId,Form16UploadFlag,SalaryPaidAmount,EmployerName,EmployerCategory,CompletionStatus) VALUES (?,?,?,?,?,?,?)",{
-                    replacements: [appid,userid,uploadDocFlag,salamount,employernm,inputEmployertype,'Yes'],
+                sequelize.query("INSERT INTO `et_income_salary`(ApplicationId,UserId,Form16UploadFlag,SalaryPaidAmount,EmployerName,EmployerCategory,EmployerTAN,CompletionStatus) VALUES (?,?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,uploadDocFlag,salamount,employernm,inputEmployertype,employertan,'Yes'],
                     type: sequelize.QueryTypes.INSERT 
                 }).then(result => {		
                     console.log("Result AppId  "+result[0]);
@@ -1034,8 +851,8 @@ exports.saveSalIncomeInfoByAppId = (req,res) => {
         } else {
 			//res.status(200);
 			//Save to et_income_salary table */
-			sequelize.query("INSERT INTO `et_income_salary`(ApplicationId,UserId,Form16UploadFlag,SalaryPaidAmount,EmployerName,EmployerCategory,CompletionStatus) VALUES (?,?,?,?,?,?,?)",{
-                replacements: [appid,userid,uploadDocFlag,salamount,employernm,inputEmployertype,'Yes'],
+			sequelize.query("INSERT INTO `et_income_salary`(ApplicationId,UserId,Form16UploadFlag,SalaryPaidAmount,EmployerName,EmployerCategory,EmployerTAN,CompletionStatus) VALUES (?,?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,uploadDocFlag,salamount,employernm,inputEmployertype,employertan,'Yes'],
                 type: sequelize.QueryTypes.INSERT 
             }).then(result => {		
                 console.log("Result AppId  "+result[0]);
@@ -1054,59 +871,6 @@ exports.saveSalIncomeInfoByAppId = (req,res) => {
 		res.status(400).send(err);
 	});
 
-}
-
-function saveSalaryDetailsFromXML(userid,appid,salDetailInput){
-    var deferred = Q.defer();
-
-    SalariedIncome.findOne(
-		{ where: {UserId:userid,ApplicationId: appid} }
-	)
-	.then(function (resultData) {
-		if (resultData) {
-            console.log("Result - Salary Income details  "+JSON.stringify(resultData));
-            SalariedIncome.destroy({
-                where: { IncomeSourceSalId: resultData.IncomeSourceSalId}
-            }).then(() => {
-                console.log('deleted successfully with id = ' + resultData.IncomeSourceSalId);
-                sequelize.query("INSERT INTO `et_income_salary`(ApplicationId,UserId,Form16UploadFlag,SalaryPaidAmount,EmployerName,EmployerCategory,CompletionStatus) VALUES (?,?,?,?,?,?,?)",{
-                    replacements: [appid,userid,uploadDocFlag,salamount,employernm,inputEmployertype,'Yes'],
-                    type: sequelize.QueryTypes.INSERT 
-                }).then(result => {		
-                    console.log("Result AppId  "+result[0]);
-                    //update flags to et_income_salary table */
-                    updateApplicationMain(appid,userid,9);
-
-                    deferred.resolve();
-                })
-                .catch(function (err) {
-                    console.log("Error "+err);
-                    deferred.reject(err);
-                });
-            });
-        } else {
-			//Save to et_income_salary table */
-			sequelize.query("INSERT INTO `et_income_salary`(ApplicationId,UserId,Form16UploadFlag,SalaryPaidAmount,EmployerName,EmployerCategory,CompletionStatus) VALUES (?,?,?,?,?,?,?)",{
-                replacements: [appid,userid,uploadDocFlag,salamount,employernm,inputEmployertype,'Yes'],
-                type: sequelize.QueryTypes.INSERT 
-            }).then(result => {		
-                console.log("Result AppId  "+result[0]);
-                //update flags to et_applicationsmain table */
-                updateApplicationMain(appid,userid,9);
-                deferred.resolve();
-            })
-            .catch(function (err) {
-                console.log("Error "+err);
-                deferred.reject(err);
-            });
-		}
-	})
-	.catch(function (err) {
-		console.log("Error "+err);
-		deferred.reject(err);
-	});
-
-    return deferred.promise;
 }
 
 exports.saveOthIncomeInfoByAppId = (req,res) => {
@@ -1140,8 +904,8 @@ exports.saveOthIncomeInfoByAppId = (req,res) => {
                 where: { IncomeSourceOthersId: resultData.IncomeSourceOthersId}
             }).then(() => {
                 console.log('deleted successfully with id = ' + resultData.IncomeSourceOthersId);
-                sequelize.query("INSERT INTO `et_income_others`(ApplicationId,UserId,DocumentUploadFlag,SavingsInterestAmount,FDInterestAmount,GiftsIncome,DividendEarnedAmount,ExemptInterestIncome,OtherExemptIncome,GrossAgriIncome,AgriExpenditure,AgriLoss,PFWithdrawalIncome,PFWithdrawalTaxrate,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                    replacements: [appid,userid,uploadDocFlag,savingsIncome,fdincome,othericnome,shareincome,exemptincome,otherexemptincome,agriincome,agriexpend,agriloss,pfincome,pfincometax,'Yes'],
+                sequelize.query("INSERT INTO `et_income_others`(ApplicationId,UserId,DocumentUploadFlag,SavingsInterestAmount,FDInterestAmount,GiftsIncome,DividendEarnedAmount,ExemptInterestIncome,OtherExemptIncome,GrossAgriIncome,AgriExpenditure,AgriLoss,PFWithdrawalIncome,PFWithdrawalTaxrate,CompletionStatus,updatedAt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,uploadDocFlag,savingsIncome,fdincome,othericnome,shareincome,exemptincome,otherexemptincome,agriincome,agriexpend,agriloss,pfincome,pfincometax,'Yes',formattedDT],
                     type: sequelize.QueryTypes.INSERT 
                 }).then(result => {		
                     console.log("Result AppId  "+result[0]);
@@ -1155,8 +919,8 @@ exports.saveOthIncomeInfoByAppId = (req,res) => {
         } else {
 			//res.status(200);
 			//Save to et_income_others table */
-			sequelize.query("INSERT INTO `et_income_others`(ApplicationId,UserId,DocumentUploadFlag,SavingsInterestAmount,FDInterestAmount,GiftsIncome,DividendEarnedAmount,ExemptInterestIncome,OtherExemptIncome,GrossAgriIncome,AgriExpenditure,AgriLoss,PFWithdrawalIncome,PFWithdrawalTaxrate,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                replacements: [appid,userid,uploadDocFlag,savingsIncome,fdincome,othericnome,shareincome,exemptincome,otherexemptincome,agriincome,agriexpend,agriloss,pfincome,pfincometax,'Yes'],
+			sequelize.query("INSERT INTO `et_income_others`(ApplicationId,UserId,DocumentUploadFlag,SavingsInterestAmount,FDInterestAmount,GiftsIncome,DividendEarnedAmount,ExemptInterestIncome,OtherExemptIncome,GrossAgriIncome,AgriExpenditure,AgriLoss,PFWithdrawalIncome,PFWithdrawalTaxrate,CompletionStatus,createdAt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,uploadDocFlag,savingsIncome,fdincome,othericnome,shareincome,exemptincome,otherexemptincome,agriincome,agriexpend,agriloss,pfincome,pfincometax,'Yes',formattedDT],
                 type: sequelize.QueryTypes.INSERT 
             }).then(result => {		
                 console.log("Result AppId  "+result[0]);
@@ -1807,6 +1571,12 @@ function updateApplicationMain(appid,userid,appStage,xmlflag=0){
             console.log("Error in app main update "+err);
         });
     }
-    
 };
+
+exports.generateITRReport = (req,res)=>{
+    console.log("Request "+JSON.stringify(req.body));
+    let userid = req.body.userid;
+    let appid = req.body.appid;
+    res.json({"statusCode": 200,"Message": "Successful Request"});
+}
 

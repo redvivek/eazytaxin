@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 // used to create fake backend
 //import { fakeBackendProvider } from './_helpers';
 
@@ -54,7 +53,7 @@ import { FaqComponent } from './faq/faq.component';
         BuynowComponent,
         UseractivationComponent,
         UserverificationComponent,
-        FaqComponent,
+        FaqComponent
     ],
         
     providers: [

@@ -26,15 +26,15 @@ module.exports = function(sequelize, DataTypes) {
     },
     AccountType: {
       type: DataTypes.ENUM('Savings','Current'),
-      allowNull: false,
+      allowNull: true,
       defaultValue: 'Savings'
     },
     BankName: {
-      type: DataTypes.STRING(25),
+      type: DataTypes.STRING(125),
       allowNull: false
     },
     IFSCCode: {
-      type: DataTypes.STRING(12),
+      type: DataTypes.STRING(11),
       allowNull: false
     },
     BankBranch: {

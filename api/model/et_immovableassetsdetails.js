@@ -25,22 +25,30 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     FlatNo: {
-      type: DataTypes.STRING(25),
+      type: DataTypes.STRING(50),
       allowNull: true
     },
     PremiseName: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(50),
       allowNull: true
     },
     StreetName: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(50),
       allowNull: true
     },
     AreaLocality: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
+    City: {
+      type: DataTypes.STRING(50),
       allowNull: true
     },
     State: {
+      type: DataTypes.INTEGER(3),
+      allowNull: true
+    },
+    Country: {
       type: DataTypes.INTEGER(3),
       allowNull: true
     },
@@ -49,6 +57,10 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     Amount: {
+      type: DataTypes.FLOAT(10,2),
+      allowNull: true
+    },
+    Immlaibilityamt:{
       type: DataTypes.FLOAT(10,2),
       allowNull: true
     },

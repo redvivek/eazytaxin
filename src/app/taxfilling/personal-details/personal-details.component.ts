@@ -1,7 +1,7 @@
 import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators,FormArray } from '@angular/forms';
+import { first, ignoreElements } from 'rxjs/operators';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { ScriptService,AuthenticationService,ApplicationService, AlertService } from '@app/_services';
 import { environment } from '@environments/environment';
@@ -21,9 +21,9 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
   addressDetailsForm: FormGroup;
   bankDetailsForm: FormGroup;
   assestsDetailsForm: FormGroup;
-  
+  items: FormArray;
   loading = false;
-  immAssestsForm = true;
+  immAssestsForm = false;
   nextButtonDisable = false;
   previousButtonDisable = false;
   //flag to check submitted event on each subform
@@ -68,16 +68,16 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
         this.router.navigate(['/login']);
       }else{
         //console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
-        //console.log("Current App value "+ this.appService.currentApplicationValue);
         this.userId         = this.authenticationService.currentUserValue.userid;
         
+        //console.log("Current App value "+ this.appService.currentApplicationValue);
         if(this.appService.currentApplicationValue != null){
           this.ApplicationId  = this.appService.currentApplicationValue.appId;
         }else{
           this.nextButtonDisable = true;
           this.previousButtonDisable = true;
         }
-      console.log("Current App Id "+ this.ApplicationId);
+        //console.log("Current App Id "+ this.ApplicationId);
       }
   }
 
@@ -88,80 +88,217 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
 
   ngOnInit() {
     this.personalDetailsForm = this.formBuilder.group({
-      Firstname: ['', Validators.required ],
-      Lastname: ['', Validators.required ],
-      Middlename:[''],
+      Firstname: ['',
+        [ 
+          Validators.required,
+          Validators.maxLength(25),
+          Validators.pattern('^[a-zA-Z ]*$')
+        ], 
+      ],
+      Lastname: ['', 
+        [ 
+          Validators.required,
+          Validators.maxLength(75),
+          Validators.pattern('^[a-zA-Z ]*$')
+        ],
+      ],
+      Middlename:['',
+        [ 
+          Validators.maxLength(25),
+          Validators.pattern('^[a-zA-Z ]*$')
+        ],
+      ],
       EmailId: ['', [
                 Validators.required,
+                Validators.maxLength(125),
                 Validators.pattern("^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+)\\.([a-zA-Z]{2,5})$")
                ], ],
-      Fathername: ['', Validators.required ],
-      MobileNo: ['', [
-                Validators.required,
-                Validators.pattern("^[0-9]*$"),
-                Validators.maxLength(10) 
-      ],],
-      AltMobileNo:['',[
-                Validators.pattern("^[0-9]*$"),
-                Validators.maxLength(10)
-      ],],
+      Fathername: ['',
+        [ 
+          Validators.required,
+          Validators.maxLength(125),
+          Validators.pattern('^[a-zA-Z ]*$')
+        ],
+      ],
+      MobileNo: ['', 
+        [
+          Validators.required,
+          Validators.pattern("^[0-9]*$"),
+          Validators.maxLength(10) 
+        ],
+      ],
+      AltMobileNo:['',
+        [
+          Validators.pattern("^[0-9]*$"),
+          Validators.maxLength(10) 
+        ],
+      ],
       //landlineNo:[''],
       DateOfBirth: ['', Validators.required ],
       Gender: ['', Validators.required ],
-      EmployerName: ['', Validators.required ],
+      //EmployerName: ['', Validators.required ],
       EmployerType: ['', Validators.required ],
-      PanNumber: ['', Validators.required ],
+      PanNumber: ['', 
+        [
+          Validators.required,
+          Validators.maxLength(10),
+          Validators.pattern("^([A-Z]{3}[P][A-Z][0-9]{4}[A-Z])*$"), 
+        ],
+      ],
       AadharNumber:['',[
                 Validators.required,
                 Validators.pattern("^[0-9]*$"),
-                Validators.maxLength(16) 
+                Validators.maxLength(28) 
       ],],
-      PassportNumber:['']
-    });
+      //PassportNumber:['']
+    },{validator: this.checkPANUniquness('PanNumber','Lastname')}
+    );
 
     this.addressDetailsForm = this.formBuilder.group({
-      Flatno_Blockno: ['', Validators.required ],
-      Building_Village_Premises:['' ,Validators.required],
-      Road_Street_PO:['', Validators.required],
-      Area_Locality:['' ,Validators.required],
-      Pincode: ['', Validators.required ],
-      City_Town_District: ['', Validators.required ],
+      Flatno_Blockno: ['',
+        [ 
+          Validators.required,
+          Validators.maxLength(50)
+        ],
+      ],
+      Building_Village_Premises:['',
+        [ 
+          Validators.required,
+          Validators.maxLength(50)
+        ],
+      ],
+      Road_Street_PO:['', 
+        [ 
+          Validators.required,
+          Validators.maxLength(50)
+        ],
+      ],
+      Area_Locality:['',
+        [ 
+          Validators.required,
+          Validators.maxLength(50)
+        ],
+      ],
+      Pincode: ['', 
+        [ 
+          Validators.required,
+          Validators.maxLength(6),
+          Validators.pattern("^([1-9]{1}[0-9]{5})*$"),
+        ], 
+      ],
+      City_Town_District: ['', 
+        [ 
+          Validators.required,
+          Validators.maxLength(50)
+        ],
+      ],
       State: ['', Validators.required ],
       Country: ['', Validators.required ]
     });
 
     this.bankDetailsForm = this.formBuilder.group({
-      PrimaryAccNumber: ['', Validators.required ],
-      PrimaryAccType:['',Validators.required],
-      PrimaryBankNm: ['', Validators.required ],
-      PrimaryIFSCCode: ['', Validators.required ],
-      SecAccNumber: ['', Validators.required ],
-      SecAccType:['',Validators.required],
-      SecBankNm: ['', Validators.required ],
-      SecIFSCCode: ['', Validators.required ]
+      PrimaryAccNumber: ['',
+        [ 
+          Validators.required,
+          Validators.maxLength(20),
+          Validators.pattern("^([a-zA-Z0-9]([/-]?(((\d*[1-9]\d*)*[a-zA-Z/-])|(\d*[1-9]\d*[a-zA-Z]*))+)*[0-9])*$"),
+        ],
+      ],
+      PrimaryBankNm: ['', 
+        [ 
+          Validators.required,
+          Validators.maxLength(125)
+        ], 
+      ],
+      PrimaryIFSCCode: ['', 
+        [ 
+          Validators.required,
+          Validators.maxLength(11),
+          Validators.pattern("^([A-Z]{4}[0][A-Z0-9]{6})*$"),
+        ], 
+      ],
+      itemRows: this.formBuilder.array([this.initItemRows()]),
     });
 
     this.assestsDetailsForm = this.formBuilder.group({
-      immovableAssetsFlag:['1'],
-      Description: ['', Validators.required ],
-      FlatNo: ['', Validators.required ],
-      PremiseName: ['', Validators.required ],
-      StreetName: ['', Validators.required ],
-      AreaLocality: ['', Validators.required ],
-      immovable_State: ['', Validators.required ],
-      immovable_Pincode: ['', Validators.required ],
-      country:[''],
-      cost_purchase_price:['',Validators.required],
-      liabilities_in_relation_immovable_assets:['',Validators.required],
-      MovJwellaryItemsAmount:['',Validators.required],
-      MovCraftItemsAmount:['',Validators.required],
-      MovConveninceItemsAmount:['',Validators.required],
-      MovFABankAmount:['',Validators.required],
-      MovFASharesAmount:['',Validators.required],
-      MovFAInsAmount:['',Validators.required],
-      MovFALoansGivenAmount:['',Validators.required],
-      MovInHandCashAmount:['',Validators.required],
-      TotalLiability:['',Validators.required],
+      immovableAssetsFlag:['0'],
+      Description: ['',
+        [ 
+          Validators.maxLength(100)
+        ],
+      ],
+      FlatNo: ['',
+        [ 
+          Validators.maxLength(50)
+        ],
+      ],
+      PremiseName:['',
+        [ 
+          Validators.maxLength(50)
+        ],
+      ],
+      StreetName:['', 
+        [ 
+          Validators.maxLength(50)
+        ],
+      ],
+      AreaLocality:['',
+        [ 
+          Validators.maxLength(50)
+        ],
+      ],
+      immovable_Pincode: ['', 
+        [ 
+          Validators.maxLength(6),
+          Validators.pattern("^([1-9]{1}[0-9]{5})*$"),
+        ], 
+      ],
+      immovable_City: ['', 
+        [ 
+          Validators.maxLength(50)
+        ],
+      ],
+      immovable_State: [''],
+      country: [''],
+
+      cost_purchase_price:['',
+        [ 
+          Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")
+        ],
+      ],
+      liabilities_in_relation_immovable_assets:['',
+        [ 
+          Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")
+        ],
+      ],
+
+      MovJwellaryItemsAmount:['',[ 
+        Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")
+      ],],
+      MovCraftItemsAmount:['',[ 
+        Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")
+      ],],
+      MovConveninceItemsAmount:['',[ 
+        Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")
+      ],],
+      MovFABankAmount:['',[ 
+        Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")
+      ],],
+      MovFASharesAmount:['',[ 
+        Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")
+      ],],
+      MovFAInsAmount:['',[ 
+        Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")
+      ],],
+      MovFALoansGivenAmount:['',[ 
+        Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")
+      ],],
+      MovInHandCashAmount:['',[ 
+        Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")
+      ],],
+      TotalLiability:['',[ 
+        Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")
+      ],],
       uploadForeignAssetsFile:[''],
       uploadForeignAssetsFilepwd:[''],
       uploadFAProofFlag:['0'] 
@@ -202,26 +339,109 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
     handleFloatingLabels(Waves);
     formSticky();
   }
-  
-  ngAfter
 
   get f() { return this.personalDetailsForm.controls; }
   get a() { return this.addressDetailsForm.controls; }
   get b() { return this.bankDetailsForm.controls; }
   get s() { return this.assestsDetailsForm.controls; }
 
+  get addBankDetailsformArr() {
+    return this.bankDetailsForm.get('itemRows') as FormArray;
+  }
+
+  initItemRows() {
+    return this.formBuilder.group({
+      SecAccNumber: ['',
+        [ 
+          Validators.maxLength(20),
+          Validators.pattern("^([a-zA-Z0-9]([/-]?(((\d*[1-9]\d*)*[a-zA-Z/-])|(\d*[1-9]\d*[a-zA-Z]*))+)*[0-9])*$"),
+        ],
+      ],
+      SecBankNm: ['', 
+        [ 
+          Validators.maxLength(125)
+        ], 
+      ],
+      SecIFSCCode: ['', 
+        [ 
+          Validators.maxLength(11),
+          Validators.pattern("^([A-Z]{4}[0][A-Z0-9]{6})*$"),
+        ], 
+      ],
+    });
+  }
+
+  addNewRow() {
+    this.addBankDetailsformArr.push(this.initItemRows());
+  }
+
+  deleteRow(index: number) {
+    this.addBankDetailsformArr.removeAt(index);
+  }
+  getBankAccNoValidity(index:number){
+    return this.addBankDetailsformArr.controls[index].get('SecAccNumber').errors;
+  }
+  getBankAccNmValidity(index:number){
+    return this.addBankDetailsformArr.controls[index].get('SecBankNm').errors;
+  }
+  getBankIFSCValidity(index:number){
+    return this.addBankDetailsformArr.controls[index].get('SecIFSCCode').errors;
+  }
+
+  //validation to check PAN uniquness with Lastname and DB values
+  private checkPANUniquness(panKey: string, lastNameKey: string) {
+    return (group: FormGroup) => {
+        const panInput = group.controls[panKey];
+        const lastNameInput = group.controls[lastNameKey];
+        
+        if (panInput.errors && !panInput.errors.notEquivalent) {
+            // return if another validator has already found an error on the matchingControl
+            return;
+        }
+        if (lastNameInput.errors && !lastNameInput.errors.notEquivalent) {
+          // return if another validator has already found an error on the matchingControl
+          return;
+        }
+        const panVal = panInput.value;
+        const panChar = panVal.charAt(4);
+        const lastnmVal = lastNameInput.value;
+        const lastnmChar = lastnmVal.charAt(0);
+        if (panChar.toLowerCase() !== lastnmChar.toLowerCase()) {
+          return panInput.setErrors({notValid: true});
+        } else {
+          this.appService.checkExistingPan(panVal)
+          .pipe(first())
+          .subscribe(
+              data  => {
+                //console.log("Response"+JSON.stringify(data));
+                if(data['statusCode'] == 200 && data['Message'] == "InValid"){
+                  return panInput.setErrors({notUnique: true});
+                }else if(data['statusCode'] == 200 && data['Message'] == "Valid"){
+                  return panInput.setErrors(null);
+                }
+            },
+            error => {
+                console.log("Issue in Fetching PAN detailes"+JSON.stringify(error));
+                this.loading = false;
+                return panInput.setErrors({notUnique: true});
+            });
+        }
+    };
+  }
+
   /* Function to enable/disable & validate file upload form field on Radio change event */
   onChange(event): void {
     const newVal = event.target.value;
-    console.log("asDas" +newVal);
+    //console.log("asDas" +newVal);
     const immAssetsDetails = this.assestsDetailsForm.get('Description');
     const inputflatno = this.assestsDetailsForm.get('FlatNo');
     const inputPremnm = this.assestsDetailsForm.get('PremiseName');
     const inputStreetnm = this.assestsDetailsForm.get('StreetName');
     const inputArea = this.assestsDetailsForm.get('AreaLocality');
+    const inputCity = this.assestsDetailsForm.get('immovable_City');
     const inputState = this.assestsDetailsForm.get('immovable_State');
     const inputPincode = this.assestsDetailsForm.get('immovable_Pincode');
-    //const inputCountry = this.assestsDetailsForm.get('country');
+    const inputCountry = this.assestsDetailsForm.get('country');
     const inputCost = this.assestsDetailsForm.get('cost_purchase_price');
     const inputTotalLiabilites = this.assestsDetailsForm.get('liabilities_in_relation_immovable_assets');
 
@@ -232,9 +452,10 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
       inputPremnm.setValidators([Validators.required]);
       inputStreetnm.setValidators([Validators.required]);
       inputArea.setValidators([Validators.required]);
+      inputCity.setValidators([Validators.required]);
       inputState.setValidators([Validators.required]);
       inputPincode.setValidators([Validators.required]);
-      //inputCountry.setValidators([Validators.required]);
+      inputCountry.setValidators([Validators.required]);
       inputCost.setValidators([Validators.required]);
       inputTotalLiabilites.setValidators([Validators.required]);
     }
@@ -245,9 +466,10 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
       inputPremnm.clearValidators();
       inputStreetnm.clearValidators();
       inputArea.clearValidators();
+      inputCity.clearValidators();
       inputState.clearValidators();
       inputPincode.clearValidators();
-      //inputCountry.clearValidators();
+      inputCountry.clearValidators();
       inputCost.clearValidators();
       inputTotalLiabilites.clearValidators();
 
@@ -257,11 +479,52 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
     inputPremnm.updateValueAndValidity();
     inputStreetnm.updateValueAndValidity();
     inputArea.updateValueAndValidity();
+    inputCity.updateValueAndValidity();
     inputState.updateValueAndValidity();
     inputPincode.updateValueAndValidity();
-    //inputCountry.updateValueAndValidity();
+    inputCountry.updateValueAndValidity();
     inputCost.updateValueAndValidity();
     inputTotalLiabilites.updateValueAndValidity();
+  }
+
+  onAddressCheck(event):void{
+    const targetChkBox = event.target;
+    console.log("Checkbox event & value " +targetChkBox.checked+" - "+targetChkBox.value);
+    const inputflatno = this.assestsDetailsForm.get('FlatNo');
+    const inputPremnm = this.assestsDetailsForm.get('PremiseName');
+    const inputStreetnm = this.assestsDetailsForm.get('StreetName');
+    const inputArea = this.assestsDetailsForm.get('AreaLocality');
+    const inputCity = this.assestsDetailsForm.get('immovable_City');
+    const inputState = this.assestsDetailsForm.get('immovable_State');
+    const inputPincode = this.assestsDetailsForm.get('immovable_Pincode');
+    const inputCountry = this.assestsDetailsForm.get('country');
+    if (targetChkBox.checked) {
+      inputflatno.setValue(this.addressDetailsForm.get('Flatno_Blockno').value);
+      inputPremnm.setValue(this.addressDetailsForm.get('Building_Village_Premises').value);
+      inputStreetnm.setValue(this.addressDetailsForm.get('Road_Street_PO').value);
+      inputArea.setValue(this.addressDetailsForm.get('Area_Locality').value);
+      inputPincode.setValue(this.addressDetailsForm.get('Pincode').value);
+      inputCity.setValue(this.addressDetailsForm.get('City_Town_District').value);
+      inputState.setValue(this.addressDetailsForm.get('State').value);
+      inputCountry.setValue(this.addressDetailsForm.get('Country').value);
+    }else{
+      inputflatno.setValue('');
+      inputPremnm.setValue('');
+      inputStreetnm.setValue('');
+      inputArea.setValue('');
+      inputPincode.setValue('');
+      inputCity.setValue('');
+      inputState.setValue('');
+      inputCountry.setValue('');
+    }
+  }
+
+  addLiability(event):void{
+    const newVal = event.target.value;
+    //console.log("asDas" +newVal);
+    if(newVal!= ""){
+      this.assestsDetailsForm.get('liabilities_in_relation_immovable_assets').setValue(newVal);
+    }
   }
 
   onSubmit(formname,infoType) {
@@ -281,13 +544,11 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
               "AltMobileNo":this.f.AltMobileNo.value,
               "DateOfBirth":this.f.DateOfBirth.value,
               "Gender":this.f.Gender.value,
-              "EmployerName":this.f.EmployerName.value,
               "EmployerType":this.f.EmployerType.value,
               "PanNumber":this.f.PanNumber.value,
-              "AadharNumber":this.f.AadharNumber.value,
-              "PassportNumber":this.f.PassportNumber.value
+              "AadharNumber":this.f.AadharNumber.value
             };
-            this.submittedData.push({"personalInfoData":perInfoInputParam});
+            //this.submittedData.push({"personalInfoData":perInfoInputParam});
             // start storing application data in database
             this.appService.savePersonalInfoData(perInfoInputParam)
             .pipe(first())
@@ -327,7 +588,7 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
           "State":this.a.State.value,
           "Country":this.a.Country.value,
         };
-        this.submittedData.push({"addressInfoData":addInfoInputParam});
+        //this.submittedData.push({"addressInfoData":addInfoInputParam});
         // start storing application data in database
         this.appService.saveAddressInfoData(addInfoInputParam)
         .pipe(first())
@@ -354,27 +615,36 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
           });
         break;
         case "bankinfo":
+        var details = [];
+        var primaryBankObj = {
+          "AccPriority":"Primary",
+          "AccNumber":this.b.PrimaryAccNumber.value,
+          "BankNm":this.b.PrimaryBankNm.value,
+          "IFSCCode":this.b.PrimaryIFSCCode.value
+        }
+        details.push(primaryBankObj);
+        var addBankDetails = this.b.itemRows.value;
+        if(addBankDetails.length > 0 ){
+          for(var i=0; i< addBankDetails.length;i++){
+            if(addBankDetails[i].SecAccNumber != ""){
+              var otherBankObj = {
+                "AccPriority":"Others",
+                "AccNumber":addBankDetails[i].SecAccNumber,
+                "BankNm":addBankDetails[i].SecBankNm,
+                "IFSCCode":addBankDetails[i].SecIFSCCode,
+              }
+              details.push(otherBankObj);
+            }
+          }
+        }  
+          
+        
         bankInfoInputParam = {
           'appId':this.ApplicationId,
           'userId':this.userId,
-          'Details':[
-            {
-              "AccPriority":"Primary",
-              "AccNumber":this.b.PrimaryAccNumber.value,
-              "AccType":this.b.PrimaryAccType.value,
-              "BankNm":this.b.PrimaryBankNm.value,
-              "IFSCCode":this.b.PrimaryIFSCCode.value,
-            },
-            {
-              "AccPriority":"Others",
-              "AccNumber":this.b.SecAccNumber.value,
-              "AccType":this.b.SecAccType.value,
-              "BankNm":this.b.SecBankNm.value,
-              "IFSCCode":this.b.SecIFSCCode.value,
-            },
-          ]
+          'Details':details
         };
-        this.submittedData.push({"bankInfoData":bankInfoInputParam});
+        //this.submittedData.push({"bankInfoData":bankInfoInputParam});
         // start storing application data in database
         this.appService.saveBankInfoData(bankInfoInputParam)
         .pipe(first())
@@ -426,6 +696,7 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
               "premiseName":this.s.PremiseName.value,
               "streetName":this.s.StreetName.value,
               "locality":this.s.AreaLocality.value,
+              "city":this.s.immovable_City.value,
               "state":this.s.immovable_State.value,
               "pincode":this.s.immovable_Pincode.value,
               "country":this.s.country.value,
@@ -436,13 +707,13 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
             ImmovableAssInputParam = "";
           }
         
-        this.submittedData.push({"assetsInfoData":assetsInfoInputParam,"immAssetsInfoData":ImmovableAssInputParam});
+        //this.submittedData.push({"assetsInfoData":assetsInfoInputParam,"immAssetsInfoData":ImmovableAssInputParam});
         // start storing application data in database
         this.appService.saveAssestsInfoData(assetsInfoInputParam)
         .pipe(first())
         .subscribe(
           data => {
-                  console.log("Response" + JSON.stringify(data));
+                  //console.log("Response" + JSON.stringify(data));
                   //successfully inserted
                   if(data['statusCode'] == 200){
                       var assInfoId = data['assInfoId'];
@@ -455,7 +726,7 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
                         .pipe(first())
                         .subscribe(
                           data => {
-                                  console.log("Response" + JSON.stringify(data));
+                                  //console.log("Response" + JSON.stringify(data));
                                   //successfully inserted
                                   if(data['statusCode'] == 200){ 
                                         this.alertService.error('Application - Assests Info data saved successfully');
@@ -501,8 +772,6 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
         data  => {
           //console.log("Response"+JSON.stringify(data));
           if(data != null){
-              //this.AppMainDetails =  data;
-              //console.log("Existing perInfo "+ JSON.stringify(data));
               //Preload form with existing or default values
               this.personalDetailsForm.get('Firstname').setValue(data.Firstname);
               this.personalDetailsForm.get('Middlename').setValue(data.Middlename);
@@ -513,11 +782,9 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
               this.personalDetailsForm.get('AltMobileNo').setValue(data.AltMobileNo);
               this.personalDetailsForm.get('DateOfBirth').setValue(data.DateOfBirth);
               this.personalDetailsForm.get('Gender').setValue(data.Gender);
-              this.personalDetailsForm.get('EmployerName').setValue(data.EmployerName);
               this.personalDetailsForm.get('EmployerType').setValue(data.EmployerType);
               this.personalDetailsForm.get('PanNumber').setValue(data.PanNumber);
               this.personalDetailsForm.get('AadharNumber').setValue(data.AadharNumber);
-              this.personalDetailsForm.get('PassportNumber').setValue(data.PassportNumber);
           }else{
             this.autoFillPerInfoFormFromXML(this.ApplicationId,this.userId,"PersonalInfo");
           }
@@ -535,20 +802,29 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
     .subscribe(
         data  => {
           //console.log("Response"+JSON.stringify(data));
-          if(data){
-              //console.log("Existing perInfo "+ JSON.stringify(data));
-              //Preload form with existing or default values
-              this.personalDetailsForm.get('Firstname').setValue(data.Firstname);
-              this.personalDetailsForm.get('Middlename').setValue(data.Middlename);
-              this.personalDetailsForm.get('Lastname').setValue(data.Lastname);
-              this.personalDetailsForm.get('EmailId').setValue(data.EmailId);
-              this.personalDetailsForm.get('MobileNo').setValue(data.MobileNo);
-              this.personalDetailsForm.get('AltMobileNo').setValue(data.AltMobileNo);
-              this.personalDetailsForm.get('DateOfBirth').setValue(data.DateOfBirth);
-              this.personalDetailsForm.get('Gender').setValue(data.Gender);
-              this.personalDetailsForm.get('EmployerType').setValue(data.EmployerType);
-              this.personalDetailsForm.get('PanNumber').setValue(data.PanNumber);
-              this.personalDetailsForm.get('AadharNumber').setValue(data.AadharNumber);
+          if(data['statusCode'] == 200){
+              if (data['infoData']) {
+                  //Preload form with existing or default values
+                  this.personalDetailsForm.get('Firstname').setValue(data.Firstname);
+                  this.personalDetailsForm.get('Middlename').setValue(data.Middlename);
+                  this.personalDetailsForm.get('Lastname').setValue(data.Lastname);
+                  this.personalDetailsForm.get('EmailId').setValue(data.EmailId);
+                  this.personalDetailsForm.get('MobileNo').setValue(data.MobileNo);
+                  this.personalDetailsForm.get('AltMobileNo').setValue(data.AltMobileNo);
+                  this.personalDetailsForm.get('DateOfBirth').setValue(data.DateOfBirth);
+                  this.personalDetailsForm.get('Gender').setValue(data.Gender);
+                  this.personalDetailsForm.get('EmployerType').setValue(data.EmployerType);
+                  this.personalDetailsForm.get('PanNumber').setValue(data.PanNumber);
+                  this.personalDetailsForm.get('AadharNumber').setValue(data.AadharNumber);
+              }
+          }else if(data['statusCode'] == 201){
+              if (data['Message']) {
+                  //console.log("Current App value"+ JSON.stringify(data['Message']));
+              }
+          }else if(data['statusCode'] == 204){
+              if (data['Message']) {
+                  //console.log("Current App value"+ JSON.stringify(data['Message']));
+              }
           }
       },
       error => {
@@ -595,8 +871,7 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
     .subscribe(
         data  => {
           //console.log("Response"+JSON.stringify(data));
-          if(data){
-              //console.log("Existing perInfo "+ JSON.stringify(data));
+          if(data['statusCode'] == 200){
               //Preload form with existing or default values
               this.addressDetailsForm.get('Flatno_Blockno').setValue(data.Flatno_Blockno);
               this.addressDetailsForm.get('Road_Street_PO').setValue(data.Road_Street_PO);
@@ -605,6 +880,14 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
               this.addressDetailsForm.get('City_Town_District').setValue(data.City_Town_District);
               this.addressDetailsForm.get('State').setValue(data.State);
               this.addressDetailsForm.get('Country').setValue(data.Country);
+          }else if(data['statusCode'] == 201){
+              if (data['Message']) {
+                  //console.log("Current App value"+ JSON.stringify(data['Message']));
+              }
+          }else if(data['statusCode'] == 204){
+              if (data['Message']) {
+                  //console.log("Current App value"+ JSON.stringify(data['Message']));
+              }
           }
       },
       error => {
@@ -622,24 +905,29 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
         data  => {
           //console.log("Response"+JSON.stringify(data));
           if(data != null && data.length > 0){
+            var j = 0;
+            var othdata = data.length -1;
+            //console.log("Other length "+ othdata);
+            if(othdata > 1){
+              for(var k=0;k<othdata-1;k++){
+                this.addNewRow();
+              }
+            }
             for(var i=0;i<data.length;i++){
               //console.log("Existing perInfo "+ JSON.stringify(data[i]));
               if(data[i].AccountPriority == 'Primary'){
                 //Preload form with existing or default values
-                this.selPriAcctype = data[i].AccountType;
                 this.bankDetailsForm.get('PrimaryAccNumber').setValue(data[i].AccountNumber);
-                this.bankDetailsForm.get('PrimaryAccType').setValue(data[i].AccountType);
                 this.bankDetailsForm.get('PrimaryBankNm').setValue(data[i].BankName);
                 this.bankDetailsForm.get('PrimaryIFSCCode').setValue(data[i].IFSCCode);
               }
 
               if(data[i].AccountPriority == 'Others'){
                 //Preload form with existing or default values
-                this.selSecAcctype = data[i].AccountType;
-                this.bankDetailsForm.get('SecAccNumber').setValue(data[i].AccountNumber);
-                this.bankDetailsForm.get('SecAccType').setValue(data[i].AccountType);
-                this.bankDetailsForm.get('SecBankNm').setValue(data[i].BankName);
-                this.bankDetailsForm.get('SecIFSCCode').setValue(data[i].IFSCCode);
+                this.addBankDetailsformArr.controls[j].get('SecAccNumber').setValue(data[i].AccountNumber);
+                this.addBankDetailsformArr.controls[j].get('SecBankNm').setValue(data[i].BankName);
+                this.addBankDetailsformArr.controls[j].get('SecIFSCCode').setValue(data[i].IFSCCode);
+                j = j+1;
               }
 
             }
@@ -659,29 +947,43 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
     .pipe(first())
     .subscribe(
         data  => {
-          console.log("Response"+JSON.stringify(data));
-          if(data != null && data.length > 0){
+          //console.log("Response"+JSON.stringify(data));
+          if(data['statusCode'] == 200 && data.length > 0){
+            var j = 0;
+            var othdata = data.length -1;
+            //console.log("Other length "+ othdata);
+            if(othdata > 1){
+              for(var k=0;k<othdata-1;k++){
+                this.addNewRow();
+              }
+            }
             for(var i=0;i<data.length;i++){
               //console.log("Existing perInfo "+ JSON.stringify(data[i]));
               if(data[i].AccountPriority == 'Primary'){
                 //Preload form with existing or default values
-                this.selPriAcctype = data[i].AccountType;
                 this.bankDetailsForm.get('PrimaryAccNumber').setValue(data[i].AccountNumber);
-                this.bankDetailsForm.get('PrimaryAccType').setValue(data[i].AccountType);
                 this.bankDetailsForm.get('PrimaryBankNm').setValue(data[i].BankName);
                 this.bankDetailsForm.get('PrimaryIFSCCode').setValue(data[i].IFSCCode);
               }
 
               if(data[i].AccountPriority == 'Others'){
                 //Preload form with existing or default values
-                this.selSecAcctype = data[i].AccountType;
-                this.bankDetailsForm.get('SecAccNumber').setValue(data[i].AccountNumber);
-                this.bankDetailsForm.get('SecAccType').setValue(data[i].AccountType);
-                this.bankDetailsForm.get('SecBankNm').setValue(data[i].BankName);
-                this.bankDetailsForm.get('SecIFSCCode').setValue(data[i].IFSCCode);
+                this.addNewRow();
+                this.addBankDetailsformArr.controls[j].get('SecAccNumber').setValue(data[i].AccountNumber);
+                this.addBankDetailsformArr.controls[j].get('SecBankNm').setValue(data[i].BankName);
+                this.addBankDetailsformArr.controls[j].get('SecIFSCCode').setValue(data[i].IFSCCode);
+                j = j+1;
               }
 
             }
+          }else if(data['statusCode'] == 201){
+              if (data['Message']) {
+                  //console.log("Current App value"+ JSON.stringify(data['Message']));
+              }
+          }else if(data['statusCode'] == 204){
+              if (data['Message']) {
+                  //console.log("Current App value"+ JSON.stringify(data['Message']));
+              }
           }
       },
       error => {
@@ -714,6 +1016,7 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
               this.assestsDetailsForm.get('TotalLiability').setValue(maindata.TotalLiability);
 
               if(maindata.ImmovableAssetsFlag == 1){
+                this.immAssestsForm = true;
                 var imdata = data[1].ImmData;
                 //console.log("Existing perInfo1 "+ JSON.stringify(imdata));
                 this.assestsDetailsForm.get('Description').setValue(imdata.Description);
@@ -721,19 +1024,20 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
                 this.assestsDetailsForm.get('PremiseName').setValue(imdata.PremiseName);
                 this.assestsDetailsForm.get('StreetName').setValue(imdata.StreetName);
                 this.assestsDetailsForm.get('AreaLocality').setValue(imdata.AreaLocality);
+                this.assestsDetailsForm.get('immovable_City').setValue(imdata.City);
                 this.assestsDetailsForm.get('immovable_State').setValue(imdata.State);
+                this.assestsDetailsForm.get('country').setValue(imdata.Country);
                 this.assestsDetailsForm.get('immovable_Pincode').setValue(imdata.Pincode);
-                //this.assestsDetailsForm.get('country').setValue(data.Country);
                 this.assestsDetailsForm.get('cost_purchase_price').setValue(imdata.Amount);
-                this.assestsDetailsForm.get('liabilities_in_relation_immovable_assets').setValue(imdata.Amount);
+                this.assestsDetailsForm.get('liabilities_in_relation_immovable_assets').setValue(imdata.Immlaibilityamt);
+              }else{
+                this.immAssestsForm = false;
               }
-              
-              
           }
       },
       error => {
           console.log("AppMain fetch data error"+JSON.stringify(error));
-          //this.loading = false;
+          this.loading = false;
           return error;
       });
   }
@@ -745,6 +1049,7 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
       this.loading = true;
       console.log("Assests details submitted");
       if (this.assestsDetailsForm.invalid) {
+        this.loading = false;
         return;
       }else{
         this.onSubmit(this.assestsDetailsForm,'asstinfo');
@@ -756,6 +1061,7 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
       this.loading = true;
       console.log("Bank details submitted");
       if (this.bankDetailsForm.invalid) {
+        this.loading = false;
         return;
       }else{
         this.onSubmit(this.bankDetailsForm,'bankinfo');
@@ -767,6 +1073,7 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
       this.loading = true;
       console.log("Address details submitted");
       if (this.addressDetailsForm.invalid) {
+        this.loading = false;
         return;
       }else{
         this.onSubmit(this.addressDetailsForm,'addressinfo');
@@ -779,6 +1086,7 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
       console.log("Personal details submitted");
       // stop here if form is invalid
       if (this.personalDetailsForm.invalid) {
+        this.loading = false;
         return;
       }else{
         this.onSubmit(this.personalDetailsForm,'personalinfo');

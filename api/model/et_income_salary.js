@@ -22,15 +22,15 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: '0'
     },
     SalaryPaidAmount: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT(10,2),
       allowNull: true
     },
     EmployerName: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(125),
       allowNull: true
     },
     EmployerCategory: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(5),
       allowNull: true
     },
     EmployerTAN: {

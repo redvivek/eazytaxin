@@ -45,6 +45,7 @@ route.post('/tax/saveAssestsInfo', taxService.saveAssestsInfoByAppId);
 route.post('/tax/saveImmAssestsInfo', taxService.saveImmAssestsInfoByAppId);
 
 route.post('/tax/appPersonalDetails',taxService.fetchPersonalInfoByAppId);
+route.post('/tax/checkExistingPan',taxService.checkExistingPan);
 route.post('/tax/appAddressDetails',taxService.fetchAddressInfoByAppId);
 route.post('/tax/appBankDetails',taxService.fetchBankInfoByAppId);
 route.post('/tax/appAssetsDetails',taxService.fetchAssetsInfoByAppId);
@@ -59,10 +60,10 @@ route.post('/tax/saveDeductions', taxService.saveDeductionsInfoByAppId);
 route.post('/tax/saveOtherDeductions', taxService.saveOtherDeductionsByAppId);
 route.post('/tax/fetchDeductionsDetails', taxService.fetchDeductionsDetails);
 route.post('/tax/saveTaxpaidInfo', taxService.saveTaxPaidInfoByAppId);
-/*route.post('/tax/payment', taxService.doPayment);
-route.post('/tax/generateReport', taxService.generateITRReport);
+//route.post('/tax/payment', taxService.doPayment);
+route.post('/tax/submitITRApplication', taxService.generateITRReport);
 
-route.get('/tax/fetchReportInExcel', taxService.fetchITRReportInExcel);
+/*route.get('/tax/fetchReportInExcel', taxService.fetchITRReportInExcel);
 route.get('/tax/fetchReportInXML', taxService.fetchITRReportInXML);
 route.get('/tax/fetchDocPreview', taxService.fetchDocPreview);*/
 route.post('/tax/fetchDashboardInfo', taxService.fetchDashboardInfo);

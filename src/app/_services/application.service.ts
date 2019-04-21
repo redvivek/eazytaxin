@@ -77,15 +77,31 @@ export class ApplicationService {
             "userid" : userid,
             "category" : category
         };
-        return this.http.post<any>(`${environment.apiUrl}/tax/getInfoFromXML`, jsonInput)
-        .pipe(map(result => {
+        return this.http.post<any>(`${environment.apiUrl}/tax/getInfoFromXML`, jsonInput);
+        /* .pipe(map(result => {
             if(result['statusCode'] == 200){
                 if (result['infoData']) {
                     //console.log("Current App value"+ JSON.stringify(appmaindata['AppData']));
+                    return result['infoData'];
                 }
             }
-            return result['infoData'];
-        }));
+
+            if(result['statusCode'] == 201){
+                if (result['Message']) {
+                    console.log("Current App value"+ JSON.stringify(result['Message']));
+                    let data = [];
+                    return null;
+                }
+            }
+
+            if(result['statusCode'] == 204){
+                if (result['Message']) {
+                    console.log("Current App value"+ JSON.stringify(result['Message']));
+                    let data = [];
+                    return null;
+                }
+            }
+        })); */
     }
     
     //Initate Application creation
@@ -100,16 +116,20 @@ export class ApplicationService {
 
     getPersonalInfoByAppId(id: number) {
         return this.http.post<any>(`${environment.apiUrl}/tax/appPersonalDetails`, { id })
-            .pipe(map(perinfodata => {
-                if(perinfodata['statusCode'] == 200){
-                    if (perinfodata['PerData'] != "") {
-                        //console.log("Current App value"+ JSON.stringify(perinfodata['PerData']));
-                        return perinfodata['PerData'];
-                    }else{
-                        return null;
-                    }
+        .pipe(map(perinfodata => {
+            if(perinfodata['statusCode'] == 200){
+                if (perinfodata['PerData'] != "") {
+                    //console.log("Current App value"+ JSON.stringify(perinfodata['PerData']));
+                    return perinfodata['PerData'];
+                }else{
+                    return null;
                 }
-            }));
+            }
+        }));
+    }
+
+    checkExistingPan(panVal : string){
+        return this.http.post<any>(`${environment.apiUrl}/tax/checkExistingPan`, {'panVal':panVal});
     }
 
     getAddressInfoByAppId(id: number,addresstype:string) {
@@ -224,5 +244,13 @@ export class ApplicationService {
 
     saveTaxexPaidDetails(taxesPaidParam){
         return this.http.post(`${environment.apiUrl}/tax/saveTaxpaidInfo`, taxesPaidParam);
+    }
+
+    doFinalSubmission(appid,userid){
+        var jsonInput = {
+            "userid" : userid,
+            "appid" : appid
+        };
+        return this.http.post(`${environment.apiUrl}/tax/submitITRApplication`, jsonInput);
     }
 }

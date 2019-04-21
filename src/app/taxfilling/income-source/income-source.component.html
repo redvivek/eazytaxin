@@ -150,7 +150,7 @@
                                             </div>
                                           </div>
                                           <div class="col-md-4">
-                                            <div class="form-group floating-label">
+                                            <div class="form-group ">
                                               <input type="text" class="form-control" id="uploadFilePassword" formControlName="uploadFilePassword" >
                                               <label for="uploadFilePassword">Enter Document Password</label>
                                             </div>
@@ -179,22 +179,23 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="form-group floating-label">
+                                                <div class="form-group ">
                                                 <input type="text" class="form-control" id="employername" formControlName="inputEmployernm" [ngClass]="{ 'is-invalid': salFSubmitted && s.inputEmployernm.errors}">
                                                 <div *ngIf="salFSubmitted && s.inputEmployernm.errors" class="invalid-feedback">
                                                     <div *ngIf="s.inputEmployernm.errors.required">Employer name is required</div>
+                                                    <div *ngIf="s.inputEmployernm.errors.maxlength">Entered text exceeds maxlength limit</div>
+                                                    <div *ngIf="s.inputEmployernm.errors.pattern">Invalid text entered</div>
                                                 </div>
                                                   <label for="employername">Name of the Employer <span class="text-danger required">*</span></label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="form-group floating-label customDropdown">
+                                                <div class="form-group  customDropdown">
                                                 <select id="employertype"  class="form-control" formControlName="inputEmployertype" [ngClass]="{ 'is-invalid': salFSubmitted && s.inputEmployertype.errors}">
-                                                    <option value=""></option>
-                                                    <option value="govt">Govt.</option>
-                                                    <option value="public">Public</option>
-                                                    <option value="private">Private</option>
-                                                    <option value="Propertiship">Propertiship</option>
+                                                    <option value="GOV">Government</option>
+                                                    <option value="PSU">Public Sector Unit</option>
+                                                    <option value="PE">Pensioners</option>
+                                                    <option value="OTH">Others</option>
                                                 </select>
                                                 <div *ngIf="salFSubmitted && s.inputEmployertype.errors" class="invalid-feedback">
                                                     <div *ngIf="s.inputEmployertype.errors.required">Employer type is required</div>
@@ -206,7 +207,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group mb-0">
-                                                    <div class=" floating-label">
+                                                    <div class=" ">
                                                         <div class="input-group prepend">
                                                             <div class="input-group-prepend">
                                                                 <div class="input-group-text">₹</div>
@@ -214,10 +215,21 @@
                                                             <input type="text" class="form-control" id="salary" formControlName="inputSalary" [ngClass]="{ 'is-invalid': salFSubmitted && s.inputSalary.errors}">
                                                             <div *ngIf="salFSubmitted && s.inputSalary.errors" class="invalid-feedback">
                                                                 <div *ngIf="s.inputSalary.errors.required">Salary amount is required</div>
+                                                                <div *ngIf="s.inputSalary.errors.pattern">Invalid amount entered</div>
                                                             </div>
                                                             <label for="salary">Salary <span class="text-danger required">*</span></label>
                                                         </div>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group ">
+                                                    <input type="text" class="form-control" id="emptan" formControlName="inputEmpTAN" [ngClass]="{ 'is-invalid': salFSubmitted && s.inputEmpTAN.errors}">
+                                                    <div *ngIf="salFSubmitted && s.inputEmpTAN.errors" class="invalid-feedback">
+                                                        <div *ngIf="s.inputEmpTAN.errors.required">Employer TAN is required</div>
+                                                        <div *ngIf="s.inputEmpTAN.errors.pattern">Invalid amount entered</div>
+                                                    </div>
+                                                    <label for="emptan">Employer TAN <span class="text-danger required">*</span></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -250,7 +262,7 @@
                                           <div class="boxBody">
                                               <div class="assetsLists">
                                                   <article>
-                                                      <div class="row form-group floating-label">
+                                                      <div class="row form-group ">
                                                         <label for="" class="col-md-8 col-form-label">Interest Income from Savings Bank and Post Office deposits</label>
                                                         <div class="col-md-4">
                                                           <div class="input-group prepend position-relative">
@@ -265,7 +277,7 @@
                                                           </div>
                                                         </div>
                                                       </div>
-                                                      <div class="row form-group floating-label">
+                                                      <div class="row form-group ">
                                                           <label for="" class="col-md-8 col-form-label">Other Interest Income: From Fixed Deposits etc
                                                             <small class="d-block">Interest from sweep accounts converted to FDs also specified here</small>
                                                           </label>
@@ -296,7 +308,7 @@
                                           <div class="boxBody">
                                               <div class="assetsLists">
                                                   <article>
-                                                      <div class="row form-group floating-label">
+                                                      <div class="row form-group ">
                                                       <label for="" class="col-md-8 col-form-label">Any Other Income
                                                           <small class="d-block">Report any other income which is not part of Income from Salary, House Property or Capital Gain. Gifts can be declared as Income here</small>
                                                       </label>
@@ -327,7 +339,7 @@
                                           <div class="boxBody">
                                               <div class="assetsLists">
                                                   <article>
-                                                      <div class="row form-group floating-label">
+                                                      <div class="row form-group ">
                                                       <label for="" class="col-md-8 col-form-label">Dividend earned
                                                           <small class="d-block">Dividend from shares. Income earned on investments in Mutual Funds, ULIPs, UTI. </small>
                                                       </label>
@@ -344,7 +356,7 @@
                                                           </div>
                                                       </div>
                                                       </div>
-                                                      <div class="row form-group floating-label">
+                                                      <div class="row form-group ">
                                                       <label for="" class="col-md-8 col-form-label">Exempt Interest Income
                                                           <small class="d-block">Example: Interest earned on PPF</small>
                                                       </label>
@@ -361,7 +373,7 @@
                                                           </div>
                                                       </div>
                                                       </div>
-                                                      <div class="row form-group floating-label">
+                                                      <div class="row form-group ">
                                                       <label for="" class="col-md-8 col-form-label">Other Miscellaneous Exempt Income
                                                           <small class="d-block">Specify any other exempt income</small>
                                                       </label>
@@ -378,7 +390,7 @@
                                                           </div>
                                                       </div>
                                                       </div>
-                                                      <!--<div class="row form-group floating-label">
+                                                      <!--<div class="row form-group ">
                                                           <label for="" class="col-md-8 col-form-label">Nature of Exempt Income <span class="text-danger required">*</span>
                                                               <small class="d-block">Specify nature of other exempt income</small>
                                                           </label>
@@ -406,7 +418,7 @@
                                           <div class="boxBody">
                                               <div class="assetsLists">
                                                   <article>
-                                                      <div class="row form-group floating-label">
+                                                      <div class="row form-group ">
                                                       <label for="" class="col-md-8 col-form-label">Gross Agricultural Income Receipt
                                                           <small class="d-block">Specify gross agricultural income</small>
                                                       </label>
@@ -423,7 +435,7 @@
                                                           </div>
                                                       </div>
                                                       </div>
-                                                      <div class="row form-group floating-label">
+                                                      <div class="row form-group ">
                                                       <label for="" class="col-md-8 col-form-label">Expenditure On Agriculture
                                                           <small class="d-block">Specify expenditure on agriculture sources</small>
                                                       </label>
@@ -440,7 +452,7 @@
                                                           </div>
                                                       </div>
                                                       </div>
-                                                      <div class="row form-group floating-label">
+                                                      <div class="row form-group ">
                                                       <label for="" class="col-md-8 col-form-label">Unabsorbed Agriculture Loss
                                                           <small class="d-block">Specify unabsorbed agriculture loss</small>
                                                       </label>
@@ -472,7 +484,7 @@
                                               <div class="row">
                                                   <div class="col-md-6">
                                                       <div class="form-group">
-                                                      <div class=" floating-label">
+                                                      <div class=" ">
                                                           <div class="input-group prepend">
                                                           <div class="input-group-prepend">
                                                               <div class="input-group-text">₹</div>
@@ -487,7 +499,7 @@
                                                       </div>
                                                   </div>
                                                   <div class="col-md-6">
-                                                      <div class="form-group floating-label">
+                                                      <div class="form-group ">
                                                       <input type="text" class="form-control" id="inputDepPersonName" formControlName="inputDepPersonName" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputDepPersonName.errors}">
                                                       <div *ngIf="othFSubmitted && o.inputDepPersonName.errors" class="invalid-feedback">
                                                           <div *ngIf="o.inputDepPersonName.errors.required">Dependent Person name is required</div>
@@ -498,7 +510,7 @@
                                               </div>
                                               <div class="row">
                                                   <div class="col-md-6">
-                                                      <div class="form-group floating-label customDropdown">
+                                                      <div class="form-group  customDropdown">
                                                       <select id="inputDepPersonRel" class="form-control" formControlName="inputDepPersonRel" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputDepPersonRel.errors}" >
                                                           <option value=""></option>
                                                           <option value="spouse">Spouse</option>
@@ -514,7 +526,7 @@
                                                       </div>
                                                   </div>
                                                   <div class="col-md-6">
-                                                      <div class="form-group floating-label customDropdown">
+                                                      <div class="form-group  customDropdown">
                                                       <select id="inputDepIncomeNature" class="form-control" formControlName="inputDepIncomeNature" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputDepIncomeNature.errors}" >
                                                           <option value=""></option>
                                                           <option value="interest">Interest</option>
@@ -568,7 +580,7 @@
                                               <div class="row">
                                                   <div class="col-md-6">
                                                       <div class="form-group mb-0">
-                                                      <div class=" floating-label">
+                                                      <div class=" ">
                                                           <div class="input-group prepend">
                                                           <div class="input-group-prepend">
                                                               <div class="input-group-text">₹</div>
@@ -583,7 +595,7 @@
                                                       </div>
                                                   </div>
                                                   <div class="col-md-6">
-                                                      <div class="form-group floating-label customDropdown">
+                                                      <div class="form-group  customDropdown">
                                                       <select id="inputPFIncomeTax" class="form-control" formControlName="inputPFIncomeTax" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputPFIncomeTax.errors}">
                                                           <option value=""></option>
                                                           <option value="10.0">10</option>
@@ -630,7 +642,7 @@
                                               </div>
                                           </div>
                                           <div class="col-md-4">
-                                              <div class="form-group floating-label">
+                                              <div class="form-group ">
                                                   <input type="text" class="form-control" id="filepassword" formControlName="uploadOtherIncomeFilePwd">
                                                   <label for="filepassword">Enter Document Password</label>
                                               </div>
@@ -676,21 +688,31 @@
                                                 <span class="d-inline-block"><h6>House Address</h6></span>
                                             </div>
                                             <div class="boxBody">
+                                                <div class = "row">
+                                                    <div class="col-md-6">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" id="sameAddress" name="sameAddress" value="1" (change)="onAddressCheck('self',$event)">
+                                                            <label class="custom-control-label" for="sameAddress">Same As Residence Address</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                         <input type="text" class="form-control" id="inpSelfOccPropFlatNo" formControlName="inpSelfOccPropFlatNo" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropFlatNo.errors}">
                                                         <div *ngIf="houFSubmitted && h.inpSelfOccPropFlatNo.errors" class="invalid-feedback">
                                                             <div *ngIf="h.inpSelfOccPropFlatNo.errors.required">Flat or Block.no is required</div>
+                                                            <div *ngIf="h.inpSelfOccPropFlatNo.errors.maxlength">Text entered exceeds maxlength of 50 chars.</div>
                                                         </div>
                                                         <label for="inpSelfOccPropFlatNo">Flat / Door / Block No. <span class="text-danger required">*</span></label>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                         <input type="text" class="form-control" id="inpSelfOccPropPremise" formControlName="inpSelfOccPropPremise" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropPremise.errors}">
                                                         <div *ngIf="houFSubmitted && h.inpSelfOccPropPremise.errors" class="invalid-feedback">
                                                             <div *ngIf="h.inpSelfOccPropPremise.errors.required">Premises or Building name is required</div>
+                                                            <div *ngIf="h.inpSelfOccPropPremise.errors.maxlength">Text entered exceeds maxlength of 50 chars.</div>
                                                         </div>
                                                         <label for="inpSelfOccPropPremise">Premises / Building / Village <span class="text-danger required">*</span></label>
                                                         </div>
@@ -699,19 +721,21 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                         <input type="text" class="form-control" id="inpSelfOccPropArea" formControlName="inpSelfOccPropArea" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropArea.errors}">
                                                         <div *ngIf="houFSubmitted && h.inpSelfOccPropArea.errors" class="invalid-feedback">
                                                             <div *ngIf="h.inpSelfOccPropArea.errors.required">Area or Locality is required</div>
+                                                            <div *ngIf="h.inpSelfOccPropArea.errors.maxlength">Text entered exceeds maxlength of 50 chars.</div>
                                                         </div>
                                                         <label for="inpSelfOccPropArea">Area / Locality <span class="text-danger required">*</span></label>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                         <input type="text" class="form-control" id="inpSelfOccPropStreet" formControlName="inpSelfOccPropStreet" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropStreet.errors}">
                                                         <div *ngIf="houFSubmitted && h.inpSelfOccPropStreet.errors" class="invalid-feedback">
                                                             <div *ngIf="h.inpSelfOccPropStreet.errors.required">Road or Street name is required</div>
+                                                            <div *ngIf="h.inpSelfOccPropStreet.errors.maxlength">Text entered exceeds maxlength of 50 chars.</div>
                                                         </div>
                                                         <label for="inpSelfOccPropStreet">Road / Street / Post Office <span class="text-danger required">*</span></label>
                                                         </div>
@@ -719,19 +743,22 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                         <input type="text" class="form-control" id="inpSelfOccPropCity" formControlName="inpSelfOccPropCity" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropCity.errors}">
                                                         <div *ngIf="houFSubmitted && h.inpSelfOccPropCity.errors" class="invalid-feedback">
                                                             <div *ngIf="h.inpSelfOccPropCity.errors.required">City/Town/District name is required</div>
+                                                            <div *ngIf="h.inpSelfOccPropCity.errors.maxlength">Text entered exceeds maxlength of 50 chars.</div>
                                                         </div>
                                                         <label for="inpSelfOccPropCity">Town / City / District </label>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                         <input type="text" class="form-control" id="inpSelfOccPropPincode" formControlName="inpSelfOccPropPincode" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropPincode.errors}">
                                                         <div *ngIf="houFSubmitted && h.inpSelfOccPropPincode.errors" class="invalid-feedback">
                                                             <div *ngIf="h.inpSelfOccPropPincode.errors.required">Pincode is required</div>
+                                                            <div *ngIf="h.inpSelfOccPropPincode.errors.maxlength">Text entered exceeds maxlength of 6 digits.</div>
+                                                            <div *ngIf="h.inpSelfOccPropPincode.errors.pattern">Invalid pincode.</div>
                                                         </div>
                                                         <label for="inpSelfOccPropPincode">Pin Code <span class="text-danger required">*</span></label>
                                                         </div>
@@ -740,9 +767,44 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label customDropdown">
+                                                        <div class="form-group customDropdown">
                                                         <select id="inpSelfOccPropState" class="form-control" formControlName="inpSelfOccPropState" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropState.errors}">
-                                                            <option value="1">Maharashtra</option>
+                                                            <option value="01">Andaman and Nicobar islands</option>
+                                                            <option value="02">Andhra Pradesh</option>
+                                                            <option value="03">Arunachal Pradesh</option>
+                                                            <option value="04">Assam</option>
+                                                            <option value="05">Bihar</option>
+                                                            <option value="06">Chandigarh</option>
+                                                            <option value="07">Dadra Nagar and Haveli</option>
+                                                            <option value="08">Daman and Diu</option>
+                                                            <option value="09">Delhi</option>
+                                                            <option value="10">Goa</option>
+                                                            <option value="11">Gujarat</option>
+                                                            <option value="12">Haryana</option>
+                                                            <option value="13">Himachal Pradesh</option>
+                                                            <option value="14">Jammu and Kashmir</option>
+                                                            <option value="15">Karnataka</option>
+                                                            <option value="16">Kerala</option>
+                                                            <option value="17">Lakshadweep</option>
+                                                            <option value="18">Madhya Pradesh</option>
+                                                            <option value="19">Maharashtra</option>
+                                                            <option value="20">Manipur</option>
+                                                            <option value="21">Meghalaya</option>
+                                                            <option value="22">Mizoram</option>
+                                                            <option value="23">Nagaland</option>
+                                                            <option value="24">Orissa</option>
+                                                            <option value="25">Pondicherry</option>
+                                                            <option value="26">Punjab</option>
+                                                            <option value="27">Rajasthan</option>
+                                                            <option value="28">Sikkim</option>
+                                                            <option value="29">Tamil Nadu</option>
+                                                            <option value="30">Tripura</option>
+                                                            <option value="31">Uttar Pradesh</option>
+                                                            <option value="32">West Bengal</option>
+                                                            <option value="33">Chhattisgarh</option>
+                                                            <option value="34">Uttarakhand</option>
+                                                            <option value="35">Jharkhand</option>
+                                                            <option value="36">Telangana</option>
                                                         </select>
                                                         <div *ngIf="houFSubmitted && h.inpSelfOccPropState.errors" class="invalid-feedback">
                                                             <div *ngIf="h.inpSelfOccPropState.errors.required">State is required</div>
@@ -751,9 +813,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label customDropdown">
+                                                        <div class="form-group customDropdown">
                                                             <select id="inpSelfOccPropCountry" class="form-control" formControlName="inpSelfOccPropCountry" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropCountry.errors}">
-                                                                <option value="india">India</option>
+                                                                    <option value="91" >India</option>
                                                             </select>
                                                             <div *ngIf="houFSubmitted && h.inpSelfOccPropCountry.errors" class="invalid-feedback">
                                                                 <div *ngIf="h.inpSelfOccPropCountry.errors.required">Country name is required</div>
@@ -762,7 +824,7 @@
                                                         </div>
                                                     </div>
                                                     <!-- <div class="col">
-                                                        <div class="form-group floating-label customDropdown">
+                                                        <div class="form-group  customDropdown">
                                                         <select id="IncomeSourcesDetails_PropertyAddressDetails_PropertyType" name="select2" class="form-control">
                                                             <option value=""></option>
                                                             <option value="1">Self Occupied</option>
@@ -784,8 +846,8 @@
                                                 <p class="text-muted text-center">If you have a housing loan against a house you live in (Self Occupied property) then you can claim a tax deduction of upto Rs. 2,00,000.</p>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label customDropdown">
-                                                            <select id="inpSelfOccPropLoanFlag" class="form-control" formControlName="inpSelfOccPropLoanFlag" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropLoanFlag.errors}">
+                                                        <div class="form-group  customDropdown">
+                                                            <select id="inpSelfOccPropLoanFlag" class="form-control" formControlName="inpSelfOccPropLoanFlag" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropLoanFlag.errors}" (change)="disbaleLoanAmount($event)">
                                                                 <option value="1">Yes</option>
                                                                 <option value="0">No</option>
                                                             </select>
@@ -797,7 +859,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group mb-0">
-                                                            <div class=" floating-label">
+                                                            <div class=" ">
                                                                 <div class="input-group prepend">
                                                                     <div class="input-group-prepend">
                                                                     <div class="input-group-text">₹</div>
@@ -805,6 +867,7 @@
                                                                     <input type="text" class="form-control" id="inpSelfOccPropInterset" formControlName="inpSelfOccPropInterset" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropInterset.errors}">
                                                                     <div *ngIf="houFSubmitted && h.inpSelfOccPropInterset.errors" class="invalid-feedback">
                                                                         <div *ngIf="h.inpSelfOccPropInterset.errors.required">Interest paid on self occupied property is required</div>
+                                                                        <div *ngIf="h.inpSelfOccPropInterset.errors.pattern">Text entered is invalid</div>
                                                                     </div>
                                                                     <label for="inpSelfOccPropInterset">Interest paid on loan for self occupied property<span class="text-danger required">*</span></label>
                                                                 </div>
@@ -824,7 +887,7 @@
                                             <div class="boxBody">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label customDropdown">
+                                                        <div class="form-group  customDropdown">
                                                             <select id="inpCOFlag" class="form-control" formControlName="inpCOFlag" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpCOFlag.errors}">
                                                             <option value="1">Yes</option>
                                                             <option value="0">No</option>
@@ -836,10 +899,11 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                         <input type="text" class="form-control" id="" formControlName="inpSelfShare" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfShare.errors}">
                                                         <div *ngIf="houFSubmitted && h.inpSelfShare.errors" class="invalid-feedback">
                                                             <div *ngIf="h.inpSelfShare.errors.required">Your Ownership Share is required</div>
+                                                            <div *ngIf="h.inpSelfShare.errors.pattern">Text entered is invalid</div>
                                                         </div>
                                                         <label for="inpSelfShare">Your ownership share of the Property (Percentage %) <span class="text-danger required">*</span></label>
                                                         </div>
@@ -855,19 +919,23 @@
                                             <div class="boxBody">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                             <input type="text" class="form-control" id="inpCOName" formControlName="inpCOName" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpCOName.errors}">
                                                             <div *ngIf="houFSubmitted && h.inpCOName.errors" class="invalid-feedback">
                                                                 <div *ngIf="h.inpCOName.errors.required">Co Owner Name is required</div>
+                                                                <div *ngIf="h.inpCOName.errors.maxlength">Text entered is more than maxlength limit</div>
+                                                                <div *ngIf="h.inpCOName.errors.pattern">Text entered is invalid</div>
                                                             </div>
                                                             <label for="inpCOName">Name <span class="text-danger required">*</span></label>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                             <input type="text" class="form-control" id="inpCOPan" formControlName="inpCOPan" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpCOPan.errors}">
                                                             <div *ngIf="houFSubmitted && h.inpCOPan.errors" class="invalid-feedback">
                                                                 <div *ngIf="h.inpCOPan.errors.required">Co Owner PAN no. is required</div>
+                                                                <div *ngIf="h.inpCOPan.errors.maxlength">Text entered is more than maxlength limit</div>
+                                                                <div *ngIf="h.inpCOPan.errors.pattern">Invalid PAN number</div>
                                                             </div>
                                                             <label for="inpCOPan">PAN No. <span class="text-danger required">*</span></label>
                                                         </div>
@@ -875,10 +943,11 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                         <input type="text" class="form-control" id="inpCOShare" formControlName="inpCOShare" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpCOShare.errors}">
                                                         <div *ngIf="houFSubmitted && h.inpCOShare.errors" class="invalid-feedback">
                                                             <div *ngIf="h.inpCOShare.errors.required">Co Owner share is required</div>
+                                                            <div *ngIf="h.inpCOPan.errors.pattern">Text entered is invalid</div>
                                                         </div>
                                                         <label for="inpCOShare">% Share <span class="text-danger required">*</span></label>
                                                         </div>
@@ -961,7 +1030,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <div class="form-group floating-label">
+                                                <div class="form-group ">
                                                 <input type="text" class="form-control" id="uploadHousePropDocsPwd" formControlName="uploadHousePropDocsPwd">
                                                 <label for="uploadHousePropDocsPwd">Enter Document Password</label>
                                                 </div>
@@ -1008,19 +1077,29 @@
                                             <div class="boxBody">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" id="rentAddress" name="rentAddress" value="1" (change)="onAddressCheck('rental',$event)">
+                                                            <label class="custom-control-label" for="rentAddress">Same As Residence Address</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group ">
                                                         <input type="text" class="form-control" id="inpRentalPropFlatNo" formControlName="inpRentalPropFlatNo" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropFlatNo.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRentalPropFlatNo.errors" class="invalid-feedback">
                                                             <div *ngIf="r.inpRentalPropFlatNo.errors.required">Flat or Block.no is required</div>
+                                                            <div *ngIf="r.inpRentalPropFlatNo.errors.maxlength">Text entered exceeds maxlength</div>
                                                         </div>
                                                         <label for="inpSelfOccPropFlatNo">Flat / Door / Block No. <span class="text-danger required">*</span></label>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                         <input type="text" class="form-control" id="inpRentalPropPremise" formControlName="inpRentalPropPremise" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropPremise.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRentalPropPremise.errors" class="invalid-feedback">
                                                             <div *ngIf="r.inpRentalPropPremise.errors.required">Premises or Building name is required</div>
+                                                            <div *ngIf="r.inpRentalPropPremise.errors.maxlength">Text entered exceeds maxlength</div>
                                                         </div>
                                                         <label for="inpRentalPropPremise">Premises / Building / Village <span class="text-danger required">*</span></label>
                                                         </div>
@@ -1029,19 +1108,21 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                         <input type="text" class="form-control" id="inpRentalPropArea" formControlName="inpRentalPropArea" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropArea.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRentalPropArea.errors" class="invalid-feedback">
                                                             <div *ngIf="r.inpRentalPropArea.errors.required">Area or Locality is required</div>
+                                                            <div *ngIf="r.inpRentalPropArea.errors.maxlength">Text entered exceeds maxlength</div>
                                                         </div>
                                                         <label for="inpRentalPropArea">Area / Locality <span class="text-danger required">*</span></label>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                         <input type="text" class="form-control" id="inpRentalPropStreet" formControlName="inpRentalPropStreet" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropStreet.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRentalPropStreet.errors" class="invalid-feedback">
                                                             <div *ngIf="r.inpRentalPropStreet.errors.required">Road or Street name is required</div>
+                                                            <div *ngIf="r.inpRentalPropStreet.errors.maxlength">Text entered exceeds maxlength</div>
                                                         </div>
                                                         <label for="inpRentalPropStreet">Road / Street / Post Office <span class="text-danger required">*</span></label>
                                                         </div>
@@ -1049,19 +1130,22 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                         <input type="text" class="form-control" id="inpRentalPropCity" formControlName="inpRentalPropCity" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropCity.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRentalPropCity.errors" class="invalid-feedback">
                                                             <div *ngIf="h.inpRentalPropCity.errors.required">City/Town/District name is required</div>
+                                                            <div *ngIf="r.inpRentalPropCity.errors.maxlength">Text entered exceeds maxlength</div>
                                                         </div>
                                                         <label for="inpRentalPropCity">Town / City / District </label>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                         <input type="text" class="form-control" id="inpRenPropPincode" formControlName="inpRenPropPincode" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRenPropPincode.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRenPropPincode.errors" class="invalid-feedback">
                                                             <div *ngIf="r.inpRenPropPincode.errors.required">Pincode is required</div>
+                                                            <div *ngIf="r.inpRenPropPincode.errors.maxlength">Text entered exceeds maxlength</div>
+                                                            <div *ngIf="r.inpRenPropPincode.errors.pattern">Invalid Pincode</div>
                                                         </div>
                                                         <label for="inpRenPropPincode">Pin Code <span class="text-danger required">*</span></label>
                                                         </div>
@@ -1070,9 +1154,44 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label customDropdown">
+                                                        <div class="form-group  customDropdown">
                                                         <select id="inpRentalPropState" class="form-control" formControlName="inpRentalPropState" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropState.errors}">
-                                                            <option value="1">Maharashtra</option>
+                                                            <option value="01">Andaman and Nicobar islands</option>
+                                                            <option value="02">Andhra Pradesh</option>
+                                                            <option value="03">Arunachal Pradesh</option>
+                                                            <option value="04">Assam</option>
+                                                            <option value="05">Bihar</option>
+                                                            <option value="06">Chandigarh</option>
+                                                            <option value="07">Dadra Nagar and Haveli</option>
+                                                            <option value="08">Daman and Diu</option>
+                                                            <option value="09">Delhi</option>
+                                                            <option value="10">Goa</option>
+                                                            <option value="11">Gujarat</option>
+                                                            <option value="12">Haryana</option>
+                                                            <option value="13">Himachal Pradesh</option>
+                                                            <option value="14">Jammu and Kashmir</option>
+                                                            <option value="15">Karnataka</option>
+                                                            <option value="16">Kerala</option>
+                                                            <option value="17">Lakshadweep</option>
+                                                            <option value="18">Madhya Pradesh</option>
+                                                            <option value="19">Maharashtra</option>
+                                                            <option value="20">Manipur</option>
+                                                            <option value="21">Meghalaya</option>
+                                                            <option value="22">Mizoram</option>
+                                                            <option value="23">Nagaland</option>
+                                                            <option value="24">Orissa</option>
+                                                            <option value="25">Pondicherry</option>
+                                                            <option value="26">Punjab</option>
+                                                            <option value="27">Rajasthan</option>
+                                                            <option value="28">Sikkim</option>
+                                                            <option value="29">Tamil Nadu</option>
+                                                            <option value="30">Tripura</option>
+                                                            <option value="31">Uttar Pradesh</option>
+                                                            <option value="32">West Bengal</option>
+                                                            <option value="33">Chhattisgarh</option>
+                                                            <option value="34">Uttarakhand</option>
+                                                            <option value="35">Jharkhand</option>
+                                                            <option value="36">Telangana</option>
                                                         </select>
                                                         <div *ngIf="renFSubmitted && r.inpRentalPropState.errors" class="invalid-feedback">
                                                             <div *ngIf="r.inpRentalPropState.errors.required">State is required</div>
@@ -1081,9 +1200,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label customDropdown">
+                                                        <div class="form-group  customDropdown">
                                                             <select id="inpRentalPropCountry" class="form-control" formControlName="inpRentalPropCountry" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropCountry.errors}">
-                                                                <option value="india">India</option>
+                                                                <option value="91" >India</option>
                                                             </select>
                                                             <div *ngIf="renFSubmitted && r.inpRentalPropCountry.errors" class="invalid-feedback">
                                                                 <div *ngIf="r.inpRentalPropCountry.errors.required">Country name is required</div>
@@ -1103,7 +1222,7 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group mb-0">
-                                                        <div class=" floating-label">
+                                                        <div class=" ">
                                                             <div class="input-group prepend">
                                                             <div class="input-group-prepend">
                                                                 <div class="input-group-text">₹</div>
@@ -1111,6 +1230,7 @@
                                                             <input type="text" class="form-control" id="inpRentalPropRentRec" formControlName="inpRentalPropRentRec" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropRentRec.errors}">
                                                             <div *ngIf="renFSubmitted && r.inpRentalPropRentRec.errors" class="invalid-feedback">
                                                                 <div *ngIf="r.inpRentalPropRentRec.errors.required">Rent amount received is required</div>
+                                                                <div *ngIf="r.inpRentalPropRentRec.errors.pattern">Rent received amount is invalid</div>
                                                             </div>
                                                             <label for="inpRentalPropRentRec">Annual Rent Received by You <span class="text-danger required">*</span></label>
                                                             </div>
@@ -1120,7 +1240,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group mb-0">
-                                                        <div class=" floating-label">
+                                                        <div class=" ">
                                                             <div class="input-group prepend">
                                                             <div class="input-group-prepend">
                                                                 <div class="input-group-text">₹</div>
@@ -1128,6 +1248,7 @@
                                                             <input type="text" class="form-control" id="inpRentalPropHousetax" formControlName="inpRentalPropHousetax" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropHousetax.errors}">
                                                             <div *ngIf="renFSubmitted && r.inpRentalPropHousetax.errors" class="invalid-feedback">
                                                                 <div *ngIf="r.inpRentalPropHousetax.errors.required">House tax paid by you is required</div>
+                                                                <div *ngIf="r.inpRentalPropHousetax.errors.pattern">House tax amount is invalid</div>
                                                             </div>
                                                             <label for="inpRentalPropHousetax">House Tax Paid by you <span class="text-danger required">*</span></label>
                                                             </div>
@@ -1138,19 +1259,23 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                         <input type="text" class="form-control" id="inpRentalPropTenName" formControlName="inpRentalPropTenName" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropTenName.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRentalPropTenName.errors" class="invalid-feedback">
                                                             <div *ngIf="r.inpRentalPropTenName.errors.required">Tenant name is required</div>
+                                                            <div *ngIf="r.inpRentalPropTenName.errors.maxlength">Text entered is more than max limit</div>
+                                                            <div *ngIf="r.inpRentalPropTenName.errors.pattern">Text entered is invalid</div>
                                                         </div>
                                                         <label for="inpRentalPropTenName">Name of Tenant <span class="text-danger required">*</span></label>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                         <input type="text" class="form-control" id="inpRentalPropTenPan" formControlName="inpRentalPropTenPan" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropTenPan.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRentalPropTenPan.errors" class="invalid-feedback">
                                                             <div *ngIf="r.inpRentalPropTenPan.errors.required">Tenant PAN is required</div>
+                                                            <div *ngIf="r.inpRentalPropTenPan.errors.maxlength">Text entered is more than max limit</div>
+                                                            <div *ngIf="r.inpRentalPropTenPan.errors.pattern">PAN entered is invalid</div>
                                                         </div>
                                                         <label for="inpRentalPropTenPan">PAN of Tenant </label>
                                                         </div>
@@ -1174,7 +1299,7 @@
                                                 <!-- <p class="text-muted text-center">If you have a housing loan against a house you live in (Self Occupied property) then you can claim a tax deduction of upto Rs. 2,00,000.</p> -->
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label customDropdown">
+                                                        <div class="form-group  customDropdown">
                                                             <select id="inpRentalPropLoanFlag" class="form-control" formControlName="inpRentalPropLoanFlag" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropLoanFlag.errors}">
                                                                 <option value="1">Yes</option>
                                                                 <option value="0">No</option>
@@ -1187,7 +1312,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group mb-0">
-                                                            <div class=" floating-label">
+                                                            <div class=" ">
                                                                 <div class="input-group prepend">
                                                                     <div class="input-group-prepend">
                                                                     <div class="input-group-text">₹</div>
@@ -1195,6 +1320,7 @@
                                                                     <input type="text" class="form-control" id="inpRentalPropInterset" formControlName="inpRentalPropInterset" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropInterset.errors}">
                                                                     <div *ngIf="renFSubmitted && r.inpRentalPropInterset.errors" class="invalid-feedback">
                                                                         <div *ngIf="r.inpRentalPropInterset.errors.required">Interest paid on loan is required</div>
+                                                                        <div *ngIf="r.inpRentalPropInterset.errors.pattern">Text entered is invalid</div>
                                                                     </div>
                                                                     <label for="inpRentalPropInterset">Interest paid on loan for rental property<span class="text-danger required">*</span></label>
                                                                 </div>
@@ -1214,7 +1340,7 @@
                                             <div class="boxBody">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label customDropdown">
+                                                        <div class="form-group  customDropdown">
                                                             <select id="inpRenCOFlag" class="form-control" formControlName="inpRenCOFlag" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRenCOFlag.errors}">
                                                             <option value="1">Yes</option>
                                                             <option value="0">No</option>
@@ -1226,17 +1352,18 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                         <input type="text" class="form-control" id="inpRenSelfShare" formControlName="inpRenSelfShare" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRenSelfShare.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRenSelfShare.errors" class="invalid-feedback">
-                                                            <div *ngIf="r.inpRenSelfShare.errors.required">Co ownership response is required</div>
+                                                            <div *ngIf="r.inpRenSelfShare.errors.required">Co ownership share percentage is required</div>
+                                                            <div *ngIf="r.inpRenSelfShare.errors.pattern">Text entered is invalid</div>
                                                         </div>
                                                         <label for="inpRenSelfShare">Your ownership share of the Property (Percentage %) <span class="text-danger required">*</span></label>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group mb-0">
-                                                        <div class=" floating-label">
+                                                        <div class=" ">
                                                             <div class="input-group prepend">
                                                             <div class="input-group-prepend">
                                                                 <div class="input-group-text">₹</div>
@@ -1244,6 +1371,7 @@
                                                             <input type="text" class="form-control" id="inpRenUnRealRent" formControlName="inpRenUnRealRent" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRenUnRealRent.errors}">
                                                             <div *ngIf="renFSubmitted && r.inpRenUnRealRent.errors" class="invalid-feedback">
                                                                 <div *ngIf="r.inpRenUnRealRent.errors.required">Unrealized Rent Amount is required</div>
+                                                                <div *ngIf="r.inpRenUnRealRent.errors.pattern">Text entered is invalid</div>
                                                             </div>
                                                             <label for="inpRenUnRealRent">Unrealized Rent Amount <span class="text-danger required">*</span></label>
                                                             </div>
@@ -1263,19 +1391,23 @@
                                             <div class="boxBody">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                             <input type="text" class="form-control" id="inpRenCOName" formControlName="inpRenCOName" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRenCOName.errors}">
                                                             <div *ngIf="renFSubmitted && r.inpRenCOName.errors" class="invalid-feedback">
                                                                 <div *ngIf="r.inpRenCOName.errors.required">Co owner name is required</div>
+                                                                <div *ngIf="r.inpRenCOName.errors.maxlength">Text entered is more than maxlength</div>
+                                                                <div *ngIf="r.inpRenCOName.errors.pattern">Text entered is invalid</div>
                                                             </div>
                                                             <label for="inpRenCOName">Name <span class="text-danger required">*</span></label>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                             <input type="text" class="form-control" id="inpRenCOPan" formControlName="inpRenCOPan" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRenCOPan.errors}">
                                                             <div *ngIf="renFSubmitted && r.inpRenCOPan.errors" class="invalid-feedback">
                                                                 <div *ngIf="r.inpRenCOPan.errors.required">Co owner PAN no. is required</div>
+                                                                <div *ngIf="r.inpRenCOPan.errors.maxlength">Text entered is more than maxlength</div>
+                                                                <div *ngIf="r.inpRenCOPan.errors.pattern">PAN entered is invalid</div>
                                                             </div>
                                                             <label for="inpRenCOPan">PAN No. <span class="text-danger required">*</span></label>
                                                         </div>
@@ -1283,10 +1415,11 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group floating-label">
+                                                        <div class="form-group ">
                                                         <input type="text" class="form-control" id="inpRenCOShare" formControlName="inpRenCOShare" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRenCOShare.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRenCOShare.errors" class="invalid-feedback">
                                                             <div *ngIf="r.inpRenCOShare.errors.required">Co owner Share is required</div>
+                                                            <div *ngIf="r.inpRenCOShare.errors.pattern">Text entered is invalid</div>
                                                         </div>
                                                         <label for="inpRenCOShare">% Share <span class="text-danger required">*</span></label>
                                                         </div>
@@ -1368,7 +1501,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <div class="form-group floating-label">
+                                                <div class="form-group ">
                                                 <input type="text" class="form-control" id="uploadRentalPropDocsPwd" formControlName="uploadRentalPropDocsPwd">
                                                 <label for="uploadRentalPropDocsPwd">Enter Document Password</label>
                                                 </div>
@@ -1516,12 +1649,12 @@
                     <!--Buttons-->
                     <div class="form-actions d-flex stickyFooterForm affix">
                         <div class="left mr-auto">
-                        <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
+                        <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>&nbsp;
+                        <!-- <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button> -->
                         </div>
                         <div class="right ml-auto">
                             <button type="button" [disabled]="previousButtonDisable" (click)="on_previous_click()" class="btn btn-link btn-lg">Previous</button>
-                            <!--<button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button>-->
-                            <button type="button" [disabled]="nextButtonDisable" (click)="on_next_click()" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
+                            <button type="button" [disabled]="nextButtonDisable" (click)="on_next_click()" class="btn btn-primary btn-lg">Save & Continue <i class="fas fa-arrow-right"></i></button>
                             <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                     </div>
                     </div>

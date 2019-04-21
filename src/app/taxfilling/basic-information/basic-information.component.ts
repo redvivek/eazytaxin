@@ -25,12 +25,7 @@ export class BasicInformationComponent implements OnInit,AfterViewInit {
     showOciResidentQues = false;
     showShortPresentResidentQues = false;
     showLongPresentResidentQues = false;
-    /* checked :boolean;
-    checked1 :boolean;
-    checked2 :boolean;
-    checked3 :boolean;
-    checked4 :boolean;
-    checked5 :boolean; */
+
     checked6 :boolean;
     checked7 :boolean;
     checked8 :boolean;
@@ -67,12 +62,6 @@ export class BasicInformationComponent implements OnInit,AfterViewInit {
     ngOnInit() {
 
         this.basicInfoForm = this.formBuilder.group({
-        /* incomeFromSalary: ['', Validators.required],
-        incomeFromOtherSources : ['',Validators.required],
-        selfOccupiedProp : ['',Validators.required],
-        rentalProperty : ['',Validators.required],
-        incomeFromCapitals: ['',Validators.required],
-        deductionsFlag: ['',Validators.required], */
         residentIndianFlag: ['',Validators.required],
         nonResidentIndianFlag: [''],
         ociResidentIndianFlag: [''],
@@ -172,98 +161,56 @@ export class BasicInformationComponent implements OnInit,AfterViewInit {
     }
 
     fetchAppMaindata(appid : number){
-    //fetch Basic info data by AppId
-    this.appService.getByAppId(appid)
-    .pipe(first())
-    .subscribe(
-        data  => {
-            //console.log("Response"+JSON.stringify(data));
-            if(data){
-                //Preload form with existing or default values
-                /* if(data.IncomeSalaryFlag == 1){
-                    this.checked = true;
-                    this.basicInfoForm.get('incomeFromSalary').setValue('1');
-                }else{
-                    this.checked = false;
-                    this.basicInfoForm.get('incomeFromSalary').setValue('0');
+        //fetch Basic info data by AppId
+        this.appService.getByAppId(appid)
+        .pipe(first())
+        .subscribe(
+            data  => {
+                //console.log("Response"+JSON.stringify(data));
+                if(data){
+                    //Preload form with existing or default values
+                    if(data.ResidentIndianFlag == 1){
+                        this.checked6 = true;
+                        this.basicInfoForm.get('residentIndianFlag').setValue('1');
+                    }else{
+                        this.checked6 = false;
+                        this.basicInfoForm.get('residentIndianFlag').setValue('0');
+                    }
+                    if(data.NonResidentIndianFlag == 1){
+                        this.checked7 = true;
+                        this.basicInfoForm.get('nonResidentIndianFlag').setValue('1');
+                    }else{
+                        this.checked7 = false;
+                        this.basicInfoForm.get('nonResidentIndianFlag').setValue('0');
+                    }
+                    if(data.OciResidentIndianFlag == 1){
+                        this.checked8 = true;
+                        this.basicInfoForm.get('ociResidentIndianFlag').setValue('1');
+                    }else{
+                        this.checked8 = false;
+                        this.basicInfoForm.get('ociResidentIndianFlag').setValue('0');
+                    }
+                    if(data.ShrtPresentIndiaFlag == 1){
+                        this.checked9 = true;
+                        this.basicInfoForm.get('srtPresentIndiaFlag').setValue('1');
+                    }else{
+                        this.checked9 = false;
+                        this.basicInfoForm.get('srtPresentIndiaFlag').setValue('0');
+                    }
+                    if(data.LngPresentIndiaFlag == 1){
+                        this.checked10 = true;
+                        this.basicInfoForm.get('lngPresentIndiaFlag').setValue('1');
+                    }else{
+                        this.checked10 = false;
+                        this.basicInfoForm.get('lngPresentIndiaFlag').setValue('0');
+                    }
                 }
-                if(data.IncomeOthersFlag == 1){
-                    this.checked1 = true;
-                    this.basicInfoForm.get('incomeFromOtherSources').setValue('1');
-                }else{
-                    this.checked1 = false;
-                    this.basicInfoForm.get('incomeFromOtherSources').setValue('0');
-                }
-                if(data.IncomeHouseFlag == 1){
-                    this.checked2 = true;
-                    this.basicInfoForm.get('selfOccupiedProp').setValue('1');
-                }else{
-                    this.checked2 = false;
-                    this.basicInfoForm.get('selfOccupiedProp').setValue('0');
-                }
-                if(data.IncomeRentalFlag == 1){
-                    this.checked3 = true;
-                    this.basicInfoForm.get('rentalProperty').setValue('1');
-                }else{
-                    this.checked3= false;
-                    this.basicInfoForm.get('rentalProperty').setValue('0');
-                }
-                if(data.IncomeCapitalGainsFlag == 1){
-                    this.checked4 = true;
-                    this.basicInfoForm.get('incomeFromCapitals').setValue('1');
-                }else{
-                    this.checked4 = false;
-                    this.basicInfoForm.get('incomeFromCapitals').setValue('0');
-                }
-                if(data.DeductionsFlag == 1){
-                    this.checked5 = true;
-                    this.basicInfoForm.get('deductionsFlag').setValue('1');
-                }else{
-                    this.checked5 = false;
-                    this.basicInfoForm.get('deductionsFlag').setValue('0');
-                } */
-                if(data.ResidentIndianFlag == 1){
-                    this.checked6 = true;
-                    this.basicInfoForm.get('residentIndianFlag').setValue('1');
-                }else{
-                    this.checked6 = false;
-                    this.basicInfoForm.get('residentIndianFlag').setValue('0');
-                }
-                if(data.NonResidentIndianFlag == 1){
-                    this.checked7 = true;
-                    this.basicInfoForm.get('nonResidentIndianFlag').setValue('1');
-                }else{
-                    this.checked7 = false;
-                    this.basicInfoForm.get('nonResidentIndianFlag').setValue('0');
-                }
-                if(data.OciResidentIndianFlag == 1){
-                    this.checked8 = true;
-                    this.basicInfoForm.get('ociResidentIndianFlag').setValue('1');
-                }else{
-                    this.checked8 = false;
-                    this.basicInfoForm.get('ociResidentIndianFlag').setValue('0');
-                }
-                if(data.ShrtPresentIndiaFlag == 1){
-                    this.checked9 = true;
-                    this.basicInfoForm.get('srtPresentIndiaFlag').setValue('1');
-                }else{
-                    this.checked9 = false;
-                    this.basicInfoForm.get('srtPresentIndiaFlag').setValue('0');
-                }
-                if(data.LngPresentIndiaFlag == 1){
-                    this.checked10 = true;
-                    this.basicInfoForm.get('lngPresentIndiaFlag').setValue('1');
-                }else{
-                    this.checked10 = false;
-                    this.basicInfoForm.get('lngPresentIndiaFlag').setValue('0');
-                }
-            }
-        },
-        error => {
-            console.log("AppMain fetch data error"+JSON.stringify(error));
-            this.loading = false;
-            return error;
-        });
+            },
+            error => {
+                console.log("AppMain fetch data error"+JSON.stringify(error));
+                this.loading = false;
+                return error;
+            });
     }
 
     onSubmit() {
@@ -279,16 +226,11 @@ export class BasicInformationComponent implements OnInit,AfterViewInit {
         const basicInfoData = {
             'appId':this.ApplicationId,
             'userId':this.userId,
-            'incomeFromSalary' : this.f.incomeFromSalary.value,
-            'incomeFromOtherSources':this.f.incomeFromOtherSources.value,
-            'selfOccupiedProp':this.f.selfOccupiedProp.value,
-            'rentalProperty':this.f.rentalProperty.value,
-            'incomeFromCapitals':this.f.incomeFromCapitals.value,
-            'deductionsFlag':this.f.deductionsFlag.value,
             'residentIndianFlag':this.f.residentIndianFlag.value,
             'nonResidentIndianFlag':this.f.nonResidentIndianFlag.value,
             'ociResidentIndianFlag':this.f.ociResidentIndianFlag.value,
-            'presentIndiaFlag':this.f.presentIndiaFlag.value,
+            'srtPresentIndiaFlag':this.f.srtPresentIndiaFlag.value,
+            'lngPresentIndiaFlag':this.f.lngPresentIndiaFlag.value,
         };
         // start storing application data in database
         this.appService.updateApplicationMain(basicInfoData)
@@ -319,6 +261,10 @@ export class BasicInformationComponent implements OnInit,AfterViewInit {
 
     clearForm(){
         this.basicInfoForm.reset();
+        this.showNonResidentQues = false;
+        this.showOciResidentQues = false;
+        this.showShortPresentResidentQues = false;
+        this.showLongPresentResidentQues = false;
     }
 
 }

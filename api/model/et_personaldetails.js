@@ -25,23 +25,23 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     Lastname: {
-      type: DataTypes.STRING(25),
+      type: DataTypes.STRING(75),
       allowNull: false
     },
     EmailId: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(125),
       allowNull: false
     },
     Fathername: {
-      type: DataTypes.STRING(25),
+      type: DataTypes.STRING(125),
       allowNull: true
     },
     MobileNo: {
-      type: DataTypes.STRING(12),
+      type: DataTypes.STRING(10),
       allowNull: false
     },
     AltMobileNo: {
-      type: DataTypes.STRING(12),
+      type: DataTypes.STRING(10),
       allowNull: true
     },
     landlineNo: {
@@ -61,7 +61,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     EmployerType: {
-      type: DataTypes.STRING(15),
+      type: DataTypes.STRING(5),
       allowNull: true
     },
     PanNumber: {
@@ -69,7 +69,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     AadharNumber: {
-      type: DataTypes.STRING(16),
+      type: DataTypes.STRING(28),
       allowNull: false
     },
     PassportNumber: {

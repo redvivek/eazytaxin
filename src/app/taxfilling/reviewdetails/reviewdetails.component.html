@@ -13,25 +13,25 @@
       	<div class="row">
 	      	<div class="col-lg-3 col-md-4 col-sm-6 text-center">
 	      		<div class="reviewChartWrap">
-			      	<div id="donut" class="reviewChart" data-donut="42"></div>
+			      	<div id="donut" class="reviewChart" data-donut="100"></div>
 			      	<h3 class="chart-name">Tax Period</h3>
 	      		</div>
 	      	</div>
 	      	<div class="col-lg-3 col-md-4 col-sm-6 text-center">
 	      		<div class="reviewChartWrap">
-		      		<div id="donut1" class="reviewChart" data-donut="12"></div>
+		      		<div id="donut1" class="reviewChart" data-donut="100"></div>
 		      		<h3 class="chart-name">Basic Information</h3>
 	      		</div>
 	      	</div>
 	      	<div class="col-lg-3 col-md-4 col-sm-6 text-center">
 	      		<div class="reviewChartWrap">
-		      		<div id="donut2" class="reviewChart" data-donut="87"></div>
+		      		<div id="donut2" class="reviewChart" data-donut="100"></div>
 		      		<h3 class="chart-name">Personal Information</h3>
 	      		</div>
 	      	</div>
 	      	<div class="col-lg-3 col-md-4 col-sm-6 text-center">
 	      		<div class="reviewChartWrap">
-		      		<div id="donut3" class="reviewChart" data-donut="42"></div>
+		      		<div id="donut3" class="reviewChart" data-donut="100"></div>
 		      		<h3 class="chart-name">Income Sources</h3>
 	      		</div>
 	      	</div>
@@ -39,20 +39,20 @@
       	<div class="row">
 	      	<div class="col-lg-3 col-md-4 col-sm-6 text-center">
 	      		<div class="reviewChartWrap">
-		      		<div id="donut4" class="reviewChart" data-donut="45"></div>
+		      		<div id="donut4" class="reviewChart" data-donut="100"></div>
 		      		<h3 class="chart-name">Deductions</h3>
 	      		</div>
 	      	</div>
 	      	<div class="col-lg-3 col-md-4 col-sm-6 text-center">
 	      		<div class="reviewChartWrap">
-			      	<div id="donut5" class="reviewChart" data-donut="42"></div>
+			      	<div id="donut5" class="reviewChart" data-donut="100"></div>
 			      	<h3 class="chart-name">Taxes Paid</h3>
 	      		</div>
 	      	</div>
       	</div>
       	<div class="reviewInfo">
       		<h2>Service Details</h2>
-      		<p>Our fee for preparation of your tax return would be ₹ 9999.00 (plus taxes)</p>
+      		<p>Our fee for preparation of your tax return would be ₹ 199.00 (plus taxes)</p>
       		<p>Service includes:</p>
       		<ul>
     		    <li>Tax preparation and e-file</li>
@@ -61,8 +61,8 @@
       		</ul>
 	      	<div class="form-actions d-flex stickyFooterForm affix">
 	    	    <div class="left mr-auto">
-	      	    <button type="button" class="btn btn-primary btn-lg">Proceed To Pay</button>
-	      	    <button type="button" class="btn btn-link btn-lg"><i class="fas fa-arrow-left"></i> Go Back</button>
+	      	    <button type="button" class="btn btn-primary btn-lg" (click)="on_next_click()">Proceed To Pay</button>
+	      	    <button type="button" class="btn btn-link btn-lg" (click)="on_previous_click()"><i class="fas fa-arrow-left"></i> Go Back</button>
 	    	    </div>
 	      	</div>
       	</div>
