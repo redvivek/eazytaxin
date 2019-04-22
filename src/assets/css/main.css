@@ -78,7 +78,7 @@ a:hover{text-decoration:none;}
 #header .top-navbar .navbar-nav > .nav-item > .user-dropdown::after{margin-top:-8px;}
 #header .mainMenutoggler{padding:22px; width:70px; height:66px;}
 #header .navbar-header{margin:14px 0;}
-#header .navbar-brand{position:relative;}
+#header .navbar-brand{position:relative; padding-left:20px;}
 #header .navbar-brand::before{content:""; position:absolute; left:-50px; top:-160px; background:#FFF; border-radius:50%; width:0; height:0; display:block; transform: rotate(11deg); transition:all ease .5s; z-index: -1;}
 #header .navbar-brand img{margin:-12px 0 0;}
 
@@ -98,7 +98,8 @@ a:hover{text-decoration:none;}
 #header.no-bg .dropdown-toggle::after{color:#FFF;}
 #header.no-bg .navbar-brand img{width:220px; height:41px; transition:all ease .3s; }
 #header.no-bg .navbar-brand::before{ width:396px; height:256px; transition:all ease .3s; }
-
+#header.no-bg .navbar-toggler path,
+#header.no-bg .navbar-toggler circle{fill:#FFF;}
 
 .card {border:none; border-radius:0;}
 .card.cardShadow{box-shadow:0px 3px 7px rgba(0,0,0,.11);}
@@ -128,6 +129,7 @@ a:hover{text-decoration:none;}
 .wizard-content .wizard > .steps {position: relative; display: block; width: 100%; }
 .wizard-content .wizard > .steps > ul {border:none; display:flex;width:100%; margin:0; padding:0 0 40px; list-style: none }
 .wizard-content .wizard > .steps > ul > li {display:flex; flex:1 1 auto; flex-wrap: wrap; max-width:120px; text-align:center; position:relative; margin:0;}
+.wizard-content .wizard > .steps > ul > li:first-child a {padding-left:0;}
 .wizard-content .wizard > .steps > ul > li a {background-color:transparent; padding:0; border:none; display:flex; flex-direction:column; align-items:center; justify-content: flex-end; width:100%; color:#2e2e2c; padding: 0 10px; position:relative; z-index:10; }
 
 .wizard-content .wizard > .steps .step-icon-wrap{width:60px; height:60px; padding:3px; background-color:#FFF; border-width:2px; border-style:solid; display:block; border-radius:50%; margin:10px 0;position: relative; z-index:1;}

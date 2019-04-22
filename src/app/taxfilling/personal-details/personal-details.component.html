@@ -337,7 +337,7 @@
                             </div>
                           </div>
                           <div class="col-md-6 col-sm-12">
-                            <div class="form-group floating-label">
+                            <div class="form-group floating-label customDropdown">
                               <select id="Gender" class="form-control" formControlName="EmployerType" [ngClass]="{ 'is-invalid': perSubmitted && f.EmployerType.errors}">
                                 <!-- <option value="">--Select--</option> -->
                                 <option value="GOV">Government</option>
@@ -446,7 +446,7 @@
                         </div>
                         <div class="row">
                           <div class="col-md-6 col-sm-12">
-                            <div class="form-group floating-label">
+                            <div class="form-group floating-label customDropdown">
                               <!-- <input type="text" class="form-control" id="State" formControlName="State" [ngClass]="{ 'is-invalid': addSubmitted && a.State.errors}"> -->
                               <select id="State" class="form-control" formControlName="State" [ngClass]="{ 'is-invalid': addSubmitted && a.State.errors}">
                                 <option value="01">Andaman and Nicobar islands</option>
@@ -493,7 +493,7 @@
                             </div>
                           </div>
                           <div class="col-md-6 col-sm-12">
-                            <div class="form-group floating-label">
+                            <div class="form-group floating-label customDropdown">
                               <select id="Country" class="form-control" formControlName="Country" [ngClass]="{ 'is-invalid': addSubmitted && a.Country.errors}">
                                   <option value="91" >India</option>
                               </select>
@@ -861,7 +861,7 @@
                           <div class="tab-pane fade " id="movable-assets" role="tabpanel" [ngClass]="{ 'show': step5_movable == true , 'active': step5_movable == true }">
                             <div class="assetsLists">
                               <article>
-                                <div class="row form-group mb-0">
+                                <div class="row form-group mb-0 d-none d-sm-none d-md-flex d-lg-flex">
                                   <div class="col-sm-8">
                                     <h6>Description</h6>
                                   </div>

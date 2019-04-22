@@ -141,7 +141,7 @@ export function formSticky(){
 
               $(window).scroll(function () {
                   width = $(window).width();
-                  if (width > 640) {
+                  if (width > 700) {
                       attachDetachStickyFooter();
                   }
                   else {
