@@ -100,6 +100,14 @@ a:hover{text-decoration:none;}
 #header.no-bg .navbar-brand::before{ width:396px; height:256px; transition:all ease .3s; }
 #header.no-bg .navbar-toggler path,
 #header.no-bg .navbar-toggler circle{fill:#FFF;}
+#header.no-bg .top-navbar .userLoginWrap .navbar-nav .nav-link{color:#FFF;}
+
+#header.no-bg .top-navbar.navbar-open .userLoginWrap .navbar-nav .nav-link{color:#2e2e2c;}
+#header.no-bg .navbar-open .navbar-toggler path,
+#header.no-bg .navbar-open .navbar-toggler circle{fill:#2e2e2c;}
+
+
+
 
 .card {border:none; border-radius:0;}
 .card.cardShadow{box-shadow:0px 3px 7px rgba(0,0,0,.11);}

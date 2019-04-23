@@ -138,7 +138,6 @@
 	/* .input-group{display:block;} */
 	.custom-file-wrap .upload-btn{margin-top:10px; padding-left:0;}
 
-
 	/* Home Page */
 	.homepage .mainBanner .captions h3,
 	.homepage .mainBanner .captions h3.md{font-size:35px;}
@@ -151,6 +150,9 @@
 	.homepage .mainBanner .captions .btn{font-size:14px; padding:8px 20px; min-width:120px;}
 
 	.stickyFooterForm.affix{position:static;}
+
+	/* Login Register */
+	.login-box .card-body{padding:40px 35px;}
 }
 @media (max-width: 480px) {
 	.container-fluid{padding-left:10px; padding-right:10px;}

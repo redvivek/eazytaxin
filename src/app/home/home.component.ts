@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit,AfterContentInit,AfterViewInit{
 	goTaxFilling(){
     this.router.navigate(['/taxfilling']);
   }
-	goPricing(){
-    this.router.navigate(['/pricing']);
+	goPlans(){
+    this.router.navigate(['/plans']);
   }
 }
