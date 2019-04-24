@@ -909,10 +909,10 @@
                   </div>
                   <div class="form-actions d-flex stickyFooterForm affix">
                     <div class="left mr-auto">
-                      <button type="button" class="btn btn-secondary btn-lg" disabled="">Reset</button>
+                      <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" disabled="">Reset</button>
                     </div>
                     <div class="right ml-auto">
-                      <button [disabled]="previousButtonDisable" type="button" (click)="on_previous_click()" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Previous</button>
+                      <button [disabled]="previousButtonDisable" type="button" (click)="on_previous_click()" class="btn btn-secondary btn-lg btn-prev btnLink"><i class="fas fa-arrow-left"></i> Previous</button>
                       <button [disabled]="nextButtonDisable" type="button" (click)="on_next_click()" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
                     </div>
                   </div>

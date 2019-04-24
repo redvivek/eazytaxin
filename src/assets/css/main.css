@@ -237,7 +237,6 @@ a:hover{text-decoration:none;}
 .wizard-content .wizard > .steps > ul > li:last-child a::after {content:none}
 .wizard-content .wizard > .steps > ul > li a.active{cursor:default;}
 
-.tab-wizard .form-actions .right .btn{margin-left:5px;}
 .tab-wizard-content .tab-pane{padding:20px 0;}
 
 
