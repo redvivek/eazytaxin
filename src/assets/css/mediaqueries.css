@@ -100,7 +100,6 @@
 	.dashboard .stats.col4 .stats-col{width:33.33333%;}
 
 	/* Half Layout */
-
 	.halfLayoutContainer {flex-wrap:wrap;}
 	.halfLayoutContainer .right-half{min-height:350px; width:100%;}
 	.halfLayoutContainer .left-half{padding:0 25px 25px; order:2; width:100%;}
@@ -118,9 +117,6 @@
 	.wizard-content .wizard > .steps > ul > li a::after,
 	.wizard-content .wizard > .steps > ul > li a::before {bottom:18px;}
 
-
-
-
 	/*Left Sidebar*/
 	.left-sidebar{background-color:#FFF; bottom:0; width:100%; height:auto; padding-top:0; box-shadow:0 0 15px 0 rgba(0, 0, 0, 0.08); z-index:10;}
 	.sidebar-nav > ul{display:flex; list-style:none;}
@@ -130,8 +126,8 @@
 	.sidebar-nav > ul > li.active > a{border-top-color:#f4412a;}
 	.sidebar-nav > ul > li.active > a i{color:#f4412a;}
 	.sidebar-nav > ul > li > a .text{display:none;}
-	.main-container{padding-left:0; padding-bottom:30px;}
-	#footer.footer-inside{display:none;}
+	.main-container{padding-left:0; padding-bottom:55px;}
+	#footer.footer-inside{display:none !important;}
 
 }
 @media (max-width: 640px) {
