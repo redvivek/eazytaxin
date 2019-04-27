@@ -28,7 +28,7 @@ export class ReviewdetailsComponent implements OnInit,AfterViewInit {
     ) 
   {   
       this.scriptservice.load('d3JS','mainJS','reviewJS').then(data => {
-          console.log('script loaded ', data);
+          //console.log('script loaded ', data);
       }).catch(error => console.log(error));
       //console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
       //console.log("Current App value "+ this.appService.currentApplicationValue);

@@ -12,8 +12,9 @@ import { TaxesPaidComponent } from './taxes-paid';
 import { MainmenusComponent } from './mainmenus';
 import { ReviewdetailsComponent } from './reviewdetails';
 import { PaymentsComponent } from './payments';
-
+import { TransactionComponent } from './transaction';
 import{ SharedModule } from '../shared.module';
+
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import{ SharedModule } from '../shared.module';
     ReviewdetailsComponent, 
     PaymentsComponent,
     FileSelectDirective,
+    TransactionComponent,
   ],
   imports: [
     CommonModule,

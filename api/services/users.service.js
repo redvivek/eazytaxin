@@ -17,9 +17,9 @@ exports.isEmailRegisterd = (req, res) => {
 		{ where: {Username: email} }
 		).then(function (user) {
 				if (user) {
-					res.json({"statusCode": 400,"error": "Bad Request",message:"Email address already registerd"});
-				} else {
 					res.status(200);
+				} else {
+					res.status(201);
 				}
 		})
 		.catch(function (err) {

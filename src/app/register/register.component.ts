@@ -31,11 +31,12 @@ export class RegisterComponent implements OnInit,AfterViewInit {
         //console.log("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}");
         this.registerForm = this.formBuilder.group({
             //panNumber: ['', Validators.required],
-            emailId: ['', [
-                Validators.required,
-                Validators.pattern("^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+)\\.([a-zA-Z]{2,5})$")
-            ],
-            //this.existingEmailIdValidator.bind(this), //check existing email id in database
+            emailId: ['', 
+                [
+                    Validators.required,
+                    Validators.pattern("^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+)\\.([a-zA-Z]{2,5})$")
+                    //this.existingEmailIdValidator.bind(this)
+                ],
             ],
             nPassword: ['', [
                 Validators.required,
@@ -44,8 +45,10 @@ export class RegisterComponent implements OnInit,AfterViewInit {
             ]],
             cPassword: ['', Validators.required],
             terms: ['', Validators.required],
+            priPlcyFlag : ['',Validators.required]
             
-        },{validator: this.checkIfMatchingPasswords('nPassword','cPassword')}
+        },
+          {validator: this.checkIfMatchingPasswords('nPassword','cPassword')},
         );
     }
 
@@ -64,6 +67,22 @@ export class RegisterComponent implements OnInit,AfterViewInit {
             }, 1000);
         });
         return q;
+        /* this.userService.checkUserByEmailId(control.value)
+        .pipe(first())
+        .subscribe(
+            data => {
+                    console.log("Response" + JSON.stringify(data));
+                    if(data['statusCode'] == 200){
+                        if(data['message'] == 'Invalid Email'){
+                            return control.setErrors({isEmailUnique: true});
+                        }else if(data['message'] == 'Valid Email'){
+                            return control.setErrors({isEmailUnique: false});
+                        }
+                    }
+                },
+            error => {
+                this.alertService.error("Registeration Failed."+error);
+            }); */
     }
     
     //validation to check passwords match or not

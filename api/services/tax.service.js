@@ -1506,6 +1506,62 @@ exports.saveTaxPaidInfoByAppId = (req,res)=>{
 	});
 }
 
+exports.fetchAppPaymentDetails = (req,res)=>{
+    let appid = req.body.appid;
+    let userid = req.body.userid;
+    //console.log("Input Data  "+appid+"-"+userid);
+    sequelize.query("SELECT main.ApplicationId, main.UserId,main.Plantype, pp.PlanName,pp.PlanAmount,per.PersonalDetailsId, per.Firstname, per.Lastname,per.MobileNo,per.EmailId,per.PanNumber FROM `et_applicationsmain` as main, `et_personaldetails` as per,`et_pricingplans` as pp where main.UserId = ? AND main.ApplicationId = ? AND main.ApplicationId = per.ApplicationId AND pp.PlanId = main.Plantype",{
+        replacements: [userid,appid],
+        type: sequelize.QueryTypes.SELECT 
+    }).then(result => {		
+        //console.log("Result App pay details  "+JSON.stringify(result));
+        res.json({"statusCode": 200,"Message": "Successful Request","Result":result});
+    })
+    .catch(function (err) {
+        console.log("Error "+err);
+        res.status(400).send(err);
+    });
+}
+
+exports.fetchAppTransDetails = (req,res)=>{
+    let appid = req.body.appid;
+    let userid = req.body.userid;
+    //console.log("Input Data  "+appid+"-"+userid);
+    sequelize.query("SELECT * FROM `et_paymentdetails` where UserId = ? AND ApplicationId = ? AND TransactionStatus = 'Success' ",{
+        replacements: [userid,appid],
+        type: sequelize.QueryTypes.SELECT 
+    }).then(result => {		
+        //console.log("Result App pay details  "+JSON.stringify(result));
+        res.json({"statusCode": 200,"Message": "Successful Request","Result":result});
+    })
+    .catch(function (err) {
+        console.log("Error "+err);
+        res.status(400).send(err);
+    });
+}
+
+exports.doPayment = (req,res)=>{
+    console.log("Request Payment Det "+JSON.stringify(req.body));
+    let appid = req.body.appid;
+    let userid = req.body.userid;
+    let amount = req.body.amount;
+    let transId = req.body.transactionId;
+    let transStatus = req.body.transStatus;
+    let transMsg = req.body.transMsg;
+    sequelize.query("INSERT INTO `et_paymentdetails`(ApplicationId,UserId,Amount,TransactionId,TransactionStartTime,TransactionStatus,TransactionMesage) VALUES (?,?,?,?,?,?,?)",{
+        replacements: [appid,userid,amount,transId,formattedDT,transStatus,transMsg],
+        type: sequelize.QueryTypes.INSERT 
+    }).then(result => {		
+        console.log("Result AppId  "+result[0]);
+        //update flags to et_applicationsmain table */
+        updateAppMainFinalStatus(appid,userid,'Complete',res);
+    })
+    .catch(function (err) {
+        console.log("Error "+err);
+        res.status(400).send(err);
+    });
+}
+
 exports.fetchDeductionsDetails = (req,res)=>{
     let appid = req.body.appid;
     let userid = req.body.userid;
@@ -1571,6 +1627,20 @@ function updateApplicationMain(appid,userid,appStage,xmlflag=0){
             console.log("Error in app main update "+err);
         });
     }
+};
+
+function updateAppMainFinalStatus(appid,userid,appPayStatus,res){
+    sequelize.query("UPDATE `et_applicationsmain` SET AppPaymentStatus=?, updatedAt=?,ApplicationStatus=? WHERE ApplicationId = ? AND UserId = ? ",{
+        replacements: [appPayStatus,formattedDT,'Complete',appid,userid],
+        type: sequelize.QueryTypes.UPDATE 
+    }).then(result => {		
+        console.log("Result AppId  "+result);
+        res.json({"statusCode": 200,"Message": "Successful Request"});
+    })
+    .catch(function (err) {
+        console.log("Error in app main update "+err);
+        res.status(400).send(err);
+    });
 };
 
 exports.generateITRReport = (req,res)=>{

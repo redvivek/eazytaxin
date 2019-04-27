@@ -13,7 +13,7 @@ route.get('/', function(req, res, next) {
 
 //API routes for User Reg and Login module
 route.post('/users/register', userService.create);
-//route.post('/users/isEmailRegisterd',userService.isEmailRegisterd);
+route.post('/users/isEmailRegisterd',userService.isEmailRegisterd);
 route.post('/users/authenticate', userService.authenticateUser);
 route.post('/users/sendActivationMail', userService.sendActivationMail);
 route.get('/users/verifyUser', userService.verifyUser);
@@ -60,7 +60,9 @@ route.post('/tax/saveDeductions', taxService.saveDeductionsInfoByAppId);
 route.post('/tax/saveOtherDeductions', taxService.saveOtherDeductionsByAppId);
 route.post('/tax/fetchDeductionsDetails', taxService.fetchDeductionsDetails);
 route.post('/tax/saveTaxpaidInfo', taxService.saveTaxPaidInfoByAppId);
-//route.post('/tax/payment', taxService.doPayment);
+route.post('/tax/fetchAppPaymentDetails',taxService.fetchAppPaymentDetails);
+route.post('/tax/saveTranInfo', taxService.doPayment);
+route.post('/tax/fetchAppTransDetails',taxService.fetchAppTransDetails)
 route.post('/tax/submitITRApplication', taxService.generateITRReport);
 
 /*route.get('/tax/fetchReportInExcel', taxService.fetchITRReportInExcel);

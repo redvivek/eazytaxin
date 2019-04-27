@@ -106,6 +106,11 @@ module.exports = function(sequelize, DataTypes) {
     AppITRUploadByUser: {
       type: DataTypes.INTEGER(10),
       allowNull: true
+    },
+    Plantype: {
+      type: DataTypes.INTEGER(5),
+      allowNull: false,
+      defaultValue: 1
     }
   }, {
     tableName: 'et_applicationsmain'

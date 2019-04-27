@@ -34,6 +34,7 @@ app.use(function(req, res, next) {
 
 app.use(express.static(path.join(__dirname, 'dist/eazytaxin')));
 app.use('/', express.static(path.join(__dirname, 'dist/eazytaxin')));
+app.use('/*', express.static(path.join(__dirname, 'dist/eazytaxin')));
 app.use('/api', apiRouter);
 
 

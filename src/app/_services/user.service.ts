@@ -69,13 +69,14 @@ export class UserService {
 
     checkUserByEmailId(emailid: string){
         //console.log("Email" + emailid);
-        var headers = new HttpHeaders();
+        return this.http.post(`${environment.apiUrl}/users/isEmailRegisterd`, { email: emailid });
+        /* var headers = new HttpHeaders();
         headers.append('Content-Type', 'application/json');
         return this.http.post(`${environment.apiUrl}/users/isEmailRegisterd`, { email: emailid }, { headers: headers })
             .pipe(
             map((response: Response) => response.json()),
             catchError (this.handleError)
-            )
+            ) */
     }
 
     forgetPassword(emailid: string){

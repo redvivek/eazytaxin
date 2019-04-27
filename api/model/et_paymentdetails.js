@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     TransactionEndTime: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: true
     },
     TransactionStatus: {
       type: DataTypes.STRING(20),

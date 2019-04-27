@@ -18,7 +18,7 @@
               <div *ngIf="submitted && f.emailId.errors" class="invalid-feedback">
                   <div *ngIf="f.emailId.errors.required">Email Id is required</div>
                   <div *ngIf="f.emailId.errors.pattern">Email Id is invalid</div>
-                  <!--<div *ngIf="f.emailId.errors.isEmailUnique">Email Id is already registered</div>-->
+                  <!-- <div *ngIf="f.emailId.errors.isEmailUnique">Email Id is already registered</div> -->
               </div>
               <label for="">Email</label>
             </div>
@@ -42,10 +42,18 @@
             <div class="form-group option-row">
               <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" id="terms" formControlName="terms" [ngClass]="{ 'is-invalid': submitted && f.terms.errors }">
+                <label class="custom-control-label md" for="terms">I agree to <a routerLink="/termsconditions" target="_blank">Terms & Conditions</a></label>
                 <div *ngIf="submitted && f.terms.errors" class="invalid-feedback">
                   <div *ngIf="f.terms.errors.required">Please accept terms and condition</div>
                 </div>
-                <label class="custom-control-label md" for="terms">I agree to <a href="terms-conditions.html" target="_blank">Terms & Conditions</a></label>
+              </div>
+            
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="priPlcyFlag" formControlName="priPlcyFlag" [ngClass]="{ 'is-invalid': submitted && f.priPlcyFlag.errors }">
+                <label class="custom-control-label md" for="priPlcyFlag">I have read & understood Easytaxin <a routerLink="/privacypolicies" target="_blank">Privacy Policies</a></label>
+                <div *ngIf="submitted && f.priPlcyFlag.errors" class="invalid-feedback">
+                  <div *ngIf="f.priPlcyFlag.errors.required">Please read our privacy Policies</div>
+                </div>
               </div>
             </div>
             <div class="form-actions">

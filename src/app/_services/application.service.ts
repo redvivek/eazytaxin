@@ -246,6 +246,26 @@ export class ApplicationService {
         return this.http.post(`${environment.apiUrl}/tax/saveTaxpaidInfo`, taxesPaidParam);
     }
 
+    getPaymentInfoByAppidAndUsrid(appid,userid){
+        var jsonInput = {
+            "userid" : userid,
+            "appid" : appid
+        };
+        return this.http.post(`${environment.apiUrl}/tax/fetchAppPaymentDetails`, jsonInput);
+    }
+
+    getTransInfoByAppidAndUsrid(appid,userid){
+        var jsonInput = {
+            "userid" : userid,
+            "appid" : appid
+        };
+        return this.http.post(`${environment.apiUrl}/tax/fetchAppTransDetails`, jsonInput);
+    }
+
+    savePaymentDetails(inputJson){
+        return this.http.post(`${environment.apiUrl}/tax/saveTranInfo`, inputJson);
+    }
+
     doFinalSubmission(appid,userid){
         var jsonInput = {
             "userid" : userid,

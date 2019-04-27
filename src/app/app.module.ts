@@ -28,6 +28,8 @@ import { BuynowComponent } from './buynow/buynow.component';
 import { UseractivationComponent } from './useractivation';
 import { UserverificationComponent } from './userverification';
 import { FaqComponent } from './faq/faq.component';
+import { PrivacyComponent } from './privacy/privacy.component';
+import { TermscondnComponent } from './termscondn/termscondn.component';
 
 @NgModule({
     imports: [
@@ -53,7 +55,9 @@ import { FaqComponent } from './faq/faq.component';
         BuynowComponent,
         UseractivationComponent,
         UserverificationComponent,
-        FaqComponent
+        FaqComponent,
+        PrivacyComponent,
+        TermscondnComponent
     ],
         
     providers: [

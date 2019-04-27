@@ -13,6 +13,8 @@ import { BuynowComponent } from './buynow';
 import { UseractivationComponent } from './useractivation';
 import { UserverificationComponent } from './userverification';
 import { FaqComponent } from './faq';
+import { PrivacyComponent } from './privacy';
+import { TermscondnComponent } from './termscondn';
 
 const appRoutes: Routes = [
    { path: '', component: HomeComponent },
@@ -27,6 +29,8 @@ const appRoutes: Routes = [
    { path: 'contactus', component: ContactusComponent },
    { path: 'buynow', component: BuynowComponent },
    { path: 'faq', component: FaqComponent },
+   { path: 'privacypolicies', component: PrivacyComponent },
+   { path: 'termsconditions', component: TermscondnComponent },
    {
       path: '',
       canActivate: [ AuthGuard ],

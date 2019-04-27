@@ -10,6 +10,7 @@ import { DeductionsComponent } from './deductions';
 import { TaxesPaidComponent } from './taxes-paid';
 import {ReviewdetailsComponent} from './reviewdetails';
 import {PaymentsComponent} from './payments';
+import { TransactionComponent } from './transaction';
 
 
 const routes: Routes = [
@@ -21,6 +22,8 @@ const routes: Routes = [
 	{	path: 'taxfilling/taxpaid', component: TaxesPaidComponent,canActivate: [ AuthGuard ]},
 	{	path: 'taxfilling/review', component: ReviewdetailsComponent,canActivate: [ AuthGuard ]},
 	{	path: 'taxfilling/payment', component: PaymentsComponent,canActivate: [ AuthGuard ]},
+	{	path: 'taxfilling/transaction', component: TransactionComponent,canActivate: [ AuthGuard ]},
+
 
 	// otherwise redirect to taxperiod
     { path: 'taxfilling', redirectTo: 'taxfilling/taxperiod' ,canActivate: [ AuthGuard ] }
