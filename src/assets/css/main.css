@@ -504,13 +504,14 @@ a:hover{text-decoration:none;}
 .homepage .testimonialSection .testimonial .title{font-size:24px; font-weight:100; font-style:italic; color:#0095e3;}
 .homepage .testimonialSection .testimonial .title small{font-size:12px; font-weight:100;}
 
-#footer{background-color:#333; color:#FFF; padding:30px;}
+#footer{background-color:#333; color:#FFF; padding:20px;}
+#footer .footer-logo{height:24px;}
 #footer.footer-inside{padding:10px;}
 #footer.footer-inside .footer-logo{height:14px;}
 
 .social{list-style:none;}
-.social li {margin:0 10px; display:inline-block; vertical-align:top;}
-.social li a{width:50px; height:50px; background-color:#506ffd; border-radius:100%; display:block; color:#FFF; font-size:28px;}
+.social li {margin:0 4px; display:inline-block; vertical-align:top;}
+.social li a{width:30px; height:30px; background-color:#506ffd; border-radius:100%; display:block; color:#FFF; font-size:16px;}
 
 
 /**
@@ -615,3 +616,5 @@ a:hover{text-decoration:none;}
 
 /* Static Pages */
 .staticWrap{font-size: 18px; line-height: 1.6;}
+.staticWrap h3{font-size:22px;}
+.staticWrap li{margin-bottom:15px;}
