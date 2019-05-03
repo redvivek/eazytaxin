@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 const corsOptions = {
-  //origin: 'http://localhost:4200',
+  origin: 'https://eazytaxin.herokuapp.com',
   optionsSuccessStatus: 200
 }
 app.use(cors(corsOptions));
