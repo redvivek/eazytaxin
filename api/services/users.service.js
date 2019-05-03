@@ -78,16 +78,26 @@ exports.create = (req, res) => {
 					console.log(mailOptions);
 					/* console.log("Regsiteration successful and activation mail sent to user");
 					res.json({"statusCode": 200,"Message": "Successful Request","userid":newuserid}); */
-					sgMail.send(mailOptions, (error, result) => {
-						if (error) {
-							console.log("Regsiteration successful and failed to sent activation mail to user" + error);
-							res.status(400).send(error);
-						}
-						else {
-							console.log("Regsiteration successful and activation mail sent to user");
-							res.json({"statusCode": 200,"Message": "Successful Request","userid":newuserid});
-						}
+					fetchMailKeyValue()
+					.then(function(keyvalue){
+						console.log("Api key "+keyvalue);
+						sgMail.setApiKey(keyvalue);
+						sgMail.send(mailOptions, (error, result) => {
+							if (error) {
+								console.log("Regsiteration successful and failed to sent activation mail to user" + error);
+								res.status(400).send(error);
+							}
+							else {
+								console.log("Regsiteration successful and activation mail sent to user");
+								res.json({"statusCode": 200,"Message": "Successful Request","userid":newuserid});
+							}
+						});
+					})
+					.catch(function (err) {
+						console.log("Error "+err);
+						res.status(400).send(err);
 					});
+					
 				})
 				.catch(function (err) {
 					console.log("Login time updatation failed" +err);
@@ -143,15 +153,24 @@ exports.sendActivationMail = (req,res) =>{
 				console.log(mailOptions);
 				/* console.log("Regsiteration successful and activation mail sent to user"+mailresult);
 				res.json({"statusCode": 200,"Message": "Successful Request"}); */
-				sgMail.send(mailOptions, (error, mailresult) => {
-					if (error) {
-						console.log("Regsiteration successful and failed to sent activation mail to user"+error);
-						res.status(400).send(error);
-					}
-					else {
-						console.log("Regsiteration successful and activation mail sent to user"+mailresult);
-						res.json({"statusCode": 200,"Message": "Successful Request"});
-					}
+				fetchMailKeyValue()
+				.then(function(keyvalue){
+					console.log("Api key "+keyvalue);
+					sgMail.setApiKey(keyvalue);
+					sgMail.send(mailOptions, (error, mailresult) => {
+						if (error) {
+							console.log("Regsiteration successful and failed to sent activation mail to user"+error);
+							res.status(400).send(error);
+						}
+						else {
+							console.log("Regsiteration successful and activation mail sent to user"+mailresult);
+							res.json({"statusCode": 200,"Message": "Successful Request"});
+						}
+					});
+				})
+				.catch(function (err) {
+					console.log("Error "+err);
+					res.status(400).send(err);
 				});
 			})
 			.catch(function (err) {
@@ -360,7 +379,7 @@ exports.forgetPassword = (req,res)=>{
 				})
 				.catch(function (err) {
 					console.log("Error "+err);
-					//res.status(400).send(err);
+					res.status(400).send(err);
 				});
 				
 			})
