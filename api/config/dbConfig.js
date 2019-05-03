@@ -47,5 +47,6 @@ db.Deductions           =   require('../model/et_deductions')(sequelize, Sequeli
 db.ChallanDetails       =   require('../model/et_challandetails')(sequelize, Sequelize);
 db.PaymentDetails       =   require('../model/et_paymentdetails')(sequelize, Sequelize);
 db.DocumentUpload       =   require('../model/et_documentupload')(sequelize, Sequelize);
+db.ConfigMaster       =   require('../model/et_configmaster')(sequelize, Sequelize);
  
 module.exports = db;

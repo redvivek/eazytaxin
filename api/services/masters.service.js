@@ -1,9 +1,11 @@
 const db = require('../config/dbConfig');
 var dateTime = require('node-datetime');
+var Q               = require('q');
 
 const States         =  db.StateMaster;
 const Docmasters     =  db.DocMaster;
 const DeductionTypes =  db.DeductionMaster;
+const ConfigMaster 	 =  db.ConfigMaster;
 const sequelize      =  db.sequelize;
 
 // Fetch all States

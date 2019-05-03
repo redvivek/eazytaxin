@@ -1,5 +1,8 @@
 const sgMail = require('@sendgrid/mail');
-const SENDGRID_APIKEY = "";
-sgMail.setApiKey(SENDGRID_APIKEY);
+const db = require('./dbConfig');
+var Q               = require('q');
+
+const ConfigMaster = db.ConfigMaster;
+
 
 module.exports = sgMail;

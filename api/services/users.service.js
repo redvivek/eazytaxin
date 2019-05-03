@@ -3,9 +3,12 @@ var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 const db = require('../config/dbConfig');
 var dateTime = require('node-datetime');
-var sgMail = require('../config/mailConfig');
+//var sgMail = require('../config/mailConfig');
+const sgMail = require('@sendgrid/mail');
+var Q               = require('q');
 
 const Users = db.Userinfo;
+const ConfigMaster = db.ConfigMaster;
 const sequelize = db.sequelize;
 
  
@@ -340,16 +343,26 @@ exports.forgetPassword = (req,res)=>{
 				console.log(mailOptions);
 				/* console.log("Regsiteration successful and activation mail sent to user");
 				res.json({"statusCode": 200,"Message": "Successful Request","userid":newuserid}); */
-				sgMail.send(mailOptions, (error, result) => {
-					if (error) {
-						console.log("Failed to sent password reset mail to user" + error);
-						res.status(400).send(error);
-					}
-					else {
-						console.log("Successfuly send password reset mail sent to user");
-						res.json({"statusCode": 200,"Message": "Valid User","userid":userid});
-					}
+				fetchMailKeyValue()
+				.then(function(keyvalue){
+					console.log("Api key "+keyvalue);
+					sgMail.setApiKey(keyvalue);
+					sgMail.send(mailOptions, (error, result) => {
+						if (error) {
+							console.log("Failed to sent password reset mail to user" + error);
+							res.status(400).send(error);
+						}
+						else {
+							console.log("Successfuly send password reset mail sent to user");
+							res.json({"statusCode": 200,"Message": "Valid User","userid":userid});
+						}
+					});
+				})
+				.catch(function (err) {
+					console.log("Error "+err);
+					//res.status(400).send(err);
 				});
+				
 			})
 			.catch(function (err) {
 				console.log("Reset Pwd code updatation failed" +err);
@@ -488,3 +501,21 @@ exports.update = (req, res) => {
 	  res.status(200).json({msg:'deleted successfully a customer with id = ' + id});
 	});
 };*/
+
+function fetchMailKeyValue(){
+	var deferred = Q.defer();
+	ConfigMaster.findOne(
+		{ where: {KeyName:'SGMAIL'} }
+	)
+	.then(function (result) {
+		if (result) {
+			console.log("Result Key  "+JSON.stringify(result.KeyValue));
+			deferred.resolve(result.KeyValue);
+    }
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		deferred.reject(err);
+  });
+  return deferred.promise;
+}
