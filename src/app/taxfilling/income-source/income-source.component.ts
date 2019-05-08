@@ -53,13 +53,20 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
   //initilize & activate flag to by default active rentalIncome subtab
   step4_rental_property_upload :boolean = false;
   step4_rental_property_data:boolean = true;
-
+  //initilize & activate flag to by default active rentalIncome subtab
+  step5_captial_upload :boolean = false;
+  step5_captial_data :boolean = true;
+  
   //Global variables to save userdId and ApplictionID
   userId : number;
   ApplicationId : number;
   nextButtonDisable = false;
   previousButtonDisable = false;
   notrequired = false;
+  selAssYear : any = null;
+  selYrDisabled : boolean;
+
+  taxperiods = this.getCurrentAssesmentYear();
 
   //Read localstorage in progress application values
   localStoreg = JSON.parse(localStorage.getItem("currentUserApp"));
@@ -82,6 +89,8 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
       this.userId         = this.authenticationService.currentUserValue.userid;
       if(this.appService.currentApplicationValue != null){
         this.ApplicationId  = this.appService.currentApplicationValue.appId;
+        this.selAssYear     = this.appService.currentApplicationValue.taxperiod;
+        this.selYrDisabled  = true;
       }else{
         this.nextButtonDisable = true;
         this.previousButtonDisable = true;
@@ -119,7 +128,7 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
     this.salaryIncomeForm = this.formBuilder.group({
       uploadForm16File: [''],
       uploadFilePassword: [''],
-      uploadForm16FileFlag:['', Validators.required],
+      uploadForm16FileFlag:[''],
       inputEmployernm:['', 
         [
           Validators.required,
@@ -144,25 +153,68 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
           Validators.maxLength(10),
           Validators.pattern("^([A-Z]{4}[0-9]{5}[A-Z])*$")
         ],
+      ],
+      inputAllowances: ['', 
+        [
+          Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")
+        ],
+      ],
+      valPrequisties: ['', 
+        [
+          Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")
+        ],
+      ],
+      inputSalProfits: ['', 
+        [
+          Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")
+        ],
+      ],
+      deductionEnter: ['', 
+        [
+          Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")
+        ],
+      ],
+      inputLTAAmount: ['', 
+        [
+          Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")
+        ],
+      ],
+      nonMoneyPrequisties: ['', 
+        [
+          Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")
+        ],
+      ],
+      expAllowanceHR: ['', 
+        [
+          Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")
+        ],
+      ],
+      othAllowance: ['', 
+        [
+          Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")
+        ],
       ]
     });
 
     this.otherIncomeForm = this.formBuilder.group({
-      inputSavingsIncome:[''],
-      inputFDInterestIncome: [''],
-      inputAnyOtherIncome: ['' ],
-      inputSharesIncome: [''],
-      inputExemptIncome: ['' ],
-      inputOtherExemptIncome: ['' ],
-      inputAgriIncome:[''],
-      inputAgriExpend:[''],
-      inputAgriLoss: [''],
-      inputDepAmount: ['' ],
-      inputDepPersonName: ['' ],
+      inputSavingsIncome:['', [Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")],],
+      inputFDInterestIncome: ['', [Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")],],
+      inputRefundIntIncome: ['', [Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")],],
+      inputOthInterestIncome: ['', [Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")],],
+      inputAnyOtherIncome: ['', [Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")],],
+      inputSharesIncome: ['', [Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")],],
+      inputExemptIncome: ['' , [Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")],],
+      inputOtherExemptIncome: ['' , [Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")],],
+      inputAgriIncome:['', [Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")],],
+      inputAgriExpend:['', [Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")],],
+      inputAgriLoss: ['', [Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")],],
+      inputDepAmount: ['' , [Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")],],
+      inputDepPersonName: ['' , [Validators.pattern('^[a-zA-Z ]*$')],],
       inputDepPersonRel:[''],
       inputDepIncomeNature:[''],
-      inputPFIncome: ['' ],
-      inputPFIncomeTax:[''],
+      taxperiod :[''],
+      inputPFIncome: ['' , [Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")],],
+      inputPFTax:['', [Validators.pattern("^[0-9]+(.[0-9]{0,2})?$")],],
       uploadOtherIncomeProofFile: [''],
       uploadOtherIncomeFilePwd: [''],
       uploadOtherIncomeProofFlag:['']
@@ -295,6 +347,14 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
     );
 
     this.captialIncomeForm = this.formBuilder.group({
+      
+      inpSaleType: [''],
+      inputSalesProceed: [''],
+      inputSalesDate: ['' ],
+      inpSTTPaid : [''],
+      inputCostBasis: ['' ],
+      inputPurDate : [''],
+      
       uploadShareIncomeProof: [''],
       uploadLandSaleIncomeProof: [''],
       uploadAssestSaleIncomeProof: ['' ],
@@ -1088,4 +1148,46 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
       this.step4_rental_property_data = true;
     }
   }
+
+  select_step5_subpart_form(x){
+    if(x == 'captial_upload'){
+      this.step5_captial_upload = true;
+      this.step5_captial_data = false;
+    }
+    if(x == 'captial_data'){
+      this.step5_captial_upload = false;
+      this.step5_captial_data = true;
+    }
+  }
+
+  /*Function to create list of Assesment year dropdowns */
+  getCurrentAssesmentYear() {
+    var currentAYear = "";
+    var prevAYear = "";
+    var prevLAYear = "";
+    var assYearList = [];
+    var today = new Date();
+    if ((today.getMonth() + 1) <= 3) {
+        currentAYear = today.getFullYear() + "-" + (today.getFullYear()+1);
+    } else {
+        currentAYear = (today.getFullYear()+1) + "-" + (today.getFullYear() + 2);
+    }
+
+    if ((today.getMonth() + 1) <= 3) {
+        prevAYear = (today.getFullYear()-1) + "-" + today.getFullYear();
+    } else {
+        prevAYear = today.getFullYear() + "-" + (today.getFullYear() + 1);
+    }
+
+    if ((today.getMonth() + 1) <= 3) {
+        prevLAYear = (today.getFullYear()-2) + "-" + (today.getFullYear()-1);
+    } else {
+        prevLAYear = (today.getFullYear()-1) + "-" + today.getFullYear();
+    }
+    assYearList.push(currentAYear);
+    assYearList.push(prevAYear);
+    //assYearList.push(prevLAYear);
+    return assYearList;
+  }
+
 }

@@ -22,8 +22,12 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
         },
-            updatedAt: {
+        updatedAt: {
             type: DataTypes.DATE,
+            allowNull: true,
+        },
+        MerchantName: {
+            type: DataTypes.STRING(100),
             allowNull: true,
         }
     }, {

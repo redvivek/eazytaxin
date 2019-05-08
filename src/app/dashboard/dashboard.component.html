@@ -30,7 +30,7 @@
     					<h5 class="card-title ">Tax Summary</h5>
     				</div>
 	    			<div class="card-body">
-	    				<div class="stats col4 d-flex flex-wrap">
+	    				<!-- <div class="stats col4 d-flex flex-wrap">
 								<div class="stats-col">
 									<div class="key">Grand Total Income</div>
 									<div class="value">
@@ -87,7 +87,7 @@
 										<span>12,206</span>
 									</div>
 								</div>
-	    				</div>
+	    				</div> -->
 	    			</div>
 	    		</div>
 	    	</div>
@@ -109,22 +109,31 @@
     						  		</svg>
     						  	</div>
 	    						  <div class="user-cont media-body">
-	    						    <h5 class="mt-0 user-name">Vivek S</h5>
+									<h5 class="mt-0 user-name" *ngIf="dashboardInfo.Firstname != 'NA'">{{dashboardInfo.Firstname | titlecase}}&nbsp;{{dashboardInfo.Lastname | titlecase}}</h5>
+									<h5 class="mt-0 user-name" *ngIf="dashboardInfo.Firstname == 'NA'">New User</h5>
 	    						    <div class="row mx-0">
 	    						    	<span class="key">PAN No.</span>
-	    						    	<span class="value">: CVAPM8SS29</span>
+	    						    	<span class="value">: {{dashboardInfo.PanNumber}}</span>
 	    						    </div>
 	    						    <div class="row mx-0">
 	    						    	<span class="key">D.O.B</span>
-	    						    	<span class="value">: 19 - 05 - 1987</span>
+	    						    	<span class="value">: {{dashboardInfo.DateOfBirth}}</span>
 	    						    </div>
-	    						    <div class="row mx-0">
+	    						    <div class="row mx-0" *ngIf="dashboardInfo.Type != 'NA'">
 	    						    	<span class="key">Type</span>
 	    						    	<span class="value">: Individual</span>
+									</div>
+									<div class="row mx-0" *ngIf="dashboardInfo.Type == 'NA'">
+	    						    	<span class="key">Type</span>
+	    						    	<span class="value">: {{dashboardInfo.Type}}</span>
 	    						    </div>
 	    						    <div class="row mx-0">
 	    						    	<span class="key">Package</span>
-	    						    	<span class="value">: Deluxe Plan</span>
+	    						    	<span class="value">: {{dashboardInfo.PlanName}}</span>
+									</div>
+									<div class="row mx-0">
+	    						    	<span class="key">Mobile</span>
+										<span class="value">: {{dashboardInfo.MobileNo}}</span>
 	    						    </div>
 	    						  </div>
 	    						</div>
@@ -137,7 +146,7 @@
 		    					<h5 class="card-title ">Notifications</h5>
 		    				</div>
 	    					<div class="card-body">
-	    						<table class="table px-0 mb-0">
+	    						<!-- <table class="table px-0 mb-0">
 	    							<tbody>
 	    								<tr>
 	    									<th><span class="badge badge-primary"></span> Deluxe Plan purchased.</th>
@@ -155,7 +164,7 @@
 	    									<td>10:23</td>
 	    								</tr>
 	    							</tbody>
-	    						</table>
+	    						</table> -->
 	    					</div>
 	    				</div>
 	    			</div>
@@ -179,7 +188,7 @@
 		    				</div>
 		    				<div class="card-body tab-content">
 		    					<div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
-		    						<table class="table px-0 mb-0">
+		    						<!-- <table class="table px-0 mb-0">
 		    							<tbody>
 		    								<tr>
 		    									<th>
@@ -257,10 +266,10 @@
 		    									<td>10:23</td>
 		    								</tr>
 		    							</tbody>
-		    						</table>
+		    						</table> -->
 		    					</div>
 		    					<div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-		    						xxx
+		    						<!-- xxx -->
 		    					</div>
 		    				</div>
 	    				</div>
@@ -289,8 +298,11 @@
 					<div class="card-body" *ngIf="inProgressApps.length == 0">
 						<table class="table px-0 mb-0 yearlySumTable">
 							<tbody>
-								<tr>
+								<tr *ngIf="!showComplete">
 									<th>No application available for selected year.</th>
+								</tr>
+								<tr *ngIf="showComplete">
+									<th>Application already filled for selected year</th>
 								</tr>
 							</tbody>
 						</table>

@@ -86,9 +86,9 @@ export function handleFloatingLabels(Waves){
 
     $('.floating-label .form-control').each(function () {
     var input = $(this);
-
+      //alert(input)
     if ($.trim(input.val()) !== '') {
-        input.addClass('static').addClass('dirty');
+      input.addClass('dirty').removeClass('static');
     }
     });
 }

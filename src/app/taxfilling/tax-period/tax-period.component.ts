@@ -21,6 +21,7 @@ export class TaxPeriodComponent implements OnInit,AfterViewInit {
     loading = false;
     submitted = false;
     showUploadField = false;
+    selYrDisabled = true;
     userId : number;
     ApplicationId : number;
     selAssYear : any = null;
@@ -46,9 +47,16 @@ export class TaxPeriodComponent implements OnInit,AfterViewInit {
         }
 
         if(this.appservice.currentApplicationValue != null){
-            //var currStage  = this.appservice.currentApplicationValue.applicationStage;
             this.selAssYear = this.appservice.currentApplicationValue.taxperiod;
+            this.selYrDisabled = true;
+            if(this.appservice.currentApplicationValue.xmluploadflag == 1){
+                this.showUploadField = true;
+            }else{
+                this.showUploadField = false;
+            }
+            
         }else{
+            this.selYrDisabled = false;
             var today = new Date();
             if (today.getMonth() > 7) {
                 this.selAssYear = this.taxperiods[0];
@@ -61,20 +69,26 @@ export class TaxPeriodComponent implements OnInit,AfterViewInit {
     }
 
     public uploader: FileUploader = new FileUploader({
-    url: URL, 
-    itemAlias: 'uploadPreFillXMLFile'
+        url: URL, 
+        itemAlias: 'uploadPreFillXMLFile'
     });
 
     ngOnInit() {
         this.taxPeriodForm = this.formBuilder.group({
             taxperiod: ['', Validators.required],
             xmluploadflag : ['',Validators.required],
-            uploadPreFillXMLFile : [null]
+            uploadPreFillXMLFile : [null],
+            uploadPreFillXMLFlag : ['', Validators.required]
         });
 
         //Preload form with existing or default values
         this.taxPeriodForm.get('taxperiod').setValue(this.selAssYear);
-        this.taxPeriodForm.get('xmluploadflag').setValue('0');
+        if(this.showUploadField){
+            this.taxPeriodForm.get('xmluploadflag').setValue('1');
+        }else{
+            this.taxPeriodForm.get('xmluploadflag').setValue('0');
+        }
+            
 
         //call this to enable/disable & validate file upload form field on Radio change event
         this.formControlValueChanged();
@@ -83,29 +97,27 @@ export class TaxPeriodComponent implements OnInit,AfterViewInit {
         this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
         
         this.uploader.onBuildItemForm = (fileItem: any, form: any) => {
-        var randomNo = "App"+this.generateAppRefNo(this.userId);  
-        form.append('AppRefNo', randomNo); //note comma separating key and value
-        form.append('UserId', this.userId);
-        form.append('AssesmentYear', this.selAssYear);
-        form.append('XmlUploadFlag', 1);
-        form.append('ApplicationStatus', 'Initiated');
-        form.append('DocCategory', 'PreUploadXML');
+            form.append('UserId', this.userId);
+            form.append('AssesmentYear', this.selAssYear);
+            form.append('XmlUploadFlag', 1);
+            form.append('ApplicationStatus', 'Initiated');
+            form.append('DocCategory', 'PreUploadXML');
         };
 
         this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
             //console.log('ImageUpload:uploaded:', item, status, response);
             //console.log('Response '+ response); 
             var res = JSON.parse(response);
-            //alert('File uploaded successfully');
             if(res['statusCode'] == 200){                 
                 this.alertService.success('Prefilled XML File Uploaded successfully');
+                this.taxPeriodForm.get('xmluploadflag').disable();
+                this.taxPeriodForm.get('uploadPreFillXMLFlag').setValue('1');
                 localStorage.removeItem("currentUserApp");
                 //Add newly created AppID in local storage
                 const appdata:ApplicationMain = { 
                     'appId': res['AppId'],
                     'taxperiod':this.selAssYear,
-                    'xmluploadflag':1, 
-                    'appRefno':"", 
+                    'xmluploadflag':1,
                     'applicationStage':1, 
                     'appStatus':'initiated' 
                 };
@@ -129,18 +141,18 @@ export class TaxPeriodComponent implements OnInit,AfterViewInit {
 
     /* Function to enable/disable & validate file upload form field on Radio change event */
     formControlValueChanged() {
-        const xmlFileUpload = this.taxPeriodForm.get('uploadPreFillXMLFile');
+        const xmlFileUpload = this.taxPeriodForm.get('uploadPreFillXMLFlag');
 
         this.taxPeriodForm.get('xmluploadflag').valueChanges.subscribe(
         (mode: boolean) => {
             console.log(mode);
             if (mode == true) {
-            this.showUploadField = true;
-            xmlFileUpload.setValidators([Validators.required]);
+                this.showUploadField = true;
+                xmlFileUpload.setValidators([Validators.required]);
             }
             else {
-            this.showUploadField = false;
-            xmlFileUpload.clearValidators();
+                this.showUploadField = false;
+                xmlFileUpload.clearValidators();
             }
             xmlFileUpload.updateValueAndValidity();
         });
@@ -152,68 +164,43 @@ export class TaxPeriodComponent implements OnInit,AfterViewInit {
         this.loading = true;
         // stop here if form is invalid
         if (this.taxPeriodForm.invalid) {
+            this.loading = false;
             return;
         }
-
-        if(!this.appservice.currentApplicationValue){
-            var randomNo = "App"+this.generateAppRefNo(this.userId);
-            console.log('Input Values :-)\n\n' + JSON.stringify(this.taxPeriodForm.value));
-            //create the input params for post request
-            const appData = {
-                'userId':this.userId,
-                'taxperiod' : this.f.taxperiod.value,
-                'xmluploadflag':this.f.xmluploadflag.value,
-                'appRefNo': randomNo
-            };
-            // start storing application data in database
-            this.appservice.createApplication(appData)
-            .pipe(first())
-            .subscribe(
-                data => {
-                        console.log("Response" + JSON.stringify(data));
-                        //successfully inserted
-                        if(data['statusCode'] == 200){                  
-                            this.alertService.error('Application data saved successfully');
-                            
-                            //Add newly created AppID in local storage
-                            const appdata:ApplicationMain = { 
-                                'appId': data['AppId'],
-                                'taxperiod':this.f.taxperiod.value,
-                                'xmluploadflag':this.f.xmluploadflag.value, 
-                                'appRefno':randomNo, 
-                                'applicationStage':1, 
-                                'appStatus':'Progress' 
-                            };
-                            localStorage.setItem("currentUserApp", JSON.stringify(appdata));
-                            this.appservice.setCurrApplicationValue(appdata);
-                            this.loading = false;
-                            this.router.navigate(['taxfilling/basicinfo']);
-                        }else if(data['statusCode'] == 301){    //Application already exist for same ass year and userId
-                            this.alertService.error('Application already exist for selected Assesment Year');
-                            //update fetched AppID in local storage
-                            localStorage.removeItem("currentUserApp");
-                            const appdata:ApplicationMain = { 
-                                'appId': data['AppId'],
-                                'taxperiod':this.f.taxperiod.value,
-                                'xmluploadflag':this.f.xmluploadflag.value, 
-                                'appRefno':randomNo, 
-                                'applicationStage':1, 
-                                'appStatus':'Progress' 
-                            };
-                            localStorage.setItem("currentUserApp", JSON.stringify(appdata));
-                            this.appservice.setCurrApplicationValue(appdata);
-                            this.loading = false;
-                            this.router.navigate(['taxfilling/basicinfo']);
-                        }
-                    },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
-            }else{
+        console.log('Input Values :-)\n\n' + JSON.stringify(this.taxPeriodForm.value));
+        //create the input params for post request
+        const appData = {
+            'userId':this.userId,
+            'taxperiod' : this.f.taxperiod.value,
+            'xmluploadflag':this.f.xmluploadflag.value
+        };
+        // start storing application data in database
+        this.appservice.createApplication(appData)
+        .pipe(first())
+        .subscribe(
+        data => {
+            console.log("Response" + JSON.stringify(data));
+            //successfully inserted
+            if(data['statusCode'] == 200){                  
+                this.alertService.error('Application data saved successfully');
+                //Add newly created AppID in local storage
+                const appdata:ApplicationMain = { 
+                    'appId': data['AppId'],
+                    'taxperiod':this.f.taxperiod.value,
+                    'xmluploadflag':this.f.xmluploadflag.value,
+                    'applicationStage':1, 
+                    'appStatus':'Progress' 
+                };
+                localStorage.setItem("currentUserApp", JSON.stringify(appdata));
+                this.appservice.setCurrApplicationValue(appdata);
                 this.loading = false;
                 this.router.navigate(['taxfilling/basicinfo']);
             }
+        },
+        error => {
+            this.alertService.error(error);
+            this.loading = false;
+        });
     }
 
     /*Function to create list of Assesment year dropdowns */
@@ -242,7 +229,7 @@ export class TaxPeriodComponent implements OnInit,AfterViewInit {
         }
         assYearList.push(currentAYear);
         assYearList.push(prevAYear);
-        assYearList.push(prevLAYear);
+        //assYearList.push(prevLAYear);
         return assYearList;
     }
 

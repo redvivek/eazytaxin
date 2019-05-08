@@ -166,41 +166,45 @@ export class BasicInformationComponent implements OnInit,AfterViewInit {
         .pipe(first())
         .subscribe(
             data  => {
-                //console.log("Response"+JSON.stringify(data));
+                console.log("Response"+JSON.stringify(data));
                 if(data){
                     //Preload form with existing or default values
                     if(data.ResidentIndianFlag == 1){
                         this.checked6 = true;
                         this.basicInfoForm.get('residentIndianFlag').setValue('1');
-                    }else{
+                    }else if(data.ResidentIndianFlag == 0){
                         this.checked6 = false;
                         this.basicInfoForm.get('residentIndianFlag').setValue('0');
                     }
+
                     if(data.NonResidentIndianFlag == 1){
                         this.checked7 = true;
                         this.basicInfoForm.get('nonResidentIndianFlag').setValue('1');
-                    }else{
+                    }else if(data.NonResidentIndianFlag == 0){
                         this.checked7 = false;
                         this.basicInfoForm.get('nonResidentIndianFlag').setValue('0');
                     }
+                    
                     if(data.OciResidentIndianFlag == 1){
                         this.checked8 = true;
                         this.basicInfoForm.get('ociResidentIndianFlag').setValue('1');
-                    }else{
+                    }else if(data.OciResidentIndianFlag == 0){
                         this.checked8 = false;
                         this.basicInfoForm.get('ociResidentIndianFlag').setValue('0');
                     }
+                    
                     if(data.ShrtPresentIndiaFlag == 1){
                         this.checked9 = true;
                         this.basicInfoForm.get('srtPresentIndiaFlag').setValue('1');
-                    }else{
+                    }else if(data.ShrtPresentIndiaFlag == 1){
                         this.checked9 = false;
                         this.basicInfoForm.get('srtPresentIndiaFlag').setValue('0');
                     }
+                    
                     if(data.LngPresentIndiaFlag == 1){
                         this.checked10 = true;
                         this.basicInfoForm.get('lngPresentIndiaFlag').setValue('1');
-                    }else{
+                    }else if(data.LngPresentIndiaFlag == 0){
                         this.checked10 = false;
                         this.basicInfoForm.get('lngPresentIndiaFlag').setValue('0');
                     }
@@ -237,7 +241,7 @@ export class BasicInformationComponent implements OnInit,AfterViewInit {
         .pipe(first())
         .subscribe(
             data => {
-                    console.log("Response" + JSON.stringify(data));
+                    //console.log("Response" + JSON.stringify(data));
                     //successfully inserted
                     if(data['statusCode'] == 200){                  
                         this.alertService.error('Application - BasicInfo data saved successfully');

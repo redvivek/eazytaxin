@@ -26,7 +26,7 @@ export class ApplicationService {
         this.currentAppSubject.next(data);
     }
 
-    fetchDashboardDataByAssYearUserId(assYear,userid){
+    fetchDashboardDataByAssYearUserId(assYear:string,userid:number){
         var inputdata = {
             "assYear" : assYear,
             "userid" : userid
@@ -34,7 +34,15 @@ export class ApplicationService {
         return this.http.post(`${environment.apiUrl}/tax/fetchDashboardInfo`, inputdata);
     }
 
-    fetchInProgAppDataByUserid(userid,selYear){
+    fetchAppDetailsByAppidAndUserId(appId:number,userId:number){
+        var inputdata = {
+            "appId" : appId,
+            "userId" : userId
+        };
+        return this.http.post(`${environment.apiUrl}/tax/fetchAppInfo`, inputdata);
+    }
+
+    fetchInProgAppDataByUserid(userid:number,selYear:string){
         return this.http.post(`${environment.apiUrl}/tax/fetchInProgApps`,{"userid":userid,"selYear":selYear})
         .pipe(map(data => {
             if(data['statusCode'] == 200){
@@ -44,8 +52,7 @@ export class ApplicationService {
                         const appdata:ApplicationMain = { 
                             'appId': data['ResultData'][0].ApplicationId,
                             'taxperiod':data['ResultData'][0].AssesmentYear,
-                            'xmluploadflag':data['ResultData'][0].XmlUploadFlag, 
-                            'appRefno':data['ResultData'][0].AppRefNo, 
+                            'xmluploadflag':data['ResultData'][0].XmlUploadFlag,
                             'applicationStage':data['ResultData'][0].ApplicationStage, 
                             'appStatus':'Progress' 
                         };
@@ -77,16 +84,15 @@ export class ApplicationService {
             "userid" : userid,
             "category" : category
         };
-        return this.http.post<any>(`${environment.apiUrl}/tax/getInfoFromXML`, jsonInput);
-        /* .pipe(map(result => {
+        return this.http.post<any>(`${environment.apiUrl}/tax/getInfoFromXML`, jsonInput)
+        .pipe(map(result => {
             if(result['statusCode'] == 200){
                 if (result['infoData']) {
-                    //console.log("Current App value"+ JSON.stringify(appmaindata['AppData']));
+                    //console.log("Current App value"+ JSON.stringify(result['infoData']));
                     return result['infoData'];
                 }
             }
-
-            if(result['statusCode'] == 201){
+            /* if(result['statusCode'] == 201){
                 if (result['Message']) {
                     console.log("Current App value"+ JSON.stringify(result['Message']));
                     let data = [];
@@ -100,8 +106,8 @@ export class ApplicationService {
                     let data = [];
                     return null;
                 }
-            }
-        })); */
+            } */
+        }));
     }
     
     //Initate Application creation
@@ -128,8 +134,8 @@ export class ApplicationService {
         }));
     }
 
-    checkExistingPan(panVal : string){
-        return this.http.post<any>(`${environment.apiUrl}/tax/checkExistingPan`, {'panVal':panVal});
+    checkExistingPan(panVal : string,userid:number){
+        return this.http.post<any>(`${environment.apiUrl}/tax/checkExistingPan`, {'panVal':panVal,'userId':userid});
     }
 
     getAddressInfoByAppId(id: number,addresstype:string) {
@@ -190,10 +196,13 @@ export class ApplicationService {
         return this.http.post(`${environment.apiUrl}/tax/saveAssestsInfo`, assestinfodata);
     }
 
+    updateAssestInfoData(assestinfodata){
+        return this.http.post(`${environment.apiUrl}/tax/updateAssestsInfo`, assestinfodata);
+    }
+
     //save assests info details
-    saveImmAssestsInfoData(assInfoId,immovableAssInputParam) {
+    saveImmAssestsInfoData(immovableAssInputParam) {
         var jsonInput = {
-            "assInfoId" : assInfoId,
             "immovableAssInputParam" : immovableAssInputParam
         };
         return this.http.post(`${environment.apiUrl}/tax/saveImmAssestsInfo`,jsonInput);

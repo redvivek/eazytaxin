@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
     ImmovableAssetsFlag: {
       type: DataTypes.INTEGER(1),
       allowNull: false,
-      defaultValue:1
+      defaultValue:0
     },
     MovJwellaryItemsAmount: {
       type: DataTypes.FLOAT(10,2),

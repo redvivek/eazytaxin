@@ -14,10 +14,20 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   assesmentYears = [];
   selectedAssYear:any;
   showCurrAssYear:boolean;
+  showComplete:boolean;
 
   userId : number;
   ApplicationId : number;
   inProgressApps = [];
+  dashboardInfo = {
+      'Firstname':'NA',
+      'Lastname':'NA',
+      'PanNumber':'NA',
+      'DateOfBirth':'NA',
+      'Type':'NA',
+      'PlanName':'NA',
+      'MobileNo':'NA'
+  };
 
   constructor(
         private router: Router,
@@ -45,8 +55,8 @@ export class DashboardComponent implements OnInit,AfterViewInit {
         }else{
             this.selectedAssYear = this.assesmentYears[1];
         }
-        
-        this.inProgressApps = this.fetchInProgressAppDataByUserID(this.selectedAssYear,this.userId);
+        this.fetchDashboardInfoByAssYrAndUser(this.selectedAssYear,this.userId);
+        //this.inProgressApps = this.fetchInProgressAppDataByUserID(this.selectedAssYear,this.userId);
     }
 
     ngAfterViewInit(){
@@ -54,19 +64,34 @@ export class DashboardComponent implements OnInit,AfterViewInit {
 	}
 
     onChange(newValue) {
-        //console.log(newValue);
+        console.log(newValue);
         this.selectedAssYear = newValue;
+        this.fetchDashboardInfoByAssYrAndUser(this.selectedAssYear,this.userId);
+    }
+
+    fetchDashboardInfoByAssYrAndUser(assyear:string,uid:number){
         //Fetch and refresh data on change of assesment year
-        this.appService.fetchDashboardDataByAssYearUserId(this.selectedAssYear,this.userId)
+        this.appService.fetchDashboardDataByAssYearUserId(assyear,uid)
         .pipe(first())
         .subscribe(
         data => {
                 //console.log("Response" + JSON.stringify(data));
                 //successfully inserted
-                if(data['statusCode'] == 200){                  
-                    this.alertService.error('Application - Dashboard Info data fetched successfully');
-                    this.inProgressApps = this.fetchInProgressAppDataByUserID(this.selectedAssYear,this.userId);
-               }
+                if(data['statusCode'] == 200 && data['Result'].length > 0 ){
+                    this.showCurrAssYear = false;                  
+                    this.alertService.success('Application - Dashboard Info data fetched successfully');
+                    var res = data['Result'][0];
+                    this.fetchAppDetailsAppDataByUserID(res['ApplicationId'],res['UserId']);
+                    this.inProgressApps = this.fetchInProgressAppDataByUserID(res['AssesmentYear'],res['UserId']);
+
+                    if(res['ApplicationStatus'] == 'Complete')
+                        this.showComplete = true;
+                    else
+                        this.showComplete = false;
+                    
+                }else{
+                    this.showCurrAssYear = true;
+                }
             },
         error => {
             this.alertService.error('Application - Dashboard Info data fetch failed');
@@ -81,7 +106,6 @@ export class DashboardComponent implements OnInit,AfterViewInit {
             'appId': "",
             'taxperiod':this.selectedAssYear,
             'xmluploadflag':'', 
-            'appRefno':'', 
             'applicationStage':1, 
             'appStatus':'Progress' 
         };
@@ -136,11 +160,42 @@ export class DashboardComponent implements OnInit,AfterViewInit {
         }
         assYearList.push(currentAYear);
         assYearList.push(prevAYear);
-        assYearList.push(prevLAYear);
+        //assYearList.push(prevLAYear);
         return assYearList;
     }
 
-    fetchInProgressAppDataByUserID(selYear,userid){
+    fetchAppDetailsAppDataByUserID(appid:number,userid:number){
+        var resultObj = [];
+        this.appService.fetchAppDetailsByAppidAndUserId(appid,userid)
+        .pipe(first())
+        .subscribe(
+        data => {
+            //console.log("Response" + JSON.stringify(data));
+            //successfully inserted
+            if(data['statusCode'] == 200 && data['Result'].length > 0 ){
+                resultObj = data['Result'];
+                this.dashboardInfo = data['Result'][0];
+            }else{
+                this.dashboardInfo = {
+                    'Firstname':'NA',
+                    'Lastname':'NA',
+                    'PanNumber':'NA',
+                    'DateOfBirth':'NA',
+                    'Type':'NA',
+                    'PlanName':'NA',
+                    'MobileNo':'NA'
+                };
+            }
+        },
+        error => {
+            this.alertService.error('Application - Dashboard Info data fetch failed');
+            //return resultObj;
+        });
+        
+    }
+
+    fetchInProgressAppDataByUserID(selYear:string,userid:number){
+        //console.log("Input Values "+selYear+userid);
         var resultArray = [];
         // start storing application data in database
         this.appService.fetchInProgAppDataByUserid(userid,selYear)
@@ -153,22 +208,17 @@ export class DashboardComponent implements OnInit,AfterViewInit {
                             for(var i=0;i<data['ResultData'].length;i++){
                                 if(data['ResultData'][i].AssesmentYear == this.selectedAssYear){
                                     this.showCurrAssYear = false;
-                                }else{
-                                    this.showCurrAssYear = true;
                                 }
                                 
                                 resultArray.push(
                                 {
                                     "AppId":data['ResultData'][i].ApplicationId,
-                                    "AppRefno":data['ResultData'][i].AppRefNo,
                                     "AssYear":data['ResultData'][i].AssesmentYear,
                                     "AppStage":data['ResultData'][i].ApplicationStage,
                                     "xmlFlag":data['ResultData'][i].XmlUploadFlag
                                 }
                                 )
                             }
-                        }else{
-                            this.showCurrAssYear = true;
                         }
                     }
                 },

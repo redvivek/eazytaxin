@@ -167,10 +167,24 @@
                           <div class="boxBody assetsLists">
                             <article>
                               <div class="row form-group floating-label">
-                                <label for="" class="col-md-8 col-form-label">
+                                <label for="" class="col-md-6 col-form-label">
                                   Medical Insurance Premium for you, your spouse, or dependent children <span class="text-danger required">*</span>
                                 </label>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
+                                    <div class="form-group floating-label customDropdown">
+                                      <select id="inpMIReln" class="form-control" formControlName="inpMIReln">
+                                          <option value="SNF">Self And Family</option>
+                                          <option value="SCNF">Self(Senior Citizen) And Family</option>
+                                          <option value="P">Parents</option>
+                                          <option value="PSC">Parents(Senior Citizen)</option>
+                                          <option value="SNFWP">Self and Family including parents</option>
+                                          <option value="SNFWSCP">Self and Family including (senior citizen) parents</option>
+                                          <option value="SCNFWSCP">Self (Senior citizen) Including family (Senior Citizen)</option>
+                                      </select>
+                                      <label for="inpMIReln">Relation</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
                                   <div class="input-group prepend position-relative">
                                     <div class="input-group-prepend">
                                       <div class="input-group-text">₹</div>
@@ -184,10 +198,24 @@
                                 </div>
                               </div>
                               <div class="row form-group floating-label">
-                                <label for="" class="col-md-8 col-form-label">
+                                <label for="" class="col-md-6 col-form-label">
                                   Preventive Health Check-Up fees for you, your spouse, or dependent children <span class="text-danger required">*</span>
                                 </label>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
+                                  <div class="form-group floating-label customDropdown">
+                                    <select id="inpDHCReln" class="form-control" formControlName="inpDHCReln">
+                                        <option value="SNF">Self And Family</option>
+                                        <option value="SCNF">Self(Senior Citizen) And Family</option>
+                                        <option value="P">Parents</option>
+                                        <option value="PSC">Parents(Senior Citizen)</option>
+                                        <option value="SNFWP">Self and Family including parents</option>
+                                        <option value="SNFWSCP">Self and Family including (senior citizen) parents</option>
+                                        <option value="SCNFWSCP">Self (Senior citizen) Including family (Senior Citizen)</option>
+                                    </select>
+                                    <label for="inpDHCReln">Relation</label>
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
                                   <div class="input-group prepend position-relative">
                                     <div class="input-group-prepend">
                                       <div class="input-group-text">₹</div>
@@ -201,13 +229,27 @@
                                 </div>
                               </div>
                               <div class="row form-group floating-label">
-                                <label for="" class="col-md-8 col-form-label">
+                                <label for="" class="col-md-6 col-form-label">
                                   Medical Insurance Premium for your parents <span class="text-danger required">*</span>
                                   <small class="d-block text-muted">
                                     Note: Amount upto Rs 30,000 in respect of Medical Expenditure of a very senior citizen (80 Yrs or more) shall be allowed under section 80D. Provided such person is not having a health insurance
                                   </small>
                                 </label>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
+                                  <div class="form-group floating-label customDropdown">
+                                    <select id="inpPMIReln" class="form-control" formControlName="inpPMIReln">
+                                        <option value="SNF">Self And Family</option>
+                                        <option value="SCNF">Self(Senior Citizen) And Family</option>
+                                        <option value="P">Parents</option>
+                                        <option value="PSC">Parents(Senior Citizen)</option>
+                                        <option value="SNFWP">Self and Family including parents</option>
+                                        <option value="SNFWSCP">Self and Family including (senior citizen) parents</option>
+                                        <option value="SCNFWSCP">Self (Senior citizen) Including family (Senior Citizen)</option>
+                                    </select>
+                                    <label for="inpPMIReln">Relation</label>
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
                                   <div class="input-group prepend position-relative">
                                     <div class="input-group-prepend">
                                       <div class="input-group-text">₹</div>
@@ -217,24 +259,6 @@
                                         <div *ngIf="m.parentsMedInsPremium.errors.required">Parents Medical Insurance Premium Amount is required</div>
                                     </div>
                                     <label for=""></label>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row form-group floating-label">
-                                <label for="" class="col-md-8 col-form-label">Are your parents who hold the policy are senior citizens?
-                                  <small class="d-block text-muted">60 years or older</small>
-                                </label>
-                                <div class="col-md-4">
-                                  <div class="form-group floating-label customDropdown">
-                                    <select id="parentSenCitizenFlag" class="form-control" formControlName="parentSenCitizenFlag" [ngClass]="{ 'is-invalid':  mainFSubmitted && m.parentSenCitizenFlag.errors}">
-                                      <option value=""></option>
-                                      <option value="1">Yes</option>
-                                      <option value="0">No</option>
-                                    </select>
-                                    <div *ngIf="mainFSubmitted && m.parentSenCitizenFlag.errors" class="invalid-feedback">
-                                        <div *ngIf="m.parentSenCitizenFlag.errors.required">Parents senior citizen flag required</div>
-                                    </div>
-                                    <label for="parentSenCitizenFlag">Select Option</label>
                                   </div>
                                 </div>
                               </div>

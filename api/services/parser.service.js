@@ -4,8 +4,8 @@ const multer        = require('multer');
 const bodyParser    = require('body-parser');
 var Q               = require('q');
 var xml2js          = require('xml2js');
-var dateTime    = require('node-datetime');
-var parser      = new xml2js.Parser({ attrkey: "ATTR" });
+var dateTime        = require('node-datetime');
+var parser          = new xml2js.Parser({ attrkey: "ATTR"});
 
 exports.getInfoFromXML = (req,res) => {
     let appid = req.body.appid;
@@ -28,19 +28,21 @@ exports.getInfoFromXML = (req,res) => {
             let xml_string  =   fs.readFileSync(filepath, "utf8");
             parser.parseString(xml_string,function(error, result) {    
                 if(error === null) {
+                    result = cleanXML(result);
                     //console.log("XML output "+JSON.stringify(result["ns3:ITR"]));
                     let mainNode    =   result["ns3:ITR"];
                     if(mainNode != null){
                         let subNode     =   mainNode["ns2:ITR1"];
                         //console.log("XML output "+JSON.stringify(subNode));
                         if(subNode.length > 0){
-                            let forITRNode  =   subNode[0]["Form_ITR1"];
-                            //console.log("ITR form info "+JSON.stringify(forITRNode));
+                            let forITRNode  =   subNode["Form_ITR1"];
+                            console.log("ITR form info "+JSON.stringify(forITRNode));
                             
                             if(category == "PersonalInfo"){
-                                let personalInfoNode = subNode[0]["PersonalInfo"];
+                                let personalInfoNode = subNode["PersonalInfo"];
+                                console.log("personal info "+JSON.stringify(personalInfoNode));
                                 if(personalInfoNode.length > 0){
-                                    //console.log("personal info "+JSON.stringify(personalInfoNode));
+                                    console.log("personal info "+JSON.stringify(personalInfoNode));
                                     let assesname = personalInfoNode[0]["AssesseeName"];
                                     let firstnm = assesname[0]["FirstName"];
                                     let middlenm = assesname[0]["MiddleName"];
@@ -80,6 +82,7 @@ exports.getInfoFromXML = (req,res) => {
                                     "PanNumber" : panno,
                                     "AadharNumber" : aadhar
                                     }
+                                    console.log("Per Info "+JSON.stringify(perinfoData));
                                     res.json({"statusCode": 200,"Message": "Successful Request","infoData":perinfoData});
                                 }
                             }
@@ -220,4 +223,79 @@ exports.getInfoFromXML = (req,res) => {
         }
     }
 }
+
+cleanXML = function(xml){
+    var keys = Object.keys(xml),
+        o = 0, k = keys.length,
+        node, value, singulars,
+        l = -1, i = -1, s = -1, e = -1,
+        isInt = /^-?\s*\d+$/,
+        isDig = /^(-?\s*\d*\.?\d*)$/,
+        radix = 10;
+
+    for(; o < k; ++o){
+        node = keys[o];
+
+        if(xml[node] instanceof Array && xml[node].length === 1){
+            xml[node] = xml[node][0];
+        }
+
+        if(xml[node] instanceof Object){
+            value = Object.keys(xml[node]);
+
+            if(value.length === 1){
+                l = node.length;
+
+                singulars = [
+                    node.substring(0, l - 1),
+                    node.substring(0, l - 3) + 'y'
+                ];
+
+                i = singulars.indexOf(value[0]);
+
+                if(i !== -1){
+                    xml[node] = xml[node][singulars[i]];
+                }
+            }
+        }
+
+        if(typeof(xml[node]) === 'object'){
+            xml[node] = cleanXML(xml[node]);
+        }
+
+        if(typeof(xml[node]) === 'string'){
+            value = xml[node].trim();
+
+            if(value.match(isDig)){
+                if(value.match(isInt)){
+                    if(Math.abs(parseInt(value, radix)) <= Number.MAX_SAFE_INTEGER){
+                        xml[node] = parseInt(value, radix);
+                    }
+                }else{
+                    l = value.length;
+
+                    if(l <= 15){
+                        xml[node] = parseFloat(value);
+                    }else{
+                        for(i = 0, s = -1, e = -1; i < l && e - s <= 15; ++i){
+                            if(value.charAt(i) > 0){
+                                if(s === -1){
+                                    s = i;
+                                }else{
+                                    e = i;
+                                }
+                            }
+                        }
+
+                        if(e - s <= 15){
+                            xml[node] = parseFloat(value);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return xml;
+};
 

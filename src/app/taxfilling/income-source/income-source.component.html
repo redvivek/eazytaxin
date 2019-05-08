@@ -135,22 +135,22 @@
                                         </div>
                                         <div class="row uploader">
                                           <div class="col-md-6">
-                                            <div class="form-group">
+                                            <div class="form-group floating-label">
                                               <div class="input-group custom-file-wrap">
                                                 <div class="d-flex">
-                                                  <div class="input-group-prepend">
+                                                  <!-- <div class="input-group-prepend">
                                                     <span class="input-group-text">Choose File</span>
-                                                  </div>
+                                                  </div> -->
                                                   <div class="custom-file">
-                                                    <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="uploadForm16File" formControlName="uploadForm16File" >
-                                                    <label class="custom-file-label" for="uploadForm16File">No File Chosen</label>
+                                                    <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-label input-group-text" id="uploadForm16File" formControlName="uploadForm16File" >
+                                                    <!-- <label class="custom-file-label" for="uploadForm16File">No File Chosen</label> -->
                                                   </div>
                                                 </div>
                                               </div>
                                             </div>
                                           </div>
                                           <div class="col-md-4">
-                                            <div class="form-group ">
+                                            <div class="form-group floating-label">
                                               <input type="text" class="form-control" id="uploadFilePassword" formControlName="uploadFilePassword" >
                                               <label for="uploadFilePassword">Enter Document Password</label>
                                             </div>
@@ -163,10 +163,7 @@
                                         </div>
                                         <div class="row">
                                           <div class="col-6">
-                                            <input type="hidden" class="form-control" id="uploadForm16FileFlag" formControlName="uploadForm16FileFlag"  [ngClass]="{ 'is-invalid': salFSubmitted && s.uploadForm16FileFlag.errors}">
-                                            <div *ngIf="salFSubmitted && s.uploadForm16FileFlag.errors" class="invalid-feedback">
-                                              <div *ngIf="s.uploadForm16FileFlag.errors.required">Please upload Form16. Also enter the password if form16 is protected else type "NA"</div>
-                                            </div>
+                                            <input type="hidden" class="form-control" id="uploadForm16FileFlag" formControlName="uploadForm16FileFlag">
                                           </div>
                                         </div>
                                     </div>
@@ -179,18 +176,18 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="form-group ">
-                                                <input type="text" class="form-control" id="employername" formControlName="inputEmployernm" [ngClass]="{ 'is-invalid': salFSubmitted && s.inputEmployernm.errors}">
-                                                <div *ngIf="salFSubmitted && s.inputEmployernm.errors" class="invalid-feedback">
-                                                    <div *ngIf="s.inputEmployernm.errors.required">Employer name is required</div>
-                                                    <div *ngIf="s.inputEmployernm.errors.maxlength">Entered text exceeds maxlength limit</div>
-                                                    <div *ngIf="s.inputEmployernm.errors.pattern">Invalid text entered</div>
-                                                </div>
-                                                  <label for="employername">Name of the Employer <span class="text-danger required">*</span></label>
+                                                <div class="form-group floating-label">
+                                                    <input type="text" class="form-control" id="employername" formControlName="inputEmployernm" [ngClass]="{ 'is-invalid': salFSubmitted && s.inputEmployernm.errors}">
+                                                    <div *ngIf="salFSubmitted && s.inputEmployernm.errors" class="invalid-feedback">
+                                                        <div *ngIf="s.inputEmployernm.errors.required">Employer name is required</div>
+                                                        <div *ngIf="s.inputEmployernm.errors.maxlength">Entered text exceeds maxlength limit</div>
+                                                        <div *ngIf="s.inputEmployernm.errors.pattern">Invalid text entered</div>
+                                                    </div>
+                                                    <label for="employername">Name of the Employer <span class="text-danger required">*</span></label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="form-group  customDropdown">
+                                                <div class="form-group floating-label customDropdown">
                                                 <select id="employertype"  class="form-control" formControlName="inputEmployertype" [ngClass]="{ 'is-invalid': salFSubmitted && s.inputEmployertype.errors}">
                                                     <option value="GOV">Government</option>
                                                     <option value="PSU">Public Sector Unit</option>
@@ -223,13 +220,105 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="form-group ">
+                                                <div class="form-group floating-label">
                                                     <input type="text" class="form-control" id="emptan" formControlName="inputEmpTAN" [ngClass]="{ 'is-invalid': salFSubmitted && s.inputEmpTAN.errors}">
                                                     <div *ngIf="salFSubmitted && s.inputEmpTAN.errors" class="invalid-feedback">
                                                         <div *ngIf="s.inputEmpTAN.errors.required">Employer TAN is required</div>
                                                         <div *ngIf="s.inputEmpTAN.errors.pattern">Invalid amount entered</div>
                                                     </div>
                                                     <label for="emptan">Employer TAN <span class="text-danger required">*</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group mb-0">
+                                                    <div class="floating-label">
+                                                        <input type="text" class="form-control" id="allownces" formControlName="inputAllowances" [ngClass]="{ 'is-invalid': salFSubmitted && s.inputAllowances.errors}">
+                                                        <div *ngIf="salFSubmitted && s.inputAllowances.errors" class="invalid-feedback">
+                                                            <div *ngIf="s.inputAllowances.errors.pattern">Invalid value entered</div>
+                                                        </div>
+                                                        <label for="allownces">Non Exempted Allowances</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group floating-label">
+                                                    <input type="text" class="form-control" id="valPrequisties" formControlName="valPrequisties" [ngClass]="{ 'is-invalid': salFSubmitted && s.valPrequisties.errors}">
+                                                    <div *ngIf="salFSubmitted && s.valPrequisties.errors" class="invalid-feedback">
+                                                        <div *ngIf="s.valPrequisties.errors.pattern">Invalid value entered</div>
+                                                    </div>
+                                                    <label for="valPrequisties">Value of perquisites</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group mb-0">
+                                                    <div class="floating-label">
+                                                        <input type="text" class="form-control" id="salProfits" formControlName="inputSalProfits" [ngClass]="{ 'is-invalid': salFSubmitted && s.inputSalProfits.errors}">
+                                                        <div *ngIf="salFSubmitted && s.inputSalProfits.errors" class="invalid-feedback">
+                                                            <div *ngIf="s.inputSalProfits.errors.pattern">Invalid value entered</div>
+                                                        </div>
+                                                        <label for="salProfits">Profits in lieu of salary</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group floating-label">
+                                                    <input type="text" class="form-control" id="deductionEnter" formControlName="deductionEnter" [ngClass]="{ 'is-invalid': salFSubmitted && s.deductionEnter.errors}">
+                                                    <div *ngIf="salFSubmitted && s.deductionEnter.errors" class="invalid-feedback">
+                                                        <div *ngIf="s.deductionEnter.errors.pattern">Invalid value entered</div>
+                                                    </div>
+                                                    <label for="deductionEnter">Deduction u/s 16(Entertainment allowance)</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group mb-0">
+                                                    <div class="floating-label">
+                                                        <input type="text" class="form-control" id="ltaAmount" formControlName="inputLTAAmount" [ngClass]="{ 'is-invalid': salFSubmitted && s.inputLTAAmount.errors}">
+                                                        <div *ngIf="salFSubmitted && s.inputLTAAmount.errors" class="invalid-feedback">
+                                                            <div *ngIf="s.inputLTAAmount.errors.pattern">Invalid value entered</div>
+                                                        </div>
+                                                        <label for="ltaAmount">Travel concession/assistance received(sec. 10(5)</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group floating-label">
+                                                    <input type="text" class="form-control" id="nonMoneyPrequisties" formControlName="nonMoneyPrequisties" [ngClass]="{ 'is-invalid': salFSubmitted && s.nonMoneyPrequisties.errors}">
+                                                    <div *ngIf="salFSubmitted && s.nonMoneyPrequisties.errors" class="invalid-feedback">
+                                                        <div *ngIf="s.nonMoneyPrequisties.errors.pattern">Invalid value entered</div>
+                                                    </div>
+                                                    <label for="nonMoneyPrequisties">Tax paid by employer on non-monetary perquisite(sec.10(10CC)</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group mb-0">
+                                                    <div class="floating-label">
+                                                        <input type="text" class="form-control" id="expAllowanceHR" formControlName="expAllowanceHR" [ngClass]="{ 'is-invalid': salFSubmitted && s.expAllowanceHR.errors}">
+                                                        <div *ngIf="salFSubmitted && s.expAllowanceHR.errors" class="invalid-feedback">
+                                                            <div *ngIf="s.expAllowanceHR.errors.pattern">Invalid value entered</div>
+                                                        </div>
+                                                        <label for="expAllowanceHR">Allowance to meet expenditure incurred on house rent(sec.10(13A) </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group floating-label">
+                                                    <input type="text" class="form-control" id="othAllowance" formControlName="othAllowance" [ngClass]="{ 'is-invalid': salFSubmitted && s.othAllowance.errors}">
+                                                    <div *ngIf="salFSubmitted && s.othAllowance.errors" class="invalid-feedback">
+                                                        <div *ngIf="s.othAllowance.errors.pattern">Invalid value entered</div>
+                                                    </div>
+                                                    <label for="othAllowance">Other allowances</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -252,418 +341,434 @@
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
 
-                                  <!--Data Form starts here-->
-                                  <div class="tab-pane fade active show" id="income-other-data" role="tabpanel" [ngClass]="{ 'show': step2_income_other_data == true , 'active': step2_income_other_data == true }">
-                                      <!--Interest Income starts-->
-                                      <div class="boxBorderHeader my-5 position-relative">
-                                          <div class="text-uppercase boxHeader text-center">
-                                              <span class="d-inline-block"><h6>Interest Income</h6></span>
-                                          </div>
-                                          <div class="boxBody">
-                                              <div class="assetsLists">
-                                                  <article>
-                                                      <div class="row form-group ">
-                                                        <label for="" class="col-md-8 col-form-label">Interest Income from Savings Bank and Post Office deposits</label>
-                                                        <div class="col-md-4">
-                                                          <div class="input-group prepend position-relative">
-                                                            <div class="input-group-prepend">
-                                                              <div class="input-group-text">₹</div>
+                                    <!--Data Form starts here-->
+                                    <div class="tab-pane fade active show" id="income-other-data" role="tabpanel" [ngClass]="{ 'show': step2_income_other_data == true , 'active': step2_income_other_data == true }">
+                                        <!--Interest Income starts-->
+                                        <div class="boxBorderHeader my-5 position-relative">
+                                            <div class="text-uppercase boxHeader text-center">
+                                                <span class="d-inline-block"><h6>Interest Income</h6></span>
+                                            </div>
+                                            <div class="boxBody">
+                                                <div class="assetsLists">
+                                                    <article>
+                                                        <div class="row form-group floating-label">
+                                                            <label for="" class="col-md-8 col-form-label">Interest Income from Savings Bank and Post Office deposits</label>
+                                                            <div class="col-md-4">
+                                                                <div class="input-group prepend position-relative">
+                                                                    <div class="input-group-prepend">
+                                                                    <div class="input-group-text">₹</div>
+                                                                    </div>
+                                                                    <input type="text" class="form-control" id="SavingsIncome" formControlName="inputSavingsIncome" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputSavingsIncome.errors}">
+                                                                    <div *ngIf="othFSubmitted && o.inputSavingsIncome.errors" class="invalid-feedback">
+                                                                    <div *ngIf="o.inputSavingsIncome.errors.pattern">Savings Income amount is invalid</div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            <input type="text" class="form-control" id="SavingsIncome" formControlName="inputSavingsIncome" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputSavingsIncome.errors}">
-                                                            <div *ngIf="othFSubmitted && o.inputSavingsIncome.errors" class="invalid-feedback">
-                                                              <div *ngIf="o.inputSavingsIncome.errors.required">Savings Income amount is required</div>
-                                                            </div>
-                                                            <label for="SavingsIncome"></label>
-                                                          </div>
                                                         </div>
-                                                      </div>
-                                                      <div class="row form-group ">
-                                                          <label for="" class="col-md-8 col-form-label">Other Interest Income: From Fixed Deposits etc
-                                                            <small class="d-block">Interest from sweep accounts converted to FDs also specified here</small>
-                                                          </label>
-                                                          <div class="col-md-4">
-                                                              <div class="input-group prepend position-relative">
-                                                              <div class="input-group-prepend">
-                                                                  <div class="input-group-text">₹</div>
-                                                              </div>
-                                                              <input type="text" class="form-control" id="" formControlName="inputFDInterestIncome" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputFDInterestIncome.errors}">
-                                                              <div *ngIf="othFSubmitted && o.inputFDInterestIncome.errors" class="invalid-feedback">
-                                                                  <div *ngIf="o.inputFDInterestIncome.errors.required">FD Interest Income amount is required</div>
-                                                              </div>
-                                                              <label for=""></label>
-                                                              </div>
-                                                          </div>
-                                                      </div>
-                                                  </article>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <!--Interest Income ends-->
+                                                        <div class="row form-group floating-label">
+                                                            <label for="" class="col-md-8 col-form-label">Income from fixed deposits
+                                                                <small class="d-block">Interest from sweep accounts converted to FDs also specified here</small>
+                                                            </label>
+                                                            <div class="col-md-4">
+                                                                <div class="input-group prepend position-relative">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">₹</div>
+                                                                    </div>
+                                                                    <input type="text" class="form-control" id="" formControlName="inputFDInterestIncome" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputFDInterestIncome.errors}">
+                                                                    <div *ngIf="othFSubmitted && o.inputFDInterestIncome.errors" class="invalid-feedback">
+                                                                        <div *ngIf="o.inputFDInterestIncome.errors.pattern">FD Interest Income amount is invalid</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group floating-label">
+                                                            <label for="" class="col-md-8 col-form-label">Interest Income From Refunds</label>
+                                                            <div class="col-md-4">
+                                                                <div class="input-group prepend position-relative">
+                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-text">₹</div>
+                                                                </div>
+                                                                <input type="text" class="form-control" id="" formControlName="inputRefundIntIncome" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputRefundIntIncome.errors}">
+                                                                <div *ngIf="othFSubmitted && o.inputRefundIntIncome.errors" class="invalid-feedback">
+                                                                    <div *ngIf="o.inputRefundIntIncome.errors.pattern">FD Interest Income amount is invalid</div>
+                                                                </div>
+                                                                <label for=""></label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group floating-label">
+                                                            <label for="" class="col-md-8 col-form-label">Other Interest Income</label>
+                                                            <div class="col-md-4">
+                                                                <div class="input-group prepend position-relative">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">₹</div>
+                                                                    </div>
+                                                                    <input type="text" class="form-control" id="" formControlName="inputOthInterestIncome" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputOthInterestIncome.errors}">
+                                                                    <div *ngIf="othFSubmitted && o.inputOthInterestIncome.errors" class="invalid-feedback">
+                                                                        <div *ngIf="o.inputOthInterestIncome.errors.pattern">Other Interest Income amount is invalid</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Interest Income ends-->
                                   
-                                      <!--Other Income starts-->
-                                      <div class="boxBorderHeader my-5 position-relative">
-                                          <div class="text-uppercase boxHeader text-center">
-                                              <span class="d-inline-block"><h6>Other Income</h6></span>
-                                          </div>
-                                          <div class="boxBody">
-                                              <div class="assetsLists">
-                                                  <article>
-                                                      <div class="row form-group ">
-                                                      <label for="" class="col-md-8 col-form-label">Any Other Income
-                                                          <small class="d-block">Report any other income which is not part of Income from Salary, House Property or Capital Gain. Gifts can be declared as Income here</small>
-                                                      </label>
-                                                      <div class="col-md-4">
-                                                          <div class="input-group prepend position-relative">
-                                                          <div class="input-group-prepend">
-                                                              <div class="input-group-text">₹</div>
-                                                          </div>
-                                                          <input type="text" class="form-control" id="inputAnyOtherIncome" formControlName="inputAnyOtherIncome" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputAnyOtherIncome.errors}">
-                                                          <div *ngIf="othFSubmitted && o.inputAnyOtherIncome.errors" class="invalid-feedback">
-                                                              <div *ngIf="o.inputAnyOtherIncome.errors.required">FD Interest Income amount is required</div>
-                                                          </div>
-                                                          <label for="inputAnyOtherIncome"></label>
-                                                          </div>
-                                                      </div>
-                                                      </div>
-                                                  </article>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <!--Other Income ends-->
+                                        <!--Other Income starts-->
+                                        <div class="boxBorderHeader my-5 position-relative">
+                                            <div class="text-uppercase boxHeader text-center">
+                                                <span class="d-inline-block"><h6>Other Income</h6></span>
+                                            </div>
+                                            <div class="boxBody">
+                                                <div class="assetsLists">
+                                                    <article>
+                                                        <div class="row form-group floating-label">
+                                                        <label for="" class="col-md-8 col-form-label">Any Other Income
+                                                            <small class="d-block">Report any other income which is not part of Income from Salary, House Property or Capital Gain. Gifts can be declared as Income here</small>
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <div class="input-group prepend position-relative">
+                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-text">₹</div>
+                                                                </div>
+                                                                <input type="text" class="form-control" id="inputAnyOtherIncome" formControlName="inputAnyOtherIncome" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputAnyOtherIncome.errors}">
+                                                                <div *ngIf="othFSubmitted && o.inputAnyOtherIncome.errors" class="invalid-feedback">
+                                                                    <div *ngIf="o.inputAnyOtherIncome.errors.pattern">FD Interest Income amount is invalid</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Other Income ends-->
                                   
-                                      <!--Exempt Income starts-->
-                                      <div class="boxBorderHeader my-5 position-relative">
-                                          <div class="text-uppercase boxHeader text-center">
-                                              <span class="d-inline-block"><h6>Exempt Income</h6></span>
-                                          </div>
-                                          <div class="boxBody">
-                                              <div class="assetsLists">
-                                                  <article>
-                                                      <div class="row form-group ">
-                                                      <label for="" class="col-md-8 col-form-label">Dividend earned
-                                                          <small class="d-block">Dividend from shares. Income earned on investments in Mutual Funds, ULIPs, UTI. </small>
-                                                      </label>
-                                                      <div class="col-md-4">
-                                                          <div class="input-group prepend position-relative">
-                                                          <div class="input-group-prepend">
-                                                              <div class="input-group-text">₹</div>
-                                                          </div>
-                                                          <input type="text" class="form-control" id="inputSharesIncome" formControlName="inputSharesIncome" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputSharesIncome.errors}">
-                                                          <div *ngIf="othFSubmitted && o.inputSharesIncome.errors" class="invalid-feedback">
-                                                              <div *ngIf="o.inputSharesIncome.errors.required">Shares & Dividend Income amount is required</div>
-                                                          </div>
-                                                          <label for="inputSharesIncome"></label>
-                                                          </div>
-                                                      </div>
-                                                      </div>
-                                                      <div class="row form-group ">
-                                                      <label for="" class="col-md-8 col-form-label">Exempt Interest Income
-                                                          <small class="d-block">Example: Interest earned on PPF</small>
-                                                      </label>
-                                                      <div class="col-md-4">
-                                                          <div class="input-group prepend position-relative">
-                                                          <div class="input-group-prepend">
-                                                              <div class="input-group-text">₹</div>
-                                                          </div>
-                                                          <input type="text" class="form-control" id="inputExemptIncome" formControlName="inputExemptIncome" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputExemptIncome.errors}">
-                                                          <div *ngIf="othFSubmitted && o.inputExemptIncome.errors" class="invalid-feedback">
-                                                              <div *ngIf="o.inputExemptIncome.errors.required">Exempted Income amount is required</div>
-                                                          </div>
-                                                          <label for="inputExemptIncome"></label>
-                                                          </div>
-                                                      </div>
-                                                      </div>
-                                                      <div class="row form-group ">
-                                                      <label for="" class="col-md-8 col-form-label">Other Miscellaneous Exempt Income
-                                                          <small class="d-block">Specify any other exempt income</small>
-                                                      </label>
-                                                      <div class="col-md-4">
-                                                          <div class="input-group prepend position-relative">
-                                                          <div class="input-group-prepend">
-                                                              <div class="input-group-text">₹</div>
-                                                          </div>
-                                                          <input type="text" class="form-control" id="inputOtherExemptIncome" formControlName="inputOtherExemptIncome" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputOtherExemptIncome.errors}">
-                                                          <div *ngIf="othFSubmitted && o.inputOtherExemptIncome.errors" class="invalid-feedback">
-                                                              <div *ngIf="o.inputOtherExemptIncome.errors.required">Other Exempted Income amount is required</div>
-                                                          </div>
-                                                          <label for="inputOtherExemptIncome"></label>
-                                                          </div>
-                                                      </div>
-                                                      </div>
-                                                      <!--<div class="row form-group ">
-                                                          <label for="" class="col-md-8 col-form-label">Nature of Exempt Income <span class="text-danger required">*</span>
-                                                              <small class="d-block">Specify nature of other exempt income</small>
-                                                          </label>
-                                                          <div class="col-sm-4">
-                                                              <div class="input-group prepend position-relative">
-                                                              <div class="input-group-prepend">
-                                                                  <div class="input-group-text">₹</div>
-                                                              </div>
-                                                              <input type="text" class="form-control" id="" placeholder="">
-                                                              <label for=""></label>
-                                                              </div>
-                                                          </div>
-                                                      </div>-->
-                                                  </article>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <!--Exempt Income ends-->
+                                        <!--Exempt Income starts-->
+                                        <div class="boxBorderHeader my-5 position-relative">
+                                            <div class="text-uppercase boxHeader text-center">
+                                                <span class="d-inline-block"><h6>Exempt Income</h6></span>
+                                            </div>
+                                            <div class="boxBody">
+                                                <div class="assetsLists">
+                                                    <article>
+                                                        <div class="row form-group floating-label">
+                                                        <label for="" class="col-md-8 col-form-label">Dividend earned
+                                                            <small class="d-block">Dividend from shares. Income earned on investments in Mutual Funds, ULIPs, UTI. </small>
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                        <div class="input-group prepend position-relative">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text">₹</div>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="inputSharesIncome" formControlName="inputSharesIncome" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputSharesIncome.errors}">
+                                                            <div *ngIf="othFSubmitted && o.inputSharesIncome.errors" class="invalid-feedback">
+                                                                <div *ngIf="o.inputSharesIncome.errors.pattern">Shares & Dividend Income amount is invalid</div>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        <div class="row form-group floating-label">
+                                                        <label for="" class="col-md-8 col-form-label">Exempt Interest Income
+                                                            <small class="d-block">Example: Interest earned on PPF</small>
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <div class="input-group prepend position-relative">
+                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-text">₹</div>
+                                                                </div>
+                                                                <input type="text" class="form-control" id="inputExemptIncome" formControlName="inputExemptIncome" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputExemptIncome.errors}">
+                                                                <div *ngIf="othFSubmitted && o.inputExemptIncome.errors" class="invalid-feedback">
+                                                                    <div *ngIf="o.inputExemptIncome.errors.pattern">Exempted Income amount is invalid</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        <div class="row form-group floating-label">
+                                                        <label for="" class="col-md-8 col-form-label">Other Miscellaneous Exempt Income
+                                                            <small class="d-block">Specify any other exempt income</small>
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <div class="input-group prepend position-relative">
+                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-text">₹</div>
+                                                                </div>
+                                                                <input type="text" class="form-control" id="inputOtherExemptIncome" formControlName="inputOtherExemptIncome" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputOtherExemptIncome.errors}">
+                                                                <div *ngIf="othFSubmitted && o.inputOtherExemptIncome.errors" class="invalid-feedback">
+                                                                    <div *ngIf="o.inputOtherExemptIncome.errors.pattern">Other Exempted Income amount is invalid</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Exempt Income ends-->
                                   
-                                      <!--Agri Income starts-->
-                                      <div class="boxBorderHeader my-5 position-relative">
-                                          <div class="text-uppercase boxHeader text-center">
-                                              <span class="d-inline-block"><h6>Agriculture Income</h6></span>
-                                          </div>
-                                          <div class="boxBody">
-                                              <div class="assetsLists">
-                                                  <article>
-                                                      <div class="row form-group ">
-                                                      <label for="" class="col-md-8 col-form-label">Gross Agricultural Income Receipt
-                                                          <small class="d-block">Specify gross agricultural income</small>
-                                                      </label>
-                                                      <div class="col-md-4">
-                                                          <div class="input-group prepend position-relative">
-                                                          <div class="input-group-prepend">
-                                                              <div class="input-group-text">₹</div>
-                                                          </div>
-                                                          <input type="text" class="form-control" id="inputAgriIncome" formControlName="inputAgriIncome" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputAgriIncome.errors}">
-                                                          <div *ngIf="othFSubmitted && o.inputAgriIncome.errors" class="invalid-feedback">
-                                                              <div *ngIf="o.inputAgriIncome.errors.required">Agricultural Income amount is required</div>
-                                                          </div>
-                                                          <label for="inputAgriIncome"></label>
-                                                          </div>
-                                                      </div>
-                                                      </div>
-                                                      <div class="row form-group ">
-                                                      <label for="" class="col-md-8 col-form-label">Expenditure On Agriculture
-                                                          <small class="d-block">Specify expenditure on agriculture sources</small>
-                                                      </label>
-                                                      <div class="col-md-4">
-                                                          <div class="input-group prepend position-relative">
-                                                          <div class="input-group-prepend">
-                                                              <div class="input-group-text">₹</div>
-                                                          </div>
-                                                          <input type="text" class="form-control" id="inputAgriExpend" formControlName="inputAgriExpend" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputAgriExpend.errors}">
-                                                          <div *ngIf="othFSubmitted && o.inputAgriExpend.errors" class="invalid-feedback">
-                                                              <div *ngIf="o.inputAgriExpend.errors.required">Agricultural Expenditure amount is required</div>
-                                                          </div>
-                                                          <label for=""></label>
-                                                          </div>
-                                                      </div>
-                                                      </div>
-                                                      <div class="row form-group ">
-                                                      <label for="" class="col-md-8 col-form-label">Unabsorbed Agriculture Loss
-                                                          <small class="d-block">Specify unabsorbed agriculture loss</small>
-                                                      </label>
-                                                      <div class="col-md-4">
-                                                          <div class="input-group prepend position-relative">
-                                                          <div class="input-group-prepend">
-                                                              <div class="input-group-text">₹</div>
-                                                          </div>
-                                                          <input type="text" class="form-control" id="inputAgriLoss" formControlName="inputAgriLoss" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputAgriLoss.errors}">
-                                                          <div *ngIf="othFSubmitted && o.inputAgriLoss.errors" class="invalid-feedback">
-                                                              <div *ngIf="o.inputAgriLoss.errors.required">Agricultural Loss amount is required</div>
-                                                          </div>
-                                                          <label for=""></label>
-                                                          </div>
-                                                      </div>
-                                                      </div>
-                                                  </article>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <!--Agri Income ends    -->
+                                        <!--Agri Income starts-->
+                                        <div class="boxBorderHeader my-5 position-relative">
+                                            <div class="text-uppercase boxHeader text-center">
+                                                <span class="d-inline-block"><h6>Agriculture Income</h6></span>
+                                            </div>
+                                            <div class="boxBody">
+                                                <div class="assetsLists">
+                                                    <article>
+                                                        <div class="row form-group floating-label">
+                                                            <label for="" class="col-md-8 col-form-label">Gross Agricultural Income Receipt
+                                                                <small class="d-block">Specify gross agricultural income</small>
+                                                            </label>
+                                                            <div class="col-md-4">
+                                                                <div class="input-group prepend position-relative">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">₹</div>
+                                                                    </div>
+                                                                    <input type="text" class="form-control" id="inputAgriIncome" formControlName="inputAgriIncome" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputAgriIncome.errors}">
+                                                                    <div *ngIf="othFSubmitted && o.inputAgriIncome.errors" class="invalid-feedback">
+                                                                        <div *ngIf="o.inputAgriIncome.errors.pattern">Agricultural Income amount is invalid</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group floating-label">
+                                                            <label for="" class="col-md-8 col-form-label">Expenditure On Agriculture
+                                                                <small class="d-block">Specify expenditure on agriculture sources</small>
+                                                            </label>
+                                                            <div class="col-md-4">
+                                                                <div class="input-group prepend position-relative">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">₹</div>
+                                                                    </div>
+                                                                    <input type="text" class="form-control" id="inputAgriExpend" formControlName="inputAgriExpend" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputAgriExpend.errors}">
+                                                                    <div *ngIf="othFSubmitted && o.inputAgriExpend.errors" class="invalid-feedback">
+                                                                        <div *ngIf="o.inputAgriExpend.errors.pattern">Agricultural Expenditure amount is invalid</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group floating-label">
+                                                            <label for="" class="col-md-8 col-form-label">Unabsorbed Agriculture Loss
+                                                                <small class="d-block">Specify unabsorbed agriculture loss</small>
+                                                            </label>
+                                                            <div class="col-md-4">
+                                                                <div class="input-group prepend position-relative">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">₹</div>
+                                                                    </div>
+                                                                    <input type="text" class="form-control" id="inputAgriLoss" formControlName="inputAgriLoss" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputAgriLoss.errors}">
+                                                                    <div *ngIf="othFSubmitted && o.inputAgriLoss.errors" class="invalid-feedback">
+                                                                        <div *ngIf="o.inputAgriLoss.errors.pattern">Agricultural Loss amount is invalid</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Agri Income ends    -->
                                   
-                                      <!--Dependent Income start    -->
-                                      <div class="boxBorderHeader my-5 position-relative">
-                                          <div class="text-uppercase boxHeader text-center">
-                                              <span class="d-inline-block"><h6>Dependent Income</h6></span>
-                                          </div>
-                                          <div class="boxBody">
-                                              <div class="row">
-                                                  <div class="col-md-6">
-                                                      <div class="form-group">
-                                                      <div class="floating-label">
-                                                          <div class="input-group prepend">
-                                                          <div class="input-group-prepend">
-                                                              <div class="input-group-text">₹</div>
-                                                          </div>
-                                                          <input type="text" class="form-control" id="inputDepAmount" formControlName="inputDepAmount" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputDepAmount.errors}">
-                                                          <div *ngIf="othFSubmitted && o.inputDepAmount.errors" class="invalid-feedback">
-                                                              <div *ngIf="o.inputDepAmount.errors.required">Dependent amount is required</div>
-                                                          </div>
-                                                          <label for="inputDepAmount">Amount </label>
-                                                          </div>
-                                                      </div>
-                                                      </div>
-                                                  </div>
-                                                  <div class="col-md-6">
-                                                      <div class="form-group ">
-                                                      <input type="text" class="form-control" id="inputDepPersonName" formControlName="inputDepPersonName" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputDepPersonName.errors}">
-                                                      <div *ngIf="othFSubmitted && o.inputDepPersonName.errors" class="invalid-feedback">
-                                                          <div *ngIf="o.inputDepPersonName.errors.required">Dependent Person name is required</div>
-                                                      </div>
-                                                      <label for="inputDepPersonName">Name of Person </label>
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                              <div class="row">
-                                                  <div class="col-md-6">
-                                                      <div class="form-group  customDropdown">
-                                                      <select id="inputDepPersonRel" class="form-control" formControlName="inputDepPersonRel" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputDepPersonRel.errors}" >
-                                                          <option value=""></option>
-                                                          <option value="spouse">Spouse</option>
-                                                          <option value="father">Father</option>
-                                                          <option value="mother">Mother</option>
-                                                          <option value="son">Son</option>
-                                                          <option value="daughter">Daughter</option>
-                                                      </select>
-                                                      <div *ngIf="othFSubmitted && o.inputDepPersonRel.errors" class="invalid-feedback">
-                                                          <div *ngIf="o.inputDepPersonRel.errors.required">Dependent person relationship is required</div>
-                                                      </div>
-                                                      <label for="">Relationship </label>
-                                                      </div>
-                                                  </div>
-                                                  <div class="col-md-6">
-                                                      <div class="form-group  customDropdown">
-                                                      <select id="inputDepIncomeNature" class="form-control" formControlName="inputDepIncomeNature" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputDepIncomeNature.errors}" >
-                                                          <option value=""></option>
-                                                          <option value="interest">Interest</option>
-                                                          <option value="dividend">Dividend</option>
-                                                          <option value="others">Other Source</option>
-                                                      </select>
-                                                      <div *ngIf="othFSubmitted && o.inputDepIncomeNature.errors" class="invalid-feedback">
-                                                          <div *ngIf="o.inputDepIncomeNature.errors.required">Dependent Income Nature is required</div>
-                                                      </div>
-                                                      <label for="inputDepIncomeNature">Nature of Income </label>
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                              <!-- <div class="assetsLists">
-                                                  <table class="table table-bordered">
-                                                      <thead class="thead-light">
-                                                      <tr>
-                                                          <th scope="col">Sl.No</th>
-                                                          <th scope="col">Amount</th>
-                                                          <th scope="col">Name of Person</th>
-                                                          <th scope="col">Relationship</th>
-                                                          <th scope="col">Nature of Income</th>
-                                                          <th scope="col">Actions</th>
-                                                      </tr>
-                                                      </thead>
-                                                      <tbody>
-                                                      <tr>
-                                                          <th scope="row">1</th>
-                                                          <td>₹ 12,22,233</td>
-                                                          <td>Test</td>
-                                                          <td>Spouse</td>
-                                                          <td>Interest</td>
-                                                          <td>
-                                                          <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-pencil"></i> Edit</a>
-                                                          <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-trash"></i> Delete</a>
-                                                          </td>
-                                                      </tr>
-                                                      </tbody>
-                                                  </table>
-                                              </div> -->
-                                          </div>
-                                      </div>
-                                      <!--Dependent Income ends    -->
-                                      
-                                      <!--PF Income start    -->
-                                      <div class="boxBorderHeader my-5 position-relative">
-                                          <div class="text-uppercase boxHeader text-center">
-                                              <span class="d-inline-block"><h6>PF Withdrawal Income & Tax Rate</h6></span>
-                                          </div>
-                                          <div class="boxBody">
-                                              <div class="row">
-                                                  <div class="col-md-6">
-                                                      <div class="form-group mb-0">
-                                                      <div class=floating-label>
-                                                          <div class="input-group prepend">
-                                                          <div class="input-group-prepend">
-                                                              <div class="input-group-text">₹</div>
-                                                          </div>
-                                                          <input type="text" class="form-control" id="inputPFIncome" formControlName="inputPFIncome" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputPFIncome.errors}">
-                                                          <div *ngIf="othFSubmitted && o.inputPFIncome.errors" class="invalid-feedback">
-                                                              <div *ngIf="o.inputPFIncome.errors.required">PF Withdrawal Income is required</div>
-                                                          </div>
-                                                          <label for="inputPFIncome">PF Amount</label>
-                                                          </div>
-                                                      </div>
-                                                      </div>
-                                                  </div>
-                                                  <div class="col-md-6">
-                                                      <div class="form-group  customDropdown">
-                                                      <select id="inputPFIncomeTax" class="form-control" formControlName="inputPFIncomeTax" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputPFIncomeTax.errors}">
-                                                          <option value=""></option>
-                                                          <option value="10.0">10</option>
-                                                          <option value="12.5">12.5</option>
-                                                          <option value="15.0">15</option>
-                                                          <option value="20.0">20</option>
-                                                          <option value="30.0">30</option>
-                                                          <option value="50.0">50</option>
-                                                      </select>
-                                                      <div *ngIf="othFSubmitted && o.inputPFIncomeTax.errors" class="invalid-feedback">
-                                                          <div *ngIf="o.inputPFIncomeTax.errors.required">PF Withdrawal Income Tax rate is required</div>
-                                                      </div>
-                                                      <label for="inputPFIncomeTax">Tax Rate</label>
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <!--PF Income ends    -->
-                                  </div>
-                                  <!--other income Upload Form starts here-->
-                                  <div class="tab-pane fade" id="income-other-upload" role="tabpanel" [ngClass]="{ 'show': step2_income_other_upload == true , 'active': step2_income_other_upload == true }">
-                                      <div class="row form-group mb-0">
-                                          <div class="col">
-                                              <h6>Upload Other Income document</h6>
-                                          </div>
-                                      </div>
-                                      <div class="row">
-                                          <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <div class="input-group prepend custom-file-wrap">
-                                                    <div class="d-flex">
-                                                      <div class="d-flex">
-                                                          <div class="input-group-prepend">
-                                                              <span class="input-group-text">Choose File</span>
-                                                          </div>
-                                                          <div class="custom-file">
-                                                              <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="uploadOtherIncomeProofFile" formControlName="uploadOtherIncomeProofFile">
-                                                              <label class="custom-file-label" for="uploadOtherIncomeProofFile">No File Chosen</label>
-                                                          </div>
-                                                      </div>
+                                        <!--Dependent Income start    -->
+                                        <div class="boxBorderHeader my-5 position-relative">
+                                            <div class="text-uppercase boxHeader text-center">
+                                                <span class="d-inline-block"><h6>Dependent Income</h6></span>
+                                            </div>
+                                            <div class="boxBody">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="floating-label">
+                                                                <div class="input-group prepend">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">₹</div>
+                                                                    </div>
+                                                                    <input type="text" class="form-control" id="inputDepAmount" formControlName="inputDepAmount" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputDepAmount.errors}">
+                                                                    <div *ngIf="othFSubmitted && o.inputDepAmount.errors" class="invalid-feedback">
+                                                                        <div *ngIf="o.inputDepAmount.errors.pattern">Dependent amount is invalid</div>
+                                                                    </div>
+                                                                    <label for="inputDepPersonRel">Dependent Income </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-4">
-                                              <div class="form-group ">
-                                                  <input type="text" class="form-control" id="filepassword" formControlName="uploadOtherIncomeFilePwd">
-                                                  <label for="filepassword">Enter Document Password</label>
-                                              </div>
-                                          </div>
-                                          <div class="col">
-                                              <div class="form-group">
-                                                  <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div class="row">
-                                          <div class="col-6">
-                                              <input type="hidden" class="form-control" id="uploadOtherIncomeProofFlag" formControlName="uploadOtherIncomeProofFlag"  [ngClass]="{ 'is-invalid': othFSubmitted && o.uploadOtherIncomeProofFlag.errors}">
-                                              <div *ngIf="othFSubmitted && o.uploadOtherIncomeProofFlag.errors" class="invalid-feedback">
-                                                  <div *ngIf="o.uploadOtherIncomeProofFlag.errors.required">Please upload proof documents. Also enter the password if form16 is protected else type "NA"</div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <!--other income Upload Form ends here-->
-                                
+                                                    <div class="col-md-6">
+                                                        <div class="form-group floating-label">
+                                                            <input type="text" class="form-control" id="inputDepPersonName" formControlName="inputDepPersonName" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputDepPersonName.errors}">
+                                                            <div *ngIf="othFSubmitted && o.inputDepPersonName.errors" class="invalid-feedback">
+                                                                <div *ngIf="o.inputDepPersonName.errors.pattern">Dependent Person name is invalid</div>
+                                                            </div>
+                                                            <label for="inputDepPersonRel">Dependent Name </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group floating-label customDropdown">
+                                                            <select id="inputDepPersonRel" class="form-control" formControlName="inputDepPersonRel" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputDepPersonRel.errors}" >
+                                                                <option value=""></option>
+                                                                <option value="spouse">Spouse</option>
+                                                                <option value="father">Father</option>
+                                                                <option value="mother">Mother</option>
+                                                                <option value="son">Son</option>
+                                                                <option value="daughter">Daughter</option>
+                                                            </select>
+                                                            <div *ngIf="othFSubmitted && o.inputDepPersonRel.errors" class="invalid-feedback">
+                                                                <div *ngIf="o.inputDepPersonRel.errors.required">Dependent person relationship is required</div>
+                                                            </div>
+                                                            <label for="inputDepPersonRel">Dependent Relationship </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group floating-label customDropdown">
+                                                            <select id="inputDepIncomeNature" class="form-control" formControlName="inputDepIncomeNature" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputDepIncomeNature.errors}" >
+                                                                <option value=""></option>
+                                                                <option value="interest">Interest</option>
+                                                                <option value="dividend">Dividend</option>
+                                                                <option value="others">Other Source</option>
+                                                            </select>
+                                                            <div *ngIf="othFSubmitted && o.inputDepIncomeNature.errors" class="invalid-feedback">
+                                                                <div *ngIf="o.inputDepIncomeNature.errors.required">Dependent Income Nature is required</div>
+                                                            </div>
+                                                            <label for="inputDepIncomeNature">Nature of Income </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="assetsLists">
+                                                    <table class="table table-bordered">
+                                                        <thead class="thead-light">
+                                                        <tr>
+                                                            <th scope="col">Sl.No</th>
+                                                            <th scope="col">Amount</th>
+                                                            <th scope="col">Name of Person</th>
+                                                            <th scope="col">Relationship</th>
+                                                            <th scope="col">Nature of Income</th>
+                                                            <th scope="col">Actions</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <th scope="row">1</th>
+                                                            <td>₹ 12,22,233</td>
+                                                            <td>Test</td>
+                                                            <td>Spouse</td>
+                                                            <td>Interest</td>
+                                                            <td>
+                                                            <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-pencil"></i> Edit</a>
+                                                            <a class="btn btn-primary btn-sm" href="#" role="button"><i class="icon-trash"></i> Delete</a>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <!--Dependent Income ends    -->
+                                      
+                                        <!--PF Income start    -->
+                                        <div class="boxBorderHeader my-5 position-relative">
+                                            <div class="text-uppercase boxHeader text-center">
+                                                <span class="d-inline-block"><h6>PF Withdrawal Income & Tax Rate</h6></span>
+                                            </div>
+                                            <div class="boxBody">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group floating-label customDropdown">
+                                                            <select name="taxperiod" class="form-control" id="taxperiod" formControlName="taxperiod" [ngClass]="{ 'is-invalid': submitted && f.taxperiod.errors}">
+                                                                <option [disabled]="taxperiod != selAssYear" [value]="taxperiod" *ngFor="let taxperiod of taxperiods" [selected]="taxperiod == selAssYear">{{taxperiod}}</option>
+                                                            </select>
+                                                            <label for="taxperiod">Select Assessment Year</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group mb-0">
+                                                            <div class=floating-label>
+                                                                <div class="input-group prepend">
+                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-text">₹</div>
+                                                                </div>
+                                                                <input type="text" class="form-control" id="inputPFIncome" formControlName="inputPFIncome" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputPFIncome.errors}">
+                                                                <div *ngIf="othFSubmitted && o.inputPFIncome.errors" class="invalid-feedback">
+                                                                    <div *ngIf="o.inputPFIncome.errors.pattern">PF Withdrawal Income is invalid</div>
+                                                                </div>
+                                                                <label for="inputPFIncome">Withdrawal Income Benefit</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group mb-0">
+                                                            <div class=floating-label>
+                                                                <div class="input-group prepend">
+                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-text">₹</div>
+                                                                </div>
+                                                                <input type="text" class="form-control" id="inputPFTax" formControlName="inputPFTax" [ngClass]="{ 'is-invalid': othFSubmitted && o.inputPFTax.errors}">
+                                                                <div *ngIf="othFSubmitted && o.inputPFTax.errors" class="invalid-feedback">
+                                                                    <div *ngIf="o.inputPFTax.errors.pattern">PF Withdrawal Tax amount is invalid</div>
+                                                                </div>
+                                                                <label for="inputPFTax">Withdrawal Tax Benefit</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!--PF Income ends    -->
+                                    </div>
+                                    
+                                    <!--other income Upload Form starts here-->
+                                    <div class="tab-pane fade" id="income-other-upload" role="tabpanel" [ngClass]="{ 'show': step2_income_other_upload == true , 'active': step2_income_other_upload == true }">
+                                        <div class="row form-group mb-0">
+                                            <div class="col">
+                                                <h6>Upload Other Income document</h6>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="input-group prepend custom-file-wrap">
+                                                    <div class="d-flex">
+                                                        <div class="d-flex">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">Choose File</span>
+                                                            </div>
+                                                            <div class="custom-file">
+                                                                <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="uploadOtherIncomeProofFile" formControlName="uploadOtherIncomeProofFile">
+                                                                <label class="custom-file-label" for="uploadOtherIncomeProofFile">No File Chosen</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group floating-label">
+                                                    <input type="text" class="form-control" id="filepassword" formControlName="uploadOtherIncomeFilePwd">
+                                                    <label for="filepassword">Enter Document Password</label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <input type="hidden" class="form-control" id="uploadOtherIncomeProofFlag" formControlName="uploadOtherIncomeProofFlag"  [ngClass]="{ 'is-invalid': othFSubmitted && o.uploadOtherIncomeProofFlag.errors}">
+                                                <div *ngIf="othFSubmitted && o.uploadOtherIncomeProofFlag.errors" class="invalid-feedback">
+                                                    <div *ngIf="o.uploadOtherIncomeProofFlag.errors.required">Please upload proof documents. Also enter the password if form16 is protected else type "NA"</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--other income Upload Form ends here-->
                                 </div>
                             </form>
                         </div>   
@@ -698,7 +803,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                         <input type="text" class="form-control" id="inpSelfOccPropFlatNo" formControlName="inpSelfOccPropFlatNo" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropFlatNo.errors}">
                                                         <div *ngIf="houFSubmitted && h.inpSelfOccPropFlatNo.errors" class="invalid-feedback">
                                                             <div *ngIf="h.inpSelfOccPropFlatNo.errors.required">Flat or Block.no is required</div>
@@ -708,7 +813,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                         <input type="text" class="form-control" id="inpSelfOccPropPremise" formControlName="inpSelfOccPropPremise" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropPremise.errors}">
                                                         <div *ngIf="houFSubmitted && h.inpSelfOccPropPremise.errors" class="invalid-feedback">
                                                             <div *ngIf="h.inpSelfOccPropPremise.errors.required">Premises or Building name is required</div>
@@ -721,7 +826,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                         <input type="text" class="form-control" id="inpSelfOccPropArea" formControlName="inpSelfOccPropArea" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropArea.errors}">
                                                         <div *ngIf="houFSubmitted && h.inpSelfOccPropArea.errors" class="invalid-feedback">
                                                             <div *ngIf="h.inpSelfOccPropArea.errors.required">Area or Locality is required</div>
@@ -731,7 +836,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                         <input type="text" class="form-control" id="inpSelfOccPropStreet" formControlName="inpSelfOccPropStreet" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropStreet.errors}">
                                                         <div *ngIf="houFSubmitted && h.inpSelfOccPropStreet.errors" class="invalid-feedback">
                                                             <div *ngIf="h.inpSelfOccPropStreet.errors.required">Road or Street name is required</div>
@@ -743,7 +848,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                         <input type="text" class="form-control" id="inpSelfOccPropCity" formControlName="inpSelfOccPropCity" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropCity.errors}">
                                                         <div *ngIf="houFSubmitted && h.inpSelfOccPropCity.errors" class="invalid-feedback">
                                                             <div *ngIf="h.inpSelfOccPropCity.errors.required">City/Town/District name is required</div>
@@ -753,7 +858,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                         <input type="text" class="form-control" id="inpSelfOccPropPincode" formControlName="inpSelfOccPropPincode" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropPincode.errors}">
                                                         <div *ngIf="houFSubmitted && h.inpSelfOccPropPincode.errors" class="invalid-feedback">
                                                             <div *ngIf="h.inpSelfOccPropPincode.errors.required">Pincode is required</div>
@@ -823,17 +928,6 @@
                                                             <label for="inpSelfOccPropCountry">Country</label>
                                                         </div>
                                                     </div>
-                                                    <!-- <div class="col">
-                                                        <div class="form-group  customDropdown">
-                                                        <select id="IncomeSourcesDetails_PropertyAddressDetails_PropertyType" name="select2" class="form-control">
-                                                            <option value=""></option>
-                                                            <option value="1">Self Occupied</option>
-                                                            <option value="2">Rented</option>
-                                                            <option value="3">Vacant</option>>
-                                                        </select>
-                                                        <label for="">Property Type <span class="text-danger required">*</span></label>
-                                                        </div>
-                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -846,7 +940,7 @@
                                                 <p class="text-muted text-center">If you have a housing loan against a house you live in (Self Occupied property) then you can claim a tax deduction of upto Rs. 2,00,000.</p>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group  customDropdown">
+                                                        <div class="form-group floating-label customDropdown">
                                                             <select id="inpSelfOccPropLoanFlag" class="form-control" formControlName="inpSelfOccPropLoanFlag" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfOccPropLoanFlag.errors}" (change)="disbaleLoanAmount($event)">
                                                                 <option value="1">Yes</option>
                                                                 <option value="0">No</option>
@@ -887,7 +981,7 @@
                                             <div class="boxBody">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group  customDropdown">
+                                                        <div class="form-group floating-label customDropdown">
                                                             <select id="inpCOFlag" class="form-control" formControlName="inpCOFlag" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpCOFlag.errors}">
                                                             <option value="1">Yes</option>
                                                             <option value="0">No</option>
@@ -899,7 +993,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                         <input type="text" class="form-control" id="" formControlName="inpSelfShare" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpSelfShare.errors}">
                                                         <div *ngIf="houFSubmitted && h.inpSelfShare.errors" class="invalid-feedback">
                                                             <div *ngIf="h.inpSelfShare.errors.required">Your Ownership Share is required</div>
@@ -919,7 +1013,7 @@
                                             <div class="boxBody">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                             <input type="text" class="form-control" id="inpCOName" formControlName="inpCOName" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpCOName.errors}">
                                                             <div *ngIf="houFSubmitted && h.inpCOName.errors" class="invalid-feedback">
                                                                 <div *ngIf="h.inpCOName.errors.required">Co Owner Name is required</div>
@@ -930,7 +1024,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                             <input type="text" class="form-control" id="inpCOPan" formControlName="inpCOPan" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpCOPan.errors}">
                                                             <div *ngIf="houFSubmitted && h.inpCOPan.errors" class="invalid-feedback">
                                                                 <div *ngIf="h.inpCOPan.errors.required">Co Owner PAN no. is required</div>
@@ -943,7 +1037,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                         <input type="text" class="form-control" id="inpCOShare" formControlName="inpCOShare" [ngClass]="{ 'is-invalid': houFSubmitted && h.inpCOShare.errors}">
                                                         <div *ngIf="houFSubmitted && h.inpCOShare.errors" class="invalid-feedback">
                                                             <div *ngIf="h.inpCOShare.errors.required">Co Owner share is required</div>
@@ -1030,7 +1124,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <div class="form-group ">
+                                                <div class="form-group floating-label">
                                                 <input type="text" class="form-control" id="uploadHousePropDocsPwd" formControlName="uploadHousePropDocsPwd">
                                                 <label for="uploadHousePropDocsPwd">Enter Document Password</label>
                                                 </div>
@@ -1085,7 +1179,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                         <input type="text" class="form-control" id="inpRentalPropFlatNo" formControlName="inpRentalPropFlatNo" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropFlatNo.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRentalPropFlatNo.errors" class="invalid-feedback">
                                                             <div *ngIf="r.inpRentalPropFlatNo.errors.required">Flat or Block.no is required</div>
@@ -1095,7 +1189,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                         <input type="text" class="form-control" id="inpRentalPropPremise" formControlName="inpRentalPropPremise" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropPremise.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRentalPropPremise.errors" class="invalid-feedback">
                                                             <div *ngIf="r.inpRentalPropPremise.errors.required">Premises or Building name is required</div>
@@ -1108,7 +1202,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                         <input type="text" class="form-control" id="inpRentalPropArea" formControlName="inpRentalPropArea" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropArea.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRentalPropArea.errors" class="invalid-feedback">
                                                             <div *ngIf="r.inpRentalPropArea.errors.required">Area or Locality is required</div>
@@ -1118,7 +1212,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                         <input type="text" class="form-control" id="inpRentalPropStreet" formControlName="inpRentalPropStreet" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropStreet.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRentalPropStreet.errors" class="invalid-feedback">
                                                             <div *ngIf="r.inpRentalPropStreet.errors.required">Road or Street name is required</div>
@@ -1130,7 +1224,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                         <input type="text" class="form-control" id="inpRentalPropCity" formControlName="inpRentalPropCity" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropCity.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRentalPropCity.errors" class="invalid-feedback">
                                                             <div *ngIf="h.inpRentalPropCity.errors.required">City/Town/District name is required</div>
@@ -1140,7 +1234,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                         <input type="text" class="form-control" id="inpRenPropPincode" formControlName="inpRenPropPincode" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRenPropPincode.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRenPropPincode.errors" class="invalid-feedback">
                                                             <div *ngIf="r.inpRenPropPincode.errors.required">Pincode is required</div>
@@ -1154,7 +1248,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group  customDropdown">
+                                                        <div class="form-group floating-label customDropdown">
                                                         <select id="inpRentalPropState" class="form-control" formControlName="inpRentalPropState" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropState.errors}">
                                                             <option value="01">Andaman and Nicobar islands</option>
                                                             <option value="02">Andhra Pradesh</option>
@@ -1200,7 +1294,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group  customDropdown">
+                                                        <div class="form-group floating-label customDropdown">
                                                             <select id="inpRentalPropCountry" class="form-control" formControlName="inpRentalPropCountry" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropCountry.errors}">
                                                                 <option value="91" >India</option>
                                                             </select>
@@ -1259,7 +1353,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                         <input type="text" class="form-control" id="inpRentalPropTenName" formControlName="inpRentalPropTenName" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropTenName.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRentalPropTenName.errors" class="invalid-feedback">
                                                             <div *ngIf="r.inpRentalPropTenName.errors.required">Tenant name is required</div>
@@ -1270,7 +1364,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                         <input type="text" class="form-control" id="inpRentalPropTenPan" formControlName="inpRentalPropTenPan" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropTenPan.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRentalPropTenPan.errors" class="invalid-feedback">
                                                             <div *ngIf="r.inpRentalPropTenPan.errors.required">Tenant PAN is required</div>
@@ -1299,7 +1393,7 @@
                                                 <!-- <p class="text-muted text-center">If you have a housing loan against a house you live in (Self Occupied property) then you can claim a tax deduction of upto Rs. 2,00,000.</p> -->
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group  customDropdown">
+                                                        <div class="form-group floating-label customDropdown">
                                                             <select id="inpRentalPropLoanFlag" class="form-control" formControlName="inpRentalPropLoanFlag" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRentalPropLoanFlag.errors}">
                                                                 <option value="1">Yes</option>
                                                                 <option value="0">No</option>
@@ -1340,7 +1434,7 @@
                                             <div class="boxBody">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group  customDropdown">
+                                                        <div class="form-group floating-label customDropdown">
                                                             <select id="inpRenCOFlag" class="form-control" formControlName="inpRenCOFlag" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRenCOFlag.errors}">
                                                             <option value="1">Yes</option>
                                                             <option value="0">No</option>
@@ -1352,7 +1446,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                         <input type="text" class="form-control" id="inpRenSelfShare" formControlName="inpRenSelfShare" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRenSelfShare.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRenSelfShare.errors" class="invalid-feedback">
                                                             <div *ngIf="r.inpRenSelfShare.errors.required">Co ownership share percentage is required</div>
@@ -1363,7 +1457,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group mb-0">
-                                                        <div class=" ">
+                                                        <div class="floating-label">
                                                             <div class="input-group prepend">
                                                             <div class="input-group-prepend">
                                                                 <div class="input-group-text">₹</div>
@@ -1391,7 +1485,7 @@
                                             <div class="boxBody">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                             <input type="text" class="form-control" id="inpRenCOName" formControlName="inpRenCOName" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRenCOName.errors}">
                                                             <div *ngIf="renFSubmitted && r.inpRenCOName.errors" class="invalid-feedback">
                                                                 <div *ngIf="r.inpRenCOName.errors.required">Co owner name is required</div>
@@ -1402,7 +1496,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                             <input type="text" class="form-control" id="inpRenCOPan" formControlName="inpRenCOPan" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRenCOPan.errors}">
                                                             <div *ngIf="renFSubmitted && r.inpRenCOPan.errors" class="invalid-feedback">
                                                                 <div *ngIf="r.inpRenCOPan.errors.required">Co owner PAN no. is required</div>
@@ -1415,7 +1509,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group ">
+                                                        <div class="form-group floating-label">
                                                         <input type="text" class="form-control" id="inpRenCOShare" formControlName="inpRenCOShare" [ngClass]="{ 'is-invalid': renFSubmitted && r.inpRenCOShare.errors}">
                                                         <div *ngIf="renFSubmitted && r.inpRenCOShare.errors" class="invalid-feedback">
                                                             <div *ngIf="r.inpRenCOShare.errors.required">Co owner Share is required</div>
@@ -1501,7 +1595,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <div class="form-group ">
+                                                <div class="form-group floating-label">
                                                 <input type="text" class="form-control" id="uploadRentalPropDocsPwd" formControlName="uploadRentalPropDocsPwd">
                                                 <label for="uploadRentalPropDocsPwd">Enter Document Password</label>
                                                 </div>
@@ -1529,116 +1623,189 @@
                         <!--Captial Gain starts-->
                         <div class="tab-pane fade" id="income-capital-gain" role="tabpanel" [ngClass]="{ 'show': step5 == true , 'active': step5 == true }">
                             <form id="captialIncomeForm" [formGroup]="captialIncomeForm">
-                                <div class="row form-group mb-0">
-                                    <div class="col">
-                                        <h6>Did you sell any asset (shares, property, house, land, building, etc) between the period of April 1, 2017 to March 31, 2018? </h6>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group mb-2">
-                                          <label for="" class="mb-0 mt-2">1. Detail of Sale of Shares/Debentures</label>
+                                <ul class="nav nav-tabs scrollTabs" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="captial_data_tab" data-toggle="tab" href="#captial_data" role="tab" (click)="select_step5_subpart_form('captial_data')" [class.active]="step5_captial_data == true" aria-selected="false">Captial Gain Details</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="captial_upload_tab" data-toggle="tab" href="#captial_upload" role="tab" (click)="select_step5_subpart_form('captial_upload')" [class.active]="step5_captial_upload == true"  aria-selected="true">Upload Proof Documents</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade" id="captial_data" role="tabpanel" [ngClass]="{ 'show': step5_captial_data == true , 'active': step5_captial_data == true }">
+                                        <div class="row form-group mb-0">
+                                            <div class="col">
+                                                <h6>Did you sell any asset (shares, property, house, land, building, etc) between the period of April 1, 2017 to March 31, 2018? </h6>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group floating-label customDropdown">
+                                                    <select id="inpSaleType" class="form-control" formControlName="inpSaleType">
+                                                        <option value="shares">Shares</option>
+                                                        <option value="property">Property</option>
+                                                        <option value="land">Land</option>
+                                                        <option value="building">Building</option>
+                                                        <option value="others">Others</option>
+                                                    </select>
+                                                    <label for="inpSaleType">Type Of Sale</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group floating-label">
+                                                    <input type="text" class="form-control" id="inputSalesProceed" formControlName="inputSalesProceed">
+                                                    <label for="inputSalesProceed">Sales Consideration Amount</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group floating-label">
+                                                    <input type="text" class="form-control" id="inputSalesDate" formControlName="inputSalesDate">
+                                                    <label for="inputSalesDate">Date Of Sale</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group floating-label customDropdown">
+                                                    <select id="inpSTTPaid" class="form-control" formControlName="inpSTTPaid">
+                                                        <option value="Yes">Yes</option>
+                                                        <option value="No">No</option>
+                                                    </select>
+                                                    <label for="inpSTTPaid">STT Paid</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group floating-label">
+                                                    <input type="text" class="form-control" id="inputCostBasis" formControlName="inputCostBasis">
+                                                    <label for="inputCostBasis">Cost Basis</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group floating-label">
+                                                    <input type="text" class="form-control" id="inputPurDate" formControlName="inputPurDate">
+                                                    <label for="inputPurDate">Date Of Purchase</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group mb-2">
-                                          <div class="input-group prepend custom-file-wrap">
-                                              <div class="input-group-prepend">
-                                              <span class="input-group-text">Choose File</span>
-                                              </div>
-                                              <div class="custom-file">
-                                                  <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="shareuploader" class="custom-file-input" id="uploadShareIncomeProof" formControlName="uploadShareIncomeProof">  
-                                                  <label class="custom-file-label" for="uploadShareIncomeProof">No File Chosen</label>
-                                              </div>
-                                          </div>
+
+                                    <div class="tab-pane fade" id="captial_upload" role="tabpanel" [ngClass]="{ 'show': step5_captial_upload == true , 'active': step5_captial_upload == true }">
+                                        <div class="row form-group mb-0">
+                                            <div class="col">
+                                                <h6>Upload Proof document</h6>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group mb-2">
+                                                <label for="" class="mb-0 mt-2">1. Detail of Sale of Shares/Debentures</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group mb-2">
+                                                <div class="input-group prepend custom-file-wrap">
+                                                    <div class="input-group-prepend">
+                                                    <span class="input-group-text">Choose File</span>
+                                                    </div>
+                                                    <div class="custom-file">
+                                                        <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="shareuploader" class="custom-file-input" id="uploadShareIncomeProof" formControlName="uploadShareIncomeProof">  
+                                                        <label class="custom-file-label" for="uploadShareIncomeProof">No File Chosen</label>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <button type="button" (click)="shareuploader.uploadAll()" [disabled]="!shareuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group mb-2">
+                                                <label for="" class="mb-0 mt-2">2. Detail of Sale of Land or Building</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group mb-2">
+                                                <div class="input-group prepend custom-file-wrap">
+                                                    <div class="input-group-prepend">
+                                                    <span class="input-group-text">Choose File</span>
+                                                    </div>
+                                                    <div class="custom-file">
+                                                        <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="landuploader" class="custom-file-input" id="uploadLandSaleIncomeProof" formControlName="uploadLandSaleIncomeProof">
+                                                        <label class="custom-file-label" for="uploadLandSaleIncomeProof">No File Chosen</label>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <button type="button" (click)="landuploader.uploadAll()" [disabled]="!landuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group mb-2">
+                                                <label for="" class="mb-0 mt-2">3. Detail of Sale of Any Other Asset</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group mb-2">
+                                                <div class="input-group prepend custom-file-wrap">
+                                                    <div class="input-group-prepend">
+                                                    <span class="input-group-text">Choose File</span>
+                                                    </div>
+                                                    <div class="custom-file">
+                                                        <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="assetuploader" class="custom-file-input" id="uploadAssestSaleIncomeProof" formControlName="uploadAssestSaleIncomeProof">
+                                                        <label class="custom-file-label" for="uploadAssestSaleIncomeProof">No File Chosen</label>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <button type="button" (click)="assetuploader.uploadAll()" [disabled]="!assetuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group mb-2">
+                                                <label for="" class="mb-0 mt-2">4. Detail of Sale of Mutual Funds</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group mb-2">
+                                                <div class="input-group prepend custom-file-wrap">
+                                                    <div class="input-group-prepend">
+                                                    <span class="input-group-text">Choose File</span>
+                                                    </div>
+                                                    <div class="custom-file">
+                                                        <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="mfuploader" class="custom-file-input" id="uploadMFSaleIncomeProof" formControlName="uploadMFSaleIncomeProof" >
+                                                        <label class="custom-file-label" for="uploadMFSaleIncomeProof">No File Chosen</label>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <button type="button" (click)="mfuploader.uploadAll()" [disabled]="!mfuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class = "row">
+                                            <input type="hidden" class="custom-file-input" id="uploadShareIncomeProofFlag" formControlName="uploadShareIncomeProofFlag">
+                                            <input type="hidden" class="custom-file-input" id="uploadLandSaleIncomeProofFlag" formControlName="uploadLandSaleIncomeProofFlag">
+                                            <input type="hidden" class="custom-file-input" id="uploadAssestSaleIncomeProofFlag" formControlName="uploadAssestSaleIncomeProofFlag">
+                                            <input type="hidden" class="custom-file-input" id="uploadMFSaleIncomeProofFlag" formControlName="uploadMFSaleIncomeProofFlag">
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <button type="button" (click)="shareuploader.uploadAll()" [disabled]="!shareuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group mb-2">
-                                          <label for="" class="mb-0 mt-2">2. Detail of Sale of Land or Building</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group mb-2">
-                                          <div class="input-group prepend custom-file-wrap">
-                                              <div class="input-group-prepend">
-                                              <span class="input-group-text">Choose File</span>
-                                              </div>
-                                              <div class="custom-file">
-                                                  <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="landuploader" class="custom-file-input" id="uploadLandSaleIncomeProof" formControlName="uploadLandSaleIncomeProof">
-                                                  <label class="custom-file-label" for="uploadLandSaleIncomeProof">No File Chosen</label>
-                                              </div>
-                                          </div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <button type="button" (click)="landuploader.uploadAll()" [disabled]="!landuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group mb-2">
-                                          <label for="" class="mb-0 mt-2">3. Detail of Sale of Any Other Asset</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group mb-2">
-                                          <div class="input-group prepend custom-file-wrap">
-                                              <div class="input-group-prepend">
-                                              <span class="input-group-text">Choose File</span>
-                                              </div>
-                                              <div class="custom-file">
-                                                  <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="assetuploader" class="custom-file-input" id="uploadAssestSaleIncomeProof" formControlName="uploadAssestSaleIncomeProof">
-                                                  <label class="custom-file-label" for="uploadAssestSaleIncomeProof">No File Chosen</label>
-                                              </div>
-                                          </div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <button type="button" (click)="assetuploader.uploadAll()" [disabled]="!assetuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group mb-2">
-                                          <label for="" class="mb-0 mt-2">4. Detail of Sale of Mutual Funds</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group mb-2">
-                                          <div class="input-group prepend custom-file-wrap">
-                                              <div class="input-group-prepend">
-                                              <span class="input-group-text">Choose File</span>
-                                              </div>
-                                              <div class="custom-file">
-                                                  <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="mfuploader" class="custom-file-input" id="uploadMFSaleIncomeProof" formControlName="uploadMFSaleIncomeProof" >
-                                                  <label class="custom-file-label" for="uploadMFSaleIncomeProof">No File Chosen</label>
-                                              </div>
-                                          </div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <button type="button" (click)="mfuploader.uploadAll()" [disabled]="!mfuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class = "row">
-                                    <input type="hidden" class="custom-file-input" id="uploadShareIncomeProofFlag" formControlName="uploadShareIncomeProofFlag">
-                                    <input type="hidden" class="custom-file-input" id="uploadLandSaleIncomeProofFlag" formControlName="uploadLandSaleIncomeProofFlag">
-                                    <input type="hidden" class="custom-file-input" id="uploadAssestSaleIncomeProofFlag" formControlName="uploadAssestSaleIncomeProofFlag">
-                                    <input type="hidden" class="custom-file-input" id="uploadMFSaleIncomeProofFlag" formControlName="uploadMFSaleIncomeProofFlag">
                                 </div>
                             </form>
                         </div>

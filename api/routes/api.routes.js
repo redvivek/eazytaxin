@@ -42,6 +42,7 @@ route.post('/tax/savePersonalInfo', taxService.savePersonalInfoByAppId);
 route.post('/tax/saveAddressInfo', taxService.saveAddressInfoByAppId);
 route.post('/tax/saveBankDetails', taxService.saveBankDetailsByAppId);
 route.post('/tax/saveAssestsInfo', taxService.saveAssestsInfoByAppId);
+route.post('/tax/updateAssestsInfo', taxService.updateAssestsInfoByAppId);
 route.post('/tax/saveImmAssestsInfo', taxService.saveImmAssestsInfoByAppId);
 
 route.post('/tax/appPersonalDetails',taxService.fetchPersonalInfoByAppId);
@@ -70,6 +71,7 @@ route.get('/tax/fetchReportInXML', taxService.fetchITRReportInXML);
 route.get('/tax/fetchDocPreview', taxService.fetchDocPreview);*/
 route.post('/tax/fetchDashboardInfo', taxService.fetchDashboardInfo);
 route.post('/tax/fetchInProgApps', taxService.fetchInProgressAppsByUserid);
+route.post('/tax/fetchAppInfo',taxService.fetchAppInfo);
 
 
 route.post('/tax/getInfoFromXML',parseService.getInfoFromXML);

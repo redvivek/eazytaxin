@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     ALDetailsId: {
       type: DataTypes.INTEGER(10),
-      allowNull: false
+      allowNull: true
     },
     ApplicationId: {
       type: DataTypes.INTEGER(10),

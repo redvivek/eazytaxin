@@ -54,7 +54,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     Gender: {
       type: DataTypes.STRING(10),
-      allowNull: false
+      allowNull: true
     },
     EmployerName: {
       type: DataTypes.STRING(20),
