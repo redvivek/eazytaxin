@@ -591,7 +591,9 @@
                               </div>
                               <div class="row">
                                 <div class="col-6">
-                                  <button type="button" (click)="addNewRow()" class="btn btn-outline-primary btn-sm">Add Bank <i class="fas fa-plus mx-2"></i></button>
+                                  <div class="form-group">
+                                    <button type="button" (click)="addNewRow()" class="btn btn-outline-primary btn-sm">Add Bank <i class="fas fa-plus mx-2"></i></button>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -617,15 +619,15 @@
                     <!--Assets Info Form Open-->
                     <div class="tab-pane fade" id="personal-details-assests" role="tabpanel" [ngClass]="{ 'show': step5 == true , 'active': step5 == true }">
                       <ul class="nav nav-tabs" id="myTab" role="tablist">
-                          <li class="nav-item">
-                            <a class="nav-link active" id="immovable-assets-tab" (click)="select_step5_subform_part('immovable')" [class.active]="step5_immovable == true" data-toggle="tab" href="#immovable-assets" role="tab" aria-selected="true">Immovable Assets</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link " id="movable-assets-tab" (click)="select_step5_subform_part('movable')" [class.active]="step5_movable == true" data-toggle="tab" href="#movable-assets" role="tab" aria-selected="false">Movable Assets</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link " id="foreign-assets-tab" (click)="select_step5_subform_part('foreign')" [class.active]="step5_foreign == true" data-toggle="tab" href="#foreign-assets" role="tab" aria-selected="false">Foreign Assets</a>
-                          </li>
+                        <li class="nav-item">
+                          <a class="nav-link active" id="immovable-assets-tab" (click)="select_step5_subform_part('immovable')" [class.active]="step5_immovable == true" data-toggle="tab" href="#immovable-assets" role="tab" aria-selected="true">Immovable Assets</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link " id="movable-assets-tab" (click)="select_step5_subform_part('movable')" [class.active]="step5_movable == true" data-toggle="tab" href="#movable-assets" role="tab" aria-selected="false">Movable Assets</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link " id="foreign-assets-tab" (click)="select_step5_subform_part('foreign')" [class.active]="step5_foreign == true" data-toggle="tab" href="#foreign-assets" role="tab" aria-selected="false">Foreign Assets</a>
+                        </li>
                       </ul>
                         
                       <div class="tab-content" id="myTabContent">
@@ -1044,21 +1046,18 @@
                               <div class="col">
                                 <h6>Upload Foreign Assets Details</h6>
                               </div>
-                              <div class="col">
-                                <button type="button" (click)="downloadSample('forAssetsSampleFile')" class="btn btn-link btn-lg btn-skip btnLink">Download Sample File</button>
-                              </div>
                             </div>
                             <div class="row">
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <div class="input-group prepend custom-file-wrap">
-                                    <div class="d-flex">
-                                      <!-- <div class="input-group-prepend">
+                                    <div class="d-flex flex-fill">
+                                      <div class="input-group-prepend">
                                         <span class="input-group-text">Choose File</span>
-                                      </div> -->
+                                      </div>
                                       <div class="custom-file">
-                                        <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" ng2FileSelect [uploader]="uploader" class="custom-file-label input-group-text" id="uploadForeignAssetsFile" formControlName="uploadForeignAssetsFile" >
-                                        <!-- <label class="custom-file-label" for="uploadForeignAssetsFile">No File Chosen</label> -->
+                                        <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="uploadForeignAssetsFile" formControlName="uploadForeignAssetsFile" >
+                                        <label class="custom-file-label" for="uploadForeignAssetsFile">No File Chosen</label>
                                       </div>
                                     </div>
                                   </div>
@@ -1079,15 +1078,23 @@
                             </div>
                             <div class="row">
                               <div class="col-sm-6">
-                                <div>
-                                    File upload progress:
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
-                                    </div>
+                                <div class="form-group">
+                                  File upload progress:
+                                  <div class="progress">
+                                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <button type="button" (click)="downloadSample('forAssetsSampleFile')" class="btn btn-secondary btn-lg btn-skip btnLink">
+                                    <i class="icon-cloud-upload"></i> Download Sample File
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
                             <!--Button Part open -->
                             <div class="form-actions d-flex stickyFooterForm affix">
                               <div class="left mr-auto">
@@ -1102,7 +1109,6 @@
                             </div>
                             <!--Button Part closed -->
                           </form>
-
                         </div>
                       </div>
                     </div>

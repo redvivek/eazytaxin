@@ -181,9 +181,9 @@
 
 }
 @media (max-width: 420px) {
-	.custom-file-wrap>.d-flex{flex-wrap:wrap; }
+	.custom-file-wrap > .d-flex{flex-wrap:wrap; flex:1 1 auto;}
 	.custom-file-wrap .input-group-prepend{display:none;}
-	.custom-file-wrap .custom-file{margin-left:0;}
+	.custom-file-wrap .custom-file{margin-left:0; max-width:100%;}
 	.homepage .testimonialSection .testimonial{padding:0 50px; margin-top:0; font-size:15px;}
 	.homepage .testimonialSection .testimonial:before,
 	.homepage .testimonialSection .testimonial:after{font-size:35px; }

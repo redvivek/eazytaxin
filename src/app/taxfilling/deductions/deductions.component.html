@@ -171,29 +171,31 @@
                                   Medical Insurance Premium for you, your spouse, or dependent children <span class="text-danger required">*</span>
                                 </label>
                                 <div class="col-md-3">
-                                    <div class="form-group floating-label customDropdown">
-                                      <select id="inpMIReln" class="form-control" formControlName="inpMIReln">
-                                          <option value="SNF">Self And Family</option>
-                                          <option value="SCNF">Self(Senior Citizen) And Family</option>
-                                          <option value="P">Parents</option>
-                                          <option value="PSC">Parents(Senior Citizen)</option>
-                                          <option value="SNFWP">Self and Family including parents</option>
-                                          <option value="SNFWSCP">Self and Family including (senior citizen) parents</option>
-                                          <option value="SCNFWSCP">Self (Senior citizen) Including family (Senior Citizen)</option>
-                                      </select>
-                                      <label for="inpMIReln">Relation</label>
-                                    </div>
+                                  <div class="form-group floating-label customDropdown">
+                                    <select id="inpMIReln" class="form-control" formControlName="inpMIReln">
+                                        <option value="SNF">Self And Family</option>
+                                        <option value="SCNF">Self(Senior Citizen) And Family</option>
+                                        <option value="P">Parents</option>
+                                        <option value="PSC">Parents(Senior Citizen)</option>
+                                        <option value="SNFWP">Self and Family including parents</option>
+                                        <option value="SNFWSCP">Self and Family including (senior citizen) parents</option>
+                                        <option value="SCNFWSCP">Self (Senior citizen) Including family (Senior Citizen)</option>
+                                    </select>
+                                    <label for="inpMIReln">Relation</label>
+                                  </div>
                                 </div>
                                 <div class="col-md-3">
-                                  <div class="input-group prepend position-relative">
-                                    <div class="input-group-prepend">
-                                      <div class="input-group-text">₹</div>
+                                  <div class="form-group">
+                                    <div class="input-group prepend position-relative">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text">₹</div>
+                                      </div>
+                                      <input type="text" class="form-control" id="selfMedInsPremium" formControlName="selfMedInsPremium" [ngClass]="{ 'is-invalid': mainFSubmitted && m.selfMedInsPremium.errors}">
+                                      <div *ngIf="mainFSubmitted && m.selfMedInsPremium.errors" class="invalid-feedback">
+                                          <div *ngIf="m.selfMedInsPremium.errors.required">Medical Insurance Premium Amount is required</div>
+                                      </div>
+                                      <label for=""></label>
                                     </div>
-                                    <input type="text" class="form-control" id="selfMedInsPremium" formControlName="selfMedInsPremium" [ngClass]="{ 'is-invalid': mainFSubmitted && m.selfMedInsPremium.errors}">
-                                    <div *ngIf="mainFSubmitted && m.selfMedInsPremium.errors" class="invalid-feedback">
-                                        <div *ngIf="m.selfMedInsPremium.errors.required">Medical Insurance Premium Amount is required</div>
-                                    </div>
-                                    <label for=""></label>
                                   </div>
                                 </div>
                               </div>
@@ -216,15 +218,17 @@
                                   </div>
                                 </div>
                                 <div class="col-md-3">
-                                  <div class="input-group prepend position-relative">
-                                    <div class="input-group-prepend">
-                                      <div class="input-group-text">₹</div>
+                                  <div class="form-group">
+                                    <div class="input-group prepend position-relative">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text">₹</div>
+                                      </div>
+                                      <input type="text" class="form-control" id="depHealthCheckupFees" formControlName="depHealthCheckupFees" [ngClass]="{ 'is-invalid': mainFSubmitted && m.depHealthCheckupFees.errors}">
+                                      <div *ngIf="mainFSubmitted && m.depHealthCheckupFees.errors" class="invalid-feedback">
+                                          <div *ngIf="m.depHealthCheckupFees.errors.required">Preventive Health Checkup Fees is required</div>
+                                      </div>
+                                      <label for=""></label>
                                     </div>
-                                    <input type="text" class="form-control" id="depHealthCheckupFees" formControlName="depHealthCheckupFees" [ngClass]="{ 'is-invalid': mainFSubmitted && m.depHealthCheckupFees.errors}">
-                                    <div *ngIf="mainFSubmitted && m.depHealthCheckupFees.errors" class="invalid-feedback">
-                                        <div *ngIf="m.depHealthCheckupFees.errors.required">Preventive Health Checkup Fees is required</div>
-                                    </div>
-                                    <label for=""></label>
                                   </div>
                                 </div>
                               </div>
@@ -250,15 +254,17 @@
                                   </div>
                                 </div>
                                 <div class="col-md-3">
-                                  <div class="input-group prepend position-relative">
-                                    <div class="input-group-prepend">
-                                      <div class="input-group-text">₹</div>
+                                  <div class="form-group">
+                                    <div class="input-group prepend position-relative">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text">₹</div>
+                                      </div>
+                                      <input type="text" class="form-control" id="parentsMedInsPremium" formControlName="parentsMedInsPremium" [ngClass]="{ 'is-invalid':  mainFSubmitted && m.parentsMedInsPremium.errors}">
+                                      <div *ngIf="mainFSubmitted && m.parentsMedInsPremium.errors" class="invalid-feedback">
+                                          <div *ngIf="m.parentsMedInsPremium.errors.required">Parents Medical Insurance Premium Amount is required</div>
+                                      </div>
+                                      <label for=""></label>
                                     </div>
-                                    <input type="text" class="form-control" id="parentsMedInsPremium" formControlName="parentsMedInsPremium" [ngClass]="{ 'is-invalid':  mainFSubmitted && m.parentsMedInsPremium.errors}">
-                                    <div *ngIf="mainFSubmitted && m.parentsMedInsPremium.errors" class="invalid-feedback">
-                                        <div *ngIf="m.parentsMedInsPremium.errors.required">Parents Medical Insurance Premium Amount is required</div>
-                                    </div>
-                                    <label for=""></label>
                                   </div>
                                 </div>
                               </div>
@@ -898,7 +904,7 @@
                             <div class="col-md-6">
                               <div class="form-group">
                                 <div class="input-group prepend custom-file-wrap">
-                                  <div class="d-flex">
+                                  <div class="d-flex flex-fill">
                                     <div class="input-group-prepend">
                                       <span class="input-group-text">Choose File</span>
                                     </div>

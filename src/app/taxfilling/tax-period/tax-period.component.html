@@ -64,31 +64,38 @@
                       </h6>
                     </div>
                   </div>
-                  <div class="row" *ngIf="showUploadField">
-                    <div class="col">
-                      <div class="upload-file">
+                  <div class="row form-group" *ngIf="showUploadField">
+                      <div class="col-md-6">
                         <div class="form-group">
                           <div class="input-group custom-file-wrap">
-                            <div class="d-flex">
-                              <!-- <div class="input-group-prepend">
-                                <span class="input-group-text">Choose File</span>
-                              </div> -->
+                            <div class="d-flex flex-fill">
+                              <div class="input-group-prepend">
+                                <label for="uploadPreFillXMLFile" class="input-group-text">Choose File</label>
+                              </div>
                               <div class="custom-file">
-                                <input type="file" accept=".xml" ng2FileSelect [uploader]="uploader" class="custom-control input-group-text" id="uploadPreFillXMLFile" formControlName="uploadPreFillXMLFile" [ngClass]="{ 'is-invalid': submitted && f.uploadPreFillXMLFile.errors}">
+                                <input type="file" accept=".xml" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="uploadPreFillXMLFile" formControlName="uploadPreFillXMLFile" [ngClass]="{ 'is-invalid': submitted && f.uploadPreFillXMLFile.errors}">
                                 <!-- <label class="custom-file-label" for="uploadPreFillXMLFile">No File Chosen</label> -->
+                                <label class="custom-file-label" for="uploadPreFillXMLFile">No File Chosen</label>
                                 <input type="hidden" class="custom-file-input" id="uploadPreFillXMLFlag" formControlName="uploadPreFillXMLFlag" [ngClass]="{ 'is-invalid': submitted && f.uploadPreFillXMLFlag.errors}" />
                                 <div *ngIf="submitted && f.uploadPreFillXMLFlag.errors" class="invalid-feedback">
                                   <div *ngIf="f.uploadPreFillXMLFlag.errors.required">Please upload the prefilled xml file</div>
                                 </div>
                               </div>
                             </div>
-                            <div class="upload-btn">
-                              <button type="button" class="btn btn-danger" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" >Upload</button>
-                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                      <div class="col-md-4">
+                        <div class="form-group floating-label">
+                          <input type="text" class="form-control" id="">
+                          <label for="">Enter Document Password</label>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="form-group">
+                          <button type="button" class="btn btn-danger" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" >Upload</button>
+                        </div>
+                      </div>
                   </div>
                   <div class="row" *ngIf="showUploadField">
                     <div class="col-md-6">

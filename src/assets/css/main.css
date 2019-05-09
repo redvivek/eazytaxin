@@ -302,7 +302,7 @@ a:hover{text-decoration:none;}
 /* Custom File */
 .custom-file-wrap .input-group-prepend{cursor:pointer;}
 .custom-file-wrap .input-group-text{background-color:#00d689; border-radius:0; color:#FFF; font-size:14px; }
-.custom-file-wrap .custom-file{margin-left:25px; max-width:286px;}
+.custom-file-wrap .custom-file{margin-left:25px;}
 .custom-file-wrap .upload-btn{padding-left:25px; }
 .custom-file-wrap .custom-file-label{border:none; font-size:16px; border-bottom:1px solid #707070; border-radius:0; padding-left:0;}
 .custom-file-wrap .custom-file-label::after{display:none;}
@@ -312,7 +312,7 @@ a:hover{text-decoration:none;}
 
 
 /* Custom Dropdown */
-.customDropdown .form-control{-webkit-appearance: none;-moz-appearance: none;appearance: none;}
+.customDropdown .form-control{-webkit-appearance: none;-moz-appearance: none;appearance: none; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding-right:25px;}
 .customDropdown select[disabled]{color:rgba(0,0,0,.3);}
 .customDropdown select[disabled]::after{color:rgba(0,0,0,.1);}
 .customDropdown select:-moz-focusring {color: transparent;text-shadow: 0 0 0 #000;}
@@ -348,8 +348,7 @@ a:hover{text-decoration:none;}
 /* Movale Assets  */
 .assetsLists article{margin-bottom:45px;}
 .assetsLists article:last-child{margin-bottom:0;}
-.assetsLists .form-group{padding-top:0; margin-bottom:15px;}
-.assetsLists .form-group.customDropdown{padding-top:16px; margin-bottom:30px;}
+.assetsLists .form-group{margin-bottom:15px;}
 .assetsLists .form-group .col-form-label{padding-top:15px; padding-bottom:0;}
 
 /* Login Register */
