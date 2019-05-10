@@ -879,6 +879,14 @@ exports.saveSalIncomeInfoByAppId = (req,res) => {
     let salamount = req.body.salamount;
     let inputEmployertype = req.body.employertype;
     let employertan = req.body.employerTan;
+    let allowances = req.body.allowances!= "" ? parseFloat(req.body.allowances) : 0.00;
+    let valPrequisties = req.body.valPrequisties!= "" ? parseFloat(req.body.valPrequisties) : 0.00;
+    let inputSalProfits = req.body.inputSalProfits!= "" ? parseFloat(req.body.inputSalProfits) : 0.00;
+    let deductionEnter = req.body.deductionEnter!= "" ? parseFloat(req.body.deductionEnter) : 0.00;
+    let inputLTAAmount = req.body.inputLTAAmount!= "" ? parseFloat(req.body.inputLTAAmount) : 0.00;
+    let nonMoneyPrequisties = req.body.nonMoneyPrequisties!= "" ? parseFloat(req.body.nonMoneyPrequisties) : 0.00;
+    let expAllowanceHR = req.body.expAllowanceHR!= "" ? parseFloat(req.body.expAllowanceHR) : 0.00;
+    let othAllowance = req.body.othAllowance!= "" ? parseFloat(req.body.othAllowance) : 0.00;
 
     SalariedIncome.findOne(
 		{ where: {UserId:userid,ApplicationId: appid} }
@@ -890,8 +898,8 @@ exports.saveSalIncomeInfoByAppId = (req,res) => {
                 where: { IncomeSourceSalId: resultData.IncomeSourceSalId}
             }).then(() => {
                 console.log('deleted successfully with id = ' + resultData.IncomeSourceSalId);
-                sequelize.query("INSERT INTO `et_income_salary`(ApplicationId,UserId,Form16UploadFlag,SalaryPaidAmount,EmployerName,EmployerCategory,EmployerTAN,CompletionStatus) VALUES (?,?,?,?,?,?,?,?)",{
-                    replacements: [appid,userid,uploadDocFlag,salamount,employernm,inputEmployertype,employertan,'Yes'],
+                sequelize.query("INSERT INTO `et_income_salary`(ApplicationId,UserId,SalaryPaidAmount,EmployerName,EmployerCategory,EmployerTAN,Allowances,ValPrequisties,SalProfits,EntertainmentDeduction,LTAAmount,NMoneyPrequisties,ExpAllowanceHR,OthAllowance,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,salamount,employernm,inputEmployertype,employertan,allowances,valPrequisties,inputSalProfits,deductionEnter,inputLTAAmount,nonMoneyPrequisties,expAllowanceHR,othAllowance,'Yes'],
                     type: sequelize.QueryTypes.INSERT 
                 }).then(result => {		
                     console.log("Result AppId  "+result[0]);
@@ -906,10 +914,9 @@ exports.saveSalIncomeInfoByAppId = (req,res) => {
                 });
             });
         } else {
-			//res.status(200);
 			//Save to et_income_salary table */
-			sequelize.query("INSERT INTO `et_income_salary`(ApplicationId,UserId,Form16UploadFlag,SalaryPaidAmount,EmployerName,EmployerCategory,EmployerTAN,CompletionStatus) VALUES (?,?,?,?,?,?,?,?)",{
-                replacements: [appid,userid,uploadDocFlag,salamount,employernm,inputEmployertype,employertan,'Yes'],
+			sequelize.query("INSERT INTO `et_income_salary`(ApplicationId,UserId,SalaryPaidAmount,EmployerName,EmployerCategory,EmployerTAN,Allowances,ValPrequisties,SalProfits,EntertainmentDeduction,LTAAmount,NMoneyPrequisties,ExpAllowanceHR,OthAllowance,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,salamount,employernm,inputEmployertype,employertan,allowances,valPrequisties,inputSalProfits,deductionEnter,inputLTAAmount,nonMoneyPrequisties,expAllowanceHR,othAllowance,'Yes'],
                 type: sequelize.QueryTypes.INSERT 
             }).then(result => {		
                 console.log("Result AppId  "+result[0]);
@@ -934,9 +941,10 @@ exports.saveOthIncomeInfoByAppId = (req,res) => {
     //let inputdata = req.body;
     let appid = req.body.appId;
     let userid = req.body.userId;
-    let uploadDocFlag = req.body.uploadDocFlag;
     let savingsIncome = req.body.savingsIncome!= "" ? parseFloat(req.body.savingsIncome) : 0.00;
     let fdincome = req.body.fdincome!= "" ? parseFloat(req.body.fdincome) : 0.00;
+    let refundIncome = req.body.refundIncome!= "" ? parseFloat(req.body.refundIncome) : 0.00;
+    let OtherIntIncome = req.body.OtherIntIncome!= "" ? parseFloat(req.body.OtherIntIncome) : 0.00;
     let othericnome = req.body.othericnome!= "" ? parseFloat(req.body.othericnome) : 0.00;
     let shareincome = req.body.shareincome!= "" ? parseFloat(req.body.shareincome) : 0.00;
     let exemptincome = req.body.exemptincome!= "" ? parseFloat(req.body.exemptincome) : 0.00;
@@ -948,6 +956,7 @@ exports.saveOthIncomeInfoByAppId = (req,res) => {
     let depname = req.body.depname;
     let deprelation = req.body.deprelation;
     let depincomeNature = req.body.depincomeNature;
+    let taxperiod = req.body.taxperiod;
     let pfincome = req.body.pfincome!= "" ? parseFloat(req.body.pfincome) : 0.00;
     let pfincometax = req.body.pfincometax!= "" ? parseFloat(req.body.pfincometax) : 0.00;
 
@@ -961,8 +970,8 @@ exports.saveOthIncomeInfoByAppId = (req,res) => {
                 where: { IncomeSourceOthersId: resultData.IncomeSourceOthersId}
             }).then(() => {
                 console.log('deleted successfully with id = ' + resultData.IncomeSourceOthersId);
-                sequelize.query("INSERT INTO `et_income_others`(ApplicationId,UserId,DocumentUploadFlag,SavingsInterestAmount,FDInterestAmount,GiftsIncome,DividendEarnedAmount,ExemptInterestIncome,OtherExemptIncome,GrossAgriIncome,AgriExpenditure,AgriLoss,PFWithdrawalIncome,PFWithdrawalTaxrate,CompletionStatus,updatedAt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                    replacements: [appid,userid,uploadDocFlag,savingsIncome,fdincome,othericnome,shareincome,exemptincome,otherexemptincome,agriincome,agriexpend,agriloss,pfincome,pfincometax,'Yes',formattedDT],
+                sequelize.query("INSERT INTO `et_income_others`(ApplicationId,UserId,SavingsInterestAmount,FDInterestAmount,GiftsIncome,DividendEarnedAmount,ExemptInterestIncome,OtherExemptIncome,GrossAgriIncome,AgriExpenditure,AgriLoss,PFWithdrawalIncome,PFWithdrawalTaxrate,CompletionStatus,updatedAt,Taxperiod,RefundInterestIncome,OtherInterestIncome) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,savingsIncome,fdincome,othericnome,shareincome,exemptincome,otherexemptincome,agriincome,agriexpend,agriloss,pfincome,pfincometax,'Yes',formattedDT,taxperiod,refundIncome,OtherIntIncome],
                     type: sequelize.QueryTypes.INSERT 
                 }).then(result => {		
                     console.log("Result AppId  "+result[0]);
@@ -974,10 +983,9 @@ exports.saveOthIncomeInfoByAppId = (req,res) => {
                 });
             });
         } else {
-			//res.status(200);
 			//Save to et_income_others table */
-			sequelize.query("INSERT INTO `et_income_others`(ApplicationId,UserId,DocumentUploadFlag,SavingsInterestAmount,FDInterestAmount,GiftsIncome,DividendEarnedAmount,ExemptInterestIncome,OtherExemptIncome,GrossAgriIncome,AgriExpenditure,AgriLoss,PFWithdrawalIncome,PFWithdrawalTaxrate,CompletionStatus,createdAt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                replacements: [appid,userid,uploadDocFlag,savingsIncome,fdincome,othericnome,shareincome,exemptincome,otherexemptincome,agriincome,agriexpend,agriloss,pfincome,pfincometax,'Yes',formattedDT],
+			sequelize.query("INSERT INTO `et_income_others`(ApplicationId,UserId,SavingsInterestAmount,FDInterestAmount,GiftsIncome,DividendEarnedAmount,ExemptInterestIncome,OtherExemptIncome,GrossAgriIncome,AgriExpenditure,AgriLoss,PFWithdrawalIncome,PFWithdrawalTaxrate,CompletionStatus,updatedAt,Taxperiod,RefundInterestIncome,OtherInterestIncome) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,savingsIncome,fdincome,othericnome,shareincome,exemptincome,otherexemptincome,agriincome,agriexpend,agriloss,pfincome,pfincometax,'Yes',formattedDT,taxperiod,refundIncome,OtherIntIncome],
                 type: sequelize.QueryTypes.INSERT 
             }).then(result => {		
                 console.log("Result AppId  "+result[0]);
@@ -1045,7 +1053,6 @@ exports.saveHouseIncomeInfoByAppId = (req,res) => {
     let appid = req.body.appId;
     let userid = req.body.userId;
     let propType = "Houseprop";
-    let uploadDocFlag = req.body.uploadDocFlag;
     let flatno = req.body.flatno;
     let premises = req.body.premises;
     let street = req.body.street;
@@ -1072,8 +1079,8 @@ exports.saveHouseIncomeInfoByAppId = (req,res) => {
                 where: { IncomeHouseDetailsId: resultData.IncomeHouseDetailsId}
             }).then(() => {
                 console.log('deleted successfully with id = ' + resultData.IncomeHouseDetailsId);
-                sequelize.query("INSERT INTO `et_income_property`(ApplicationId,UserId,PropertyType,HouseloanFlag,InterestAmount,DocumentUploadFlag,CoownerFlag,OwnershipShare,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?)",{
-                    replacements: [appid,userid,propType,proploanflag,propinterestpaid,uploadDocFlag,coflag,selfshare,'Yes'],
+                sequelize.query("INSERT INTO `et_income_property`(ApplicationId,UserId,PropertyType,HouseloanFlag,InterestAmount,CoownerFlag,OwnershipShare,CompletionStatus) VALUES (?,?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,propType,proploanflag,propinterestpaid,coflag,selfshare,'Yes'],
                     type: sequelize.QueryTypes.INSERT 
                 }).then(result => {		
                     console.log("Result AppId  "+result[0]);
@@ -1086,8 +1093,8 @@ exports.saveHouseIncomeInfoByAppId = (req,res) => {
                 });
             });
         } else {
-			sequelize.query("INSERT INTO `et_income_property`(ApplicationId,UserId,PropertyType,HouseloanFlag,InterestAmount,DocumentUploadFlag,CoownerFlag,OwnershipShare,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?)",{
-                replacements: [appid,userid,propType,proploanflag,propinterestpaid,uploadDocFlag,coflag,selfshare,'Yes'],
+			sequelize.query("INSERT INTO `et_income_property`(ApplicationId,UserId,PropertyType,HouseloanFlag,InterestAmount,CoownerFlag,OwnershipShare,CompletionStatus) VALUES (?,?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,propType,proploanflag,propinterestpaid,coflag,selfshare,'Yes'],
                 type: sequelize.QueryTypes.INSERT 
             }).then(result => {		
                 console.log("Result AppId  "+result[0]);
@@ -1213,7 +1220,6 @@ exports.saveRentalIncomeInfoByAppId = (req,res) => {
     let appid = req.body.appId;
     let userid = req.body.userId;
     let propType = "Rentalprop";
-    let uploadDocFlag = req.body.uploadDocFlag;
     let flatno = req.body.flatno;
     let premises = req.body.premises;
     let street = req.body.street;
@@ -1248,8 +1254,8 @@ exports.saveRentalIncomeInfoByAppId = (req,res) => {
                 where: { IncomeHouseDetailsId: resultData.IncomeHouseDetailsId}
             }).then(() => {
                 console.log('deleted successfully with id = ' + resultData.IncomeHouseDetailsId);
-                sequelize.query("INSERT INTO `et_income_property`(ApplicationId,UserId,PropertyType,AmountReceived,HousetaxPaid,TenantName,TanantPanno,HouseloanFlag,InterestAmount,DocumentUploadFlag,UnrealizedRentAmount,CoownerFlag,OwnershipShare,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                    replacements: [appid,userid,propType,rentAmountRcvd,rentHouseTaxPaid,rentalTenantNm,rentalTenantPan,rentalPropLoanFlag,rentalpropInterestPaid,uploadDocFlag,unRealizedRent,coflag,selfshare,'Yes'],
+                sequelize.query("INSERT INTO `et_income_property`(ApplicationId,UserId,PropertyType,AmountReceived,HousetaxPaid,TenantName,TanantPanno,HouseloanFlag,InterestAmount,UnrealizedRentAmount,CoownerFlag,OwnershipShare,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,propType,rentAmountRcvd,rentHouseTaxPaid,rentalTenantNm,rentalTenantPan,rentalPropLoanFlag,rentalpropInterestPaid,unRealizedRent,coflag,selfshare,'Yes'],
                     type: sequelize.QueryTypes.INSERT 
                 }).then(result => {		
                     console.log("Result AppId  "+result[0]);
@@ -1262,8 +1268,8 @@ exports.saveRentalIncomeInfoByAppId = (req,res) => {
                 });
             });
         } else {
-			sequelize.query("INSERT INTO `et_income_property`(ApplicationId,UserId,PropertyType,AmountReceived,HousetaxPaid,TenantName,TanantPanno,HouseloanFlag,InterestAmount,DocumentUploadFlag,UnrealizedRentAmount,CoownerFlag,OwnershipShare,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                replacements: [appid,userid,propType,rentAmountRcvd,rentHouseTaxPaid,rentalTenantNm,rentalTenantPan,rentalPropLoanFlag,rentalpropInterestPaid,uploadDocFlag,unRealizedRent,coflag,selfshare,'Yes'],
+			sequelize.query("INSERT INTO `et_income_property`(ApplicationId,UserId,PropertyType,AmountReceived,HousetaxPaid,TenantName,TanantPanno,HouseloanFlag,InterestAmount,UnrealizedRentAmount,CoownerFlag,OwnershipShare,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,propType,rentAmountRcvd,rentHouseTaxPaid,rentalTenantNm,rentalTenantPan,rentalPropLoanFlag,rentalpropInterestPaid,unRealizedRent,coflag,selfshare,'Yes'],
                 type: sequelize.QueryTypes.INSERT 
             }).then(result => {		
                 console.log("Result AppId  "+result[0]);
@@ -1286,10 +1292,12 @@ exports.saveCapitalIncomeInfoByAppId = (req,res) => {
     //let inputdata = req.body;
     let appid = req.body.appId;
     let userid = req.body.userId;
-    let shareIncomeFlag = req.body.shareIncomeFlag;
-    let landsaleproof = req.body.landsaleproof;
-    let assestSaleProof = req.body.assestSaleProof;
-    let MFSaleProof = req.body.MFSaleProof;
+    let inpSaleType = req.body.inpSaleType;
+    let inputSalesProceed = req.body.inputSalesProceed!= "" ? parseFloat(req.body.inputSalesProceed) : 0.00;
+    let inputSalesDate = req.body.inputSalesDate;
+    let inpSTTPaid = req.body.inpSTTPaid;
+    let inputCostBasis = req.body.inputCostBasis!= "" ? parseFloat(req.body.inputCostBasis) : 0.00;
+    let inputPurDate = req.body.inputPurDate;
 
     CapitalGainsIncome.findOne(
 		{ where: {UserId:userid,ApplicationId: appid} }
@@ -1301,8 +1309,8 @@ exports.saveCapitalIncomeInfoByAppId = (req,res) => {
                 where: { CapitalgainID: resultData.CapitalgainID}
             }).then(() => {
                 console.log('deleted successfully with id = ' + resultData.CapitalgainID);
-                sequelize.query("INSERT INTO `et_income_capitalgains`(ApplicationId,UserId,Shares_Sell_Flag,Property_Sell_Flag,Assests_Sell_Flag,MF_Sell_Flag,CompletionStatus) VALUES (?,?,?,?,?,?,?)",{
-                    replacements: [appid,userid,shareIncomeFlag,landsaleproof,assestSaleProof,MFSaleProof,'Yes'],
+                sequelize.query("INSERT INTO `et_income_capitalgains`(ApplicationId,UserId,SaleType,SalesProceedAmt,SalesDate,SalesTaxPaid,CostBasis,PurchaseDate,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,inpSaleType,inputSalesProceed,inputSalesDate,inpSTTPaid,inputCostBasis,inputPurDate,'Yes'],
                     type: sequelize.QueryTypes.INSERT 
                 }).then(result => {		
                     console.log("Result AppId  "+result[0]);
@@ -1319,8 +1327,8 @@ exports.saveCapitalIncomeInfoByAppId = (req,res) => {
         } else {
 			//res.status(200);
 			//Save to et_income_salary table */
-			sequelize.query("INSERT INTO `et_income_capitalgains`(ApplicationId,UserId,Shares_Sell_Flag,Property_Sell_Flag,Assests_Sell_Flag,MF_Sell_Flag,CompletionStatus) VALUES (?,?,?,?,?,?,?)",{
-                replacements: [appid,userid,shareIncomeFlag,landsaleproof,assestSaleProof,MFSaleProof,'Yes'],
+			sequelize.query("INSERT INTO `et_income_capitalgains`(ApplicationId,UserId,SaleType,SalesProceedAmt,SalesDate,SalesTaxPaid,CostBasis,PurchaseDate,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,inpSaleType,inputSalesProceed,inputSalesDate,inpSTTPaid,inputCostBasis,inputPurDate,'Yes'],
                 type: sequelize.QueryTypes.INSERT 
             }).then(result => {		
                 console.log("Result AppId  "+result[0]);

@@ -17,9 +17,8 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     DocumentUploadFlag: {
-      type: DataTypes.INTEGER(4),
-      allowNull: false,
-      defaultValue: '0'
+      type: DataTypes.INTEGER(1),
+      allowNull: true
     },
     SavingsInterestAmount: {
       type: DataTypes.FLOAT,
@@ -78,6 +77,18 @@ module.exports = function(sequelize, DataTypes) {
     updatedAt: {
       type: DataTypes.DATE,
       allowNull: true,
+    },
+    Taxperiod: {
+      type: DataTypes.STRING(10),
+      allowNull: true
+    },
+    RefundInterestIncome: {
+      type: DataTypes.FLOAT,
+      allowNull: true
+    },
+    OtherInterestIncome: {
+      type: DataTypes.FLOAT,
+      allowNull: true
     }
   }, {
     tableName: 'et_income_others'

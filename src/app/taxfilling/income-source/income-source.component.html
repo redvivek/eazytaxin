@@ -117,62 +117,77 @@
                     <div class="tab-content tab-wizard-content">
                         <!--income starts-->
                         <div class="tab-pane fade " id="income-salary" role="tabpanel" [ngClass]="{ 'show': step1 == true , 'active': step1 == true }">
-                            <form id="salaryIncomeForm" [formGroup]="salaryIncomeForm">
-                                <ul class="nav nav-tabs scrollTabs" id="" role="tablist">
-                                  <li class="nav-item">
-                                      <a class="nav-link active" id="income-salary-upload-tab"  data-toggle="tab" href="#income-salary-upload" role="tab" (click)="select_step1_subpart_form('income_salary_upload')" [class.active]="step1_income_salary_upload == true" aria-selected="true">Upload</a>
-                                  </li>
-                                  <li class="nav-item">
-                                      <a class="nav-link" id="income-from-salary-tab" data-toggle="tab" href="#income-from-salary" role="tab" (click)="select_step1_subpart_form('income_from_salary')" [class.active]="step1_income_from_salary == true" aria-selected="false">Income from Salary</a>
-                                  </li>
-                                </ul>
-                                <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade active show" id="income-salary-upload" role="tabpanel" [ngClass]="{ 'show': step1_income_salary_upload == true , 'active': step1_income_salary_upload == true }">
+                            <ul class="nav nav-tabs scrollTabs" id="" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="income-salary-upload-tab"  data-toggle="tab" href="#income-salary-upload" role="tab" (click)="select_step1_subpart_form('income_salary_upload')" [class.active]="step1_income_salary_upload == true" aria-selected="true">Upload</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="income-from-salary-tab" data-toggle="tab" href="#income-from-salary" role="tab" (click)="select_step1_subpart_form('income_from_salary')" [class.active]="step1_income_from_salary == true" aria-selected="false">Income from Salary</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade active show" id="income-salary-upload" role="tabpanel" [ngClass]="{ 'show': step1_income_salary_upload == true , 'active': step1_income_salary_upload == true }">
+                                    <form id="salaryIncomeUploadForm" [formGroup]="salaryIncomeUploadForm">
                                         <div class="row form-group mb-0">
-                                          <div class="col">
+                                            <div class="col">
                                             <h6>Select your Form 16 document</h6>
-                                          </div>
+                                            </div>
                                         </div>
                                         <div class="row uploader">
-                                          <div class="col-md-6">
-                                            <div class="form-group">
-                                              <div class="input-group custom-file-wrap">
-                                                <div class="d-flex flex-fill">
-                                                  <div class="input-group-prepend">
-                                                    <span class="input-group-text">Choose File</span>
-                                                  </div>
-                                                  <div class="custom-file">
-                                                    <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="uploadForm16File" formControlName="uploadForm16File" >
-                                                    <label class="custom-file-label" for="uploadForm16File">No File Chosen</label>
-                                                  </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="input-group custom-file-wrap">
+                                                        <div class="d-flex flex-fill">
+                                                            <!-- <div class="input-group-prepend">
+                                                                <span class="input-group-text">Choose File</span>
+                                                            </div> -->
+                                                            <div class="custom-file">
+                                                                <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="input-group-text" id="uploadForm16File" formControlName="uploadForm16File" >
+                                                                <!-- <label class="custom-file-label" for="uploadForm16File">No File Chosen</label> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                              </div>
                                             </div>
-                                          </div>
-                                          <div class="col-md-4">
-                                            <div class="form-group floating-label">
-                                              <input type="text" class="form-control" id="uploadFilePassword" formControlName="uploadFilePassword" >
-                                              <label for="uploadFilePassword">Enter Document Password</label>
+                                            <div class="col-md-4">
+                                                <div class="form-group floating-label">
+                                                    <input type="text" class="form-control" id="uploadFilePassword" formControlName="uploadFilePassword" >
+                                                    <label for="uploadFilePassword">Enter Document Password</label>
+                                                </div>
                                             </div>
-                                          </div>
-                                          <div class="col">
-                                            <div class="form-group">
-                                              <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                                                </div>
                                             </div>
-                                          </div>
                                         </div>
                                         <div class="row">
-                                          <div class="col-6">
+                                            <div class="col-6">
                                             <input type="hidden" class="form-control" id="uploadForm16FileFlag" formControlName="uploadForm16FileFlag">
-                                          </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="income-from-salary" role="tabpanel" [ngClass]="{ 'show': step1_income_from_salary == true , 'active': step1_income_from_salary == true }">
+                                        <!--Button Part open -->
+                                        <div class="form-actions d-flex stickyFooterForm affix">
+                                            <div class="left mr-auto">
+                                            <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="on_reset_click('step1_income_salary_upload')">Reset</button>
+                                            </div>
+                                            <div class="right ml-auto">
+                                            <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step1_income_salary_upload')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
+                                            <button type="button" (click)="on_skip_click('step1_income_salary_upload')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
+                                            <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step1_income_salary_upload')">Save</button>
+                                            <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                            </div>
+                                        </div>
+                                        <!--Button Part closed -->
+                                    </form>
+                                </div>
+                                <div class="tab-pane fade" id="income-from-salary" role="tabpanel" [ngClass]="{ 'show': step1_income_from_salary == true , 'active': step1_income_from_salary == true }">
+                                    <form id="salaryIncomeForm" [formGroup]="salaryIncomeForm">
                                         <div class="row form-group mb-0">
-                                          <div class="col">
+                                            <div class="col">
                                             <h6>Income Chargeable under the head 'Salaries'</h6>
                                             <small>In your Form16, find this information under part-B - Details of salary paid(Heading 6)</small>
-                                          </div>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
@@ -224,7 +239,7 @@
                                                     <input type="text" class="form-control" id="emptan" formControlName="inputEmpTAN" [ngClass]="{ 'is-invalid': salFSubmitted && s.inputEmpTAN.errors}">
                                                     <div *ngIf="salFSubmitted && s.inputEmpTAN.errors" class="invalid-feedback">
                                                         <div *ngIf="s.inputEmpTAN.errors.required">Employer TAN is required</div>
-                                                        <div *ngIf="s.inputEmpTAN.errors.pattern">Invalid amount entered</div>
+                                                        <div *ngIf="s.inputEmpTAN.errors.pattern">Invalid TAN entered</div>
                                                     </div>
                                                     <label for="emptan">Employer TAN <span class="text-danger required">*</span></label>
                                                 </div>
@@ -322,27 +337,40 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <!--Button Part open -->
+                                        <div class="form-actions d-flex stickyFooterForm affix">
+                                            <div class="left mr-auto">
+                                                <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="on_reset_click('step1_income_from_salary')">Reset</button>
+                                            </div>
+                                            <div class="right ml-auto">
+                                                <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step1_income_from_salary')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
+                                                <button type="button" (click)="on_skip_click('step1_income_from_salary')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
+                                                <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step1_income_from_salary')">Save</button>
+                                                <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                            </div>
+                                        </div>
+                                        <!--Button Part closed -->
+                                    </form>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                         <!--income ends-->
 
                         <!--Otherincome starts-->  
                         <div class="tab-pane fade" id="income-other" role="tabpanel" [ngClass]="{ 'show': step2 == true , 'active': step2 == true }">
-                            <form id="otherIncomeForm" [formGroup]="otherIncomeForm">
-                                <ul class="nav nav-tabs scrollTabs" id="myTab" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="income-other-interest-income-tab" data-toggle="tab" href="#income-other-data" role="tab" (click)="select_step2_subpart_form('income_other_data')" [class.active]="step2_income_other_data == true" aria-selected="false">Other Income Sources</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="income-other-upload-tab" data-toggle="tab" href="#income-other-upload" role="tab" (click)="select_step2_subpart_form('income_other_upload')" [class.active]="step2_income_other_upload == true"  aria-selected="true">Upload Proof Documents</a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content" id="myTabContent">
-
-                                    <!--Data Form starts here-->
-                                    <div class="tab-pane fade active show" id="income-other-data" role="tabpanel" [ngClass]="{ 'show': step2_income_other_data == true , 'active': step2_income_other_data == true }">
+                            
+                            <ul class="nav nav-tabs scrollTabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="income-other-interest-income-tab" data-toggle="tab" href="#income-other-data" role="tab" (click)="select_step2_subpart_form('income_other_data')" [class.active]="step2_income_other_data == true" aria-selected="false">Other Income Sources</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="income-other-upload-tab" data-toggle="tab" href="#income-other-upload" role="tab" (click)="select_step2_subpart_form('income_other_upload')" [class.active]="step2_income_other_upload == true"  aria-selected="true">Upload Proof Documents</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <!--Data Form starts here-->
+                                <div class="tab-pane fade active show" id="income-other-data" role="tabpanel" [ngClass]="{ 'show': step2_income_other_data == true , 'active': step2_income_other_data == true }">
+                                    <form id="otherIncomeForm" [formGroup]="otherIncomeForm">
                                         <!--Interest Income starts-->
                                         <div class="boxBorderHeader my-5 position-relative">
                                             <div class="text-uppercase boxHeader text-center">
@@ -415,7 +443,7 @@
                                             </div>
                                         </div>
                                         <!--Interest Income ends-->
-                                  
+                                    
                                         <!--Other Income starts-->
                                         <div class="boxBorderHeader my-5 position-relative">
                                             <div class="text-uppercase boxHeader text-center">
@@ -445,7 +473,7 @@
                                             </div>
                                         </div>
                                         <!--Other Income ends-->
-                                  
+                                    
                                         <!--Exempt Income starts-->
                                         <div class="boxBorderHeader my-5 position-relative">
                                             <div class="text-uppercase boxHeader text-center">
@@ -507,7 +535,7 @@
                                             </div>
                                         </div>
                                         <!--Exempt Income ends-->
-                                  
+                                    
                                         <!--Agri Income starts-->
                                         <div class="boxBorderHeader my-5 position-relative">
                                             <div class="text-uppercase boxHeader text-center">
@@ -569,7 +597,7 @@
                                             </div>
                                         </div>
                                         <!--Agri Income ends    -->
-                                  
+                                    
                                         <!--Dependent Income start    -->
                                         <div class="boxBorderHeader my-5 position-relative">
                                             <div class="text-uppercase boxHeader text-center">
@@ -665,7 +693,7 @@
                                             </div>
                                         </div>
                                         <!--Dependent Income ends    -->
-                                      
+                                        
                                         <!--PF Income start    -->
                                         <div class="boxBorderHeader my-5 position-relative">
                                             <div class="text-uppercase boxHeader text-center">
@@ -720,27 +748,43 @@
                                             </div>
                                         </div>
                                         <!--PF Income ends    -->
-                                    </div>
-                                    
-                                    <!--other income Upload Form starts here-->
-                                    <div class="tab-pane fade" id="income-other-upload" role="tabpanel" [ngClass]="{ 'show': step2_income_other_upload == true , 'active': step2_income_other_upload == true }">
+
+                                        <!--Button Part open -->
+                                        <div class="form-actions d-flex stickyFooterForm affix">
+                                            <div class="left mr-auto">
+                                                <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="on_reset_click('step2_income_other_data')">Reset</button>
+                                            </div>
+                                            <div class="right ml-auto">
+                                                <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step2_income_other_data')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
+                                                <button type="button" (click)="on_skip_click('step2_income_other_data')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
+                                                <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step2_income_other_data')">Save</button>
+                                                <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                            </div>
+                                        </div>
+                                        <!--Button Part closed -->
+                                    </form>
+                                </div>
+                                
+                                <!--other income Upload Form starts here-->
+                                <div class="tab-pane fade" id="income-other-upload" role="tabpanel" [ngClass]="{ 'show': step2_income_other_upload == true , 'active': step2_income_other_upload == true }">
+                                    <form id="otherIncomeUploadForm" [formGroup]="otherIncomeUploadForm">
                                         <div class="row form-group mb-0">
                                             <div class="col">
                                                 <h6>Upload Other Income document</h6>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row otheruploader">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <div class="input-group prepend custom-file-wrap">
                                                     <div class="d-flex">
                                                         <div class="d-flex">
-                                                            <div class="input-group-prepend">
+                                                            <!-- <div class="input-group-prepend">
                                                                 <span class="input-group-text">Choose File</span>
-                                                            </div>
+                                                            </div> -->
                                                             <div class="custom-file">
-                                                                <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="uploadOtherIncomeProofFile" formControlName="uploadOtherIncomeProofFile">
-                                                                <label class="custom-file-label" for="uploadOtherIncomeProofFile">No File Chosen</label>
+                                                                <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="otheruploader" class="input-group-text" id="uploadOtherIncomeProofFile" formControlName="uploadOtherIncomeProofFile">
+                                                                <!-- <label class="custom-file-label" for="uploadOtherIncomeProofFile">No File Chosen</label> -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -755,39 +799,51 @@
                                             </div>
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                                                    <button type="button" (click)="otheruploader.uploadAll()" [disabled]="!otheruploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-6">
-                                                <input type="hidden" class="form-control" id="uploadOtherIncomeProofFlag" formControlName="uploadOtherIncomeProofFlag"  [ngClass]="{ 'is-invalid': othFSubmitted && o.uploadOtherIncomeProofFlag.errors}">
-                                                <div *ngIf="othFSubmitted && o.uploadOtherIncomeProofFlag.errors" class="invalid-feedback">
-                                                    <div *ngIf="o.uploadOtherIncomeProofFlag.errors.required">Please upload proof documents. Also enter the password if form16 is protected else type "NA"</div>
-                                                </div>
+                                                <input type="hidden" class="form-control" id="uploadOtherIncomeProofFlag" formControlName="uploadOtherIncomeProofFlag">
                                             </div>
                                         </div>
-                                    </div>
-                                    <!--other income Upload Form ends here-->
+
+                                        <!--Button Part open -->
+                                        <div class="form-actions d-flex stickyFooterForm affix">
+                                            <div class="left mr-auto">
+                                                <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="on_reset_click('step2_income_other_upload')">Reset</button>
+                                            </div>
+                                            <div class="right ml-auto">
+                                                <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step2_income_other_upload')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
+                                                <button type="button" (click)="on_skip_click('step2_income_other_upload')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
+                                                <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step2_income_other_upload')">Save</button>
+                                                <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                            </div>
+                                        </div>
+                                        <!--Button Part closed -->
+                                    </form>
                                 </div>
-                            </form>
+                                <!--other income Upload Form ends here-->
+                            </div>
                         </div>   
                         <!--Otherincome ends-->  
 
                         <!--Property starts-->    
                         <div class="tab-pane fade" id="income-house-property" role="tabpanel" [ngClass]="{ 'show': step3 == true , 'active': step3 == true }">
-                            <form id="housePropIncomeForm" [formGroup]="housePropIncomeForm">
-                                <ul class="nav nav-tabs scrollTabs" id="myTab" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="house_property_data_tab" data-toggle="tab" href="#house_property_data" role="tab" (click)="select_step3_subpart_form('house_property_data')" [class.active]="step3_house_property_data == true" aria-selected="false">House Property Details</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="house_property_upload_tab" data-toggle="tab" href="#house_property_upload" role="tab" (click)="select_step3_subpart_form('house_property_upload')" [class.active]="step3_house_property_upload == true"  aria-selected="true">Upload Proof Documents</a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content" id="myTabContent">
-                                    <!--House data form starts-->
-                                    <div class="tab-pane fade show active" id="house_property_data" role="tabpanel" [ngClass]="{ 'show': step3_house_property_data == true , 'active': step3_house_property_data == true }">
+                            
+                            <ul class="nav nav-tabs scrollTabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="house_property_data_tab" data-toggle="tab" href="#house_property_data" role="tab" (click)="select_step3_subpart_form('house_property_data')" [class.active]="step3_house_property_data == true" aria-selected="false">House Property Details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="house_property_upload_tab" data-toggle="tab" href="#house_property_upload" role="tab" (click)="select_step3_subpart_form('house_property_upload')" [class.active]="step3_house_property_upload == true"  aria-selected="true">Upload Proof Documents</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <!--House data form starts-->
+                                <div class="tab-pane fade show active" id="house_property_data" role="tabpanel" [ngClass]="{ 'show': step3_house_property_data == true , 'active': step3_house_property_data == true }">
+                                    <form id="housePropIncomeForm" [formGroup]="housePropIncomeForm">
                                         <div class="boxBorderHeader my-5 position-relative">
                                             <div class="text-uppercase boxHeader text-center">
                                                 <span class="d-inline-block"><h6>House Address</h6></span>
@@ -1098,29 +1154,44 @@
                                                 
                                             </div>
                                         </div>
-                                    </div>
-                                    <!--House Prop form ends-->
-                                    <!--Doc Upload starts-->
-                                    <div class="tab-pane fade" id="house_property_upload" role="tabpanel" [ngClass]="{ 'show': step3_house_property_upload == true , 'active': step3_house_property_upload == true }">
+                                        <!--Button Part open -->
+                                        <div class="form-actions d-flex stickyFooterForm affix">
+                                            <div class="left mr-auto">
+                                                <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="on_reset_click('step3_house_property_data')">Reset</button>
+                                            </div>
+                                            <div class="right ml-auto">
+                                                <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step3_house_property_data')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
+                                                <button type="button" (click)="on_skip_click('step3_house_property_data')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
+                                                <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step3_house_property_data')">Save</button>
+                                                <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                            </div>
+                                        </div>
+                                        <!--Button Part closed -->
+                                    </form>
+                                </div>
+                                <!--House Prop form ends-->
+                                <!--Doc Upload starts-->
+                                <div class="tab-pane fade" id="house_property_upload" role="tabpanel" [ngClass]="{ 'show': step3_house_property_upload == true , 'active': step3_house_property_upload == true }">
+                                    <form id="housePropIncomeUploadForm" [formGroup]="housePropIncomeUploadForm">
                                         <div class="row form-group mb-0">
                                             <div class="col">
                                                 <h6>Select document</h6>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row houseuploader">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                  <div class="input-group prepend custom-file-wrap">
+                                                    <div class="input-group prepend custom-file-wrap">
                                                     <div class="d-flex">
-                                                        <div class="input-group-prepend">
-                                                          <span class="input-group-text">Choose File</span>
-                                                        </div>
+                                                        <!-- <div class="input-group-prepend">
+                                                            <span class="input-group-text">Choose File</span>
+                                                        </div> -->
                                                         <div class="custom-file">
-                                                          <input type="file" type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="uploadHousePropDocs" formControlName="uploadHousePropDocs">
-                                                          <label class="custom-file-label" for="uploadHousePropDocs">No File Chosen</label>
+                                                            <input type="file" type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="houseuploader" class="custom-file-input" id="uploadHousePropDocs" formControlName="uploadHousePropDocs">
+                                                            <!-- <label class="custom-file-label" for="uploadHousePropDocs">No File Chosen</label> -->
                                                         </div>
                                                     </div>
-                                                  </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
@@ -1131,39 +1202,48 @@
                                             </div>
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                                                    <button type="button" (click)="houseuploader.uploadAll()" [disabled]="!houseuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class = "row">
-                                            <input type="hidden" class="custom-file-input" id="uploadHouseIncomeProofFlag" formControlName="uploadHouseIncomeProofFlag" [ngClass]="{ 'is-invalid': houFSubmitted && h.uploadHouseIncomeProofFlag.errors}">
-                                            <div *ngIf="houFSubmitted && h.uploadHouseIncomeProofFlag.errors" class="invalid-feedback">
-                                                <div *ngIf="h.uploadHouseIncomeProofFlag.errors.required">Please upload proof documents. Also enter the password if form16 is protected else type "NA"</div>
+                                            <input type="hidden" class="custom-file-input" id="uploadHouseIncomeProofFlag" formControlName="uploadHouseIncomeProofFlag" >
+                                        </div>
+                                        <!--Button Part open -->
+                                        <div class="form-actions d-flex stickyFooterForm affix">
+                                            <div class="left mr-auto">
+                                                <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="on_reset_click('step3_house_property_upload')">Reset</button>
+                                            </div>
+                                            <div class="right ml-auto">
+                                                <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step3_house_property_upload')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
+                                                <button type="button" (click)="on_skip_click('step3_house_property_upload')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
+                                                <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step3_house_property_upload')">Save</button>
+                                                <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                                             </div>
                                         </div>
-                                    </div>
-                                    <!--Doc Upload ends-->
+                                        <!--Button Part closed -->
+                                    </form>
                                 </div>
-                            </form>
+                                <!--Doc Upload ends-->
+                            </div>
                         </div>
                         <!--Property ends-->
                         
                         
                         <!--Rental Property starts-->    
                         <div class="tab-pane fade" id="income-rental-property" role="tabpanel" [ngClass]="{ 'show': step4 == true , 'active': step4 == true }">
-                            <form id="rentalPropIncomeForm" [formGroup]="rentalPropIncomeForm">
-                                <ul class="nav nav-tabs scrollTabs" id="myTab" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="rental_property_data_tab" data-toggle="tab" href="#rental_property_data" role="tab" (click)="select_step4_subpart_form('rental_property_data')" [class.active]="step4_rental_property_data == true" aria-selected="false">Rental Property Details</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="rental_property_upload_tab" data-toggle="tab" href="#rental_property_upload" role="tab" (click)="select_step4_subpart_form('rental_property_upload')" [class.active]="step4_rental_property_upload == true"  aria-selected="true">Upload Proof Documents</a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content" id="myTabContent">
-
-                                    <!--House data form starts-->
-                                    <div class="tab-pane fade show active" id="rental_property_data" role="tabpanel" [ngClass]="{ 'show': step4_rental_property_data == true , 'active': step4_rental_property_data == true }">
+                            <ul class="nav nav-tabs scrollTabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="rental_property_data_tab" data-toggle="tab" href="#rental_property_data" role="tab" (click)="select_step4_subpart_form('rental_property_data')" [class.active]="step4_rental_property_data == true" aria-selected="false">Rental Property Details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="rental_property_upload_tab" data-toggle="tab" href="#rental_property_upload" role="tab" (click)="select_step4_subpart_form('rental_property_upload')" [class.active]="step4_rental_property_upload == true"  aria-selected="true">Upload Proof Documents</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <!--House data form starts-->
+                                <div class="tab-pane fade show active" id="rental_property_data" role="tabpanel" [ngClass]="{ 'show': step4_rental_property_data == true , 'active': step4_rental_property_data == true }">
+                                    <form id="rentalPropIncomeForm" [formGroup]="rentalPropIncomeForm">
                                         <div class="boxBorderHeader my-5 position-relative">
                                             <div class="text-uppercase boxHeader text-center">
                                                 <span class="d-inline-block"><h6>Rental Property Address</h6></span>
@@ -1569,29 +1649,45 @@
                                                 </table> -->
                                             </div>
                                         </div>
-                                    </div>
-                                    <!--House Prop form ends-->
-                                    <!--Doc Upload starts-->
-                                    <div class="tab-pane fade" id="rental_property_upload" role="tabpanel" [ngClass]="{ 'show': step4_rental_property_upload == true , 'active': step4_rental_property_upload == true }">
+
+                                        <!--Button Part open -->
+                                        <div class="form-actions d-flex stickyFooterForm affix">
+                                            <div class="left mr-auto">
+                                                <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="on_reset_click('step4_rental_property_data')">Reset</button>
+                                            </div>
+                                            <div class="right ml-auto">
+                                                <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step4_rental_property_data')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
+                                                <button type="button" (click)="on_skip_click('step4_rental_property_data')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
+                                                <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step4_rental_property_data')">Save</button>
+                                                <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                            </div>
+                                        </div>
+                                        <!--Button Part closed -->
+                                    </form>
+                                </div>
+                                <!--House Prop form ends-->
+                                <!--Doc Upload starts-->
+                                <div class="tab-pane fade" id="rental_property_upload" role="tabpanel" [ngClass]="{ 'show': step4_rental_property_upload == true , 'active': step4_rental_property_upload == true }">
+                                    <form id="rentalPropIncomeUploadForm" [formGroup]="rentalPropIncomeUploadForm">
                                         <div class="row form-group mb-0">
                                             <div class="col">
                                                 <h6>Select document</h6>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row rentaluploader">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                  <div class="input-group prepend custom-file-wrap">
+                                                    <div class="input-group prepend custom-file-wrap">
                                                     <div class="d-flex">
-                                                        <div class="input-group-prepend">
-                                                          <span class="input-group-text">Choose File</span>
-                                                        </div>
+                                                        <!-- <div class="input-group-prepend">
+                                                            <span class="input-group-text">Choose File</span>
+                                                        </div> -->
                                                         <div class="custom-file">
-                                                          <input type="file" type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="uploadRentalPropDocs" formControlName="uploadRentalPropDocs">
-                                                          <label class="custom-file-label" for="uploadRentalPropDocs">No File Chosen</label>
+                                                            <input type="file" type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="rentaluploader" class="input-group-text" id="uploadRentalPropDocs" formControlName="uploadRentalPropDocs">
+                                                            <!-- <label class="custom-file-label" for="uploadRentalPropDocs">No File Chosen</label> -->
                                                         </div>
                                                     </div>
-                                                  </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
@@ -1602,37 +1698,48 @@
                                             </div>
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                                                    <button type="button" (click)="rentaluploader.uploadAll()" [disabled]="!rentaluploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class = "row">
-                                            <input type="hidden" class="custom-file-input" id="uploadRentalIncomeProofFlag" formControlName="uploadRentalIncomeProofFlag" [ngClass]="{ 'is-invalid': renFSubmitted && r.uploadRentalIncomeProofFlag.errors}">
-                                            <div *ngIf="renFSubmitted && r.uploadRentalIncomeProofFlag.errors" class="invalid-feedback">
-                                                <div *ngIf="r.uploadRentalIncomeProofFlag.errors.required">Please upload proof documents. Also enter the password if form16 is protected else type "NA"</div>
+                                            <input type="hidden" class="custom-file-input" id="uploadRentalIncomeProofFlag" formControlName="uploadRentalIncomeProofFlag" >
+                                        </div>
+
+                                        <!--Button Part open -->
+                                        <div class="form-actions d-flex stickyFooterForm affix">
+                                            <div class="left mr-auto">
+                                                <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="on_reset_click('step4_rental_property_upload')">Reset</button>
+                                            </div>
+                                            <div class="right ml-auto">
+                                                <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step4_rental_property_upload')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
+                                                <button type="button" (click)="on_skip_click('step4_rental_property_upload')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
+                                                <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step4_rental_property_upload')">Save</button>
+                                                <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                                             </div>
                                         </div>
-                                    </div>
-                                    <!--Doc Upload ends-->
-                                    
+                                        <!--Button Part closed -->
+                                    </form>
                                 </div>
-                            </form>
+                                <!--Doc Upload ends-->
+                                
+                            </div>
                         </div>
                         <!--Rental Property ends-->
 
                         <!--Captial Gain starts-->
                         <div class="tab-pane fade" id="income-capital-gain" role="tabpanel" [ngClass]="{ 'show': step5 == true , 'active': step5 == true }">
-                            <form id="captialIncomeForm" [formGroup]="captialIncomeForm">
-                                <ul class="nav nav-tabs scrollTabs" id="myTab" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="captial_data_tab" data-toggle="tab" href="#captial_data" role="tab" (click)="select_step5_subpart_form('captial_data')" [class.active]="step5_captial_data == true" aria-selected="false">Captial Gain Details</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="captial_upload_tab" data-toggle="tab" href="#captial_upload" role="tab" (click)="select_step5_subpart_form('captial_upload')" [class.active]="step5_captial_upload == true"  aria-selected="true">Upload Proof Documents</a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade" id="captial_data" role="tabpanel" [ngClass]="{ 'show': step5_captial_data == true , 'active': step5_captial_data == true }">
+                            <ul class="nav nav-tabs scrollTabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="captial_data_tab" data-toggle="tab" href="#captial_data" role="tab" (click)="select_step5_subpart_form('captial_data')" [class.active]="step5_captial_data == true" aria-selected="false">Captial Gain Details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="captial_upload_tab" data-toggle="tab" href="#captial_upload" role="tab" (click)="select_step5_subpart_form('captial_upload')" [class.active]="step5_captial_upload == true"  aria-selected="true">Upload Proof Documents</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade" id="captial_data" role="tabpanel" [ngClass]="{ 'show': step5_captial_data == true , 'active': step5_captial_data == true }">
+                                    <form id="captialIncomeForm" [formGroup]="captialIncomeForm">
                                         <div class="row form-group mb-0">
                                             <div class="col">
                                                 <h6>Did you sell any asset (shares, property, house, land, building, etc) between the period of April 1, 2017 to March 31, 2018? </h6>
@@ -1691,29 +1798,39 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <!--Button Part open -->
+                                        <div class="form-actions d-flex stickyFooterForm affix">
+                                            <div class="left mr-auto">
+                                                <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="on_reset_click('step5_captial_data')">Reset</button>
+                                            </div>
+                                            <div class="right ml-auto">
+                                                <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step5_captial_data')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
+                                                <button type="button" (click)="on_skip_click('step5_captial_data')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
+                                                <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step5_captial_data')">Save</button>
+                                                <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                            </div>
+                                        </div>
+                                        <!--Button Part closed -->
+                                    </form>
+                                </div>
 
-                                    <div class="tab-pane fade" id="captial_upload" role="tabpanel" [ngClass]="{ 'show': step5_captial_upload == true , 'active': step5_captial_upload == true }">
+                                <div class="tab-pane fade" id="captial_upload" role="tabpanel" [ngClass]="{ 'show': step5_captial_upload == true , 'active': step5_captial_upload == true }">
+                                    <form id="captialIncomeUploadForm" [formGroup]="captialIncomeUploadForm">
                                         <div class="row form-group mb-0">
                                             <div class="col">
                                                 <h6>Upload Proof document</h6>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group mb-2">
-                                                <label for="" class="mb-0 mt-2">1. Detail of Sale of Shares/Debentures</label>
-                                                </div>
-                                            </div>
+                                        <div class="row shareuploader">
                                             <div class="col-md-6">
                                                 <div class="form-group mb-2">
                                                 <div class="input-group prepend custom-file-wrap">
-                                                    <div class="input-group-prepend">
-                                                    <span class="input-group-text">Choose File</span>
-                                                    </div>
+                                                    <!-- <div class="input-group-prepend">
+                                                        <span class="input-group-text">Choose File</span>
+                                                    </div> -->
                                                     <div class="custom-file">
-                                                        <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="shareuploader" class="custom-file-input" id="uploadShareIncomeProof" formControlName="uploadShareIncomeProof">  
-                                                        <label class="custom-file-label" for="uploadShareIncomeProof">No File Chosen</label>
+                                                        <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="shareuploader" class="input-group-text" id="uploadShareIncomeProof" formControlName="uploadShareIncomeProof">  
+                                                        <!-- <label class="custom-file-label" for="uploadShareIncomeProof">No File Chosen</label> -->
                                                     </div>
                                                 </div>
                                                 </div>
@@ -1724,108 +1841,26 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group mb-2">
-                                                <label for="" class="mb-0 mt-2">2. Detail of Sale of Land or Building</label>
-                                                </div>
+
+                                        <!--Button Part open -->
+                                        <div class="form-actions d-flex stickyFooterForm affix">
+                                            <div class="left mr-auto">
+                                                <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="on_reset_click('step5_captial_upload')">Reset</button>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group mb-2">
-                                                <div class="input-group prepend custom-file-wrap">
-                                                    <div class="input-group-prepend">
-                                                    <span class="input-group-text">Choose File</span>
-                                                    </div>
-                                                    <div class="custom-file">
-                                                        <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="landuploader" class="custom-file-input" id="uploadLandSaleIncomeProof" formControlName="uploadLandSaleIncomeProof">
-                                                        <label class="custom-file-label" for="uploadLandSaleIncomeProof">No File Chosen</label>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <button type="button" (click)="landuploader.uploadAll()" [disabled]="!landuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                                </div>
+                                            <div class="right ml-auto">
+                                                <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step5_captial_upload')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
+                                                <button type="button" (click)="on_skip_click('step5_captial_upload')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
+                                                <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step5_captial_upload')">Save</button>
+                                                <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group mb-2">
-                                                <label for="" class="mb-0 mt-2">3. Detail of Sale of Any Other Asset</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group mb-2">
-                                                <div class="input-group prepend custom-file-wrap">
-                                                    <div class="input-group-prepend">
-                                                    <span class="input-group-text">Choose File</span>
-                                                    </div>
-                                                    <div class="custom-file">
-                                                        <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="assetuploader" class="custom-file-input" id="uploadAssestSaleIncomeProof" formControlName="uploadAssestSaleIncomeProof">
-                                                        <label class="custom-file-label" for="uploadAssestSaleIncomeProof">No File Chosen</label>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <button type="button" (click)="assetuploader.uploadAll()" [disabled]="!assetuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group mb-2">
-                                                <label for="" class="mb-0 mt-2">4. Detail of Sale of Mutual Funds</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group mb-2">
-                                                <div class="input-group prepend custom-file-wrap">
-                                                    <div class="input-group-prepend">
-                                                    <span class="input-group-text">Choose File</span>
-                                                    </div>
-                                                    <div class="custom-file">
-                                                        <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="mfuploader" class="custom-file-input" id="uploadMFSaleIncomeProof" formControlName="uploadMFSaleIncomeProof" >
-                                                        <label class="custom-file-label" for="uploadMFSaleIncomeProof">No File Chosen</label>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <button type="button" (click)="mfuploader.uploadAll()" [disabled]="!mfuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class = "row">
-                                            <input type="hidden" class="custom-file-input" id="uploadShareIncomeProofFlag" formControlName="uploadShareIncomeProofFlag">
-                                            <input type="hidden" class="custom-file-input" id="uploadLandSaleIncomeProofFlag" formControlName="uploadLandSaleIncomeProofFlag">
-                                            <input type="hidden" class="custom-file-input" id="uploadAssestSaleIncomeProofFlag" formControlName="uploadAssestSaleIncomeProofFlag">
-                                            <input type="hidden" class="custom-file-input" id="uploadMFSaleIncomeProofFlag" formControlName="uploadMFSaleIncomeProofFlag">
-                                        </div>
-                                    </div>
+                                        <!--Button Part closed -->
+                                    </form>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                         <!--Captial Gain ends-->
                     </div>
-                
-
-                    <!--Buttons-->
-                    <div class="form-actions d-flex stickyFooterForm affix">
-                        <div class="left mr-auto">
-                        <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" disabled="">Reset</button>&nbsp;
-                        <!-- <button type="button" class="btn btn-primary btn-lg">Skip <i class="fas fa-arrow-right"></i></button> -->
-                        </div>
-                        <div class="right ml-auto">
-                            <button type="button" [disabled]="previousButtonDisable" (click)="on_previous_click()" class="btn btn-link btn-lg btn-prev btnLink">Previous</button>
-                            <button type="button" [disabled]="nextButtonDisable" (click)="on_next_click()" class="btn btn-primary btn-lg">Save & Continue <i class="fas fa-arrow-right"></i></button>
-                            <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                    </div>
-                    </div>
-                    <!--Buttons ends-->
                 </div>
             </div>
             </div>

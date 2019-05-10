@@ -16,25 +16,29 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(10),
       allowNull: false
     },
-    Shares_Sell_Flag: {
-      type: DataTypes.INTEGER(1),
-      allowNull: false,
-      defaultValue: '0'
+    SaleType: {
+      type: DataTypes.STRING(15),
+      allowNull: true
     },
-    Property_Sell_Flag: {
-      type: DataTypes.INTEGER(1),
-      allowNull: false,
-      defaultValue: '0'
+    SalesProceedAmt: {
+      type: DataTypes.FLOAT,
+      allowNull: true
     },
-    Assests_Sell_Flag: {
-      type: DataTypes.INTEGER(1),
-      allowNull: false,
-      defaultValue: '0'
+    SalesDate: {
+      type: DataTypes.DATE,
+      allowNull: true
     },
-    MF_Sell_Flag: {
-      type: DataTypes.INTEGER(1),
-      allowNull: false,
-      defaultValue: '0'
+    SalesTaxPaid: {
+      type: DataTypes.STRING(10),
+      allowNull: true
+    },
+    CostBasis: {
+      type: DataTypes.FLOAT,
+      allowNull: true
+    },
+    PurchaseDate: {
+      type: DataTypes.DATE,
+      allowNull: true
     },
     CompletionStatus: {
       type: DataTypes.ENUM('Yes','No'),

@@ -48,7 +48,6 @@ module.exports = function(sequelize, DataTypes) {
     DocumentUploadFlag: {
       type: DataTypes.INTEGER(1),
       allowNull: true,
-      defaultValue: '0'
     },
     UnrealizedRentAmount: {
       type: DataTypes.FLOAT,

@@ -121,7 +121,7 @@ export class DashboardComponent implements OnInit,AfterViewInit {
             this.router.navigate(['/taxfilling/taxperiod']);
         else if(appArray.AppStage == 1)
            this.router.navigate(['/taxfilling/basicinfo']);
-        else if(appArray.AppStage >= 2 && appArray.AppStage < 8)
+        else if(appArray.AppStage >= 2 && appArray.AppStage < 7)
             this.router.navigate(['/taxfilling/personalinfo']);
         else if(appArray.AppStage >= 7 && appArray.AppStage < 13)
             this.router.navigate(['/taxfilling/earnings']);
