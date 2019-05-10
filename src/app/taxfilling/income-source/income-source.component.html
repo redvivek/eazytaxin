@@ -1668,37 +1668,37 @@
                               <div class="tab-pane fade" id="rental_property_upload" role="tabpanel" [ngClass]="{ 'show': step4_rental_property_upload == true , 'active': step4_rental_property_upload == true }">
                                   <form id="rentalPropIncomeUploadForm" [formGroup]="rentalPropIncomeUploadForm">
                                       <div class="row form-group mb-0">
-                                          <div class="col">
-                                              <h6>Select document</h6>
-                                          </div>
+                                        <div class="col">
+                                          <h6>Select document</h6>
+                                        </div>
                                       </div>
                                       <div class="row rentaluploader">
-                                          <div class="col-md-6">
-                                              <div class="form-group">
-                                                <div class="input-group prepend custom-file-wrap">
-                                                  <div class="d-flex flex-fill">
-                                                    <div class="input-group-prepend">
-                                                      <label for="uploadRentalPropDocs" class="input-group-text">Choose File</label>
-                                                    </div>
-                                                    <div class="custom-file">
-                                                      <input type="file" type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="rentaluploader" class="input-group-text" id="uploadRentalPropDocs" formControlName="uploadRentalPropDocs">
-                                                      <label class="custom-file-label" for="uploadRentalPropDocs">No File Chosen</label>
-                                                    </div>
-                                                  </div>
+                                        <div class="col-md-6">
+                                          <div class="form-group">
+                                            <div class="input-group prepend custom-file-wrap">
+                                              <div class="d-flex flex-fill">
+                                                <div class="input-group-prepend">
+                                                  <label for="uploadRentalPropDocs" class="input-group-text">Choose File</label>
+                                                </div>
+                                                <div class="custom-file">
+                                                  <input type="file" type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="rentaluploader" class="input-group-text" id="uploadRentalPropDocs" formControlName="uploadRentalPropDocs">
+                                                  <label class="custom-file-label" for="uploadRentalPropDocs">No File Chosen</label>
                                                 </div>
                                               </div>
+                                            </div>
                                           </div>
-                                          <div class="col-md-4">
-                                              <div class="form-group floating-label">
-                                              <input type="text" class="form-control" id="uploadRentalPropDocsPwd" formControlName="uploadRentalPropDocsPwd">
-                                              <label for="uploadRentalPropDocsPwd">Enter Document Password</label>
-                                              </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                          <div class="form-group floating-label">
+                                            <input type="text" class="form-control" id="uploadRentalPropDocsPwd" formControlName="uploadRentalPropDocsPwd">
+                                            <label for="uploadRentalPropDocsPwd">Enter Document Password</label>
                                           </div>
-                                          <div class="col">
-                                              <div class="form-group">
-                                                  <button type="button" (click)="rentaluploader.uploadAll()" [disabled]="!rentaluploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                              </div>
+                                        </div>
+                                        <div class="col">
+                                          <div class="form-group">
+                                            <button type="button" (click)="rentaluploader.uploadAll()" [disabled]="!rentaluploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
                                           </div>
+                                        </div>
                                       </div>
                                       <div class = "row">
                                           <input type="hidden" class="custom-file-input" id="uploadRentalIncomeProofFlag" formControlName="uploadRentalIncomeProofFlag" >
@@ -1706,15 +1706,15 @@
 
                                       <!--Button Part open -->
                                       <div class="form-actions d-flex stickyFooterForm affix">
-                                          <div class="left mr-auto">
-                                              <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="on_reset_click('step4_rental_property_upload')">Reset</button>
-                                          </div>
-                                          <div class="right ml-auto">
-                                              <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step4_rental_property_upload')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
-                                              <button type="button" (click)="on_skip_click('step4_rental_property_upload')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
-                                              <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step4_rental_property_upload')">Save</button>
-                                              <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                                          </div>
+                                        <div class="left mr-auto">
+                                          <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="on_reset_click('step4_rental_property_upload')">Reset</button>
+                                        </div>
+                                        <div class="right ml-auto">
+                                          <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step4_rental_property_upload')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
+                                          <button type="button" (click)="on_skip_click('step4_rental_property_upload')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
+                                          <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step4_rental_property_upload')">Save</button>
+                                          <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                        </div>
                                       </div>
                                       <!--Button Part closed -->
                                   </form>
@@ -1728,160 +1728,152 @@
                       <!--Captial Gain starts-->
                       <div class="tab-pane fade" id="income-capital-gain" role="tabpanel" [ngClass]="{ 'show': step5 == true , 'active': step5 == true }">
                           <ul class="nav nav-tabs scrollTabs" id="myTab" role="tablist">
-                              <li class="nav-item">
-                                  <a class="nav-link active" id="captial_data_tab" data-toggle="tab" href="#captial_data" role="tab" (click)="select_step5_subpart_form('captial_data')" [class.active]="step5_captial_data == true" aria-selected="false">Captial Gain Details</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link" id="captial_upload_tab" data-toggle="tab" href="#captial_upload" role="tab" (click)="select_step5_subpart_form('captial_upload')" [class.active]="step5_captial_upload == true"  aria-selected="true">Upload Proof Documents</a>
-                              </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" id="captial_data_tab" data-toggle="tab" href="#captial_data" role="tab" (click)="select_step5_subpart_form('captial_data')" [class.active]="step5_captial_data == true" aria-selected="false">Captial Gain Details</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="captial_upload_tab" data-toggle="tab" href="#captial_upload" role="tab" (click)="select_step5_subpart_form('captial_upload')" [class.active]="step5_captial_upload == true"  aria-selected="true">Upload Proof Documents</a>
+                            </li>
                           </ul>
                           <div class="tab-content" id="myTabContent">
-                              <div class="tab-pane fade" id="captial_data" role="tabpanel" [ngClass]="{ 'show': step5_captial_data == true , 'active': step5_captial_data == true }">
-                                  <form id="captialIncomeForm" [formGroup]="captialIncomeForm">
-                                      <div class="row form-group mb-0">
-                                          <div class="col">
-                                              <h6>Did you sell any asset (shares, property, house, land, building, etc) between the period of April 1, 2017 to March 31, 2018? </h6>
-                                          </div>
-                                      </div>
-                                      <div class="row">
-                                          <div class="col-md-6">
-                                              <div class="form-group floating-label customDropdown">
-                                                  <select id="inpSaleType" class="form-control" formControlName="inpSaleType">
-                                                      <option value="shares">Shares</option>
-                                                      <option value="property">Property</option>
-                                                      <option value="land">Land</option>
-                                                      <option value="building">Building</option>
-                                                      <option value="others">Others</option>
-                                                  </select>
-                                                  <label for="inpSaleType">Type Of Sale</label>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6">
-                                              <div class="form-group floating-label">
-                                                  <input type="text" class="form-control" id="inputSalesProceed" formControlName="inputSalesProceed">
-                                                  <label for="inputSalesProceed">Sales Consideration Amount</label>
-                                              </div>
-                                          </div>
-                                      </div>
+                            <div class="tab-pane fade" id="captial_data" role="tabpanel" [ngClass]="{ 'show': step5_captial_data == true , 'active': step5_captial_data == true }">
+                                <form id="captialIncomeForm" [formGroup]="captialIncomeForm">
+                                    <div class="row form-group mb-0">
+                                        <div class="col">
+                                            <h6>Did you sell any asset (shares, property, house, land, building, etc) between the period of April 1, 2017 to March 31, 2018? </h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group floating-label customDropdown">
+                                                <select id="inpSaleType" class="form-control" formControlName="inpSaleType">
+                                                    <option value="shares">Shares</option>
+                                                    <option value="property">Property</option>
+                                                    <option value="land">Land</option>
+                                                    <option value="building">Building</option>
+                                                    <option value="others">Others</option>
+                                                </select>
+                                                <label for="inpSaleType">Type Of Sale</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group floating-label">
+                                                <input type="text" class="form-control" id="inputSalesProceed" formControlName="inputSalesProceed">
+                                                <label for="inputSalesProceed">Sales Consideration Amount</label>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                      <div class="row">
-                                          <div class="col-md-6">
-                                              <div class="form-group floating-label">
-                                                  <input type="text" class="form-control" id="inputSalesDate" formControlName="inputSalesDate">
-                                                  <label for="inputSalesDate">Date Of Sale</label>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6">
-                                              <div class="form-group floating-label customDropdown">
-                                                  <select id="inpSTTPaid" class="form-control" formControlName="inpSTTPaid">
-                                                      <option value="Yes">Yes</option>
-                                                      <option value="No">No</option>
-                                                  </select>
-                                                  <label for="inpSTTPaid">STT Paid</label>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      
-                                      <div class="row">
-                                          <div class="col-md-6">
-                                              <div class="form-group floating-label">
-                                                  <input type="text" class="form-control" id="inputCostBasis" formControlName="inputCostBasis">
-                                                  <label for="inputCostBasis">Cost Basis</label>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6">
-                                              <div class="form-group floating-label">
-                                                  <input type="text" class="form-control" id="inputPurDate" formControlName="inputPurDate">
-                                                  <label for="inputPurDate">Date Of Purchase</label>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <!--Button Part open -->
-                                      <div class="form-actions d-flex stickyFooterForm affix">
-                                          <div class="left mr-auto">
-                                              <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="on_reset_click('step5_captial_data')">Reset</button>
-                                          </div>
-                                          <div class="right ml-auto">
-                                              <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step5_captial_data')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
-                                              <button type="button" (click)="on_skip_click('step5_captial_data')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
-                                              <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step5_captial_data')">Save</button>
-                                              <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                                          </div>
-                                      </div>
-                                      <!--Button Part closed -->
-                                  </form>
-                              </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group floating-label">
+                                                <input type="text" class="form-control" id="inputSalesDate" formControlName="inputSalesDate">
+                                                <label for="inputSalesDate">Date Of Sale</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group floating-label customDropdown">
+                                                <select id="inpSTTPaid" class="form-control" formControlName="inpSTTPaid">
+                                                    <option value="Yes">Yes</option>
+                                                    <option value="No">No</option>
+                                                </select>
+                                                <label for="inpSTTPaid">STT Paid</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group floating-label">
+                                                <input type="text" class="form-control" id="inputCostBasis" formControlName="inputCostBasis">
+                                                <label for="inputCostBasis">Cost Basis</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group floating-label">
+                                                <input type="text" class="form-control" id="inputPurDate" formControlName="inputPurDate">
+                                                <label for="inputPurDate">Date Of Purchase</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Button Part open -->
+                                    <div class="form-actions d-flex stickyFooterForm affix">
+                                        <div class="left mr-auto">
+                                            <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="on_reset_click('step5_captial_data')">Reset</button>
+                                        </div>
+                                        <div class="right ml-auto">
+                                            <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step5_captial_data')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
+                                            <button type="button" (click)="on_skip_click('step5_captial_data')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
+                                            <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step5_captial_data')">Save</button>
+                                            <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                        </div>
+                                    </div>
+                                    <!--Button Part closed -->
+                                </form>
+                            </div>
 
-                              <div class="tab-pane fade" id="captial_upload" role="tabpanel" [ngClass]="{ 'show': step5_captial_upload == true , 'active': step5_captial_upload == true }">
-                                  <form id="captialIncomeUploadForm" [formGroup]="captialIncomeUploadForm">
-                                      <div class="row form-group mb-0">
-                                          <div class="col">
-                                              <h6>Upload Proof document</h6>
+                            <div class="tab-pane fade" id="captial_upload" role="tabpanel" [ngClass]="{ 'show': step5_captial_upload == true , 'active': step5_captial_upload == true }">
+                                <form id="captialIncomeUploadForm" [formGroup]="captialIncomeUploadForm">
+                                  <div class="row form-group mb-0">
+                                    <div class="col">
+                                      <h6>Upload Proof document</h6>
+                                    </div>
+                                  </div>
+                                  <div class="row shareuploader">
+                                    <div class="col-md-6">
+                                      <div class="form-group mb-2">
+                                        <div class="input-group prepend custom-file-wrap">
+                                          <div class="d-flex flex-fill">
+                                            <div class="input-group-prepend">
+                                              <label for="uploadShareIncomeProof" class="input-group-text">Choose File</label>
+                                            </div>
+                                            <div class="custom-file">
+                                              <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="shareuploader" class="input-group-text" id="uploadShareIncomeProof" formControlName="uploadShareIncomeProof">  
+                                              <label class="custom-file-label" for="uploadShareIncomeProof">No File Chosen</label>
+                                            </div>
                                           </div>
+                                        </div>
                                       </div>
-                                      <div class="row shareuploader">
-                                          <div class="col-md-6">
-                                              <div class="form-group mb-2">
-                                                <div class="input-group prepend custom-file-wrap">
-                                                  <div class="d-flex flex-fill">
-                                                      <div class="input-group-prepend">
-                                                        <label for="uploadShareIncomeProof" class="input-group-text">Choose File</label>
-                                                      </div>
-                                                      <div class="custom-file">
-                                                        <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="shareuploader" class="input-group-text" id="uploadShareIncomeProof" formControlName="uploadShareIncomeProof">  
-                                                        <label class="custom-file-label" for="uploadShareIncomeProof">No File Chosen</label>
-                                                      </div>
-                                                  </div>
-                                                </div>
-
-                                                <div class="input-group custom-file-wrap">
-                                                  <div class="d-flex flex-fill">
-                                                    <div class="input-group-prepend">
-                                                      <label for="uploadForm16File" class="input-group-text">Choose File</label>
-                                                    </div>
-                                                    <div class="custom-file">
-                                                      <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="input-group-text" id="uploadForm16File" formControlName="uploadForm16File" >
-                                                      <label class="custom-file-label" for="uploadForm16File">No File Chosen</label>
-                                                    </div>
-                                                  </div>
-                                                </div>
-
-                                                
-                                              </div>
-                                          </div>
-                                          <div class="col">
-                                              <div class="form-group">
-                                                  <button type="button" (click)="shareuploader.uploadAll()" [disabled]="!shareuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                              </div>
-                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                      <div class="form-group floating-label">
+                                        <input type="text" class="form-control" id="uploadRentalPropDocsPwd" formControlName="uploadRentalPropDocsPwd">
+                                        <label for="uploadRentalPropDocsPwd">Enter Document Password</label>
                                       </div>
-
-                                      <!--Button Part open -->
-                                      <div class="form-actions d-flex stickyFooterForm affix">
-                                          <div class="left mr-auto">
-                                              <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="on_reset_click('step5_captial_upload')">Reset</button>
-                                          </div>
-                                          <div class="right ml-auto">
-                                              <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step5_captial_upload')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
-                                              <button type="button" (click)="on_skip_click('step5_captial_upload')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
-                                              <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step5_captial_upload')">Save</button>
-                                              <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                                          </div>
+                                    </div>
+                                    <div class="col">
+                                      <div class="form-group">
+                                        <button type="button" (click)="shareuploader.uploadAll()" [disabled]="!shareuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
                                       </div>
-                                      <!--Button Part closed -->
-                                  </form>
-                              </div>
+                                    </div>
+                                  </div>
+
+                                  <!--Button Part open -->
+                                  <div class="form-actions d-flex stickyFooterForm affix">
+                                    <div class="left mr-auto">
+                                      <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="on_reset_click('step5_captial_upload')">Reset</button>
+                                    </div>
+                                    <div class="right ml-auto">
+                                      <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step5_captial_upload')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
+                                      <button type="button" (click)="on_skip_click('step5_captial_upload')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
+                                      <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step5_captial_upload')">Save</button>
+                                      <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                    </div>
+                                  </div>
+                                  <!--Button Part closed -->
+                                </form>
+                            </div>
                           </div>
                       </div>
                       <!--Captial Gain ends-->
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
-            </div>
-            </div>
-            </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
 </div>
   

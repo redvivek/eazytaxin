@@ -5,7 +5,7 @@ import { first } from 'rxjs/operators';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { environment } from '@environments/environment';
 import { ScriptService,AuthenticationService,ApplicationService, AlertService } from '@app/_services';
-import { handleInsideHeaderBackground,handleFloatingLabels,formSticky } from '../../app.helpers';
+import { handleInsideHeaderBackground,handleFloatingLabels,formSticky,getFileSizeNameAndType } from '../../app.helpers';
 import * as Waves from 'node-waves';
 
 const URL = `${environment.apiUrl}/tax/uploadproofDocuments`;
@@ -203,6 +203,7 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
     handleInsideHeaderBackground();
     handleFloatingLabels(Waves);
     formSticky();
+    getFileSizeNameAndType();
 	}
 
   get m() { return this.mainDeductionForm.controls; }

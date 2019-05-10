@@ -21,11 +21,11 @@
                     <div class="col-md-4 col-sm-10">
                       <div class="form-group floating-label customDropdown">
                         <select name="taxperiod" class="form-control" id="taxperiod" formControlName="taxperiod" [ngClass]="{ 'is-invalid': submitted && f.taxperiod.errors}">
-                            <option [disabled]="taxperiod != selAssYear" [value]="taxperiod" *ngFor="let taxperiod of taxperiods" [selected]="taxperiod == selAssYear">{{taxperiod}}</option>
+                          <option [disabled]="taxperiod != selAssYear" [value]="taxperiod" *ngFor="let taxperiod of taxperiods" [selected]="taxperiod == selAssYear">{{taxperiod}}</option>
                         </select>
                         <label for="taxperiod">Select Assessment Year</label>
                         <div *ngIf="submitted && f.taxperiod.errors" class="invalid-feedback">
-                            <div *ngIf="f.taxperiod.errors.required">Please select tax period</div>
+                          <div *ngIf="f.taxperiod.errors.required">Please select tax period</div>
                         </div>
                       </div>
                     </div>
@@ -67,15 +67,14 @@
                   <div class="row form-group" *ngIf="showUploadField">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <div class="input-group custom-file-wrap">
+                          <div class="input-group prepend custom-file-wrap">
                             <div class="d-flex flex-fill">
-                              <!-- <div class="input-group-prepend">
+                              <div class="input-group-prepend">
                                 <label for="uploadPreFillXMLFile" class="input-group-text">Choose File</label>
-                              </div> -->
+                              </div>
                               <div class="custom-file">
                                 <input type="file" accept=".xml" ng2FileSelect [uploader]="uploader" class="input-group-text" id="uploadPreFillXMLFile" formControlName="uploadPreFillXMLFile" [ngClass]="{ 'is-invalid': submitted && f.uploadPreFillXMLFile.errors}">
-                                <!-- <label class="custom-file-label" for="uploadPreFillXMLFile">No File Chosen</label> -->
-                                <!-- <label class="custom-file-label" for="uploadPreFillXMLFile">No File Chosen</label> -->
+                                <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
                                 <input type="hidden" class="custom-file-input" id="uploadPreFillXMLFlag" formControlName="uploadPreFillXMLFlag" [ngClass]="{ 'is-invalid': submitted && f.uploadPreFillXMLFlag.errors}" />
                                 <div *ngIf="submitted && f.uploadPreFillXMLFlag.errors" class="invalid-feedback">
                                   <div *ngIf="f.uploadPreFillXMLFlag.errors.required">Please upload the prefilled xml file</div>

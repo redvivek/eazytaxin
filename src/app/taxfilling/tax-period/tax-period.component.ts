@@ -6,7 +6,7 @@ import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-u
 import { environment } from '@environments/environment';
 import { ApplicationMain} from '@app/_models';
 import { AlertService, AuthenticationService,ApplicationService } from '@app/_services';
-import { handleInsideHeaderBackground,handleFloatingLabels } from '../../app.helpers';
+import { handleInsideHeaderBackground,handleFloatingLabels, getFileSizeNameAndType } from '../../app.helpers';
 import * as Waves from 'node-waves';
 
 const URL = `${environment.apiUrl}/tax/uploadxml`;
@@ -134,6 +134,7 @@ export class TaxPeriodComponent implements OnInit,AfterViewInit {
     ngAfterViewInit(){
         handleInsideHeaderBackground();
         handleFloatingLabels(Waves);
+        getFileSizeNameAndType();
     }
 
     // convenience getter for easy access to form fields

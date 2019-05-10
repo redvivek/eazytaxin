@@ -1,6 +1,6 @@
 import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { handleInsideHeaderBackground,handleFloatingLabels,formSticky } from '../../app.helpers';
+import { handleInsideHeaderBackground,handleFloatingLabels,formSticky, getFileSizeNameAndType } from '../../app.helpers';
 import * as Waves from 'node-waves';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -121,6 +121,7 @@ export class TaxesPaidComponent implements OnInit,AfterViewInit {
     handleInsideHeaderBackground();
     handleFloatingLabels(Waves);
     formSticky();
+    getFileSizeNameAndType();
 	}
   
   get d() { return this.upload26ASForm.controls; }
