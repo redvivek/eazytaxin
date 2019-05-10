@@ -191,7 +191,6 @@
                   <!--Form Part open -->
                   <div class="tab-content tab-wizard-content">
                     <!--Personal Info Form Open-->
-                    
                     <div class="tab-pane fade " id="personal-details-personal" role="tabpanel" [ngClass]="{ 'show': step2 == true , 'active': step2 == true }">
                       <form id="personalDetailsForm" [formGroup]="personalDetailsForm" >
                         <div class="row">
@@ -331,7 +330,6 @@
                         <!--Button Part closed -->
                       </form>
                     </div>
-                    
                     <!--Personal Info Form Closed-->
 
                     <!--Address Info Form Open-->
@@ -1052,12 +1050,12 @@
                                 <div class="form-group">
                                   <div class="input-group prepend custom-file-wrap">
                                     <div class="d-flex flex-fill">
-                                      <!-- <div class="input-group-prepend">
-                                        <span class="input-group-text">Choose File</span>
-                                      </div> -->
+                                      <div class="input-group-prepend">
+                                        <label for="uploadForeignAssetsFile" class="input-group-text">Choose File</label>
+                                      </div>
                                       <div class="custom-file">
-                                        <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" ng2FileSelect [uploader]="uploader" class="input-group-text" id="uploadForeignAssetsFile" formControlName="uploadForeignAssetsFile" >
-                                        <!-- <label class="custom-file-label" for="uploadForeignAssetsFile">No File Chosen</label> -->
+                                        <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="uploadForeignAssetsFile" formControlName="uploadForeignAssetsFile" >
+                                        <label class="custom-file-label" for="uploadForeignAssetsFile">No File Chosen</label>
                                       </div>
                                     </div>
                                   </div>

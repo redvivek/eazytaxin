@@ -158,6 +158,14 @@ export function navbarToggle(){
     $(this).parents('.navbar').toggleClass('navbar-open');
   });
 }
+
+export function getFileSizeNameAndType(){
+  $('input[type="file"]').change(function(e){
+    var fileName = e.target.files[0].name;
+    $(this).next('.custom-file-label').text(fileName)
+    // alert('The file "' + fileName +  '" has been selected.');
+  });
+}
 /* export function correctHeight() {
 
   var pageWrapper = jQuery('#page-wrapper');

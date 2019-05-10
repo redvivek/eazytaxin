@@ -5,7 +5,7 @@ import { first, ignoreElements } from 'rxjs/operators';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { ScriptService,AuthenticationService,ApplicationService, AlertService } from '@app/_services';
 import { environment } from '@environments/environment';
-import { handleInsideHeaderBackground,handleFloatingLabels,formSticky } from '../../app.helpers';
+import { handleInsideHeaderBackground,handleFloatingLabels,formSticky,getFileSizeNameAndType } from '../../app.helpers';
 import * as Waves from 'node-waves';
 
 const URL = `${environment.apiUrl}/tax/uploadproofDocuments`;
@@ -353,6 +353,7 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
     handleInsideHeaderBackground();
     handleFloatingLabels(Waves);
     formSticky();
+    getFileSizeNameAndType();
   }
 
   get f() { return this.personalDetailsForm.controls; }

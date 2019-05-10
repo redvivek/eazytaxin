@@ -301,10 +301,10 @@ a:hover{text-decoration:none;}
 
 /* Custom File */
 .custom-file-wrap .input-group-prepend{cursor:pointer;}
-.custom-file-wrap .input-group-text{background-color:#00d689; border-radius:0; color:#FFF; font-size:14px; }
+.custom-file-wrap .input-group-text{background-color:#00d689; border-radius:0; color:#FFF; font-size:14px; width:100%; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
 .custom-file-wrap .custom-file{margin-left:25px;}
 .custom-file-wrap .upload-btn{padding-left:25px; }
-.custom-file-wrap .custom-file-label{border:none; font-size:16px; border-bottom:1px solid #707070; border-radius:0; padding-left:0;}
+.custom-file-wrap .custom-file-label{border:none; font-size:16px; border-bottom:1px solid #707070; border-radius:0; padding-left:0; white-space:nowrap; width:100%; overflow:hidden; text-overflow:ellipsis;}
 .custom-file-wrap .custom-file-label::after{display:none;}
 
 .badge{height:18px; min-width:18px; margin-left:5px;display:flex; font-size:10px; color:#FFF; align-items:center; justify-content:center;}

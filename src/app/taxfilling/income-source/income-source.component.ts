@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { environment } from '@environments/environment';
-import { handleInsideHeaderBackground,handleFloatingLabels,formSticky } from '../../app.helpers';
+import { handleInsideHeaderBackground,handleFloatingLabels,formSticky,getFileSizeNameAndType } from '../../app.helpers';
 import { AuthenticationService,ApplicationService, AlertService } from '@app/_services';
 import * as Waves from 'node-waves';
 
@@ -493,6 +493,7 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
     handleInsideHeaderBackground();
     handleFloatingLabels(Waves);
     formSticky();
+    getFileSizeNameAndType();
 	}
 
   get su() { return this.salaryIncomeUploadForm.controls; }
