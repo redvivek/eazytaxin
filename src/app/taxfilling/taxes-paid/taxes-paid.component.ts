@@ -85,6 +85,7 @@ export class TaxesPaidComponent implements OnInit,AfterViewInit {
       inpChallanNumber : [''],
       inpChallanAmount : [''],
 
+      inpTDSBelongsTo:[''],
       inpTaxDedName : [''],
       inpTaxDedTAN : [''],
       inpTaxReceiptNumber : [''],

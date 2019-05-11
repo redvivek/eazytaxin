@@ -703,7 +703,7 @@
                                               <div class="row">
                                                   <div class="col-md-6">
                                                       <div class="form-group floating-label customDropdown">
-                                                          <select name="taxperiod" class="form-control" id="taxperiod" formControlName="taxperiod" [ngClass]="{ 'is-invalid': submitted && f.taxperiod.errors}">
+                                                          <select name="taxperiod" class="form-control" id="taxperiod" formControlName="taxperiod" [ngClass]="{ 'is-invalid': othFSubmitted && o.taxperiod.errors}">
                                                               <option [disabled]="taxperiod != selAssYear" [value]="taxperiod" *ngFor="let taxperiod of taxperiods" [selected]="taxperiod == selAssYear">{{taxperiod}}</option>
                                                           </select>
                                                           <label for="taxperiod">Select Assessment Year</label>
@@ -1835,12 +1835,7 @@
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="col-md-4">
-                                      <div class="form-group floating-label">
-                                        <input type="text" class="form-control" id="uploadRentalPropDocsPwd" formControlName="uploadRentalPropDocsPwd">
-                                        <label for="uploadRentalPropDocsPwd">Enter Document Password</label>
-                                      </div>
-                                    </div>
+                                    
                                     <div class="col">
                                       <div class="form-group">
                                         <button type="button" (click)="shareuploader.uploadAll()" [disabled]="!shareuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>

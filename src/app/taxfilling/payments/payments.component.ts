@@ -25,6 +25,7 @@ export class PaymentsComponent implements OnInit,AfterViewInit {
   paymentStatus:string;
   rzp1:any;
   options:any;
+  transactionFlag = false;
 
   constructor(
     private ngZone: NgZone,

@@ -44,10 +44,17 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.FLOAT,
       allowNull: true
     },
-    Parents_SC_PolicyFlag: {
-      type: DataTypes.INTEGER(1),
-      allowNull: true,
-      defaultValue: '0'
+    MedInsRelation: {
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
+    DepHealthCheckReln: {
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
+    ParMedInsReln: {
+      type: DataTypes.STRING(50),
+      allowNull: true
     },
     NoHRA_TotalMonths: {
       type: DataTypes.INTEGER(2),

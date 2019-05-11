@@ -300,6 +300,16 @@
                               <label for="">Mobile No. <span class="text-danger required">*</span></label>
                             </div>
                           </div>
+                          <div class="col-md-6 col-sm-12">
+                            <div class="form-group floating-label">
+                              <input type="text" class="form-control" id="AltMobileNo" formControlName="AltMobileNo" [ngClass]="{ 'is-invalid': perSubmitted && f.AltMobileNo.errors}">
+                              <div *ngIf="perSubmitted && f.AltMobileNo.errors" class="invalid-feedback">
+                                  <div *ngIf="f.AltMobileNo.errors.maxlength">Enter 10 digit number only</div>
+                                  <div *ngIf="f.AltMobileNo.errors.pattern">Mobile number is invalid</div>
+                              </div>
+                              <label for="">Secondary Mobile No. </label>
+                            </div>
+                          </div>
                           
                           <!-- <div class="col-md-6 col-sm-12">
                             <div class="form-group floating-label customDropdown">
@@ -549,7 +559,7 @@
                         <div class="tab-pane fade " id="all-other-bank-accounts" role="tabpanel" [ngClass]="{ 'show': step4_all_other_bank_acc == true , 'active': step4_all_other_bank_acc == true }">
                           <form id="othBankDetailsForm" [formGroup]="othBankDetailsForm" >
                             <div formArrayName="itemRows">
-                              <div *ngFor="let itemrow of othBankDetailsForm.controls.itemRows.controls; let i=index"  [formGroupName]="i">
+                              <div *ngFor="let itemrow of othBankDetailsForm['controls'].itemRows['controls']; let i=index"  [formGroupName]="i">
                                 <div class="row">
                                   <div class="col-md-6 col-sm-12">
                                     <div class="form-group floating-label">

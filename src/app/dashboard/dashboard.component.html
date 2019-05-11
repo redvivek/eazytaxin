@@ -30,67 +30,68 @@
     					<h5 class="card-title ">Tax Summary</h5>
     				</div>
 	    			<div class="card-body">
-	    				<!-- <div class="stats col4 d-flex flex-wrap">
-								<div class="stats-col">
-									<div class="key">Grand Total Income</div>
-									<div class="value">
-										<span class="inr">₹</span>
-										<span>5.56 L</span>
-									</div>
+	    				<div class="stats col4 d-flex flex-wrap">
+							<div class="stats-col">
+								<div class="key">Grand Total Income</div>
+								<div class="value">
+									<!-- <span class="inr">₹</span> -->
+									<span>NA</span>
 								</div>
-								<div class="stats-col">
-									<div class="key">Deductions</div>
-									<div class="value">
-										<span class="inr">₹</span>
-										<span>50,000</span>
-									</div>
+							</div>
+							<div class="stats-col">
+								<div class="key">Deductions</div>
+								<div class="value">
+									<!-- <span class="inr">₹</span> -->
+									<span>NA</span>
 								</div>
-								<div class="stats-col">
-									<div class="key">Net Tax Income</div>
-									<div class="value">
-										<span class="inr">₹</span>
-										<span>24,000</span>
-									</div>
+							</div>
+							<div class="stats-col">
+								<div class="key">Net Tax Income</div>
+								<div class="value">
+									<!-- <span class="inr">₹</span> -->
+									<span>NA</span>
 								</div>
-								<div class="stats-col">
-									<div class="key">Tax Liability</div>
-									<div class="value">
-										<span class="inr">₹</span>
-										<span>12,000</span>
-									</div>
+							</div>
+							<div class="stats-col">
+								<div class="key">Tax Liability</div>
+								<div class="value">
+									<!-- <span class="inr">₹</span> -->
+									<span>NA</span>
 								</div>
-								<div class="stats-col">
-									<div class="key">Tax Credit</div>
-									<div class="value">
-										<span class="inr">₹</span>
-										<span>4,957</span>
-									</div>
+							</div>
+							<div class="stats-col">
+								<div class="key">Tax Credit</div>
+								<div class="value">
+									<!-- <span class="inr">₹</span> -->
+									<span>NA</span>
 								</div>
-								<div class="stats-col">
-									<div class="key">Taxes Paid</div>
-									<div class="value">
-										<span class="inr">₹</span>
-										<span>19,231</span>
-									</div>
+							</div>
+							<div class="stats-col">
+								<div class="key">Taxes Paid</div>
+								<div class="value">
+									<!-- <span class="inr">₹</span> -->
+									<span>NA</span>
 								</div>
-								<div class="stats-col">
-									<div class="key">Interest</div>
-									<div class="value">
-										<span class="inr">₹</span>
-										<span>1,200</span>
-									</div>
+							</div>
+							<div class="stats-col">
+								<div class="key">Interest</div>
+								<div class="value">
+									<!-- <span class="inr">₹</span> -->
+									<span>NA</span>
 								</div>
-								<div class="stats-col">
-									<div class="key">Balance</div>
-									<div class="value">
-										<span class="inr">₹</span>
-										<span>12,206</span>
-									</div>
+							</div>
+							<div class="stats-col">
+								<div class="key">Balance</div>
+								<div class="value">
+									<!-- <span class="inr">₹</span> -->
+									<span>NA</span>
 								</div>
-	    				</div> -->
+							</div>
+	    				</div>
 	    			</div>
 	    		</div>
-	    	</div>
+			</div>
+			
 	    	<div class="col-lg-4 col-md-12">
 	    		<div class="row">
 	    			<div class="col-md-12">
@@ -139,8 +140,8 @@
 	    						</div>
 	    					</div>
 	    				</div>
-	    			</div>
-	    			<div class="col-md-12">
+					</div>
+					<div class="col-md-12">
 	    				<div class="card cardShadow">
 		    				<div class="card-header d-flex align-items-center no-block">
 		    					<h5 class="card-title ">Notifications</h5>
@@ -172,7 +173,49 @@
 	    	</div>
     	</div>
     	<div class="row">
-	    	<div class="col-lg-8 col-md-12">
+			<div class="col-lg-8 col-md-12">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card cardShadow">
+							<div class="card-header d-flex align-items-center no-block">
+								<h5 class="card-title ">Application Status</h5>
+							</div>
+							<div class="card-body" *ngIf="inProgressApps.length > 0">
+								<table class="table px-0 mb-0 yearlySumTable">
+									<tbody>
+										<tr>
+											<th style="width:70%;">Application In Progress for selected year.</th>
+											<th>
+												<button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" disabled >Approve to File ITR</button>
+											</th>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="card-body" *ngIf="inProgressApps.length == 0">
+								<table class="table px-0 mb-0 yearlySumTable">
+									<tbody>
+										<tr *ngIf="!showComplete">
+											<th style="width:70%;">No application available for selected year.Please start filling</th>
+											<th>
+												<button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" disabled >Approve to File ITR</button>
+											</th>
+										</tr>
+										<tr *ngIf="showComplete">
+											<th style="width:70%;">Application already filled for selected year. Review Tax Summary once available and provide approval to submit your ITR to Income TAX Dept.</th>
+											<!-- <th>
+												<button type="button" class="btn btn-success btn-lg" >Approve to File ITR</button>
+											</th> -->
+											<th>
+												<button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" disabled >Approve to File ITR</button>
+											</th>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
 	    		<div class="row">
 	    			<div class="col-md-12">
 	    				<div class="card cardShadow">
@@ -284,18 +327,14 @@
   					<div class="card-body" *ngIf="inProgressApps.length > 0">
   						<table class="table px-0 mb-0 yearlySumTable">
   							<tbody>
-								<!-- <tr *ngIf="showCurrAssYear">
-									<th><span class="badge badge-primary"></span>{{assesmentYears[0]}}</th>
-									<td align ="right"><button type="button" class="btn btn-success" (click)="startFilling(assesmentYears[0])">Start Filing</button></td>
-								</tr> -->
-  								<tr *ngFor="let items of inProgressApps">
+								<tr *ngFor="let items of inProgressApps">
   									<th><span class="badge badge-primary"></span>{{items.AssYear}}</th>
   									<td align ="right"><button type="button" (click)="continueApp(items)" class="btn btn-primary">Continue</button></td>
   								</tr>
   							</tbody>
   						</table>
 					</div>
-					<div class="card-body" *ngIf="inProgressApps.length == 0">
+					<!-- <div class="card-body" *ngIf="inProgressApps.length == 0">
 						<table class="table px-0 mb-0 yearlySumTable">
 							<tbody>
 								<tr *ngIf="!showComplete">
@@ -306,7 +345,7 @@
 								</tr>
 							</tbody>
 						</table>
-					</div>
+					</div> -->
   				</div>
 	    	</div>
     	</div>

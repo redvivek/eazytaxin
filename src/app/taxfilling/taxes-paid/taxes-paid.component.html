@@ -69,11 +69,11 @@
                               <div class="input-group prepend custom-file-wrap">
                                 <div class="d-flex flex-fill">
                                   <div class="input-group-prepend">
-                                    <span class="input-group-text">Choose File</span>
+                                    <label for="upload26ASFile" class="input-group-text">Choose File</label>
                                   </div>
                                   <div class="custom-file">
-                                    <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="upload26ASFile" formControlName="upload26ASFile">
-                                    <label class="custom-file-label" for="inputGroupFile01">No File Chosen</label>
+                                    <input type="file" accept="application/pdf, image/*" ng2FileSelect [uploader]="uploader" class="input-group-text" id="upload26ASFile" formControlName="upload26ASFile">
+                                    <label class="custom-file-label" for="upload26ASFile">No File Chosen</label>
                                   </div>
                                 </div>
                               </div>
@@ -166,18 +166,27 @@
                             <div class="row">
                               <div class="col-md-6">
                                 <div class="form-group floating-label">
+                                    <select id="inpTDSBelongsTo" class="form-control" formControlName="inpTDSBelongsTo" [ngClass]="{ 'is-invalid': taxSubmitted && o.inpTDSBelongsTo.errors}">
+                                      <option value="Self">Self</option>
+                                      <option value="Others">Others</option>
+                                    </select>
+                                    <label for="inpTDSBelongsTo">TDS Credit In Name Of</label>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="inpTaxDedName" formControlName="inpTaxDedName" [ngClass]="{ 'is-invalid': taxSubmitted && o.inpTaxDedName.errors}">
                                   <label for="">Tax Deductor Name</label>
                                 </div>
                               </div>
+                            </div>
+                            <div class="row">
                               <div class="col-md-6">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="inpTaxDedTAN" formControlName="inpTaxDedTAN" [ngClass]="{ 'is-invalid': taxSubmitted && o.inpTaxDedTAN.errors}">
                                   <label for="">TAN of Tax Deductor</label>
                                 </div>
                               </div>
-                            </div>
-                            <div class="row">
                               <div class="col-md-6">
                                 <div class="form-group floating-label">
                                   <input type="text" class="form-control" id="inpTaxReceiptNumber" formControlName="inpTaxReceiptNumber" [ngClass]="{ 'is-invalid': taxSubmitted && o.inpTaxReceiptNumber.errors}">

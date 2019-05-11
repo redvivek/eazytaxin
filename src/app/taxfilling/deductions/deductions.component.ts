@@ -37,7 +37,7 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
 
   //initilize & activate flag to by default active salaryIncome subtab
   step1_section80C :boolean = true;
-  step1_section80D :boolean = true;
+  step1_section80D :boolean = false;
   step1_section80TTA :boolean = false;
   step1_section80G :boolean = false;
   
@@ -117,10 +117,12 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
   ngOnInit() {
     this.mainDeductionForm = this.formBuilder.group({
       itemRows: this.formBuilder.array([this.initItemRows()]),
-      selfMedInsPremium:['',Validators.required],
-      depHealthCheckupFees:['',Validators.required],
-      parentSenCitizenFlag:['',Validators.required],
-      parentsMedInsPremium:['',Validators.required],
+      selfMedInsPremium:[''],
+      depHealthCheckupFees:[''],
+      parentsMedInsPremium:[''],
+      inpMIReln:[''],
+      inpDHCReln:[''],
+      inpPMIReln:[''],
       savingAccInterest:[''],
       doneeName:[''],
       donAmount:[''],
@@ -171,7 +173,7 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
       //itemUploadDocRows: this.formBuilder.array([]),
       inputGroupFile01: [''],
       inputGroupFile01Pwd: [''],
-      investmentProof: ['']
+      investmentProof: ['0']
     });
 
     //this.autoFillMainDeductionForm()
@@ -292,7 +294,7 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
   /* Function to enable/disable & validate file upload form field on Radio change event */
   onChange(event): void {
     const targetChkBox = event.target;
-    console.log("Checkbox event & value " +targetChkBox.checked+" - "+targetChkBox.value);
+    //console.log("Checkbox event & value " +targetChkBox.checked+" - "+targetChkBox.value);
 
     if (targetChkBox.value == 'section80C') {
       if(targetChkBox.checked){
@@ -305,21 +307,27 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
       if(targetChkBox.checked){
         this.step1_section80D = true;
         this.mainDeductionForm.get('selfMedInsPremium').setValidators([Validators.required]);
+        this.mainDeductionForm.get('inpMIReln').setValidators([Validators.required]);
         this.mainDeductionForm.get('depHealthCheckupFees').setValidators([Validators.required]);
+        this.mainDeductionForm.get('inpDHCReln').setValidators([Validators.required]);
         this.mainDeductionForm.get('parentsMedInsPremium').setValidators([Validators.required]);
-        this.mainDeductionForm.get('parentSenCitizenFlag').setValidators([Validators.required]);
+        this.mainDeductionForm.get('inpPMIReln').setValidators([Validators.required]);
       }
       else{
         this.step1_section80D = false;
         this.mainDeductionForm.get('selfMedInsPremium').clearValidators();
+        this.mainDeductionForm.get('inpMIReln').clearValidators();
         this.mainDeductionForm.get('depHealthCheckupFees').clearValidators();
+        this.mainDeductionForm.get('inpDHCReln').clearValidators();
         this.mainDeductionForm.get('parentsMedInsPremium').clearValidators();
-        this.mainDeductionForm.get('parentSenCitizenFlag').clearValidators();
+        this.mainDeductionForm.get('inpPMIReln').clearValidators();
       }
       this.mainDeductionForm.get('selfMedInsPremium').updateValueAndValidity();
+      this.mainDeductionForm.get('inpMIReln').updateValueAndValidity();
       this.mainDeductionForm.get('depHealthCheckupFees').updateValueAndValidity();
+      this.mainDeductionForm.get('inpDHCReln').updateValueAndValidity();
       this.mainDeductionForm.get('parentsMedInsPremium').updateValueAndValidity();
-      this.mainDeductionForm.get('parentSenCitizenFlag').updateValueAndValidity();
+      this.mainDeductionForm.get('inpPMIReln').updateValueAndValidity();
       
     }
     if (targetChkBox.value == 'section80TTA') {
@@ -515,37 +523,12 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
   }
 
   autoFillMainDeductionForm(){
-    //this.mainDeductionForm.get('uploadForm16FileFlag').setValue("1");
   }
 
   autoFillOtherDeductionForm(){
-    //this.otherDeductionForm.get('uploadOtherIncomeProofFlag').setValue("1");
   }
 
   autoFillDocUploadForm(){
-    //this.proofDocUploadForm.get('uploadHouseIncomeProofFlag').setValue("1");
-    // fetch deduction details to create proof doc upload list
-    /* this.appService.fetchDeductionDetails(this.userId,this.ApplicationId)
-    .pipe(first())
-    .subscribe(
-      data => {
-              //console.log("Response" + JSON.stringify(data));
-              if(data['statusCode'] == 200){  
-                  if(data['ResultData'] != ""){
-                    if(data['ResultData'].length > 0){
-                      for(var i=0;i < data['ResultData'].length;i++){
-                        console.log("Response" + JSON.stringify(data['ResultData'][i]));
-                        //this.uploadFieldsArr.push(data['ResultData'][i]);
-                        //this.addNewDocRow();
-                      }
-                    }
-                  }                
-              }
-          },
-      error => {
-        this.alertService.error('Application - Not deduction details entered yet '+error);
-        this.loading = false;
-      }); */
   }
 
   //Function Called on next button click
@@ -580,6 +563,7 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
       // stop here if form is invalid
       //if (this.findInvalidControls()){
       if(this.mainDeductionForm.invalid) {
+        this.loading = false;
           return;
       }else{
         this.onSubmit(this.mainDeductionForm,'mainDeductionDetails');
@@ -590,7 +574,6 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
   onSubmit(formname,infoType) {
     var mainDeductionsParam = [],othDeductionsParam,UploadDeductionsParam; 
     console.log('SUCCESS!! :-)\n\n' + JSON.stringify(formname.value));
-    //console.log('SUCCESS1!! :-)\n\n' + JSON.stringify(this.m.itemRows.value));
     switch(infoType){
       case "mainDeductionDetails":
           var section80CArr = this.m.itemRows.value;
@@ -632,7 +615,9 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
               'DeductionAmt':"",
               'SelfMedPremAmt':this.m.selfMedInsPremium.value,
               'depHCfees':this.m.depHealthCheckupFees.value,
-              'parentSCFlag':this.m.parentSenCitizenFlag.value,
+              'medInsReln':this.m.inpMIReln.value,
+              'DHCReln':this.m.inpDHCReln.value,
+              'parMedInsReln':this.m.inpPMIReln.value,
               'parMedPremAmt':this.m.parentsMedInsPremium.value,
               'DoneeNm':"",
               'DoneePan':"",
@@ -972,19 +957,16 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
       this.step1 = true;
       this.step2 = false;
       this.step3 = false;
-      this.autoFillMainDeductionForm();
     }
     if(a == 'step2'){
       this.step1 = false;
       this.step2 = true;
       this.step3 = false;
-      this.autoFillOtherDeductionForm();
     }
     if(a == 'step3'){
       this.step1 = false;
       this.step2 = false;
       this.step3 = true;
-      this.autoFillDocUploadForm();
     }
   }
 

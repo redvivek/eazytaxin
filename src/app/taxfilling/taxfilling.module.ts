@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FileSelectDirective } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import {TaxfillingRoutingModule} from './taxfilling-routing.module';
 import { TaxPeriodComponent } from './tax-period';
@@ -27,7 +27,6 @@ import{ SharedModule } from '../shared.module';
     TaxesPaidComponent, 
     ReviewdetailsComponent, 
     PaymentsComponent,
-    FileSelectDirective,
     TransactionComponent,
   ],
   imports: [
@@ -35,7 +34,8 @@ import{ SharedModule } from '../shared.module';
     FormsModule,
     ReactiveFormsModule,
     TaxfillingRoutingModule,
-    SharedModule
+    SharedModule,
+    FileUploadModule
   ]
 })
 export class TaxfillingModule { }

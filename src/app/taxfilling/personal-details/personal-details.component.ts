@@ -340,7 +340,7 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
           var res = JSON.parse(response);
           //alert('File uploaded successfully');
           if(res['statusCode'] == 200){                 
-            this.alertService.error('File Uploaded successfully');
+            this.alertService.success('File Uploaded successfully');
             this.forAssestsDetailsForm.get('uploadFAProofFlag').setValue('1');
           }else{
             this.alertService.error('File Uploading Failed');
@@ -1461,5 +1461,9 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
         this.router.navigate(['taxfilling/earnings']);
       break;
     }
+  }
+
+  downloadSample(forAssetsSampleFile){
+
   }
 }
