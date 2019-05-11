@@ -78,7 +78,7 @@ export class TaxPeriodComponent implements OnInit,AfterViewInit {
             taxperiod: ['', Validators.required],
             xmluploadflag : ['',Validators.required],
             uploadPreFillXMLFile : [null],
-            uploadPreFillXMLFlag : ['', Validators.required]
+            uploadPreFillXMLFlag : ['0', Validators.required]
         });
 
         //Preload form with existing or default values
