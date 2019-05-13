@@ -4,11 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "nodemon ./bin/www",
-    "build": "ng build",
+    "build": "ng build --prod --aot",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --prod"
+    "postinstall": "ng build --prod --aot"
   },
   "private": true,
   "dependencies": {
