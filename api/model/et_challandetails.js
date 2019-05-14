@@ -18,11 +18,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     doc26AS_UploadFlag: {
       type: DataTypes.INTEGER(1),
-      allowNull: false,
-      defaultValue: '0'
+      allowNull: true
     },
     BSR_Code: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(7),
       allowNull: true
     },
     PaymentDate: {
@@ -30,34 +29,10 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     ChallanNo: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(5),
       allowNull: true
     },
     TaxPaid: {
-      type: DataTypes.FLOAT,
-      allowNull: true
-    },
-    taxDeductorName: {
-      type: DataTypes.STRING(150),
-      allowNull: true
-    },
-    taxDeductorTan: {
-      type: DataTypes.STRING(10),
-      allowNull: true
-    },
-    taxReceiptNo: {
-      type: DataTypes.STRING(20),
-      allowNull: true
-    },
-    taxPaidYear: {
-      type: DataTypes.STRING(10),
-      allowNull: true
-    },
-    taxPaidForAmount: {
-      type: DataTypes.FLOAT,
-      allowNull: true
-    },
-    taxPaidAmount: {
       type: DataTypes.FLOAT,
       allowNull: true
     },

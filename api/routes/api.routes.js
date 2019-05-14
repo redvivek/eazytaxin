@@ -61,6 +61,8 @@ route.post('/tax/saveDeductions', taxService.saveDeductionsInfoByAppId);
 route.post('/tax/saveOtherDeductions', taxService.saveOtherDeductionsByAppId);
 route.post('/tax/fetchDeductionsDetails', taxService.fetchDeductionsDetails);
 route.post('/tax/saveTaxpaidInfo', taxService.saveTaxPaidInfoByAppId);
+route.post('/tax/saveOthTaxpaidInfo',taxService.saveOthTaxpaidInfoByAppId);
+route.post('/tax/saveIncTaxpaidInfo',taxService.saveIncTaxpaidInfoByAppId);
 route.post('/tax/fetchAppPaymentDetails',taxService.fetchAppPaymentDetails);
 route.post('/tax/saveTranInfo', taxService.doPayment);
 route.post('/tax/fetchAppTransDetails',taxService.fetchAppTransDetails)

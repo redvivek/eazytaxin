@@ -255,6 +255,14 @@ export class ApplicationService {
         return this.http.post(`${environment.apiUrl}/tax/saveTaxpaidInfo`, taxesPaidParam);
     }
 
+    saveOtherTaxexPaidDetails(taxesPaidParam){
+        return this.http.post(`${environment.apiUrl}/tax/saveOthTaxpaidInfo`, taxesPaidParam);
+    }
+
+    saveIncomeTaxexPaidDetails(taxesPaidParam){
+        return this.http.post(`${environment.apiUrl}/tax/saveIncTaxpaidInfo`, taxesPaidParam);
+    }
+
     getPaymentInfoByAppidAndUsrid(appid,userid){
         var jsonInput = {
             "userid" : userid,

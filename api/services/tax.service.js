@@ -28,6 +28,8 @@ const CapitalGainsIncome = db.CapitalGainsIncome;
 const Deductions = db.Deductions;
 const DocumentUpload = db.DocumentUpload; 
 const ChallanDetails = db.ChallanDetails;
+const OthIncomeTaxPaidDetails = db.OthIncomeTaxPaidDetails;
+const IncomeTaxPaidDetails = db.IncomeTaxPaidDetails;
 
 const sequelize = db.sequelize;
 
@@ -1514,36 +1516,140 @@ exports.saveTaxPaidInfoByAppId = (req,res)=>{
     console.log("Request param "+ JSON.stringify(req.body));
     let appid = req.body.appId;
     let userid = req.body.userId;
-    let doc26ASUploadFlag = req.body.doc26ASUploadFlag;
-    let inpBSRCode = req.body.inpBSRCode;
-    let inpChallanPaymentDate = req.body.inpChallanPaymentDate;
-    let inpChallanNumber = req.body.inpChallanNumber;
-    let inpChallanAmount = req.body.inpChallanAmount!= "" ? parseFloat(req.body.inpChallanAmount) : 0.00;
-    let inpTaxDedName = req.body.inpTaxDedName;
-    let inpTaxDedTAN =  req.body.inpTaxDedTAN;
-    let inpTaxReceiptNumber =  req.body.inpTaxReceiptNumber;
-    let inpPaidYear = req.body.inpPaidYear;
-    let inpTaxForAmt =  req.body.inpTaxForAmt!= "" ? parseFloat(req.body.inpTaxForAmt) : 0.00;
-    let inpTaxPaidAmt =  req.body.inpTaxPaidAmt!= "" ? parseFloat(req.body.inpTaxPaidAmt) : 0.00;
+    let details = req.body.Details;
+    let updateAt = formattedDT;
+    
 
-    ChallanDetails.findOne(
+    ChallanDetails.findAll(
 		{ where: {UserId:userid,ApplicationId: appid} }
 	)
 	.then(function (resultData) {
 		if (resultData) {
             console.log("Result - Exisitng Challan details  "+JSON.stringify(resultData));
             ChallanDetails.destroy({
-                where: { ChallanDetailsId: resultData.ChallanDetailsId}
+                where: {UserId:userid,ApplicationId: appid}
             }).then(() => {
-                console.log('deleted successfully with id = ' + resultData.ChallanDetailsId);
-                sequelize.query("INSERT INTO `et_challandetails`(ApplicationId,UserId,doc26AS_UploadFlag,BSR_Code,PaymentDate,ChallanNo,TaxPaid,taxDeductorName,taxDeductorTan,taxReceiptNo,taxPaidYear,taxPaidForAmount,taxPaidAmount,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                    replacements: [appid,userid,doc26ASUploadFlag,inpBSRCode,inpChallanPaymentDate,inpChallanNumber,inpChallanAmount,inpTaxDedName,inpTaxDedTAN,inpTaxReceiptNumber,inpPaidYear,inpTaxForAmt,inpTaxPaidAmt,'Yes'],
+                console.log('deleted successfully all challan details');
+                if(details.length > 0){
+                    for(var i=0;i < details.length;i++){
+                        let inpBSRCode = details[i].bsrcode;
+                        let inpChallanPaymentDate = details[i].challanpaydate;
+                        let inpChallanNumber = details[i].challannum;
+                        let inpChallanAmount = details[i].challanamt!= "" ? parseFloat(details[i].challanamt) : 0.00;
+                        console.log("Result cnt  "+ i);
+                        if( i != details.length-1){
+                            insertChallanDetails(appid,userid,inpBSRCode,inpChallanPaymentDate,inpChallanNumber,inpChallanAmount,updateAt)
+                            .then(result =>{
+                                console.log("Result AppId  "+result);
+                            })
+                            .catch(function (err) {
+                                console.log("Error "+err);
+                                res.status(400).send(err);
+                            });
+                        }
+                        else{
+                            insertChallanDetails(appid,userid,inpBSRCode,inpChallanPaymentDate,inpChallanNumber,inpChallanAmount,updateAt)
+                            .then(result =>{
+                                console.log("Result AppId  "+result);
+                                updateApplicationMain(appid,userid,18);
+                                res.json({"statusCode": 200,"Message": "Successful Request"});
+                            })
+                            .catch(function (err) {
+                                console.log("Error "+err);
+                                res.status(400).send(err);
+                            });
+                        }
+                    }
+                }
+            });
+        } else {
+            if(details.length > 0){
+                for(var i=0;i < details.length;i++){
+                    let inpBSRCode = details[i].bsrcode;
+                    let inpChallanPaymentDate = details[i].challanpaydate;
+                    let inpChallanNumber = details[i].challannum;
+                    let inpChallanAmount = details[i].challanamt!= "" ? parseFloat(details[i].challanamt) : 0.00;
+                    console.log("Result cnt  "+ i);
+                    if( i != details.length-1){
+                        insertChallanDetails(appid,userid,inpBSRCode,inpChallanPaymentDate,inpChallanNumber,inpChallanAmount,updateAt)
+                        .then(result =>{
+                            console.log("Result AppId  "+result);
+                        })
+                        .catch(function (err) {
+                            console.log("Error "+err);
+                            res.status(400).send(err);
+                        });
+                    }
+                    else{
+                        insertChallanDetails(appid,userid,inpBSRCode,inpChallanPaymentDate,inpChallanNumber,inpChallanAmount,updateAt)
+                        .then(result =>{
+                            console.log("Result AppId  "+result);
+                            updateApplicationMain(appid,userid,18);
+                            res.json({"statusCode": 200,"Message": "Successful Request"});
+                        })
+                        .catch(function (err) {
+                            console.log("Error "+err);
+                            res.status(400).send(err);
+                        });
+                    }
+                }
+            }
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+}
+
+function insertChallanDetails(appid,userid,inpBSRCode,inpChallanPaymentDate,inpChallanNumber,inpChallanAmount,updateAt){
+    var deferred = Q.defer();
+    sequelize.query("INSERT INTO `et_challandetails`(ApplicationId,UserId,BSR_Code,PaymentDate,ChallanNo,TaxPaid,CompletionStatus) VALUES (?,?,?,?,?,?,?)",{
+        replacements: [appid,userid,inpBSRCode,inpChallanPaymentDate,inpChallanNumber,inpChallanAmount,'Yes'],
+        type: sequelize.QueryTypes.INSERT 
+    }).then(result => {		
+        console.log("Result AppId  "+result[0]);
+        deferred.resolve(result[0]);
+    })
+    .catch(function (err) {
+        console.log("Error "+err);
+        deferred.reject(err);
+    });
+    return deferred.promise;
+}
+
+exports.saveOthTaxpaidInfoByAppId = (req,res)=>{
+    let inputdata = req.body;
+    console.log("Input Req "+ JSON.stringify(inputdata));
+    let appid = req.body.appId;
+    let userid = req.body.userId;
+    let taxCreditBelongsTo = req.body.taxCreditBelongsTo;
+    let taxDedName = req.body.taxDedName;
+    let taxDedTAN = req.body.taxDedTAN;
+    let taxCertiNumber = req.body.taxCertiNumber;
+    let UnclaimedTDSYr = req.body.UnclaimedTDSYr;
+    let UnclaimedTDSAmt = req.body.UnclaimedTDSAmt!= "" ? parseFloat(req.body.UnclaimedTDSAmt) : 0.00;
+    let AmtClaimedCurrYr = req.body.AmtClaimedCurrYr!= "" ? parseFloat(req.body.AmtClaimedCurrYr) : 0.00;
+    let TDSDedFromReln = req.body.TDSDedFromReln!= "" ? parseFloat(req.body.TDSDedFromReln) : 0.00; 
+    let taxCreditCarryFwd = req.body.taxCreditCarryFwd!= "" ? parseFloat(req.body.taxCreditCarryFwd) : 0.00;
+
+    OthIncomeTaxPaidDetails.findOne(
+		{ where: {UserId:userid,ApplicationId: appid} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Assets Details  "+JSON.stringify(resultData));
+            OthIncomeTaxPaidDetails.destroy({
+                where: { OthIncomeTaxPaidId: resultData.OthIncomeTaxPaidId}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + resultData.OthIncomeTaxPaidId);
+                sequelize.query("INSERT INTO `et_otherincometaxpaiddetails`(ApplicationId,UserId,OthIncome_TaxCreditBelongsTo,OthIncome_TaxDedName,OthIncome_TaxDedTAN,OthIncome_TDSCertiNum,OthIncome_UnclaimedTDSYear,OthIncome_UnclaimedTDSAmount,OthIncome_TDSDedFrmReln,OthIncome_AmtClaimedCurrYr,OthIncome_TaxCreditCFwd,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,taxCreditBelongsTo,taxDedName,taxDedTAN,taxCertiNumber,UnclaimedTDSYr,UnclaimedTDSAmt,AmtClaimedCurrYr,TDSDedFromReln,taxCreditCarryFwd,'Yes'],
                     type: sequelize.QueryTypes.INSERT 
                 }).then(result => {		
                     console.log("Result AppId  "+result[0]);
-                    //update flags to et_income_salary table */
+                    //update flags to et_assetsliabilitiesdetails table */
                     updateApplicationMain(appid,userid,18);
-
                     res.json({"statusCode": 200,"Message": "Successful Request"});
                 })
                 .catch(function (err) {
@@ -1552,14 +1658,68 @@ exports.saveTaxPaidInfoByAppId = (req,res)=>{
                 });
             });
         } else {
-			//res.status(200);
-			//Save to et_challandetails table */
-			sequelize.query("INSERT INTO `et_challandetails`(ApplicationId,UserId,doc26AS_UploadFlag,BSR_Code,PaymentDate,ChallanNo,TaxPaid,taxDeductorName,taxDeductorTan,taxReceiptNo,taxPaidYear,taxPaidForAmount,taxPaidAmount,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                replacements: [appid,userid,doc26ASUploadFlag,inpBSRCode,inpChallanPaymentDate,inpChallanNumber,inpChallanAmount,inpTaxDedName,inpTaxDedTAN,inpTaxReceiptNumber,inpPaidYear,inpTaxForAmt,inpTaxPaidAmt,'Yes'],
+			//Save to et_personaldetails table */
+			sequelize.query("INSERT INTO `et_otherincometaxpaiddetails`(ApplicationId,UserId,OthIncome_TaxCreditBelongsTo,OthIncome_TaxDedName,OthIncome_TaxDedTAN,OthIncome_TDSCertiNum,OthIncome_UnclaimedTDSYear,OthIncome_UnclaimedTDSAmount,OthIncome_TDSDedFrmReln,OthIncome_AmtClaimedCurrYr,OthIncome_TaxCreditCFwd,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,taxCreditBelongsTo,taxDedName,taxDedTAN,taxCertiNumber,UnclaimedTDSYr,UnclaimedTDSAmt,AmtClaimedCurrYr,TDSDedFromReln,taxCreditCarryFwd,'Yes'],
                 type: sequelize.QueryTypes.INSERT 
-            }).then(result => {		
+            }).then(result => {			
                 console.log("Result AppId  "+result[0]);
-                //update flags to et_applicationsmain table */
+                //update flags to et_assetsliabilitiesdetails table */
+                updateApplicationMain(appid,userid,18);
+                res.json({"statusCode": 200,"Message": "Successful Request"});
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+}
+
+exports.saveIncTaxpaidInfoByAppId = (req,res)=>{
+    let inputdata = req.body;
+    console.log("Input Req "+ JSON.stringify(inputdata));
+    let appid = req.body.appId;
+    let userid = req.body.userId;
+    let taxDedName = req.body.taxDedName;
+    let taxDedTAN = req.body.taxDedTAN;
+    let incomeChargeUSal = req.body.incomeChargeUSal!= "" ? parseFloat(req.body.incomeChargeUSal) : 0.00;
+    let totaltaxDeducted = req.body.totaltaxDeducted!= "" ? parseFloat(req.body.totaltaxDeducted) : 0.00;
+
+    IncomeTaxPaidDetails.findOne(
+		{ where: {UserId:userid,ApplicationId: appid} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Assets Details  "+JSON.stringify(resultData));
+            IncomeTaxPaidDetails.destroy({
+                where: { IncomeTaxPaidId: resultData.IncomeTaxPaidId}
+            }).then(() => {
+                console.log('deleted successfully with id = ' + resultData.IncomeTaxPaidId);
+                sequelize.query("INSERT INTO `et_incometaxpaiddetails`(ApplicationId,UserId,IncomTaxDeductorName,IncomeTaxDeductorTan,IncomeChargeUSal,IncomeTotalTaxDeducted,CompletionStatus) VALUES (?,?,?,?,?,?,?)",{
+                    replacements: [appid,userid,taxDedName,taxDedTAN,incomeChargeUSal,totaltaxDeducted,'Yes'],
+                    type: sequelize.QueryTypes.INSERT 
+                }).then(result => {		
+                    console.log("Result AppId  "+result[0]);
+                    updateApplicationMain(appid,userid,18);
+                    res.json({"statusCode": 200,"Message": "Successful Request"});
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    res.status(400).send(err);
+                });
+            });
+        } else {
+			//Save to et_personaldetails table */
+			sequelize.query("INSERT INTO `et_incometaxpaiddetails`(ApplicationId,UserId,IncomTaxDeductorName,IncomeTaxDeductorTan,IncomeChargeUSal,IncomeTotalTaxDeducted,CompletionStatus) VALUES (?,?,?,?,?,?,?)",{
+                replacements: [appid,userid,taxDedName,taxDedTAN,incomeChargeUSal,totaltaxDeducted,'Yes'],
+                type: sequelize.QueryTypes.INSERT 
+            }).then(result => {			
+                console.log("Result AppId  "+result[0]);
                 updateApplicationMain(appid,userid,18);
                 res.json({"statusCode": 200,"Message": "Successful Request"});
             })

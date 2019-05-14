@@ -592,8 +592,8 @@
                                       <label for="">IFSC Code</label>
                                     </div>
                                   </div>
-                                  <div class="col-md-6 col-sm-12">
-                                    <a href="javascript:void(0);" (click)="deleteRow(i)" *ngIf="othBankDetailsForm.controls.itemRows.controls.length > 1" class="position-absolute close"><i class="fas fa-times"></i></a>
+                                  <div class="col-md-6 col-sm-12" *ngIf="i >= 1">
+                                    <a href="javascript:void(0);" (click)="deleteRow(i)" *ngIf="i >= 1" class="position-absolute close"><i class="fas fa-times"></i></a>
                                   </div>
                                 </div>
                               </div>

@@ -17,8 +17,10 @@ const sequelize = new Sequelize(env.database, env.username, env.password, {
     freezeTableName: true
   },
   // disable logging; default: console.log
-  logging: false
+  logging: true
 });
+
+sequelize.sync();
  
 const db = {};
  
@@ -45,8 +47,10 @@ db.PropCoOwnerIncome    =   require('../model/et_property_coownerdetails')(seque
 db.CapitalGainsIncome   =   require('../model/et_income_capitalgains')(sequelize, Sequelize);
 db.Deductions           =   require('../model/et_deductions')(sequelize, Sequelize);
 db.ChallanDetails       =   require('../model/et_challandetails')(sequelize, Sequelize);
+db.OthIncomeTaxPaidDetails  =   require('../model/et_otherincometaxpaiddetails')(sequelize, Sequelize);
+db.IncomeTaxPaidDetails     =   require('../model/et_incometaxpaiddetails')(sequelize, Sequelize);
 db.PaymentDetails       =   require('../model/et_paymentdetails')(sequelize, Sequelize);
 db.DocumentUpload       =   require('../model/et_documentupload')(sequelize, Sequelize);
-db.ConfigMaster       =   require('../model/et_configmaster')(sequelize, Sequelize);
+db.ConfigMaster         =   require('../model/et_configmaster')(sequelize, Sequelize);
  
 module.exports = db;
