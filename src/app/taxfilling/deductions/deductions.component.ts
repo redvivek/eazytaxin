@@ -532,42 +532,46 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
   }
 
   //Function Called on next button click
-  on_next_click(){
-    if (this.step3 == true) {
-      this.uploadFSubmitted = true;
-      this.loading = true;
-      console.log("Doc upload details submitted");
-      if (this.proofDocUploadForm.invalid) {
-        return;
-      }else{
-        this.onSubmit(this.proofDocUploadForm,'docUploadDetails');
-      }
-      
-    }
-    if (this.step2 == true) {
-      this.otherFSubmitted = true;
-      this.loading = true;
-      console.log("Other Deduction details submitted");
-      // stop here if form is invalid
-      if (this.otherDeductionForm.invalid) {
-        return;
-      }else{
-        this.onSubmit(this.otherDeductionForm,'otherDeductionsDetails');
-      }
-    }
-    
-    if (this.step1 == true) {
-      this.mainFSubmitted = true;
-      this.loading = true;
-      console.log("Main Deduction details submitted");
-      // stop here if form is invalid
-      //if (this.findInvalidControls()){
-      if(this.mainDeductionForm.invalid) {
-        this.loading = false;
+  on_next_click(a){
+    switch(a){
+      case "step1":
+        this.mainFSubmitted = true;
+        this.loading = true;
+        console.log("Main Deduction details submitted");
+        // stop here if form is invalid
+        //if (this.findInvalidControls()){
+        if(this.mainDeductionForm.invalid) {
+          this.loading = false;
           return;
-      }else{
-        this.onSubmit(this.mainDeductionForm,'mainDeductionDetails');
-      }
+        }else{
+          this.onSubmit(this.mainDeductionForm,'mainDeductionDetails');
+        }
+      break;
+
+      case "step2":
+        this.otherFSubmitted = true;
+        this.loading = true;
+        console.log("Other Deduction details submitted");
+        // stop here if form is invalid
+        if (this.otherDeductionForm.invalid) {
+          this.loading =false;
+          return;
+        }else{
+          this.onSubmit(this.otherDeductionForm,'otherDeductionsDetails');
+        }
+      break;
+
+      case "step3":
+        this.uploadFSubmitted = true;
+        this.loading = true;
+        console.log("Doc upload details submitted");
+        if (this.proofDocUploadForm.invalid) {
+          this.loading =false;
+          return;
+        }else{
+          this.onSubmit(this.proofDocUploadForm,'docUploadDetails');
+        }
+      break;
     }
   }
 
@@ -934,20 +938,64 @@ export class DeductionsComponent implements OnInit,AfterViewInit {
   }
 
   //Function Called on previous button click
-  on_previous_click(){
-    if (this.step2 == true) {
+  on_previous_click(a){
+    switch(a){
+      case "step1":
+      this.router.navigate(['taxfilling/earnings']);
+      break;
+
+      case "step2":
       this.step1 = true;
       this.step2 = false;
       this.step3 = false;
+      break;
 
-      this.autoFillOtherDeductionForm();
-    }
-    if (this.step3 == true) {
+      case "step3":
       this.step1 = false;
       this.step2 = true;
       this.step3 = false;
+      break;
+    }
+  }
 
-      this.autoFillDocUploadForm();
+  on_skip_click(a){
+    switch(a){
+      case "step1":
+      this.step1 = false;
+      this.step2 = true;
+      this.step3 = false;
+      break;
+
+      case "step2":
+      this.step1 = false;
+      this.step2 = false;
+      this.step3 = true;
+      break;
+
+      case "step3":
+      this.localStoreg['applicationStage'] = 17;
+      //console.log("LocalStore" + JSON.stringify(this.localStoreg));
+      localStorage.removeItem("currentUserApp");
+      localStorage.setItem("currentUserApp", JSON.stringify(this.localStoreg));
+      this.router.navigate(['taxfilling/taxpaid']);
+      break;
+    }
+  }
+
+  //Function Called on Reset button click
+  on_reset_click(a){
+    switch(a){
+      case "step1":
+        this.mainDeductionForm.reset();
+      break;
+
+      case "step2":
+      this.otherDeductionForm.reset();
+      break;
+
+      case "step3":
+        this.proofDocUploadForm.reset();
+      break;
     }
   }
 

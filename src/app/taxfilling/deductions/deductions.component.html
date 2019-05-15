@@ -447,6 +447,16 @@
                           </div>
                         </div>
                         <!--Section 80G form ends-->
+                        <div class="form-actions d-flex stickyFooterForm affix">
+                          <div class="left mr-auto">
+                            <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="on_reset_click('step1')">Reset</button>
+                          </div>
+                          <div class="right ml-auto">
+                            <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step1')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
+                            <button type="button" (click)="on_skip_click('step1')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
+                            <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step1')">Save</button>
+                          </div>
+                        </div>
                       </form>
                     </div>
                     <!-- Main Deduction tab ends-->
@@ -514,7 +524,6 @@
                         </form>
 
                         <form id="otherDeductionForm" [formGroup]="otherDeductionForm">
-
                           <!--Section 80CCD form starts-->
                           <div class="boxBorderHeader position-relative" id="section_80CCD1" *ngIf="step2_section80CCD1">
                             <div class="text-uppercase boxHeader text-center">
@@ -894,6 +903,16 @@
                             </div>
                           </div>
                           <!--Section 80GGC form ends-->
+                          <div class="form-actions d-flex stickyFooterForm affix">
+                            <div class="left mr-auto">
+                              <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="on_reset_click('step2')">Reset</button>
+                            </div>
+                            <div class="right ml-auto">
+                              <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step2')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
+                              <button type="button" (click)="on_skip_click('step2')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
+                              <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step2')">Save</button>
+                            </div>
+                          </div>
                         </form>
                     </div>
                     <!-- Other Deduction tab ends-->
@@ -941,19 +960,20 @@
                             </div>
                           </div>
                         <!-- </div> -->
+                        <div class="form-actions d-flex stickyFooterForm affix">
+                          <div class="left mr-auto">
+                            <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="on_reset_click('step3')">Reset</button>
+                          </div>
+                          <div class="right ml-auto">
+                            <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step3')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
+                            <button type="button" (click)="on_skip_click('step3')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
+                            <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step3')">Save</button>
+                          </div>
+                        </div>
                         <!--Proof doc upload section ends -->
                       </form>
                     </div>
                     <!-- Proof doc upload tab ends-->
-                  </div>
-                  <div class="form-actions d-flex stickyFooterForm affix">
-                    <div class="left mr-auto">
-                      <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" disabled="">Reset</button>
-                    </div>
-                    <div class="right ml-auto">
-                      <button [disabled]="previousButtonDisable" type="button" (click)="on_previous_click()" class="btn btn-secondary btn-lg btn-prev btnLink"><i class="fas fa-arrow-left"></i> Previous</button>
-                      <button [disabled]="nextButtonDisable" type="button" (click)="on_next_click()" class="btn btn-primary btn-lg">Next <i class="fas fa-arrow-right"></i></button>
-                    </div>
                   </div>
                 </div>
               </div>
