@@ -504,9 +504,9 @@ a:hover{text-decoration:none;}
 .homepage .testimonialSection .testimonial .title small{font-size:12px; font-weight:100;}
 
 #footer{background-color:#333; color:#FFF; padding:20px;}
-#footer .footer-logo{height:24px;}
+#footer .footer-logo{height:35px; margin-top:-10px;}
 #footer.footer-inside{padding:10px;}
-#footer.footer-inside .footer-logo{height:14px;}
+#footer.footer-inside .footer-logo{height:20px; margin-top:-5px;}
 
 .social{list-style:none;}
 .social li {margin:0 4px; display:inline-block; vertical-align:top;}
