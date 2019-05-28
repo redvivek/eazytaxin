@@ -40,10 +40,10 @@ export function makeSelectedMenuActiveProp(topscroll,offsettop){
   // so we can get a fancy scroll animation
   menuItems.click(function(e){
     //alert($(this).attr("href").offset());
-    //var href = $(this).attr("href"),
-      //  offsetTop = href === "#" ? 0 : $(href).offset().top - topMenuHeight - 41;
+    var href = $(this).attr("href"),
+      offsetTop = href === "#" ? 0 : $(href).offset().top - topMenuHeight - 41;
     $('html, body').stop().animate({ 
-        scrollTop: this.offsetTop
+        scrollTop: offsetTop
     }, 300);
     e.preventDefault();
   });
@@ -54,7 +54,7 @@ export function makeSelectedMenuActiveProp(topscroll,offsettop){
   // Get id of current scroll item
   var cur = scrollItems.map(function(){
       //console.log("From TOP "+fromTop);
-      if (this.offsettop < fromTop) 
+      if (offsettop < fromTop) 
       return this;
   });
   // Get the id of the current element
