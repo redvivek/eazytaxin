@@ -68,4 +68,8 @@ export class UseractivationComponent implements OnInit,AfterViewInit {
     handleInsideHeaderBackground();
   }
 
+  login(){
+    this.router.navigate(['/login']);
+  }
+
 }

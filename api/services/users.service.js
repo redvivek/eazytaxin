@@ -67,15 +67,31 @@ exports.create = (req, res) => {
 					console.log("Activation code updated successfully");
 					
 					var host= req.get('host');
-					var link="http://"+host+"/api/users/verifyUser?id="+activationCode+"&uid="+newuserid;
-					mailOptions={
-						to : email, //'sg.viv09@gmail.com',
-						from: 'admin@easytaxin.com',
+					//var link="http://"+host+"/api/users/verifyUser?id="+activationCode+"&uid="+newuserid;
+					var link = "http://www.easytaxin.com/login";
+					/* mailOptions={
+						to : 'sg.viv09@gmail.com', //email
+						from: 'EASYTAXin Admin',
 						subject : "EasyTaxin - Please confirm your Email account",
 						text: 'Hello, Please copy & open this link to verify your email. '+link,
 						html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>" 
+					} */
+					mailOptions={
+						to : email, //'sg.viv09@gmail.com',
+						from: 'Easytaxin Admin<usha.tanna@easytaxin.com>',
+						subject : "Welcome to Easytaxin. Start filling your tax",
+						text: 'Hello, Thankyou for registering with us. You account is activated and you can start filling your return now',
+						html : "Hello,<br> Thankyou for registering with us.<br> You account is activated and you can start filling your return now"
+					}
+					ccMailOptions={
+						to : 'usha.tanna@easytaxin.com', //'vivek.shukla2010@live.com',
+						from: 'no-reply@easytaxin.com',
+						subject : "New User Registeration Notification",
+						text: 'Hello Admin, This is inform you a new user has been registered with us',
+						html : "Hello Admin,<br> This is inform you a new user has been registered with us.<br> Below mentioned is the detail of registered user. <br>Email - "+email
 					}
 					console.log(mailOptions);
+					console.log(ccMailOptions);
 					/* console.log("Regsiteration successful and activation mail sent to user");
 					res.json({"statusCode": 200,"Message": "Successful Request","userid":newuserid}); */
 					fetchMailKeyValue()
@@ -89,7 +105,16 @@ exports.create = (req, res) => {
 							}
 							else {
 								console.log("Regsiteration successful and activation mail sent to user");
-								res.json({"statusCode": 200,"Message": "Successful Request","userid":newuserid});
+								sgMail.send(ccMailOptions, (error, result) => {
+									if (error) {
+										console.log("Regsiteration notiifcation mail failed " + error);
+										res.status(400).send(error);
+									}
+									else {
+										console.log("Regsiteration notiifcation mail sent to user");
+										res.json({"statusCode": 200,"Message": "Successful Request","userid":newuserid});
+									}
+								});
 							}
 						});
 					})
@@ -142,10 +167,11 @@ exports.sendActivationMail = (req,res) =>{
 			}).then(result => {		
 				console.log("Activation code updated successfully");
 				var host = req.get('host');
+				//var host = "www.easytaxin.com";
 				var link = "http://"+host+"/api/users/verifyUser?id="+activationCode+"&uid="+userid;
 				mailOptions={
-					to : email, //'sg.viv09@gmail.com',
-					from: 'admin@easytaxin.com',
+					to : 'sg.viv09@gmail.com', //email
+					from: 'Easytaxin Admin<usha.tanna@easytaxin.com>',
 					subject : "EasyTaxin - Please confirm your Email account",
 					text: 'Hello, Please copy & open this link to verify your email. '+link,
 					html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>" 
@@ -200,8 +226,8 @@ exports.verifyUser = (req,res) =>{
 	var dt = dateTime.create();
 	var formatted = dt.format('Y-m-d H:M:S');
 
-	var host = req.get('host');
-	console.log(req.protocol+":/"+req.get('host'));
+	//var host = req.get('host');
+	//console.log(req.protocol+":/"+req.get('host'));
 	//if((req.protocol+"://"+req.get('host'))==(config.protocol+config.host))
 	//{
 		//console.log("Domain is matched. Information is from Authentic email");
@@ -354,7 +380,7 @@ exports.forgetPassword = (req,res)=>{
 				var link = redirectURL+"/resetpassword?id="+pwdResetCode+"&uid="+userid;
 				mailOptions={
 					to : email, //'sg.viv09@gmail.com',
-					from: 'admin@easytaxin.com',
+					from: 'Easytaxin Admin<usha.tanna@easytaxin.com>',
 					subject : "EasyTaxin - Reset your password.",
 					text: 'Hello, Please copy & open this link to reset your password. '+link,
 					html : "Hello,<br> Please Click on the link to reset your password.<br><a href="+link+">Reset Password</a>" 
