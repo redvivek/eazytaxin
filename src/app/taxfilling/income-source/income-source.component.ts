@@ -71,6 +71,11 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
   nextButtonDisable = false;
   previousButtonDisable = false;
   selAssYear : any = null;
+  ifForm16FlagTrue = false;
+  ifOthSalFlagTrue = false;
+  ifHouSalFlagTrue = false;
+  ifRentSalFlagTrue = false;
+  ifCapitalSalFlagTrue = false;
 
   //Create list of assesment year
   taxperiods = this.getCurrentAssesmentYear();
@@ -368,11 +373,16 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
     });
 
     this.captialIncomeUploadForm = this.formBuilder.group({
-      uploadShareIncomeProof: ['']
-      //uploadShareIncomeProofFlag: ['0']
+      uploadShareIncomeProof: [''],
+      uploadShareIncomeProofFlag: ['0']
     });
 
-    this.autoFillSalaryIncomeForm();
+    //load existing filled data
+    this.autoFillSalaryIncomeForm(this.ApplicationId);
+    this.autoFillOtherIncomeForm(this.ApplicationId);
+    this.autoFillHouseIncomeForm(this.ApplicationId,"Houseprop");
+    this.autoFillRentalIncomeForm(this.ApplicationId,"Rentalprop");
+    this.autoFillCapitalIncomeForm(this.ApplicationId);
 
     //File Uploader with form data
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
@@ -481,7 +491,7 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
       //alert('File uploaded successfully');
       if(res['statusCode'] == 200){                 
         this.alertService.success('File Uploaded successfully');
-        //this.captialIncomeUploadForm.get('uploadShareIncomeProofFlag').setValue('1');
+        this.captialIncomeUploadForm.get('uploadShareIncomeProofFlag').setValue('1');
       }else{
         this.alertService.error('File Uploading Failed');
       }
@@ -591,24 +601,228 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
     control.updateValueAndValidity();
   }
   
-  autoFillSalaryIncomeForm(){
-    //this.salaryIncomeForm.get('uploadForm16FileFlag').setValue("1");
+  autoFillSalaryIncomeForm(appid){
+    this.appService.getSalaryInfoByAppId(appid)
+    .pipe(first())
+    .subscribe(
+        data  => {
+          //console.log("Response"+JSON.stringify(data));
+          if(data !== null ){
+              //Preload form with existing or default values
+              var maindata = data;
+              //console.log("Existing perInfo "+ JSON.stringify(maindata));
+              this.salaryIncomeUploadForm.get('uploadForm16FileFlag').setValue(maindata.Form16UploadFlag);
+              this.salaryIncomeForm.get('inputEmployernm').setValue(maindata.EmployerName);
+              this.salaryIncomeForm.get('inputSalary').setValue(maindata.SalaryPaidAmount);
+              this.salaryIncomeForm.get('inputEmployertype').setValue(maindata.EmployerCategory);
+              this.salaryIncomeForm.get('inputEmpTAN').setValue(maindata.EmployerTAN);
+              this.salaryIncomeForm.get('inputAllowances').setValue(maindata.Allowances);
+              this.salaryIncomeForm.get('valPrequisties').setValue(maindata.ValPrequisties);
+              this.salaryIncomeForm.get('inputSalProfits').setValue(maindata.SalProfits);
+              this.salaryIncomeForm.get('deductionEnter').setValue(maindata.EntertainmentDeduction);
+              this.salaryIncomeForm.get('inputLTAAmount').setValue(maindata.LTAAmount);
+              this.salaryIncomeForm.get('nonMoneyPrequisties').setValue(maindata.NMoneyPrequisties);
+              this.salaryIncomeForm.get('expAllowanceHR').setValue(maindata.ExpAllowanceHR);
+              this.salaryIncomeForm.get('othAllowance').setValue(maindata.OthAllowance);
+
+              if(maindata.Form16UploadFlag == 1){
+                this.ifForm16FlagTrue = true;
+              }else{
+                  this.ifForm16FlagTrue = false;
+              }
+              handleFloatingLabels(Waves);
+          }
+      },
+      error => {
+          console.log("AppMain fetch data error"+JSON.stringify(error));
+          this.loading = false;
+          return error;
+      });
   }
 
-  autoFillOtherIncomeForm(){
-    //this.otherIncomeForm.get('uploadOtherIncomeProofFlag').setValue("1");
+  autoFillOtherIncomeForm(appid){
+    this.appService.getOthSalaryInfoByAppId(appid)
+    .pipe(first())
+    .subscribe(
+        data  => {
+          //console.log("Response"+JSON.stringify(data));
+          if(data.length > 0 ){
+              //Preload form with existing or default values
+              var maindata = data[0].maindata;
+              //console.log("Existing perInfo "+ JSON.stringify(maindata));
+              this.otherIncomeUploadForm.get('uploadOtherIncomeProofFlag').setValue(maindata.DocumentUploadFlag);
+              this.otherIncomeForm.get('inputSavingsIncome').setValue(maindata.SavingsInterestAmount);
+              this.otherIncomeForm.get('inputFDInterestIncome').setValue(maindata.FDInterestAmount);
+              this.otherIncomeForm.get('inputRefundIntIncome').setValue(maindata.RefundInterestIncome);
+              this.otherIncomeForm.get('inputOthInterestIncome').setValue(maindata.OtherInterestIncome);
+              this.otherIncomeForm.get('inputAnyOtherIncome').setValue(maindata.GiftsIncome);
+              this.otherIncomeForm.get('inputSharesIncome').setValue(maindata.DividendEarnedAmount);
+              this.otherIncomeForm.get('inputExemptIncome').setValue(maindata.ExemptInterestIncome);
+              this.otherIncomeForm.get('inputOtherExemptIncome').setValue(maindata.OtherExemptIncome);
+              this.otherIncomeForm.get('inputAgriIncome').setValue(maindata.GrossAgriIncome);
+              this.otherIncomeForm.get('inputAgriExpend').setValue(maindata.AgriExpenditure);
+              this.otherIncomeForm.get('inputAgriLoss').setValue(maindata.AgriLoss);
+              this.otherIncomeForm.get('taxperiod').setValue(maindata.Taxperiod);
+              this.otherIncomeForm.get('inputPFIncome').setValue(maindata.PFWithdrawalIncome);
+              this.otherIncomeForm.get('inputPFTax').setValue(maindata.PFWithdrawalTaxrate);
+              
+              var depdata = data[1].depdata;
+              if(depdata !== null){
+                this.otherIncomeForm.get('inputDepAmount').setValue(depdata.Amount);
+                this.otherIncomeForm.get('inputDepPersonName').setValue(depdata.PersonName);
+                this.otherIncomeForm.get('inputDepPersonRel').setValue(depdata.Relationship);
+                this.otherIncomeForm.get('inputDepIncomeNature').setValue(depdata.NatureOfIncome);
+              }
+              
+              if(maindata.DocumentUploadFlag == 1){
+                this.ifOthSalFlagTrue = true;
+              }else{
+                  this.ifOthSalFlagTrue = false;
+              }
+              handleFloatingLabels(Waves);
+          }
+      },
+      error => {
+          console.log("AppMain fetch data error"+JSON.stringify(error));
+          this.loading = false;
+          return error;
+      });
   }
 
-  autoFillHouseIncomeForm(){
-    //this.housePropIncomeForm.get('uploadHouseIncomeProofFlag').setValue("1");
+  autoFillHouseIncomeForm(appid,type){
+    this.appService.getHousealaryInfoByAppId(appid,type)
+    .pipe(first())
+    .subscribe(
+        data  => {
+          //console.log("Response"+JSON.stringify(data));
+          if(data.length > 0 ){
+              //Preload form with existing or default values
+              var maindata = data[0].maindata;
+              var adddata = data[1].adddata;
+              //console.log("Existing perInfo "+ JSON.stringify(maindata));
+              this.housePropIncomeUploadForm.get('uploadHouseIncomeProofFlag').setValue(maindata.DocumentUploadFlag);
+              
+              this.housePropIncomeForm.get('inpSelfOccPropFlatNo').setValue(adddata.Flatno_Blockno);
+              this.housePropIncomeForm.get('inpSelfOccPropPremise').setValue(adddata.Building_Village_Premises);
+              this.housePropIncomeForm.get('inpSelfOccPropStreet').setValue(adddata.Road_Street_PO);
+              this.housePropIncomeForm.get('inpSelfOccPropArea').setValue(adddata.Area_Locality);
+              this.housePropIncomeForm.get('inpSelfOccPropCity').setValue(adddata.City_Town_District);
+              this.housePropIncomeForm.get('inpSelfOccPropPincode').setValue(adddata.Pincode);
+              this.housePropIncomeForm.get('inpSelfOccPropCountry').setValue(adddata.Country);
+              this.housePropIncomeForm.get('inpSelfOccPropState').setValue(adddata.State);
+
+              this.housePropIncomeForm.get('inpSelfOccPropLoanFlag').setValue(maindata.HouseloanFlag);
+              this.housePropIncomeForm.get('inpSelfOccPropInterset').setValue(maindata.InterestAmount);
+              this.housePropIncomeForm.get('inpCOFlag').setValue(maindata.CoownerFlag);
+              this.housePropIncomeForm.get('inpSelfShare').setValue(maindata.OwnershipShare);
+              
+              var codata = data[2].codata;
+              if(codata !== null){
+                this.housePropIncomeForm.get('inpCOName').setValue(codata.PersonName);
+                this.housePropIncomeForm.get('inpCOPan').setValue(codata.Panno);
+                this.housePropIncomeForm.get('inpCOShare').setValue(codata.Share);
+              }
+              
+              if(maindata.DocumentUploadFlag == 1){
+                this.ifHouSalFlagTrue = true;
+              }else{
+                  this.ifHouSalFlagTrue = false;
+              }
+              handleFloatingLabels(Waves);
+          }
+      },
+      error => {
+          console.log("AppMain fetch data error"+JSON.stringify(error));
+          this.loading = false;
+          return error;
+      });
   }
 
-  autoFillRentalIncomeForm(){
-    //this.rentalPropIncomeForm.get('uploadRentalIncomeProofFlag').setValue("1");
+  autoFillRentalIncomeForm(appid,type){
+    this.appService.getHousealaryInfoByAppId(appid,type)
+    .pipe(first())
+    .subscribe(
+        data  => {
+          //console.log("Response"+JSON.stringify(data));
+          if(data.length > 0 ){
+              //Preload form with existing or default values
+              var maindata = data[0].maindata;
+              var adddata = data[1].adddata;
+              //console.log("Existing perInfo "+ JSON.stringify(maindata));
+              this.rentalPropIncomeUploadForm.get('uploadRentalIncomeProofFlag').setValue(maindata.DocumentUploadFlag);
+              
+              this.rentalPropIncomeForm.get('inpRentalPropFlatNo').setValue(adddata.Flatno_Blockno);
+              this.rentalPropIncomeForm.get('inpRentalPropPremise').setValue(adddata.Building_Village_Premises);
+              this.rentalPropIncomeForm.get('inpRentalPropStreet').setValue(adddata.Road_Street_PO);
+              this.rentalPropIncomeForm.get('inpRentalPropArea').setValue(adddata.Area_Locality);
+              this.rentalPropIncomeForm.get('inpRentalPropCity').setValue(adddata.City_Town_District);
+              this.rentalPropIncomeForm.get('inpRenPropPincode').setValue(adddata.Pincode);
+              this.rentalPropIncomeForm.get('inpRentalPropCountry').setValue(adddata.Country);
+              this.rentalPropIncomeForm.get('inpRentalPropState').setValue(adddata.State);
+              
+              this.rentalPropIncomeForm.get('inpRentalPropRentRec').setValue(maindata.AmountReceived);
+              this.rentalPropIncomeForm.get('inpRentalPropHousetax').setValue(maindata.HousetaxPaid);
+              this.rentalPropIncomeForm.get('inpRentalPropTenName').setValue(maindata.TenantName);
+              this.rentalPropIncomeForm.get('inpRentalPropTenPan').setValue(maindata.TanantPanno);
+              this.rentalPropIncomeForm.get('inpRentalPropInterset').setValue(maindata.InterestAmount);
+              this.rentalPropIncomeForm.get('inpRenUnRealRent').setValue(maindata.UnrealizedRentAmount);
+              this.rentalPropIncomeForm.get('inpRentalPropLoanFlag').setValue(maindata.HouseloanFlag);
+              this.rentalPropIncomeForm.get('inpRenCOFlag').setValue(maindata.CoownerFlag);
+              this.rentalPropIncomeForm.get('inpRenSelfShare').setValue(maindata.OwnershipShare);
+              
+              var codata = data[2].codata;
+              if(codata !== null){
+                this.rentalPropIncomeForm.get('inpRenCOName').setValue(codata.PersonName);
+                this.rentalPropIncomeForm.get('inpRenCOPan').setValue(codata.Panno);
+                this.rentalPropIncomeForm.get('inpRenCOShare').setValue(codata.Share);
+              }
+              
+              if(maindata.DocumentUploadFlag == 1){
+                this.ifRentSalFlagTrue = true;
+              }else{
+                  this.ifRentSalFlagTrue = false;
+              }
+              handleFloatingLabels(Waves);
+          }
+      },
+      error => {
+          console.log("AppMain fetch data error"+JSON.stringify(error));
+          this.loading = false;
+          return error;
+      });
   }
 
-  autoFillCapitalIncomeForm(){
-    //this.captialIncomeUploadForm.get('uploadShareIncomeProofFlag').setValue("0");
+  autoFillCapitalIncomeForm(appid){
+    this.appService.getCapSalInfoByAppId(appid)
+    .pipe(first())
+    .subscribe(
+        data  => {
+          //console.log("Response"+JSON.stringify(data));
+          if(data !== null ){
+              //Preload form with existing or default values
+              var maindata = data;
+              //console.log("Existing perInfo "+ JSON.stringify(maindata));
+              this.captialIncomeUploadForm.get('uploadShareIncomeProofFlag').setValue(maindata.DocUploadFlag);
+              this.captialIncomeForm.get('inpSaleType').setValue(maindata.SaleType);
+              this.captialIncomeForm.get('inputSalesProceed').setValue(maindata.SalesProceedAmt);
+              this.captialIncomeForm.get('inputSalesDate').setValue(maindata.SalesDate);
+              this.captialIncomeForm.get('inpSTTPaid').setValue(maindata.SalesTaxPaid);
+              this.captialIncomeForm.get('inputCostBasis').setValue(maindata.CostBasis);
+              this.captialIncomeForm.get('inputPurDate').setValue(maindata.PurchaseDate);
+
+              if(maindata.DocUploadFlag == 1){
+                this.ifCapitalSalFlagTrue = true;
+              }else{
+                  this.ifCapitalSalFlagTrue = false;
+              }
+              handleFloatingLabels(Waves);
+          }
+      },
+      error => {
+          console.log("AppMain fetch data error"+JSON.stringify(error));
+          this.loading = false;
+          return error;
+      });
   }
 
   //Function Called on next button click
@@ -617,13 +831,7 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
       case "step1_income_salary_upload":
         this.salUFSubmitted = true;
         console.log("Salary Income Upload details submitted");
-        this.step1 = true;
-        this.step1_income_salary_upload = false;
-        this.step1_income_from_salary = true;
-        this.step2 = false;
-        this.step3 = false;
-        this.step4 = false;
-        this.step5 = false;
+        this.onSubmit(this.salaryIncomeUploadForm,'salaryIncomeUploadDetails');
       break;
 
       case "step1_income_from_salary":
@@ -657,18 +865,7 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
       case "step2_income_other_upload":
         this.othUFSubmitted = true;
         console.log("Other Income Upload details submitted");
-        this.step1 = false;
-        this.step1_income_salary_upload = false;
-        this.step1_income_from_salary = false;
-        this.step2 = false;
-        this.step2_income_other_data = false;
-        this.step2_income_other_upload = false;
-        this.step3 = true;
-        this.step3_house_property_data = true;
-        this.step3_house_property_upload = false; 
-        this.step4 = false;
-        this.step5 = false;
-        
+        this.onSubmit(this.otherIncomeUploadForm,'OtherIncomeUploadDetails');
       break;
 
       case "step3_house_property_data":
@@ -688,19 +885,7 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
         this.houUFSubmitted = true;
         this.loading = true;
         console.log("House Prop Upload details submitted");
-        this.step1 = false;
-        this.step1_income_salary_upload = false;
-        this.step1_income_from_salary = false;
-        this.step2 = false;
-        this.step2_income_other_data = false;
-        this.step2_income_other_upload = false;
-        this.step3 = false;
-        this.step3_house_property_data = false;
-        this.step3_house_property_upload = false; 
-        this.step4 = true;
-        this.step4_rental_property_data = true;
-        this.step4_rental_property_upload = false;
-        this.step5 = false;
+        this.onSubmit(this.housePropIncomeUploadForm,'HouseIncomeUploadDetails');
       break;
 
       case "step4_rental_property_data":
@@ -720,21 +905,7 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
         this.renUFSubmitted = true;
         this.loading = true;
         console.log("Rental property Upload details submitted");
-        this.step1 = false;
-        this.step1_income_salary_upload = false;
-        this.step1_income_from_salary = false;
-        this.step2 = false;
-        this.step2_income_other_data = false;
-        this.step2_income_other_upload = false;
-        this.step3 = false;
-        this.step3_house_property_data = false;
-        this.step3_house_property_upload = false; 
-        this.step4 = false;
-        this.step4_rental_property_data = false;
-        this.step4_rental_property_upload = false;
-        this.step5 = true;
-        this.step5_captial_data = true;
-        this.step5_captial_upload = false;
+        this.onSubmit(this.rentalPropIncomeUploadForm,'RentalIncomeUploadDetails');
       break;
 
       case "step5_captial_data":
@@ -754,16 +925,52 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
         this.capUFSubmitted = true;
         this.loading = true;
         console.log("Capital Income Upload submitted");
-        this.router.navigate(['taxfilling/deductions']);
+        this.onSubmit(this.captialIncomeUploadForm,'CapitalIncomeUploadDetails');
       break;
     }
   }
 
 
   onSubmit(formname,infoType) {
-    var salIncomeInputParam,othIncomeInputParam,houseIncomeInputParam,rentIncomeInputParam,capIncomeInputParam;  
+    var salForm16InputParam,salIncomeInputParam,othIncomeInputParam,othSalUpldInputParam,houseIncomeInputParam,houSalUpldInputParam,rentIncomeInputParam,rentSalUpldInputParam,capIncomeInputParam,capSalUpldInputParam;  
     console.log('Input values!! :-)\n\n' + JSON.stringify(formname.value));
       switch(infoType){
+        case "salaryIncomeUploadDetails":
+          salForm16InputParam = {
+            'appId':this.ApplicationId,
+            'userId':this.userId,
+            "form16uploadflag" : this.su.uploadForm16FileFlag.value
+          };
+
+          // start storing application data in database
+          this.appService.saveSalIncomeForm16Details(salForm16InputParam)
+          .pipe(first())
+          .subscribe(
+          data => { 
+                //console.log("Response" + JSON.stringify(data));
+                //successfully inserted
+                if(data['statusCode'] == 200){                  
+                    this.alertService.success('Application - Salary Form16 data saved successfully');
+                    this.localStoreg['applicationStage'] = 9;
+                    //console.log("LocalStore" + JSON.stringify(this.localStoreg));
+                    localStorage.removeItem("currentUserApp");
+                    localStorage.setItem("currentUserApp", JSON.stringify(this.localStoreg));
+                    this.loading = false;
+                    this.step1 = true;
+                    this.step1_income_salary_upload = false;
+                    this.step1_income_from_salary = true;
+                    this.step2 = false;
+                    this.step3 = false;
+                    this.step4 = false;
+                    this.step5 = false;
+                }
+          },
+          error => {
+            this.alertService.error('Application - Salary Income data save request failed '+error);
+            this.loading = false;
+          });
+        break;
+
         case "salIncomeDetails":
           salIncomeInputParam = {
               'appId':this.ApplicationId,
@@ -811,6 +1018,7 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
                 this.loading = false;
               });
         break;
+        
         case "otherIncomeDetails":
           othIncomeInputParam = {
             'appId':this.ApplicationId,
@@ -864,6 +1072,47 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
               this.loading = false;
           });
         break;
+        
+        case "OtherIncomeUploadDetails":
+          othSalUpldInputParam = {
+            'appId':this.ApplicationId,
+            'userId':this.userId,
+            "docUploadflag" : this.ou.uploadOtherIncomeProofFlag.value
+          };
+
+          // start storing application data in database
+          this.appService.updateOthIncomeDetails(othSalUpldInputParam)
+          .pipe(first())
+          .subscribe(
+          data => { 
+                //console.log("Response" + JSON.stringify(data));
+                //successfully inserted
+                if(data['statusCode'] == 200){                  
+                    this.alertService.success('Application - Other Sal proofs data saved successfully');
+                    this.localStoreg['applicationStage'] = 10;
+                    //console.log("LocalStore" + JSON.stringify(this.localStoreg));
+                    localStorage.removeItem("currentUserApp");
+                    localStorage.setItem("currentUserApp", JSON.stringify(this.localStoreg));
+                    this.loading = false;
+                    this.step1 = false;
+                    this.step1_income_salary_upload = false;
+                    this.step1_income_from_salary = false;
+                    this.step2 = false;
+                    this.step2_income_other_data = false;
+                    this.step2_income_other_upload = false;
+                    this.step3 = true;
+                    this.step3_house_property_data = true;
+                    this.step3_house_property_upload = false; 
+                    this.step4 = false;
+                    this.step5 = false;
+                }
+          },
+          error => {
+            this.alertService.error('Application - Other Salary Income data save request failed '+error);
+            this.loading = false;
+          });
+        break;
+        
         case "houseIncomeDetails":
           houseIncomeInputParam = {
             'appId':this.ApplicationId,
@@ -918,6 +1167,50 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
               this.loading = false;
           });
         break;
+
+        case "HouseIncomeUploadDetails":
+          houSalUpldInputParam = {
+            'appId':this.ApplicationId,
+            'userId':this.userId,
+            'type':"Houseprop",
+            "docUploadflag" : this.hu.uploadHouseIncomeProofFlag.value
+          };
+
+          // start storing application data in database
+          this.appService.updateHouseIncomeDetails(houSalUpldInputParam)
+          .pipe(first())
+          .subscribe(
+          data => { 
+                //console.log("Response" + JSON.stringify(data));
+                //successfully inserted
+                if(data['statusCode'] == 200){                  
+                    this.alertService.success('Application - Self Prop income proofs data saved successfully');
+                    this.localStoreg['applicationStage'] = 11;
+                    //console.log("LocalStore" + JSON.stringify(this.localStoreg));
+                    localStorage.removeItem("currentUserApp");
+                    localStorage.setItem("currentUserApp", JSON.stringify(this.localStoreg));
+                    this.loading = false;
+                    this.step1 = false;
+                    this.step1_income_salary_upload = false;
+                    this.step1_income_from_salary = false;
+                    this.step2 = false;
+                    this.step2_income_other_data = false;
+                    this.step2_income_other_upload = false;
+                    this.step3 = false;
+                    this.step3_house_property_data = false;
+                    this.step3_house_property_upload = false; 
+                    this.step4 = true;
+                    this.step4_rental_property_data = true;
+                    this.step4_rental_property_upload = false;
+                    this.step5 = false;
+                }
+          },
+          error => {
+            this.alertService.error('Application - Self Prop Income data save request failed '+error);
+            this.loading = false;
+          });
+        break;
+
         case "renIncomeDetails":
           rentIncomeInputParam = {
             'appId':this.ApplicationId,
@@ -982,6 +1275,51 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
           });
         break;
 
+        case "RentalIncomeUploadDetails":
+          rentSalUpldInputParam = {
+            'appId':this.ApplicationId,
+            'userId':this.userId,
+            'type':"Rentalprop",
+            "docUploadflag" : this.ru.uploadRentalIncomeProofFlag.value
+          };
+
+          // start storing application data in database
+          this.appService.updateHouseIncomeDetails(rentSalUpldInputParam)
+          .pipe(first())
+          .subscribe(
+          data => { 
+                //console.log("Response" + JSON.stringify(data));
+                //successfully inserted
+                if(data['statusCode'] == 200){                  
+                    this.alertService.success('Application - Rental Income proofs data saved successfully');
+                    this.localStoreg['applicationStage'] = 12;
+                    //console.log("LocalStore" + JSON.stringify(this.localStoreg));
+                    localStorage.removeItem("currentUserApp");
+                    localStorage.setItem("currentUserApp", JSON.stringify(this.localStoreg));
+                    this.loading = false;
+                    this.step1 = false;
+                    this.step1_income_salary_upload = false;
+                    this.step1_income_from_salary = false;
+                    this.step2 = false;
+                    this.step2_income_other_data = false;
+                    this.step2_income_other_upload = false;
+                    this.step3 = false;
+                    this.step3_house_property_data = false;
+                    this.step3_house_property_upload = false; 
+                    this.step4 = false;
+                    this.step4_rental_property_data = false;
+                    this.step4_rental_property_upload = false;
+                    this.step5 = true;
+                    this.step5_captial_data = true;
+                    this.step5_captial_upload = false;
+                }
+          },
+          error => {
+            this.alertService.error('Application - Rental Prop Income data save request failed '+error);
+            this.loading = false;
+          });
+        break;
+
         case "capIncomeDetails":
           capIncomeInputParam = {
             'appId':this.ApplicationId,
@@ -993,11 +1331,11 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
             "inputCostBasis":this.c.inputCostBasis.value,
             "inputPurDate":this.c.inputPurDate.value,
           };
-        // start storing application data in database
-        this.appService.saveCapitalIncomeDetails(capIncomeInputParam)
-        .pipe(first())
-        .subscribe(
-          data => {
+          // start storing application data in database
+          this.appService.saveCapitalIncomeDetails(capIncomeInputParam)
+          .pipe(first())
+          .subscribe(
+            data => {
                   //console.log("Response" + JSON.stringify(data));
                   //successfully inserted
                   if(data['statusCode'] == 200){
@@ -1024,10 +1362,38 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
                         this.step5_captial_upload = true;
                       }                
               },
-          error => {
+            error => {
               this.alertService.error('Application - Captial Gains data save request failed '+error);
               this.loading = false;
           });
+        break;
+
+        case "CapitalIncomeUploadDetails":
+          capSalUpldInputParam = {
+            'appId':this.ApplicationId,
+            'userId':this.userId,
+            "docUploadflag" : this.cu.uploadShareIncomeProofFlag.value
+          };
+          this.appService.updateCapitalIncomeDetails(capSalUpldInputParam)
+          .pipe(first())
+          .subscribe(
+            data => {
+                //console.log("Response" + JSON.stringify(data));
+                //successfully inserted
+                if(data['statusCode'] == 200){
+                      this.alertService.error('Application - Captial Gains data saved successfully');
+                      this.localStoreg['applicationStage'] = 13;
+                      //console.log("LocalStore" + JSON.stringify(this.localStoreg));
+                      localStorage.removeItem("currentUserApp");
+                      localStorage.setItem("currentUserApp", JSON.stringify(this.localStoreg));
+                      this.loading = false;
+                      this.router.navigate(['taxfilling/deductions']);
+                    }                
+              },
+              error => {
+                this.alertService.error('Application - Captial Gains data save request failed '+error);
+                this.loading = false;
+        });
         break;
       }
   }
@@ -1484,6 +1850,16 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
     assYearList.push(prevAYear);
     //assYearList.push(prevLAYear);
     return assYearList;
+  }
+
+  downloadSample(val){
+    if(val = 'forForm16UploadedFile'){
+
+    }
+
+    if(val = 'forOthSalUploadedFile'){
+
+    }
   }
 
 }

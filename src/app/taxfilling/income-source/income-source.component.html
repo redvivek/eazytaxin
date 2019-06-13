@@ -166,6 +166,16 @@
                                       <input type="hidden" class="form-control" id="uploadForm16FileFlag" formControlName="uploadForm16FileFlag">
                                     </div>
                                   </div>
+                                  <div class="row" *ngIf="ifForm16FlagTrue">
+                                    <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <!-- <button type="button" (click)="downloadSample('forForm16UploadedFile')" class="btn btn-secondary btn-lg btn-skip btnLink">
+                                          <i class="icon-cloud-download"></i> View Uploaded Form16
+                                        </button> -->
+                                        <label>Form16 Already Uploaded. Please reupload to replace the form16.</label>
+                                      </div>
+                                    </div>
+                                  </div>
                                   <!--Button Part open -->
                                   <div class="form-actions d-flex stickyFooterForm affix">
                                       <div class="left mr-auto">
@@ -806,7 +816,16 @@
                                               <input type="hidden" class="form-control" id="uploadOtherIncomeProofFlag" formControlName="uploadOtherIncomeProofFlag">
                                           </div>
                                       </div>
-
+                                      <div class="row" *ngIf="ifOthSalFlagTrue">
+                                        <div class="col-sm-6">
+                                          <div class="form-group">
+                                            <!-- <button type="button" (click)="downloadSample('forOthSalUploadedFile')" class="btn btn-secondary btn-lg btn-skip btnLink">
+                                              <i class="icon-cloud-download"></i> View Uploaded Document
+                                            </button> -->
+                                            <label>Other Salary Proofs Already Uploaded. Please reupload to replace the proof docs.</label>
+                                          </div>
+                                        </div>
+                                      </div>
                                       <!--Button Part open -->
                                       <div class="form-actions d-flex stickyFooterForm affix">
                                           <div class="left mr-auto">
@@ -1206,6 +1225,16 @@
                                       </div>
                                       <div class = "row">
                                           <input type="hidden" class="custom-file-input" id="uploadHouseIncomeProofFlag" formControlName="uploadHouseIncomeProofFlag" >
+                                      </div>
+                                      <div class="row" *ngIf="ifHouSalFlagTrue">
+                                        <div class="col-sm-6">
+                                          <div class="form-group">
+                                            <!-- <button type="button" (click)="downloadSample('forOthSalUploadedFile')" class="btn btn-secondary btn-lg btn-skip btnLink">
+                                              <i class="icon-cloud-download"></i> View Uploaded Document
+                                            </button> -->
+                                            <label>Self Property Income Proofs Already Uploaded. Please reupload to replace the proof docs.</label>
+                                          </div>
+                                        </div>
                                       </div>
                                       <!--Button Part open -->
                                       <div class="form-actions d-flex stickyFooterForm affix">
@@ -1703,6 +1732,16 @@
                                       <div class = "row">
                                           <input type="hidden" class="custom-file-input" id="uploadRentalIncomeProofFlag" formControlName="uploadRentalIncomeProofFlag" >
                                       </div>
+                                      <div class="row" *ngIf="ifRentSalFlagTrue">
+                                        <div class="col-sm-6">
+                                          <div class="form-group">
+                                            <!-- <button type="button" (click)="downloadSample('forOthSalUploadedFile')" class="btn btn-secondary btn-lg btn-skip btnLink">
+                                              <i class="icon-cloud-download"></i> View Uploaded Document
+                                            </button> -->
+                                            <label>Rental Property Income Proofs Already Uploaded. Please reupload to replace the proof docs.</label>
+                                          </div>
+                                        </div>
+                                      </div>
 
                                       <!--Button Part open -->
                                       <div class="form-actions d-flex stickyFooterForm affix">
@@ -1839,6 +1878,19 @@
                                     <div class="col">
                                       <div class="form-group">
                                         <button type="button" (click)="shareuploader.uploadAll()" [disabled]="!shareuploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class = "row">
+                                    <input type="hidden" class="custom-file-input" id="uploadShareIncomeProofFlag" formControlName="uploadShareIncomeProofFlag" >
+                                </div>
+                                  <div class="row" *ngIf="ifCapitalSalFlagTrue">
+                                    <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <!-- <button type="button" (click)="downloadSample('forOthSalUploadedFile')" class="btn btn-secondary btn-lg btn-skip btnLink">
+                                          <i class="icon-cloud-download"></i> View Uploaded Document
+                                        </button> -->
+                                        <label>Capital Income Proofs Already Uploaded. Please reupload to replace the proof docs.</label>
                                       </div>
                                     </div>
                                   </div>

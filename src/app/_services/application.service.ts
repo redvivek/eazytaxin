@@ -140,40 +140,88 @@ export class ApplicationService {
 
     getAddressInfoByAppId(id: number,addresstype:string) {
         return this.http.post<any>(`${environment.apiUrl}/tax/appAddressDetails`, { id,addresstype })
-            .pipe(map(perinfodata => {
-                if(perinfodata['statusCode'] == 200){
-                    if (perinfodata['PerData'] != "") {
-                        //console.log("Current App value"+ JSON.stringify(perinfodata['PerData']));
-                        return perinfodata['PerData'];
-                    }else{
-                        return null;
-                    }
+        .pipe(map(perinfodata => {
+            if(perinfodata['statusCode'] == 200){
+                if (perinfodata['PerData'] != "") {
+                    //console.log("Current App value"+ JSON.stringify(perinfodata['PerData']));
+                    return perinfodata['PerData'];
+                }else{
+                    return null;
                 }
-            }));
+            }
+        }));
     }
 
     getBankInfoByAppId(id: number) {
         return this.http.post<any>(`${environment.apiUrl}/tax/appBankDetails`, { id })
-            .pipe(map(perinfodata => {
-                if (perinfodata['PerData'] != "") {
-                    //console.log("Current App value"+ JSON.stringify(perinfodata['PerData']));
-                    return perinfodata['PerData'];
-                }else{
-                    return null;
-                }
-            }));
+        .pipe(map(perinfodata => {
+            if (perinfodata['PerData'] != "") {
+                //console.log("Current App value"+ JSON.stringify(perinfodata['PerData']));
+                return perinfodata['PerData'];
+            }else{
+                return null;
+            }
+        }));
     }
 
     getAssetsInfoByAppId(id: number) {
         return this.http.post<any>(`${environment.apiUrl}/tax/appAssetsDetails`, { id })
-            .pipe(map(perinfodata => {
-                if (perinfodata['PerData'] != "") {
-                    //console.log("Current App value"+ JSON.stringify(perinfodata['PerData']));
-                    return perinfodata['PerData'];
-                }else{
-                    return null;
-                }
-            }));
+        .pipe(map(perinfodata => {
+            if (perinfodata['PerData'] != "") {
+                //console.log("Current App value"+ JSON.stringify(perinfodata['PerData']));
+                return perinfodata['PerData'];
+            }else{
+                return [];
+            }
+        }));
+    }
+
+    getSalaryInfoByAppId(id: number){
+        return this.http.post<any>(`${environment.apiUrl}/tax/appSalaryDetails`, { id })
+        .pipe(map(salinfodata => {
+            if (salinfodata['SalData'] != "") {
+                //console.log("Current App value"+ JSON.stringify(perinfodata['PerData']));
+                return salinfodata['SalData'];
+            }else{
+                return null;
+            }
+        }));
+    }
+
+    getOthSalaryInfoByAppId(id : number){
+        return this.http.post<any>(`${environment.apiUrl}/tax/appOthSalaryDetails`, { id })
+        .pipe(map(salinfodata => {
+            if (salinfodata['SalData'] != "") {
+                //console.log("Current App value"+ JSON.stringify(perinfodata['PerData']));
+                return salinfodata['SalData'];
+            }else{
+                return [];
+            }
+        }));
+    }
+
+    getHousealaryInfoByAppId(id : number,type:string){
+        return this.http.post<any>(`${environment.apiUrl}/tax/appSelfPropDetails`, { id,type })
+        .pipe(map(selfPropInfodata => {
+            if (selfPropInfodata['SPropData'] != "") {
+                //console.log("Current App value"+ JSON.stringify(selfPropInfodata['SPropData']));
+                return selfPropInfodata['SPropData'];
+            }else{
+                return [];
+            }
+        }));
+    }
+
+    getCapSalInfoByAppId(id: number){
+        return this.http.post<any>(`${environment.apiUrl}/tax/appCapSalaryDetails`, { id })
+        .pipe(map(salinfodata => {
+            if (salinfodata['SalData'] != "") {
+                //console.log("Current App value"+ JSON.stringify(perinfodata['PerData']));
+                return salinfodata['SalData'];
+            }else{
+                return null;
+            }
+        }));
     }
 
     //save persoanl info details
@@ -208,6 +256,11 @@ export class ApplicationService {
         return this.http.post(`${environment.apiUrl}/tax/saveImmAssestsInfo`,jsonInput);
     }
 
+    saveSalIncomeForm16Details(salinfoData) {
+        console.log("InputParam "+salinfoData);
+        return this.http.post(`${environment.apiUrl}/tax/saveSalaryIncomeForm16`, salinfoData);
+    }
+
     //save Sal Income info details
     saveSalIncomeDetails(salinfoData) {
         console.log("InputParam "+salinfoData);
@@ -219,9 +272,17 @@ export class ApplicationService {
         return this.http.post(`${environment.apiUrl}/tax/saveOtherIncome`, othinfoData);
     }
 
+    updateOthIncomeDetails(othinfoData) {
+        return this.http.post(`${environment.apiUrl}/tax/updateOtherIncome`, othinfoData);
+    }
+
     //save HouseProp Income info details
     saveHouseIncomeDetails(houseinfoData) {
         return this.http.post(`${environment.apiUrl}/tax/saveHouseIncome`, houseinfoData);
+    }
+
+    updateHouseIncomeDetails(houseinfoData) {
+        return this.http.post(`${environment.apiUrl}/tax/updateHouseIncome`, houseinfoData);
     }
 
     //save RentalProp Income info details
@@ -232,6 +293,10 @@ export class ApplicationService {
     //save RentalProp Income info details
     saveCapitalIncomeDetails(capitalinfoData) {
         return this.http.post(`${environment.apiUrl}/tax/saveCapitalIncome`, capitalinfoData);
+    }
+
+    updateCapitalIncomeDetails(capitalinfoData) {
+        return this.http.post(`${environment.apiUrl}/tax/updateCapitalIncome`, capitalinfoData);
     }
 
     //save deduction details

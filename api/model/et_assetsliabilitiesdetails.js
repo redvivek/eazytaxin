@@ -22,45 +22,45 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue:0
     },
     MovJwellaryItemsAmount: {
-      type: DataTypes.FLOAT(10,2),
+      type: DataTypes.FLOAT,
       allowNull: true
     },
     MovCraftItemsAmount: {
-      type: DataTypes.FLOAT(10,2),
+      type: DataTypes.FLOAT,
       allowNull: true
     },
     MovConveninceItemsAmount: {
-      type: DataTypes.FLOAT(10,2),
+      type: DataTypes.FLOAT,
       allowNull: true
     },
     MovFABankAmount: {
-      type: DataTypes.FLOAT(10,2),
+      type: DataTypes.FLOAT,
       allowNull: true
     },
     MovFASharesAmount: {
-      type: DataTypes.FLOAT(10,2),
+      type: DataTypes.FLOAT,
       allowNull: true
     },
     MovFAInsAmount: {
-      type: DataTypes.FLOAT(10,2),
+      type: DataTypes.FLOAT,
       allowNull: true
     },
     MovFALoansGivenAmount: {
-      type: DataTypes.FLOAT(10,2),
+      type: DataTypes.FLOAT,
       allowNull: true
     },
     MovInHandCashAmount: {
-      type: DataTypes.FLOAT(10,2),
+      type: DataTypes.FLOAT,
       allowNull: true
     },
     AssetsAOPFlag: {
       type: DataTypes.INTEGER(1),
-      allowNull: false,
+      allowNull: true,
       defaultValue:0
     },
     TotalLiability: {
-      type: DataTypes.FLOAT(10,2),
-      allowNull: false
+      type: DataTypes.FLOAT,
+      allowNull: true
     },
     ForeignAssesDocUploadFlag: {
       type: DataTypes.INTEGER(1),

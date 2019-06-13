@@ -130,55 +130,96 @@
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="residentIndianYes" class="custom-control-input" value="1" formControlName="residentIndianFlag"  [ngClass]="{ 'is-invalid': submitted && f.residentIndianFlag.errors}" >
-                        <label class="custom-control-label" for="residentIndianYes">Yes</label>
+                        <input type="radio" id="mainRORQuestionFlagYes" class="custom-control-input" value="1" formControlName="mainRORQuestionFlag"  [ngClass]="{ 'is-invalid': submitted && f.mainRORQuestionFlag.errors}" >
+                        <label class="custom-control-label" for="mainRORQuestionFlagYes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="residentIndianNo" class="custom-control-input" value="0" formControlName="residentIndianFlag"  [ngClass]="{ 'is-invalid': submitted && f.residentIndianFlag.errors}" >
-                        <label class="custom-control-label" for="residentIndianNo">No</label>
+                        <input type="radio" id="mainRORQuestionFlagNo" class="custom-control-input" value="0" formControlName="mainRORQuestionFlag"  [ngClass]="{ 'is-invalid': submitted && f.mainRORQuestionFlag.errors}" >
+                        <label class="custom-control-label" for="mainRORQuestionFlagNo">No</label>
                       </div>
-                      <div *ngIf="submitted && f.residentIndianFlag.errors" class="invalid-feedback">
-                          <div *ngIf="f.residentIndianFlag.errors.required">Please choose one option</div>
+                      <div *ngIf="submitted && f.mainRORQuestionFlag.errors" class="invalid-feedback">
+                          <div *ngIf="f.mainRORQuestionFlag.errors.required">Please choose one option</div>
                       </div>
                     </div>
                   </div>
-                  <div class="row form-group" *ngIf="showNonResidentQues">
+
+                  <div class="row form-group" *ngIf="showSubRORQuesOne">
                     <div class="col-12">
-                      <label class="control-label">Are you a citizen of India who has left India between 1 April 2018 and 31 March 2019 for the purpose of employment outside India?</label>
+                      <label class="control-label">Were you present in India for more than 729 days between 1 April 2011 and 31 March 2018?</label>
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="nonResidentIndianYes" class="custom-control-input" value="1" formControlName="nonResidentIndianFlag" [ngClass]="{ 'is-invalid': submitted && f.nonResidentIndianFlag.errors}" >
-                        <label class="custom-control-label" for="nonResidentIndianYes">Yes</label>
+                        <input type="radio" id="firstSubRORFlagYes" class="custom-control-input" value="1" formControlName="firstSubRORFlag"  [ngClass]="{ 'is-invalid': submitted && f.firstSubRORFlag.errors}" >
+                        <label class="custom-control-label" for="firstSubRORFlagYes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="nonResidentIndianNo" class="custom-control-input" value="0" formControlName="nonResidentIndianFlag" [ngClass]="{ 'is-invalid': submitted && f.nonResidentIndianFlag.errors}" >
-                        <label class="custom-control-label" for="nonResidentIndianNo">No</label>
+                        <input type="radio" id="firstSubRORFlagNo" class="custom-control-input" value="0" formControlName="firstSubRORFlag"  [ngClass]="{ 'is-invalid': submitted && f.firstSubRORFlag.errors}" >
+                        <label class="custom-control-label" for="firstSubRORFlagNo">No</label>
                       </div>
-                      <div *ngIf="submitted && f.nonResidentIndianFlag.errors" class="invalid-feedback">
-                          <div *ngIf="f.nonResidentIndianFlag.errors.required">Please choose one option</div>
+                      <div *ngIf="submitted && f.firstSubRORFlag.errors" class="invalid-feedback">
+                          <div *ngIf="f.firstSubRORFlag.errors.required">Please choose one option</div>
                       </div>
                     </div>
                   </div>
-                  <div class="row form-group" *ngIf="showOciResidentQues">
+
+                  <div class="row form-group" *ngIf="showSubRORQuesTwo">
                     <div class="col-12">
-                      <label class="control-label">Are you a citizen of India or a person of Indian origin who, being outside of India, comes on a visit to India between 1 April 2018 and 31 March 2019?</label>
+                      <label class="control-label">Were you a resident of India for atleast 2 years between 1 April 2008 to 31 March 2018?</label>
                     </div>
                     <div class="col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="ociResidentIndianYes" class="custom-control-input" value="1" formControlName="ociResidentIndianFlag" [ngClass]="{ 'is-invalid': submitted && f.ociResidentIndianFlag.errors}">
-                        <label class="custom-control-label" for="ociResidentIndianYes">Yes</label>
+                        <input type="radio" id="secondSubRORFlagYes" class="custom-control-input" value="1" formControlName="secondSubRORFlag"  [ngClass]="{ 'is-invalid': submitted && f.secondSubRORFlag.errors}" >
+                        <label class="custom-control-label" for="secondSubRORFlagYes">Yes</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="ociResidentIndianNo" class="custom-control-input" value="0" formControlName="ociResidentIndianFlag" [ngClass]="{ 'is-invalid': submitted && f.ociResidentIndianFlag.errors}">
-                        <label class="custom-control-label" for="ociResidentIndianNo">No</label>
+                        <input type="radio" id="secondSubRORFlagNo" class="custom-control-input" value="0" formControlName="secondSubRORFlag"  [ngClass]="{ 'is-invalid': submitted && f.secondSubRORFlag.errors}" >
+                        <label class="custom-control-label" for="secondSubRORFlagNo">No</label>
                       </div>
-                      <div *ngIf="submitted && f.ociResidentIndianFlag.errors" class="invalid-feedback">
-                          <div *ngIf="f.ociResidentIndianFlag.errors.required">Please choose one option</div>
+                      <div *ngIf="submitted && f.secondSubRORFlag.errors" class="invalid-feedback">
+                          <div *ngIf="f.secondSubRORFlag.errors.required">Please choose one option</div>
                       </div>
                     </div>
                   </div>
-                  <div class="row form-group" *ngIf="showShortPresentResidentQues">
+
+                  <div class="row form-group" *ngIf="showMainNRQues">
+                    <div class="col-12">
+                      <label class="control-label">Were you present in India for more than 59 days between 1 April 2018 and 31 March 2019 AND for more than 364 days between 1 April 2014 and 31 March 2018?</label>
+                    </div>
+                    <div class="col">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="mainNROuestionFlagYes" class="custom-control-input" value="1" formControlName="mainNROuestionFlag" [ngClass]="{ 'is-invalid': submitted && f.mainNROuestionFlag.errors}" >
+                        <label class="custom-control-label" for="mainNROuestionFlagYes">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="mainNROuestionFlagNo" class="custom-control-input" value="0" formControlName="mainNROuestionFlag" [ngClass]="{ 'is-invalid': submitted && f.mainNROuestionFlag.errors}" >
+                        <label class="custom-control-label" for="mainNROuestionFlagNo">No</label>
+                      </div>
+                      <div *ngIf="submitted && f.mainNROuestionFlag.errors" class="invalid-feedback">
+                          <div *ngIf="f.mainNROuestionFlag.errors.required">Please choose one option</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row form-group" *ngIf="showSubNRQues">
+                    <div class="col-12">
+                      <label class="control-label">Are you a citizen of India who has left India between 1 April 2018 and 31 March 2019 for the purpose of employment outside India? Or Are you a citizen of India or a person of Indian origin who, being outside of India, comes on a visit to India between 1 April 2018 and 31 March 2019?</label>
+                    </div>
+                    <div class="col">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="subNROuestionFlagYes" class="custom-control-input" value="1" formControlName="subNROuestionFlag" [ngClass]="{ 'is-invalid': submitted && f.subNROuestionFlag.errors}">
+                        <label class="custom-control-label" for="subNROuestionFlagYes">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="subNROuestionFlagNo" class="custom-control-input" value="0" formControlName="subNROuestionFlag" [ngClass]="{ 'is-invalid': submitted && f.subNROuestionFlag.errors}">
+                        <label class="custom-control-label" for="subNROuestionFlagNo">No</label>
+                      </div>
+                      <div *ngIf="submitted && f.subNROuestionFlag.errors" class="invalid-feedback">
+                          <div *ngIf="f.subNROuestionFlag.errors.required">Please choose one option</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- <div class="row form-group" *ngIf="showShortPresentResidentQues">
                     <div class="col-12">
                       <label class="control-label">Were you present in India for more than 59 days between 1 April 2018 and 31 March 2019?</label>
                     </div>
@@ -195,26 +236,9 @@
                           <div *ngIf="f.srtPresentIndiaFlag.errors.required">Please choose one option</div>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
 
-                  <div class="row form-group" *ngIf="showLongPresentResidentQues">
-                    <div class="col-12">
-                      <label class="control-label">Were you present in India for more than 364 days between 1 April 2018 and 31 March 2019?</label>
-                    </div>
-                    <div class="col">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="lngPresentIndiaYes" class="custom-control-input" value="1" formControlName="lngPresentIndiaFlag" [ngClass]="{ 'is-invalid': submitted && f.lngPresentIndiaFlag.errors}" >
-                        <label class="custom-control-label" for="lngPresentIndiaYes">Yes</label>
-                      </div>
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="lngPresentIndiaNo" class="custom-control-input" value="0" formControlName="lngPresentIndiaFlag" [ngClass]="{ 'is-invalid': submitted && f.lngPresentIndiaFlag.errors}" >
-                        <label class="custom-control-label" for="lngPresentIndiaNo">No</label>
-                      </div>
-                      <div *ngIf="submitted && f.lngPresentIndiaFlag.errors" class="invalid-feedback">
-                          <div *ngIf="f.lngPresentIndiaFlag.errors.required">Please choose one option</div>
-                      </div>
-                    </div>
-                  </div>
+                  
                   <div class="form-actions d-flex stickyFooterForm affix">
                     <div class="left mr-auto">
                       <button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" (click)="clearForm()">Reset</button>

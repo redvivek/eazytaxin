@@ -51,11 +51,20 @@ route.post('/tax/appAddressDetails',taxService.fetchAddressInfoByAppId);
 route.post('/tax/appBankDetails',taxService.fetchBankInfoByAppId);
 route.post('/tax/appAssetsDetails',taxService.fetchAssetsInfoByAppId);
 
+route.post('/tax/saveSalaryIncomeForm16', taxService.saveSalIncomeF16InfoByAppId);
 route.post('/tax/saveSalaryIncome', taxService.saveSalIncomeInfoByAppId);
 route.post('/tax/saveOtherIncome', taxService.saveOthIncomeInfoByAppId);
+route.post('/tax/updateOtherIncome', taxService.updateOthIncomeInfoByAppId);
 route.post('/tax/saveHouseIncome', taxService.saveHouseIncomeInfoByAppId);
 route.post('/tax/saveRentalIncome', taxService.saveRentalIncomeInfoByAppId);
+route.post('/tax/updateHouseIncome',taxService.updateHouseIncomeInfoByAppId);
 route.post('/tax/saveCapitalIncome', taxService.saveCapitalIncomeInfoByAppId);
+route.post('/tax/updateCapitalIncome', taxService.updateCapitalIncomeInfoByAppId);
+
+route.post('/tax/appSalaryDetails',taxService.fetchSalaryInfoByAppId);
+route.post('/tax/appOthSalaryDetails',taxService.fetchOthSalaryInfoByAppId);
+route.post('/tax/appSelfPropDetails',taxService.fetchSelfPropInfoByAppId);
+route.post('/tax/appCapSalaryDetails',taxService.fetchCapSalaryInfoByAppId);
 
 route.post('/tax/saveDeductions', taxService.saveDeductionsInfoByAppId);
 route.post('/tax/saveOtherDeductions', taxService.saveOtherDeductionsByAppId);

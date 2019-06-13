@@ -162,7 +162,7 @@ exports.uploadproofDocuments = (req,res)=>{
                 console.log("File item "+ JSON.stringify(item));
                 var filename = item.filename;
                 var filepath = item.path;
-                /* DocumentUpload.findOne(
+                DocumentUpload.findOne(
                     { where: {UserId:userid,ApplicationId: appid,DocumentCategory:docCategory} }
                 )
                 .then(function (resultData) {
@@ -184,8 +184,7 @@ exports.uploadproofDocuments = (req,res)=>{
                                 res.status(400).send(err);
                             });
                         });
-                    } else { */
-                        //res.status(200);
+                    } else {
                         //Save to et_documentupload table */
                         sequelize.query("INSERT INTO `et_documentupload`(UserId,ApplicationId,DocumentCategory,DocumentName,FilePassword,DocumentPath,createdAt) VALUES (?,?,?,?,?,?,?)",{
                             replacements: [userid,appid,docCategory,filename,pwd,filepath,formattedDT],
@@ -198,12 +197,12 @@ exports.uploadproofDocuments = (req,res)=>{
                             console.log("Error "+err);
                             res.status(400).send(err);
                         });
-                    /* }
+                    }
                 })
                 .catch(function (err) {
                     console.log("Error "+err);
                     res.status(400).send(err);
-                }); */
+                });
             });
         }
     });
@@ -388,7 +387,8 @@ exports.fetchAssetsInfoByAppId =(req,res)=>{
                         resultArray.push({"ImmData":imResultData});
                         res.json({"statusCode": 200,"Message": "Successful Request","PerData":resultArray});
                     }else{
-                        res.json({"statusCode": 200,"Message": "Successful Request","PerData":""});
+                        resultArray.push({"ImmData":[]});
+                        res.json({"statusCode": 200,"Message": "Successful Request","PerData":resultArray});
                     }
                 })
                 .catch(function (err) {
@@ -397,9 +397,11 @@ exports.fetchAssetsInfoByAppId =(req,res)=>{
                 });
                 
             }else{
+                resultArray.push({"ImmData":[]});
                 res.json({"statusCode": 200,"Message": "Successful Request","PerData":resultArray});
             }
-            
+        }else{
+            res.json({"statusCode": 200,"Message": "Successful Request","PerData":""});
         }
 	})
 	.catch(function (err) {
@@ -408,20 +410,198 @@ exports.fetchAssetsInfoByAppId =(req,res)=>{
 	});
 }
 
+exports.fetchSalaryInfoByAppId = (req,res)=>{
+    console.log("Request param "+req.body.id);
+    var resultArray = [];
+    SalariedIncome.findOne(
+		{ where: {ApplicationId: req.body.id} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            //console.log("Result - Salary Details  "+JSON.stringify(resultData));
+            res.json({"statusCode": 200,"Message": "Successful Request","SalData":resultData});
+        }else{
+            res.json({"statusCode": 200,"Message": "Successful Request","SalData":""});
+        }
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+};
+
+exports.fetchOthSalaryInfoByAppId = (req,res) =>{
+    console.log("Request param "+req.body.id);
+    var resultArray = [];
+    OtherIncome.findOne(
+		{ where: {ApplicationId: req.body.id} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            //console.log("Result - Salary Details  "+JSON.stringify(resultData));
+            resultArray.push({"maindata":resultData});
+            OtherDepIncome.findOne(
+                { where: {IncomeSourceOthersId: resultData.IncomeSourceOthersId} }
+            )
+            .then(function (depResultData) {
+                if (depResultData) {
+                    //console.log("Result - ImAssets Details  "+JSON.stringify(imResultData));
+                    resultArray.push({"depdata":depResultData});
+                    res.json({"statusCode": 200,"Message": "Successful Request","SalData":resultArray});
+                }else{
+                    resultArray.push({"depdata":[]});
+                    res.json({"statusCode": 200,"Message": "Successful Request","SalData":resultArray});
+                }
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+        }else{
+            res.json({"statusCode": 200,"Message": "Successful Request","SalData":""});
+        }
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+}
+
+exports.fetchSelfPropInfoByAppId = (req,res)=>{
+    console.log("Request param "+req.body.id);
+    console.log("Request param1 "+req.body.type);
+    var resultArray = [];
+    PropertyIncome.findOne(
+		{ where: {ApplicationId: req.body.id,PropertyType:req.body.type} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            //console.log("Result - Salary Details  "+JSON.stringify(resultData));
+            resultArray.push({"maindata":resultData});
+            
+            AddressDetails.findOne(
+                { where: {ApplicationId: resultData.ApplicationId,AddressType:req.body.type} }
+            )
+            .then(function (addResultData) {
+                if (addResultData) {
+                    console.log("Result - Address Details  "+JSON.stringify(addResultData));
+                    resultArray.push({"adddata":addResultData});
+                    if(resultData.CoownerFlag == 1){
+                        PropCoOwnerIncome.findOne(
+                            { where: {IncomeHouseDetailsId: resultData.IncomeHouseDetailsId} }
+                        )
+                        .then(function (coResultData) {
+                            if (coResultData) {
+                                //console.log("Result - ImAssets Details  "+JSON.stringify(imResultData));
+                                resultArray.push({"codata":coResultData});
+                                res.json({"statusCode": 200,"Message": "Successful Request","SPropData":resultArray});
+                            }else{
+                                resultArray.push({"codata":[]});
+                                res.json({"statusCode": 200,"Message": "Successful Request","SPropData":resultArray});
+                            }
+                        })
+                        .catch(function (err) {
+                            console.log("Error "+err);
+                            res.status(400).send(err);
+                        });
+                    }else{
+                        resultArray.push({"codata":[]});
+                        res.json({"statusCode": 200,"Message": "Successful Request","SPropData":resultArray});
+                    }
+                }else{
+                    resultArray.push({"adddata":[]});
+                    if(resultData.CoownerFlag == 1){
+                        PropCoOwnerIncome.findOne(
+                            { where: {IncomeHouseDetailsId: resultData.IncomeHouseDetailsId} }
+                        )
+                        .then(function (coResultData) {
+                            if (coResultData) {
+                                //console.log("Result - ImAssets Details  "+JSON.stringify(imResultData));
+                                resultArray.push({"codata":coResultData});
+                                res.json({"statusCode": 200,"Message": "Successful Request","SPropData":resultArray});
+                            }else{
+                                resultArray.push({"codata":[]});
+                                res.json({"statusCode": 200,"Message": "Successful Request","SPropData":resultArray});
+                            }
+                        })
+                        .catch(function (err) {
+                            console.log("Error "+err);
+                            res.status(400).send(err);
+                        });
+                    }else{
+                        resultArray.push({"codata":[]});
+                        res.json({"statusCode": 200,"Message": "Successful Request","SPropData":resultArray});
+                    }
+                }
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+        }else{
+            res.json({"statusCode": 200,"Message": "Successful Request","SPropData":""});
+        }
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+};
+
+exports.fetchCapSalaryInfoByAppId = (req,res)=>{
+    console.log("Request param "+req.body.id);
+    CapitalGainsIncome.findOne(
+		{ where: {ApplicationId: req.body.id} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            //console.log("Result - Salary Details  "+JSON.stringify(resultData));
+            res.json({"statusCode": 200,"Message": "Successful Request","SalData":resultData});
+        }else{
+            res.json({"statusCode": 200,"Message": "Successful Request","SalData":""});
+        }
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+};
+
 exports.saveBasicInfoByAppId = (req,res)=>{
     //let inputdata = req.body;
     let appid = req.body.appId;
     let userid = req.body.userId;
     let residentIndianFlag = req.body.residentIndianFlag != ""? req.body.residentIndianFlag : null;
-    let nonResidentIndianFlag = req.body.nonResidentIndianFlag != ""? req.body.nonResidentIndianFlag : null;
-    let ociResidentIndianFlag = req.body.ociResidentIndianFlag != ""? req.body.ociResidentIndianFlag : null;
     let srtPresentIndiaFlag = req.body.srtPresentIndiaFlag != ""? req.body.srtPresentIndiaFlag : null;
     let lngPresentIndiaFlag = req.body.lngPresentIndiaFlag != ""? req.body.lngPresentIndiaFlag : null;
+    let nonResidentIndianFlag = req.body.nonResidentIndianFlag != ""? req.body.nonResidentIndianFlag : null;
+    let ociResidentIndianFlag = req.body.ociResidentIndianFlag != ""? req.body.ociResidentIndianFlag : null;
+    let residenttype;
+
+    if(residentIndianFlag == 1 ){
+        if(srtPresentIndiaFlag == 1 && lngPresentIndiaFlag == 1){
+            residenttype = 'ROR';
+        }else if(srtPresentIndiaFlag == 1 && lngPresentIndiaFlag == 0){
+            residenttype = 'RNOR';
+        }else if(srtPresentIndiaFlag == 0){
+            residenttype = 'RNOR';
+        }
+    }
+    if(residentIndianFlag == 0 ){
+        if(nonResidentIndianFlag == 1 && ociResidentIndianFlag == 1){
+            residenttype = 'NR';
+        }else if(nonResidentIndianFlag == 1 && ociResidentIndianFlag == 0){
+            residenttype = 'RNOR';
+        }else if(nonResidentIndianFlag == 0){
+            residenttype = 'NR';
+        }
+    }
+
     let updateAt = formattedDT;
 
     //update basic info flags to et_applicationsmain table */
-    sequelize.query("UPDATE `et_applicationsmain` SET ResidentIndianFlag=?, NonResidentIndianFlag=?, OciResidentIndianFlag=?, LngPresentIndiaFlag=?,ShrtPresentIndiaFlag=?, updatedAt = ?, ApplicationStage=?, ApplicationStatus=? WHERE ApplicationId = ? AND UserId = ? ",{
-        replacements: [residentIndianFlag,nonResidentIndianFlag,ociResidentIndianFlag,lngPresentIndiaFlag,srtPresentIndiaFlag,updateAt,2,'Progress',appid,userid],
+    sequelize.query("UPDATE `et_applicationsmain` SET ResidentIndianFlag=?, NonResidentIndianFlag=?, OciResidentIndianFlag=?, LngPresentIndiaFlag=?,ShrtPresentIndiaFlag=?, ResidentType=? ,updatedAt = ?, ApplicationStage=?, ApplicationStatus=? WHERE ApplicationId = ? AND UserId = ? ",{
+        replacements: [residentIndianFlag,nonResidentIndianFlag,ociResidentIndianFlag,lngPresentIndiaFlag,srtPresentIndiaFlag,residenttype,updateAt,2,'Progress',appid,userid],
         type: sequelize.QueryTypes.UPDATE 
     }).then(result => {		
         console.log("Result AppId  "+result);
@@ -699,7 +879,6 @@ exports.saveAssestsInfoByAppId = (req,res)=>{
     console.log("Input Req "+ JSON.stringify(inputdata));
     let appid = req.body.appId;
     let userid = req.body.userId;
-    let immovableAssetsFlag = req.body.immovableAssetsFlag;
     let movJwellaryItemsAmount = req.body.movJwellaryItemsAmount!= "" ? parseFloat(req.body.movJwellaryItemsAmount) : 0.00;
     let movCraftItemsAmount = req.body.movCraftItemsAmount!= "" ? parseFloat(req.body.movCraftItemsAmount) : 0.00;
     let movConveninceItemsAmount = req.body.movConveninceItemsAmount!= "" ? parseFloat(req.body.movConveninceItemsAmount) : 0.00; 
@@ -709,7 +888,6 @@ exports.saveAssestsInfoByAppId = (req,res)=>{
     let movFALoansGivenAmount = req.body.movFALoansGivenAmount!= "" ? parseFloat(req.body.movFALoansGivenAmount) : 0.00;
     let movInHandCashAmount = req.body.movInHandCashAmount!= "" ? parseFloat(req.body.movInHandCashAmount) : 0.00;
     let totalLiability = req.body.totalLiability!= "" ? parseFloat(req.body.totalLiability) : 0.00;
-    let foreignAssFlag = req.body.foreignAssFlag;
     let updateAt = formattedDT;
     AssetsDetails.findOne(
 		{ where: {UserId:userid,ApplicationId: appid} }
@@ -717,13 +895,10 @@ exports.saveAssestsInfoByAppId = (req,res)=>{
 	.then(function (resultData) {
 		if (resultData) {
             console.log("Result - Assets Details  "+JSON.stringify(resultData));
-            AssetsDetails.destroy({
-                where: { ALDetailsId: resultData.ALDetailsId}
-            }).then(() => {
-                console.log('deleted successfully with id = ' + resultData.ALDetailsId);
-                sequelize.query("INSERT INTO `et_assetsliabilitiesdetails`(ApplicationId,UserId,ImmovableAssetsFlag,MovJwellaryItemsAmount,MovCraftItemsAmount,MovConveninceItemsAmount,MovFABankAmount,MovFASharesAmount,MovFAInsAmount,MovFALoansGivenAmount,MovInHandCashAmount,TotalLiability,ForeignAssesDocUploadFlag,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                    replacements: [appid,userid,immovableAssetsFlag,movJwellaryItemsAmount,movCraftItemsAmount,movConveninceItemsAmount,movFABankAmount,movFASharesAmount,movFAInsAmount,movFALoansGivenAmount,movInHandCashAmount,totalLiability,foreignAssFlag,updateAt,'Yes'],
-                    type: sequelize.QueryTypes.INSERT 
+            
+                sequelize.query("UPDATE `et_assetsliabilitiesdetails` SET MovJwellaryItemsAmount = ?,MovCraftItemsAmount = ?,MovConveninceItemsAmount = ?,MovFABankAmount = ?,MovFASharesAmount =?,MovFAInsAmount =?,MovFALoansGivenAmount =?,MovInHandCashAmount =?,TotalLiability =?,updatedAt =? WHERE ApplicationId = ? AND UserId = ? ",{
+                    replacements: [movJwellaryItemsAmount,movCraftItemsAmount,movConveninceItemsAmount,movFABankAmount,movFASharesAmount,movFAInsAmount,movFALoansGivenAmount,movInHandCashAmount,totalLiability,updateAt,appid,userid],
+                    type: sequelize.QueryTypes.UPDATE 
                 }).then(result => {		
                     console.log("Result AppId  "+result[0]);
                     //update flags to et_assetsliabilitiesdetails table */
@@ -734,23 +909,10 @@ exports.saveAssestsInfoByAppId = (req,res)=>{
                     console.log("Error "+err);
                     res.status(400).send(err);
                 });
-            });
         } else {
-			//res.status(200);
-			//Save to et_personaldetails table */
-			sequelize.query("INSERT INTO `et_assetsliabilitiesdetails`(ApplicationId,UserId,ImmovableAssetsFlag,MovJwellaryItemsAmount,MovCraftItemsAmount,MovConveninceItemsAmount,MovFABankAmount,MovFASharesAmount,MovFAInsAmount,MovFALoansGivenAmount,MovInHandCashAmount,TotalLiability,ForeignAssesDocUploadFlag,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                replacements: [appid,userid,immovableAssetsFlag,movJwellaryItemsAmount,movCraftItemsAmount,movConveninceItemsAmount,movFABankAmount,movFASharesAmount,movFAInsAmount,movFALoansGivenAmount,movInHandCashAmount,totalLiability,foreignAssFlag,updateAt,'Yes'],
-                type: sequelize.QueryTypes.INSERT 
-            }).then(result => {			
-                console.log("Result AppId  "+result[0]);
-                //update flags to et_assetsliabilitiesdetails table */
-                updateApplicationMain(appid,userid,7);
-                res.json({"statusCode": 200,"Message": "Successful Request","assInfoId":result[0]});
-            })
-            .catch(function (err) {
-                console.log("Error "+err);
-                res.status(400).send(err);
-            });
+            //update flags to et_assetsliabilitiesdetails table */
+            updateApplicationMain(appid,userid,7);
+            res.json({"statusCode": 200,"Message": "Successful Request","assInfoId":result[0]});
 		}
 	})
 	.catch(function (err) {
@@ -765,6 +927,7 @@ exports.saveImmAssestsInfoByAppId = (req,res)=>{
     let immovableAssInput = req.body.immovableAssInputParam
     let appid = immovableAssInput.appId;
     let userid = immovableAssInput.userId;
+    let immovableAssetsFlag = immovableAssInput.immovableAssetsFlag;
     let description = immovableAssInput.description;
     let flatNo = immovableAssInput.flatNo;
     let premiseName = immovableAssInput.premiseName;
@@ -778,47 +941,177 @@ exports.saveImmAssestsInfoByAppId = (req,res)=>{
     let totalLiabilites = immovableAssInput.totalLiabilites!= "" ? parseFloat(immovableAssInput.totalLiabilites) : 0.00;
     let updateAt = formattedDT;
     console.log("Input Req "+ JSON.stringify(inputdata));
-    ImAssetsAddDetails.findOne(
-		{ where: {UserId:userid,ApplicationId: appid} }
-	)
-	.then(function (resultData) {
-		if (resultData) {
-            console.log("Result - ImmAssets Details  "+JSON.stringify(resultData));
-            ImAssetsAddDetails.destroy({
-                where: { ImmovableAssetsDetailsId: resultData.ImmovableAssetsDetailsId}
-            }).then(() => {
-                console.log('deleted successfully with id = ' + resultData.ImmovableAssetsDetailsId);
-                sequelize.query("INSERT INTO `et_immovableassetsdetails`(ApplicationId,UserId,Description,FlatNo,PremiseName,StreetName,AreaLocality,City,State,Country,Pincode,Amount,Immlaibilityamt,updatedAt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                    replacements: [appid,userid,description,flatNo,premiseName,streetName,locality,city,state,country,pincode,purchaseCost,totalLiabilites,updateAt],
-                    type: sequelize.QueryTypes.INSERT 
-                }).then(result => {		
-                    console.log("Result AppId  "+result[0]);
-                    res.json({"statusCode": 200,"Message": "Successful Request","immAssInfoId":result[0]});
-                })
-                .catch(function (err) {
-                    console.log("Error "+err);
-                    res.status(400).send(err);
-                });
-            });
-        } else {
-			//Save to et_immovableassetsdetails table */
-			sequelize.query("INSERT INTO `et_immovableassetsdetails`(ApplicationId,UserId,Description,FlatNo,PremiseName,StreetName,AreaLocality,City,State,Country,Pincode,Amount,Immlaibilityamt,updatedAt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                replacements: [appid,userid,description,flatNo,premiseName,streetName,locality,city,state,country,pincode,purchaseCost,totalLiabilites,updateAt],
-                type: sequelize.QueryTypes.INSERT 
+    
+    AssetsDetails.findOne(
+        { where: {UserId:userid,ApplicationId: appid} }
+    )
+    .then(function (resultData) {
+        if (resultData) {
+            console.log("Result - Assets Details  "+JSON.stringify(resultData)); 
+            sequelize.query("UPDATE `et_assetsliabilitiesdetails` SET ImmovableAssetsFlag=? WHERE ALDetailsId = ?",{
+                replacements: [immovableAssetsFlag,resultData.ALDetailsId],
+                type: sequelize.QueryTypes.UPDATE 
             }).then(result => {		
                 console.log("Result AppId  "+result[0]);
-                res.json({"statusCode": 200,"Message": "Successful Request","immAssInfoId":result[0]});
+                //update flags to et_assetsliabilitiesdetails table */
+                updateApplicationMain(appid,userid,7);
+                if(immovableAssetsFlag == 1){
+                    
+                    ImAssetsAddDetails.findOne(
+                        { where: {UserId:userid,ApplicationId: appid} }
+                    )
+                    .then(function (immResultData) {
+                        if (immResultData) {
+                            console.log("Result - ImmAssets Details  "+JSON.stringify(immResultData));
+                            ImAssetsAddDetails.destroy({
+                                where: { ImmovableAssetsDetailsId: immResultData.ImmovableAssetsDetailsId}
+                            }).then(() => {
+                                console.log('deleted successfully with id = ' + immResultData.ImmovableAssetsDetailsId);
+                                sequelize.query("INSERT INTO `et_immovableassetsdetails`(ApplicationId,UserId,ALDetailsId,Description,FlatNo,PremiseName,StreetName,AreaLocality,City,State,Country,Pincode,Amount,Immlaibilityamt,updatedAt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                                    replacements: [appid,userid,resultData.ALDetailsId,description,flatNo,premiseName,streetName,locality,city,state,country,pincode,purchaseCost,totalLiabilites,updateAt],
+                                    type: sequelize.QueryTypes.INSERT 
+                                }).then(result => {		
+                                    console.log("Result AppId  "+result[0]);
+                                    res.json({"statusCode": 200,"Message": "Successful Request","immAssInfoId":result[0]});
+                                })
+                                .catch(function (err) {
+                                    console.log("Error "+err);
+                                    res.status(400).send(err);
+                                });
+                            });
+                        } else {
+                            //Save to et_immovableassetsdetails table */
+                            sequelize.query("INSERT INTO `et_immovableassetsdetails`(ApplicationId,UserId,ALDetailsId,Description,FlatNo,PremiseName,StreetName,AreaLocality,City,State,Country,Pincode,Amount,Immlaibilityamt,updatedAt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                                replacements: [appid,userid,resultData.ALDetailsId,description,flatNo,premiseName,streetName,locality,city,state,country,pincode,purchaseCost,totalLiabilites,updateAt],
+                                type: sequelize.QueryTypes.INSERT 
+                            }).then(result => {		
+                                console.log("Result AppId  "+result[0]);
+                                res.json({"statusCode": 200,"Message": "Successful Request","immAssInfoId":result[0]});
+                            })
+                            .catch(function (err) {
+                                console.log("Error "+err);
+                                res.status(400).send(err);
+                            });
+                        }
+                    })
+                    .catch(function (err) {
+                        console.log("Error "+err);
+                        res.status(400).send(err);
+                    });
+                }else{
+                    
+                    ImAssetsAddDetails.findOne(
+                        { where: {UserId:userid,ApplicationId: appid} }
+                    )
+                    .then(function (immResultData) {
+                        if (immResultData) {
+                            console.log("Result - ImmAssets Details  "+JSON.stringify(immResultData));
+                            ImAssetsAddDetails.destroy({
+                                where: { ImmovableAssetsDetailsId: immResultData.ImmovableAssetsDetailsId}
+                            }).then(() => {
+                                console.log('deleted successfully with id = ' + immResultData.ImmovableAssetsDetailsId);
+                                res.json({"statusCode": 200,"Message": "Successful Request"});
+                            });
+                        }else{
+                            res.json({"statusCode": 200,"Message": "Successful Request"});
+                        }
+                    })
+                    .catch(function (err) {
+                        console.log("Error "+err);
+                        res.status(400).send(err);
+                    });
+                }
+                
             })
             .catch(function (err) {
                 console.log("Error "+err);
                 res.status(400).send(err);
             });
-		}
-	})
-	.catch(function (err) {
-		console.log("Error "+err);
-		res.status(400).send(err);
-	});
+        } else {
+            //Save to et_assetsliabilitiesdetails table */
+            sequelize.query("INSERT INTO `et_assetsliabilitiesdetails`(ApplicationId,UserId,ImmovableAssetsFlag,updatedAt,CompletionStatus) VALUES (?,?,?,?,?)",{
+                replacements: [appid,userid,immovableAssetsFlag,updateAt,'Yes'],
+                type: sequelize.QueryTypes.INSERT 
+            }).then(result => {			
+                console.log("Result AppId  "+result[0]);
+                let ALDetailsId = result[0];
+                //update flags to et_assetsliabilitiesdetails table */
+                updateApplicationMain(appid,userid,7);
+                if(immovableAssetsFlag == 1){
+                    ImAssetsAddDetails.findOne(
+                        { where: {UserId:userid,ApplicationId: appid} }
+                    )
+                    .then(function (resultData) {
+                        if (resultData) {
+                            console.log("Result - ImmAssets Details  "+JSON.stringify(resultData));
+                            ImAssetsAddDetails.destroy({
+                                where: { ImmovableAssetsDetailsId: resultData.ImmovableAssetsDetailsId}
+                            }).then(() => {
+                                console.log('deleted successfully with id = ' + resultData.ImmovableAssetsDetailsId);
+                                sequelize.query("INSERT INTO `et_immovableassetsdetails`(ApplicationId,UserId,ALDetailsId,Description,FlatNo,PremiseName,StreetName,AreaLocality,City,State,Country,Pincode,Amount,Immlaibilityamt,updatedAt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                                    replacements: [appid,userid,ALDetailsId,description,flatNo,premiseName,streetName,locality,city,state,country,pincode,purchaseCost,totalLiabilites,updateAt],
+                                    type: sequelize.QueryTypes.INSERT 
+                                }).then(result => {		
+                                    console.log("Result AppId  "+result[0]);
+                                    res.json({"statusCode": 200,"Message": "Successful Request","immAssInfoId":result[0]});
+                                })
+                                .catch(function (err) {
+                                    console.log("Error "+err);
+                                    res.status(400).send(err);
+                                });
+                            });
+                        } else {
+                            //Save to et_immovableassetsdetails table */
+                            sequelize.query("INSERT INTO `et_immovableassetsdetails`(ApplicationId,UserId,ALDetailsId,Description,FlatNo,PremiseName,StreetName,AreaLocality,City,State,Country,Pincode,Amount,Immlaibilityamt,updatedAt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
+                                replacements: [appid,userid,ALDetailsId,description,flatNo,premiseName,streetName,locality,city,state,country,pincode,purchaseCost,totalLiabilites,updateAt],
+                                type: sequelize.QueryTypes.INSERT 
+                            }).then(result => {		
+                                console.log("Result AppId  "+result[0]);
+                                res.json({"statusCode": 200,"Message": "Successful Request","immAssInfoId":result[0]});
+                            })
+                            .catch(function (err) {
+                                console.log("Error "+err);
+                                res.status(400).send(err);
+                            });
+                        }
+                    })
+                    .catch(function (err) {
+                        console.log("Error "+err);
+                        res.status(400).send(err);
+                    });
+                }else{
+                    ImAssetsAddDetails.findOne(
+                        { where: {UserId:userid,ApplicationId: appid} }
+                    )
+                    .then(function (resultData) {
+                        if (resultData) {
+                            console.log("Result - ImmAssets Details  "+JSON.stringify(resultData));
+                            ImAssetsAddDetails.destroy({
+                                where: { ImmovableAssetsDetailsId: resultData.ImmovableAssetsDetailsId}
+                            }).then(() => {
+                                console.log('deleted successfully with id = ' + resultData.ImmovableAssetsDetailsId);
+                                res.json({"statusCode": 200,"Message": "Successful Request"});
+                            });
+                        }else{
+                            res.json({"statusCode": 200,"Message": "Successful Request"});
+                        }
+                    })
+                    .catch(function (err) {
+                        console.log("Error "+err);
+                        res.status(400).send(err);
+                    });
+                }
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+        }
+    })
+    .catch(function (err) {
+        console.log("Error "+err);
+        res.status(400).send(err);
+    });
 };
 
 exports.updateAssestsInfoByAppId = (req,res)=>{
@@ -828,6 +1121,25 @@ exports.updateAssestsInfoByAppId = (req,res)=>{
     let userid = req.body.userId;
     let foreignAssFlag = req.body.foreignAssFlag;
     let updateAt = formattedDT;
+
+    if(foreignAssFlag == 0){
+        DocumentUpload.findOne(
+            { where: {UserId:userid,ApplicationId: appid,DocumentCategory:'ForeignAssets' }}
+        )
+        .then(function (resultData) {
+            if (resultData) {
+                console.log("Result Doc Details  "+JSON.stringify(resultData));
+                DocumentUpload.destroy({
+                    where: { documentId: resultData.documentId}
+                }).then(() => {
+                    console.log('deleted successfully with id = ' + resultData.documentId);
+                });
+            } 
+        })
+        .catch(function (err) {
+            console.log("Error "+err);
+        });
+    }
 
     AssetsDetails.findOne(
 		{ where: {UserId:userid,ApplicationId: appid} }
@@ -872,11 +1184,57 @@ exports.updateAssestsInfoByAppId = (req,res)=>{
 	});
 }
 
+exports.saveSalIncomeF16InfoByAppId= (req,res) => {
+    console.log("Request param "+ JSON.stringify(req.body));
+    let appid = req.body.appId;
+    let userid = req.body.userId;
+    let uploadDocFlag = req.body.form16uploadflag;
+
+    SalariedIncome.findOne(
+		{ where: {UserId:userid,ApplicationId: appid} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Salary Income details  "+JSON.stringify(resultData));
+            sequelize.query("UPDATE `et_income_salary` SET Form16UploadFlag = ? WHERE ApplicationId = ? ,UserId = ?",{
+                replacements: [uploadDocFlag,appid,userid],
+                type: sequelize.QueryTypes.UPDATE 
+            }).then(result => {		
+                console.log("Result AppId  "+result[0]);
+                res.json({"statusCode": 200,"Message": "Successful Request"});
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+        } else {
+			//Save to et_income_salary table */
+			sequelize.query("INSERT INTO `et_income_salary`(ApplicationId,UserId,Form16UploadFlag,CompletionStatus) VALUES (?,?,?,?)",{
+                replacements: [appid,userid,uploadDocFlag,'Yes'],
+                type: sequelize.QueryTypes.INSERT 
+            }).then(result => {		
+                console.log("Result AppId  "+result[0]);
+                //update flags to et_applicationsmain table */
+                updateApplicationMain(appid,userid,9);
+                res.json({"statusCode": 200,"Message": "Successful Request"});
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+
+}
+
 exports.saveSalIncomeInfoByAppId = (req,res) => {
     console.log("Request param "+ JSON.stringify(req.body));
     let appid = req.body.appId;
     let userid = req.body.userId;
-    let uploadDocFlag = req.body.uploadDocFlag;
     let employernm = req.body.employernm;
     let salamount = req.body.salamount;
     let inputEmployertype = req.body.employertype;
@@ -896,24 +1254,19 @@ exports.saveSalIncomeInfoByAppId = (req,res) => {
 	.then(function (resultData) {
 		if (resultData) {
             console.log("Result - Salary Income details  "+JSON.stringify(resultData));
-            SalariedIncome.destroy({
-                where: { IncomeSourceSalId: resultData.IncomeSourceSalId}
-            }).then(() => {
-                console.log('deleted successfully with id = ' + resultData.IncomeSourceSalId);
-                sequelize.query("INSERT INTO `et_income_salary`(ApplicationId,UserId,SalaryPaidAmount,EmployerName,EmployerCategory,EmployerTAN,Allowances,ValPrequisties,SalProfits,EntertainmentDeduction,LTAAmount,NMoneyPrequisties,ExpAllowanceHR,OthAllowance,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                    replacements: [appid,userid,salamount,employernm,inputEmployertype,employertan,allowances,valPrequisties,inputSalProfits,deductionEnter,inputLTAAmount,nonMoneyPrequisties,expAllowanceHR,othAllowance,'Yes'],
-                    type: sequelize.QueryTypes.INSERT 
-                }).then(result => {		
-                    console.log("Result AppId  "+result[0]);
-                    //update flags to et_income_salary table */
-                    updateApplicationMain(appid,userid,9);
+            sequelize.query("UPDATE `et_income_salary` SET SalaryPaidAmount=?,EmployerName=?,EmployerCategory=?,EmployerTAN=?,Allowances=?,ValPrequisties=?,SalProfits=?,EntertainmentDeduction=?,LTAAmount=?,NMoneyPrequisties=?,ExpAllowanceHR=?,OthAllowance=?,CompletionStatus=? WHERE ApplicationId=? AND UserId=?",{
+                replacements: [salamount,employernm,inputEmployertype,employertan,allowances,valPrequisties,inputSalProfits,deductionEnter,inputLTAAmount,nonMoneyPrequisties,expAllowanceHR,othAllowance,'Yes',appid,userid],
+                type: sequelize.QueryTypes.UPDATE 
+            }).then(result => {		
+                console.log("Result AppId  "+result[0]);
+                //update flags to et_income_salary table */
+                updateApplicationMain(appid,userid,9);
 
-                    res.json({"statusCode": 200,"Message": "Successful Request"});
-                })
-                .catch(function (err) {
-                    console.log("Error "+err);
-                    res.status(400).send(err);
-                });
+                res.json({"statusCode": 200,"Message": "Successful Request"});
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
             });
         } else {
 			//Save to et_income_salary table */
@@ -1005,6 +1358,39 @@ exports.saveOthIncomeInfoByAppId = (req,res) => {
 	});
 
 };
+
+exports.updateOthIncomeInfoByAppId = (req,res)=>{
+    let appid = req.body.appId;
+    let userid = req.body.userId;
+    let uploadFlag = req.body.docUploadflag;
+
+    OtherIncome.findOne(
+		{ where: {UserId:userid,ApplicationId: appid} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Other Income details  "+JSON.stringify(resultData));
+            
+            sequelize.query("UPDATE `et_income_others` SET DocumentUploadFlag=?, updatedAt=? WHERE ApplicationId=? AND UserId=?",{
+                replacements: [uploadFlag,formattedDT,appid,userid],
+                type: sequelize.QueryTypes.UPDATE
+            }).then(result => {		
+                //console.log("Result AppId  "+result[0]);
+                res.json({"statusCode": 200,"Message": "Successful Request"});
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+        }else{
+            res.json({"statusCode": 200,"Message": "Successful Request"});
+        } 
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+}
 
 function insertDependentIncome(appid,userid,otherIncomeId,depincome,depname,deprelation,depincomeNature,res){
     OtherDepIncome.findOne(
@@ -1290,6 +1676,39 @@ exports.saveRentalIncomeInfoByAppId = (req,res) => {
 	});
 };
 
+exports.updateHouseIncomeInfoByAppId = (req,res) =>{
+    let appid = req.body.appId;
+    let userid = req.body.userId;
+    let propType = req.body.type;
+    let uploadFlag = req.body.docUploadflag;
+
+    PropertyIncome.findOne(
+		{ where: {UserId:userid,ApplicationId: appid, PropertyType:propType} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - House Income details  "+JSON.stringify(resultData));
+            sequelize.query("UPDATE `et_income_property` SET DocumentUploadFlag=?,updatedAt=? WHERE IncomeHouseDetailsId=?",{
+                replacements: [uploadFlag,formattedDT,resultData.IncomeHouseDetailsId],
+                type: sequelize.QueryTypes.UPDATE
+            }).then(result => {		
+                //console.log("Result AppId  "+result[0]);
+                res.json({"statusCode": 200,"Message": "Successful Request"});
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+        }else{
+            res.json({"statusCode": 200,"Message": "Successful Request"});
+        } 
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+}
+
 exports.saveCapitalIncomeInfoByAppId = (req,res) => {
     //let inputdata = req.body;
     let appid = req.body.appId;
@@ -1342,6 +1761,38 @@ exports.saveCapitalIncomeInfoByAppId = (req,res) => {
                 console.log("Error "+err);
                 res.status(400).send(err);
             });
+		}
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		res.status(400).send(err);
+	});
+};
+
+exports.updateCapitalIncomeInfoByAppId = (req,res)=>{
+    let appid = req.body.appId;
+    let userid = req.body.userId;
+    let uploadFlag = req.body.docUploadflag;
+
+    CapitalGainsIncome.findOne(
+		{ where: {UserId:userid,ApplicationId: appid} }
+	)
+	.then(function (resultData) {
+		if (resultData) {
+            console.log("Result - Capital Income details  "+JSON.stringify(resultData));
+            sequelize.query("UPDATE `et_income_capitalgains` SET DocUploadFlag=?,updatedAt=? WHERE CapitalgainID=? ",{
+                replacements: [uploadFlag, formattedDT, resultData.CapitalgainID],
+                type: sequelize.QueryTypes.UPDATE 
+            }).then(result => {		
+                //console.log("Result AppId  "+result[0]);
+                res.json({"statusCode": 200,"Message": "Successful Request"});
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+        } else {
+			res.json({"statusCode": 200,"Message": "Successful Request"});
 		}
 	})
 	.catch(function (err) {
@@ -1449,13 +1900,12 @@ DonDedLimit,DoneeQualPer,DonAddress,DoneeCity,DoneeState,DonPincode,DonCountry,R
                 console.log('deleted successfully with id = ');
                 sequelize.query("INSERT INTO `et_deductions`(ApplicationId,UserId,DeductionTypes,DeductionCategory,"+
                     "InvestmentCategory,DeductionAmount,Self_MI_PremiumAmt,Self_HC_Fees,Parents_MI_PremiumAmt,"+
-                    "MedInsRelation,DepHealthCheckReln,ParMedInsReln,NoHRA_TotalMonths,SpecificDisease_PersonAge,DoneeName,DoneePan,DoneeDeductionLimit,DoneeQualPer,DoneeAddress,DoneeCity,"+
-                    "DoneeState,DoneeCountry,DonePincode,CompletionStatus,DocUploadFlag,updatedAt) "+
-                    "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                    "MedInsRelation,DepHealthCheckReln,ParMedInsReln,NoHRA_TotalMonths,SpecificDisease_PersonAge,"+
+                    "CompletionStatus,DocUploadFlag,updatedAt) "+
+                    "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                 {
                     replacements: [appid,userid,deductiontype,dedcategory,investCat,deductionamount,SelfMedPremAmt,
-                    depHCfees,parMedPremAmt,medInsReln,DHCReln,ParMedInsReln,RentPerMonth,TreatAge,DoneeNm,DoneePan,DonDedLimit,DoneeQualPer,DonAddress,DoneeCity,DoneeState,
-                    DonCountry,DonPincode,'Yes',docUploadFlag,formattedDT],
+                    depHCfees,parMedPremAmt,medInsReln,DHCReln,ParMedInsReln,RentPerMonth,TreatAge,'Yes',docUploadFlag,formattedDT],
                     type: sequelize.QueryTypes.INSERT 
                 }).then(result => {		
                     console.log("Result AppId  "+result[0]);

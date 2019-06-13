@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import {Basicinfo} from '@app/_models';
-import { ScriptService,AuthenticationService,ApplicationService, AlertService } from '@app/_services';
+import { AuthenticationService,ApplicationService, AlertService } from '@app/_services';
 import { handleInsideHeaderBackground,handleFloatingLabels,formSticky } from '../../app.helpers';
 import * as Waves from 'node-waves';
 
@@ -21,10 +20,11 @@ export class BasicInformationComponent implements OnInit,AfterViewInit {
     submitted = false;
     userId: number;
     ApplicationId : number;
-    showNonResidentQues = false;
-    showOciResidentQues = false;
-    showShortPresentResidentQues = false;
-    showLongPresentResidentQues = false;
+    showSubRORQuesOne = false;
+    showSubRORQuesTwo = false;
+    showMainNRQues = false;
+    showSubNRQues = false;
+    //showLongPresentResidentQues = false;
 
     checked6 :boolean;
     checked7 :boolean;
@@ -39,8 +39,7 @@ export class BasicInformationComponent implements OnInit,AfterViewInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private appService : ApplicationService,
-        private alertService : AlertService,
-        private scriptservice : ScriptService
+        private alertService : AlertService
     ) { 
         // redirect to login if not logged in
         if (!this.authenticationService.currentUserValue) { 
@@ -62,11 +61,11 @@ export class BasicInformationComponent implements OnInit,AfterViewInit {
     ngOnInit() {
 
         this.basicInfoForm = this.formBuilder.group({
-        residentIndianFlag: ['',Validators.required],
-        nonResidentIndianFlag: [''],
-        ociResidentIndianFlag: [''],
-        srtPresentIndiaFlag: [''],
-        lngPresentIndiaFlag: [''],
+            mainRORQuestionFlag: ['',Validators.required],
+            firstSubRORFlag: [''],
+            secondSubRORFlag: [''],
+            mainNROuestionFlag: [''],
+            subNROuestionFlag: ['']
         });
 
         //call this to enable/disable & validate file upload form field on Radio change event
@@ -88,75 +87,56 @@ export class BasicInformationComponent implements OnInit,AfterViewInit {
 
     /* Function to enable/disable & validate file upload form field on Radio change event */
     formControlValueChanged() {
-        const showNonResidentFlag = this.basicInfoForm.get('nonResidentIndianFlag');
-        const showOciResidentFlag = this.basicInfoForm.get('ociResidentIndianFlag');
-        const showShortPresentResidentFlag = this.basicInfoForm.get('srtPresentIndiaFlag');
-        const showLongPresentResidentFlag = this.basicInfoForm.get('lngPresentIndiaFlag');
-
-        this.basicInfoForm.get('residentIndianFlag').valueChanges.subscribe(
+        this.basicInfoForm.get('mainRORQuestionFlag').valueChanges.subscribe(
         (mode: boolean) => {
             //console.log(mode);
             if (mode == true) {
-                //this.showShortPresentResidentQues = false;
-                //this.showLongPresentResidentQues = false;
-                this.showNonResidentQues = false;
-                this.showOciResidentQues = true;
-
-                showNonResidentFlag.clearValidators();
-                showOciResidentFlag.setValidators([Validators.required]);
+                this.showSubRORQuesOne = true;
+                this.showSubRORQuesTwo = false;
+                this.showMainNRQues = false;
+                this.showSubNRQues = false;
             }
             else {
-                //this.showShortPresentResidentQues = false;
-                //this.showLongPresentResidentQues = false;
-                this.showOciResidentQues = false;
-                this.showNonResidentQues = true;
-
-                showOciResidentFlag.clearValidators();
-                showNonResidentFlag.setValidators([Validators.required]);
+                this.showSubRORQuesOne = false;
+                this.showSubRORQuesTwo = false;
+                this.showMainNRQues = true;
+                this.showSubNRQues = false;
             }
-            showOciResidentFlag.updateValueAndValidity();
-            showNonResidentFlag.updateValueAndValidity();
+            
         });
 
-        this.basicInfoForm.get('nonResidentIndianFlag').valueChanges.subscribe(
+        this.basicInfoForm.get('firstSubRORFlag').valueChanges.subscribe(
         (mode: boolean) => {
             //console.log(mode);
             if (mode == true) {
-                this.showShortPresentResidentQues = true;
-                this.showLongPresentResidentQues = false;
-
-                showLongPresentResidentFlag.clearValidators();
-                showShortPresentResidentFlag.setValidators([Validators.required]);
+                this.showSubRORQuesOne = true;
+                this.showSubRORQuesTwo = true;
+                this.showMainNRQues = false;
+                this.showSubNRQues = false;
             }
             else {
-                this.showShortPresentResidentQues = false;
-                this.showLongPresentResidentQues = false;
-                
-                showShortPresentResidentFlag.clearValidators();
-                showLongPresentResidentFlag.clearValidators();
+                this.showSubRORQuesOne = true;
+                this.showSubRORQuesTwo = false;
+                this.showMainNRQues = false;
+                this.showSubNRQues = false;
             }
-            showShortPresentResidentFlag.updateValueAndValidity();
-            showLongPresentResidentFlag.updateValueAndValidity();
         });
 
-        this.basicInfoForm.get('ociResidentIndianFlag').valueChanges.subscribe(
+        this.basicInfoForm.get('mainNROuestionFlag').valueChanges.subscribe(
         (mode: boolean) => {
             //console.log(mode);
             if (mode == true) {
-                this.showLongPresentResidentQues = true;
-                this.showShortPresentResidentQues = false;
-
-                showShortPresentResidentFlag.clearValidators();
-                showLongPresentResidentFlag.setValidators([Validators.required]);
+                this.showSubRORQuesOne = false;
+                this.showSubRORQuesTwo = false;
+                this.showMainNRQues = true;
+                this.showSubNRQues = true;
             }
             else {
-                this.showLongPresentResidentQues = false;
-                this.showShortPresentResidentQues = false;
-                showLongPresentResidentFlag.clearValidators();
-                showShortPresentResidentFlag.clearValidators();
+                this.showSubRORQuesOne = false;
+                this.showSubRORQuesTwo = false;
+                this.showMainNRQues = true;
+                this.showSubNRQues = false;
             }
-            showLongPresentResidentFlag.updateValueAndValidity();
-            showShortPresentResidentFlag.updateValueAndValidity();
         });
     }
 
@@ -166,47 +146,47 @@ export class BasicInformationComponent implements OnInit,AfterViewInit {
         .pipe(first())
         .subscribe(
             data  => {
-                console.log("Response"+JSON.stringify(data));
+                //console.log("Response"+JSON.stringify(data));
                 if(data){
                     //Preload form with existing or default values
                     if(data.ResidentIndianFlag == 1){
                         this.checked6 = true;
-                        this.basicInfoForm.get('residentIndianFlag').setValue('1');
+                        this.basicInfoForm.get('mainRORQuestionFlag').setValue('1');
                     }else if(data.ResidentIndianFlag == 0){
                         this.checked6 = false;
-                        this.basicInfoForm.get('residentIndianFlag').setValue('0');
+                        this.basicInfoForm.get('mainRORQuestionFlag').setValue('0');
                     }
 
                     if(data.NonResidentIndianFlag == 1){
                         this.checked7 = true;
-                        this.basicInfoForm.get('nonResidentIndianFlag').setValue('1');
+                        this.basicInfoForm.get('mainNROuestionFlag').setValue('1');
                     }else if(data.NonResidentIndianFlag == 0){
                         this.checked7 = false;
-                        this.basicInfoForm.get('nonResidentIndianFlag').setValue('0');
+                        this.basicInfoForm.get('mainNROuestionFlag').setValue('0');
                     }
                     
                     if(data.OciResidentIndianFlag == 1){
                         this.checked8 = true;
-                        this.basicInfoForm.get('ociResidentIndianFlag').setValue('1');
+                        this.basicInfoForm.get('subNROuestionFlag').setValue('1');
                     }else if(data.OciResidentIndianFlag == 0){
                         this.checked8 = false;
-                        this.basicInfoForm.get('ociResidentIndianFlag').setValue('0');
+                        this.basicInfoForm.get('subNROuestionFlag').setValue('0');
                     }
                     
                     if(data.ShrtPresentIndiaFlag == 1){
                         this.checked9 = true;
-                        this.basicInfoForm.get('srtPresentIndiaFlag').setValue('1');
+                        this.basicInfoForm.get('firstSubRORFlag').setValue('1');
                     }else if(data.ShrtPresentIndiaFlag == 1){
                         this.checked9 = false;
-                        this.basicInfoForm.get('srtPresentIndiaFlag').setValue('0');
+                        this.basicInfoForm.get('firstSubRORFlag').setValue('0');
                     }
                     
                     if(data.LngPresentIndiaFlag == 1){
                         this.checked10 = true;
-                        this.basicInfoForm.get('lngPresentIndiaFlag').setValue('1');
+                        this.basicInfoForm.get('secondSubRORFlag').setValue('1');
                     }else if(data.LngPresentIndiaFlag == 0){
                         this.checked10 = false;
-                        this.basicInfoForm.get('lngPresentIndiaFlag').setValue('0');
+                        this.basicInfoForm.get('secondSubRORFlag').setValue('0');
                     }
                 }
             },
@@ -220,22 +200,27 @@ export class BasicInformationComponent implements OnInit,AfterViewInit {
     onSubmit() {
         this.submitted = true;
         this.loading = true;
+        var residenttype;
         // stop here if form is invalid
         if (this.basicInfoForm.invalid) {
+            this.loading = false;
             return;
         }
       
         console.log('Input Values :-)\n\n' + JSON.stringify(this.basicInfoForm.value));
+
         //create the input params for post request
         const basicInfoData = {
             'appId':this.ApplicationId,
             'userId':this.userId,
-            'residentIndianFlag':this.f.residentIndianFlag.value,
-            'nonResidentIndianFlag':this.f.nonResidentIndianFlag.value,
-            'ociResidentIndianFlag':this.f.ociResidentIndianFlag.value,
-            'srtPresentIndiaFlag':this.f.srtPresentIndiaFlag.value,
-            'lngPresentIndiaFlag':this.f.lngPresentIndiaFlag.value,
+            'residentIndianFlag':this.f.mainRORQuestionFlag.value,
+            'srtPresentIndiaFlag':this.showSubRORQuesOne ? this.f.firstSubRORFlag.value:"",
+            'lngPresentIndiaFlag':this.showSubRORQuesTwo ? this.f.secondSubRORFlag.value:"",
+            'nonResidentIndianFlag':this.showMainNRQues ? this.f.mainNROuestionFlag.value : "",
+            'ociResidentIndianFlag':this.showSubNRQues ? this.f.subNROuestionFlag.value :""
         };
+        
+
         // start storing application data in database
         this.appService.updateApplicationMain(basicInfoData)
         .pipe(first())
@@ -265,10 +250,10 @@ export class BasicInformationComponent implements OnInit,AfterViewInit {
 
     clearForm(){
         this.basicInfoForm.reset();
-        this.showNonResidentQues = false;
-        this.showOciResidentQues = false;
-        this.showShortPresentResidentQues = false;
-        this.showLongPresentResidentQues = false;
+        this.showSubRORQuesOne = false;
+        this.showSubRORQuesTwo = false;
+        this.showMainNRQues = false;
+        this.showSubNRQues = false;
     }
 
 }

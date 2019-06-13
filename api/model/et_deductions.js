@@ -64,42 +64,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(50),
       allowNull: true
     },
-    DoneeName: {
-      type: DataTypes.STRING(100),
-      allowNull: true
-    },
-    DoneePan: {
-      type: DataTypes.STRING(10),
-      allowNull: true
-    },
-    DoneeDeductionLimit: {
-      type: DataTypes.STRING(100),
-      allowNull: true
-    },
-    DoneeQualPer: {
-      type: DataTypes.STRING(20),
-      allowNull: true
-    },
-    DoneeAddress: {
-      type: DataTypes.STRING(300),
-      allowNull: true
-    },
-    DoneeCity: {
-      type: DataTypes.STRING(50),
-      allowNull: true
-    },
-    DoneeState: {
-      type: DataTypes.INTEGER(3),
-      allowNull: true
-    },
-    DoneeCountry: {
-      type: DataTypes.STRING(50),
-      allowNull: true
-    },
-    DonePincode: {
-      type: DataTypes.INTEGER(8),
-      allowNull: true
-    },
     CompletionStatus: {
       type: DataTypes.ENUM('Yes','No'),
       allowNull: true,

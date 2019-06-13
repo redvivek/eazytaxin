@@ -111,6 +111,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(5),
       allowNull: false,
       defaultValue: 1
+    },
+    ResidentType:{
+      type: DataTypes.STRING(10),
+      allowNull: true
     }
   }, {
     tableName: 'et_applicationsmain'

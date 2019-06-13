@@ -28,6 +28,8 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
   loading = false;
   immAssestsForm = false;
   nextButtonDisable = false;
+  faNextButtonDisable = true;
+  ifFAFlagTrue = false;
   previousButtonDisable = false;
   //flag to check submitted event on each subform
   perSubmitted = false;
@@ -342,8 +344,10 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
           if(res['statusCode'] == 200){                 
             this.alertService.success('File Uploaded successfully');
             this.forAssestsDetailsForm.get('uploadFAProofFlag').setValue('1');
+            this.faNextButtonDisable = false;
           }else{
             this.alertService.error('File Uploading Failed');
+            this.faNextButtonDisable = false;
           }
     };
     /*File Uploader with form data ends here */
@@ -506,6 +510,22 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
     inputTotalLiabilites.updateValueAndValidity();
   }
 
+  /* Function to enable/disable & validate file upload form field on Radio change event */
+  onFAChange(event): void {
+    const newVal = event.target.value;
+    //console.log("asDas" +newVal);
+    const forAssetsDetails = this.forAssestsDetailsForm.get('uploadForeignAssetsFile');
+    if (newVal == true) {
+      this.ifFAFlagTrue = true;
+      forAssetsDetails.setValidators([Validators.required]);
+    }
+    else {
+      this.ifFAFlagTrue = false;
+      forAssetsDetails.clearValidators();
+    }
+    forAssetsDetails.updateValueAndValidity();
+  }
+
   onAddressCheck(event):void{
     const targetChkBox = event.target;
     console.log("Checkbox event & value " +targetChkBox.checked+" - "+targetChkBox.value);
@@ -570,8 +590,6 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
               this.personalDetailsForm.get('PanNumber').setValue(data.PanNumber);
               this.personalDetailsForm.get('AadharNumber').setValue(data.AadharNumber);
               handleFloatingLabels(Waves);
-          }else{
-            //this.autoFillPerInfoFormFromXML(this.ApplicationId,this.userId,"PersonalInfo");
           }
       },
       error => {
@@ -579,46 +597,6 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
           //this.loading = false;
           return error;
       });
-  }
-
-  autoFillPerInfoFormFromXML(appid,userid,category){
-    this.appService.getDataFromXMLByUserId(appid,userid,category)
-    .pipe(first())
-    .subscribe(
-        data  => {
-          console.log("Response"+JSON.stringify(data));
-          if(data['statusCode'] == 200){
-              if (data['infoData']) {
-                  //Preload form with existing or default values
-                  this.personalDetailsForm.get('Firstname').setValue(data.Firstname);
-                  this.personalDetailsForm.get('Middlename').setValue(data.Middlename);
-                  this.personalDetailsForm.get('Lastname').setValue(data.Lastname);
-                  this.personalDetailsForm.get('EmailId').setValue(data.EmailId);
-                  this.personalDetailsForm.get('MobileNo').setValue(data.MobileNo);
-                  this.personalDetailsForm.get('AltMobileNo').setValue(data.AltMobileNo);
-                  this.personalDetailsForm.get('DateOfBirth').setValue(data.DateOfBirth);
-                  //this.personalDetailsForm.get('Gender').setValue(data.Gender);
-                  //this.personalDetailsForm.get('EmployerType').setValue(data.EmployerType);
-                  this.personalDetailsForm.get('PanNumber').setValue(data.PanNumber);
-                  this.personalDetailsForm.get('AadharNumber').setValue(data.AadharNumber);
-                  handleFloatingLabels(Waves);
-              }
-          }else if(data['statusCode'] == 201){
-              if (data['Message']) {
-                  //console.log("Current App value"+ JSON.stringify(data['Message']));
-              }
-          }else if(data['statusCode'] == 204){
-              if (data['Message']) {
-                  //console.log("Current App value"+ JSON.stringify(data['Message']));
-              }
-          }
-      },
-      error => {
-          console.log("AppMain fetch data error"+JSON.stringify(error));
-          //this.loading = false;
-          return error;
-      });
-
   }
 
   //fetch address info data by AppId
@@ -641,8 +619,6 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
               this.addressDetailsForm.get('State').setValue(data.State);
               this.addressDetailsForm.get('Country').setValue(data.Country);
               handleFloatingLabels(Waves);
-            }else{
-              //this.autoFillAddInfoFormFromXML(this.ApplicationId,this.userId,"addressInfo");
             }
       },
       error => {
@@ -650,40 +626,6 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
           //this.loading = false;
           return error;
       });
-  }
-
-  autoFillAddInfoFormFromXML(appid,userid,category){
-    this.appService.getDataFromXMLByUserId(appid,userid,category)
-    .pipe(first())
-    .subscribe(
-        data  => {
-          //console.log("Response"+JSON.stringify(data));
-          if(data['statusCode'] == 200){
-              //Preload form with existing or default values
-              this.addressDetailsForm.get('Flatno_Blockno').setValue(data.Flatno_Blockno);
-              this.addressDetailsForm.get('Road_Street_PO').setValue(data.Road_Street_PO);
-              this.addressDetailsForm.get('Area_Locality').setValue(data.Area_Locality);
-              this.addressDetailsForm.get('Pincode').setValue(data.Pincode);
-              this.addressDetailsForm.get('City_Town_District').setValue(data.City_Town_District);
-              this.addressDetailsForm.get('State').setValue(data.State);
-              this.addressDetailsForm.get('Country').setValue(data.Country);
-              handleFloatingLabels(Waves);
-          }else if(data['statusCode'] == 201){
-              if (data['Message']) {
-                  //console.log("Current App value"+ JSON.stringify(data['Message']));
-              }
-          }else if(data['statusCode'] == 204){
-              if (data['Message']) {
-                  //console.log("Current App value"+ JSON.stringify(data['Message']));
-              }
-          }
-      },
-      error => {
-          console.log("AppMain fetch data error"+JSON.stringify(error));
-          //this.loading = false;
-          return error;
-      });
-
   }
 
   autoFillBankInfoForm(appid){
@@ -721,8 +663,6 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
               }
 
             }
-          }else{
-            //this.autoFillBankInfoFormFromXML(this.ApplicationId,this.userId,"bankInfo");
           }
       },
       error => {
@@ -730,60 +670,6 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
           //this.loading = false;
           return error;
       });
-  }
-
-  autoFillBankInfoFormFromXML(appid,userid,category){
-    this.appService.getDataFromXMLByUserId(appid,userid,category)
-    .pipe(first())
-    .subscribe(
-        data  => {
-          //console.log("Response"+JSON.stringify(data));
-          if(data['statusCode'] == 200 && data.length > 0){
-            var j = 0;
-            var othdata = data.length -1;
-            //console.log("Other length "+ othdata);
-            if(othdata > 1){
-              for(var k=0;k<othdata-1;k++){
-                this.addNewRow();
-              }
-            }
-            for(var i=0;i<data.length;i++){
-              //console.log("Existing perInfo "+ JSON.stringify(data[i]));
-              if(data[i].AccountPriority == 'Primary'){
-                //Preload form with existing or default values
-                this.priBankDetailsForm.get('PrimaryAccNumber').setValue(data[i].AccountNumber);
-                this.priBankDetailsForm.get('PrimaryBankNm').setValue(data[i].BankName);
-                this.priBankDetailsForm.get('PrimaryIFSCCode').setValue(data[i].IFSCCode);
-                handleFloatingLabels(Waves);
-              }
-
-              if(data[i].AccountPriority == 'Others'){
-                //Preload form with existing or default values
-                this.addNewRow();
-                this.addBankDetailsformArr.controls[j].get('SecAccNumber').setValue(data[i].AccountNumber);
-                this.addBankDetailsformArr.controls[j].get('SecBankNm').setValue(data[i].BankName);
-                this.addBankDetailsformArr.controls[j].get('SecIFSCCode').setValue(data[i].IFSCCode);
-                handleFloatingLabels(Waves);
-                j = j+1;
-              }
-
-            }
-          }else if(data['statusCode'] == 201){
-              if (data['Message']) {
-                  //console.log("Current App value"+ JSON.stringify(data['Message']));
-              }
-          }else if(data['statusCode'] == 204){
-              if (data['Message']) {
-                  //console.log("Current App value"+ JSON.stringify(data['Message']));
-              }
-          }
-      },
-      error => {
-          console.log("AppMain fetch data error"+JSON.stringify(error));
-          //this.loading = false;
-          return error;
-      });
-
   }
 
   autoFillAssestsInfoForm(appid){
@@ -797,10 +683,19 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
               var maindata = data[0].MainData;
               //console.log("Existing perInfo "+ JSON.stringify(maindata));
               this.immAssestsDetailsForm.get('immovableAssetsFlag').setValue(maindata.ImmovableAssetsFlag);
+              this.forAssestsDetailsForm.get('uploadFAProofFlag').setValue(maindata.ForeignAssesDocUploadFlag);
               if(maindata.ImmovableAssetsFlag == 1){
                 this.immAssestsForm = true;
                 }else{
                 this.immAssestsForm = false;
+              }
+
+              if(maindata.ForeignAssesDocUploadFlag == 1){
+                this.ifFAFlagTrue = true;
+                this.faNextButtonDisable = false;
+                }else{
+                  this.ifFAFlagTrue = false;
+                  this.faNextButtonDisable = true;
               }
 
               var imdata = data[1].ImmData;
@@ -1018,10 +913,10 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
         break;    
 
         case "immAsstinfo":
-          if(this.s.immovableAssetsFlag.value == 1){
             ImmovableAssInputParam = {
               'appId':this.ApplicationId,
               'userId':this.userId,
+              'immovableAssetsFlag' : this.s.immovableAssetsFlag.value,
               "description":this.s.Description.value,
               "flatNo":this.s.FlatNo.value,
               "premiseName":this.s.PremiseName.value,
@@ -1048,36 +943,27 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
                             localStorage.removeItem("currentUserApp");
                             localStorage.setItem("currentUserApp", JSON.stringify(this.localStoreg));
                             this.loading = false;
-                            this.router.navigate(['taxfilling/earnings']);
+                            this.step2 = false;
+                            this.step3 = false;
+                            this.step4 = false;
+                            this.step4_primary_bank_acc = false;
+                            this.step4_all_other_bank_acc = false;
+                            this.step5 = true;
+                            this.step5_immovable = false;
+                            this.step5_movable = true;
+                            this.step5_foreign = false;
                           }                
                   },
               error => {
                   this.alertService.error('Application - Assests & Liabilites data save request failed '+error);
                   this.loading = false;
               });
-          }else{
-            this.localStoreg['applicationStage'] = 7;
-            //console.log("LocalStore" + JSON.stringify(this.localStoreg));
-            localStorage.removeItem("currentUserApp");
-            localStorage.setItem("currentUserApp", JSON.stringify(this.localStoreg));
-            this.loading = false;
-            this.step2 = false;
-            this.step3 = false;
-            this.step4 = false;
-            this.step4_primary_bank_acc = false;
-            this.step4_all_other_bank_acc = false;
-            this.step5 = true;
-            this.step5_immovable = false;
-            this.step5_movable = true;
-            this.step5_foreign = false;
-          }
         break;
 
         case "movAsstinfo":
           assetsInfoInputParam = {
             'appId':this.ApplicationId,
             'userId':this.userId,
-            "immovableAssetsFlag":this.s.immovableAssetsFlag.value,
             "movJwellaryItemsAmount":this.m.MovJwellaryItemsAmount.value,
             "movCraftItemsAmount":this.m.MovCraftItemsAmount.value,
             "movConveninceItemsAmount":this.m.MovConveninceItemsAmount.value,
@@ -1463,7 +1349,15 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
     }
   }
 
-  downloadSample(forAssetsSampleFile){
+  downloadSample(val){
+    if(val == 'forAssetsSampleFile'){
+      const url = "https://drive.google.com/file/d/1rqh_wOHWL_URtYcV5KsTzcpFuKRUzkzU/view?usp=sharing";
+      if(!!url)
+        window.open(url, "_blank");
+    }
 
+    if(val = 'forAssetsUploadedFile'){
+
+    }
   }
 }

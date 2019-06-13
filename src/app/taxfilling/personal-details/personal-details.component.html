@@ -855,7 +855,7 @@
                               </div>
                               <div class="right ml-auto">
                                 <button type="button" [disabled]="previousButtonDisable" class="btn btn-link btn-lg btn-prev btnLink" (click)="on_previous_click('step5_immovable')"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
-                                <button type="button" (click)="on_skip_click('step5_immovable')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button>
+                                <!-- <button type="button" (click)="on_skip_click('step5_immovable')" class="btn btn-link btn-lg btn-skip btnLink">Skip&nbsp;<i class="fas fa-arrow-right"></i></button> -->
                                 <button type="button" [disabled]="nextButtonDisable" class="btn btn-primary btn-lg btn-save" (click)="on_next_click('step5_immovable')">Save</button>
                                 <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                               </div>
@@ -1016,7 +1016,7 @@
                             </div>
                             <div class="row">
                               <div class="col-sm-6">
-                                <div class="form-group floating-label">
+                                <div class="form-group">
                                     <div class="input-group prepend">
                                       <div class="input-group-prepend">
                                         <div class="input-group-text">₹</div>
@@ -1056,6 +1056,18 @@
                               </div>
                             </div>
                             <div class="row">
+                              <div class="col-md-6 col-sm-12">
+                                <div class="form-group floating-label customDropdown">
+                                  <select id="uploadFAProofFlag" name="uploadFAProofFlag" class="form-control" formControlName="uploadFAProofFlag" (change)="onFAChange($event)">
+                                    <option value="">--Select--</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                  </select>
+                                  <label for="uploadFAProofFlag">Do you own any Foreign assets?</label>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row" *ngIf="ifFAFlagTrue">
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <div class="input-group prepend custom-file-wrap">
@@ -1080,11 +1092,10 @@
                               <div class="col">
                                 <div class="form-group">
                                   <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" class="btn btn-danger">Upload <i class="icon-cloud-upload"></i></button>
-                                  <input type="hidden" class="custom-file-input" id="uploadFAProofFlag" formControlName="uploadFAProofFlag" />
                                 </div>
                               </div>
                             </div>
-                            <div class="row">
+                            <div class="row" *ngIf="ifFAFlagTrue">
                               <div class="col-sm-6">
                                 <div class="form-group">
                                   File upload progress:
@@ -1094,11 +1105,19 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="row">
-                              <div class="col-sm-6">
+                            <div class="row" *ngIf="ifFAFlagTrue">
+                              <div class="col-sm-9">
                                 <div class="form-group">
                                   <button type="button" (click)="downloadSample('forAssetsSampleFile')" class="btn btn-secondary btn-lg btn-skip btnLink">
-                                    <i class="icon-cloud-upload"></i> Download Sample File
+                                    <i class="icon-cloud-download"></i> Download Sample File
+                                  </button>
+                                </div>
+                              </div>
+
+                              <div class="col-sm-3">
+                                <div class="form-group">
+                                  <button [disabled]="faNextButtonDisable" type="button" (click)="downloadSample('forAssetsUploadedFile')" class="btn btn-secondary btn-lg btn-skip btnLink">
+                                    <i class="icon-cloud-download"></i> View Uploaded FA details
                                   </button>
                                 </div>
                               </div>

@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://eazytaxin.herokuapp.com/api',
-  razorAPIKey : 'rzp_test_Xl3MG4jvFGzXUd',
-  razorMerchantNm:'Naishtech'
+  //apiUrl: 'https://eazytaxin.herokuapp.com/api',
+  apiUrl : 'http://www.easytaxin.com/api',
+  razorAPIKey : 'rzp_live_DUvaiGWS3XUS9B',
+  razorMerchantNm:'Easy Tax'
 };

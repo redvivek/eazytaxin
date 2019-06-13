@@ -53,6 +53,10 @@ module.exports = function(sequelize, DataTypes) {
     updatedAt: {
       type: DataTypes.DATE,
       allowNull: true,
+    },
+    DocUploadFlag: {
+      type: DataTypes.INTEGER(1),
+      allowNull: true,
     }
   }, {
     tableName: 'et_income_capitalgains'
