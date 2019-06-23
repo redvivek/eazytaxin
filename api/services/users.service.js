@@ -248,9 +248,9 @@ exports.activateUser = (req,res) =>{
 					type: sequelize.QueryTypes.UPDATE 
 				}).then(result => {		
 					console.log("User status updated successfully");
-					let redirectURL = config.host+"/login";
+					let redirectURL = config.host+"login";
 					console.log("Redirect URL "+redirectURL)
-					res.end("<h3>Your Email is been Successfully verified. Click on <a href = '"+redirectURL+"'> Login</h3>");
+					res.end("<h3>Your Email is been Successfully verified. Click on <a href = '"+redirectURL+"'> Login </h3>");
 					//res.redirect(redirectURL);
 				})
 				.catch(function (err) {
