@@ -1,3 +1,4 @@
 {
-    "secret": "easytaxin"
+    "secret": "easytaxin",
+    "host":"https://www.easytaxin.com/"
 }

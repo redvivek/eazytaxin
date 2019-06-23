@@ -66,23 +66,23 @@ exports.create = (req, res) => {
 				}).then(result => {		
 					console.log("Activation code updated successfully");
 					
-					var host= req.get('host');
-					//var link="http://"+host+"/api/users/verifyUser?id="+activationCode+"&uid="+newuserid;
-					var link = "http://www.easytaxin.com/login";
-					/* mailOptions={
-						to : 'sg.viv09@gmail.com', //email
-						from: 'EASYTAXin Admin',
+					var host = config.host;
+					var link = "api/users/verifyUser?id="+activationCode+"&uid="+newuserid;
+					//var link = "http://www.easytaxin.com/login";
+					mailOptions={
+						to : email, //'sg.viv09@gmail.com'
+						from: 'Easytaxin Admin<usha.tanna@easytaxin.com>',
 						subject : "EasyTaxin - Please confirm your Email account",
 						text: 'Hello, Please copy & open this link to verify your email. '+link,
 						html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>" 
-					} */
-					mailOptions={
+					}
+					/* mailOptions={
 						to : email, //'sg.viv09@gmail.com',
 						from: 'Easytaxin Admin<usha.tanna@easytaxin.com>',
 						subject : "Welcome to Easytaxin. Start filling your tax",
 						text: 'Hello, Thankyou for registering with us. You account is activated and you can start filling your return now',
 						html : "Hello,<br> Thankyou for registering with us.<br> You account is activated and you can start filling your return now"
-					}
+					} */
 					ccMailOptions={
 						to : 'usha.tanna@easytaxin.com', //'vivek.shukla2010@live.com',
 						from: 'no-reply@easytaxin.com',
@@ -166,11 +166,11 @@ exports.sendActivationMail = (req,res) =>{
 				type: sequelize.QueryTypes.UPDATE 
 			}).then(result => {		
 				console.log("Activation code updated successfully");
-				var host = req.get('host');
+				var host = config.host;
 				//var host = "www.easytaxin.com";
-				var link = "http://"+host+"/api/users/verifyUser?id="+activationCode+"&uid="+userid;
+				var link = "api/users/verifyUser?id="+activationCode+"&uid="+userid;
 				mailOptions={
-					to : 'sg.viv09@gmail.com', //email
+					to : email, //'sg.viv09@gmail.com'
 					from: 'Easytaxin Admin<usha.tanna@easytaxin.com>',
 					subject : "EasyTaxin - Please confirm your Email account",
 					text: 'Hello, Please copy & open this link to verify your email. '+link,
@@ -247,7 +247,7 @@ exports.verifyUser = (req,res) =>{
 					type: sequelize.QueryTypes.UPDATE 
 				}).then(result => {		
 					console.log("User status updated successfully");
-					let redirectURL = req.protocol+"://"+req.get('host');//config.protocol+config.fehost;
+					let redirectURL = confog.host+"/login";
 					console.log("Redirect URL "+redirectURL)
 					res.end("<h1>Email "+email+" is been Successfully verified. Click on <a href = '"+redirectURL+"'> Login");
 					//res.redirect(redirectURL);
@@ -375,9 +375,9 @@ exports.forgetPassword = (req,res)=>{
 			}).then(result => {		
 				console.log("Pwd reset code updated successfully");
 				//var host= config.fehost;
-				let redirectURL = req.protocol+"://"+req.get('host'); //config.protocol+config.fehost;
-				console.log("Redirect URL "+redirectURL)
-				var link = redirectURL+"/resetpassword?id="+pwdResetCode+"&uid="+userid;
+				//let redirectURL = req.protocol+"://"+req.get('host'); //config.protocol+config.fehost;
+				//console.log("Redirect URL "+redirectURL)
+				var link = config.host+"/resetpassword?id="+pwdResetCode+"&uid="+userid;
 				mailOptions={
 					to : email, //'sg.viv09@gmail.com',
 					from: 'Easytaxin Admin<usha.tanna@easytaxin.com>',
