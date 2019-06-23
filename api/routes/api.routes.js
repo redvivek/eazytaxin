@@ -16,7 +16,7 @@ route.post('/users/register', userService.create);
 route.post('/users/isEmailRegisterd',userService.isEmailRegisterd);
 route.post('/users/authenticate', userService.authenticateUser);
 route.post('/users/sendActivationMail', userService.sendActivationMail);
-route.get('/users/verifyUser', userService.verifyUser);
+route.get('/users/verifyUser', userService.activateUser);
 route.post('/users/sendForgetPwdLink', userService.forgetPassword);
 route.post('/users/checkResetCode', userService.checkResetpwdCode);
 route.post('/users/updatePassword', userService.updatePassword);

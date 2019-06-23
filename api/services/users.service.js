@@ -67,7 +67,7 @@ exports.create = (req, res) => {
 					console.log("Activation code updated successfully");
 					
 					var host = config.host;
-					var link = "api/users/verifyUser?id="+activationCode+"&uid="+newuserid;
+					var link = host+"api/users/verifyUser?id="+activationCode+"&uid="+newuserid;
 					//var link = "http://www.easytaxin.com/login";
 					mailOptions={
 						to : email, //'sg.viv09@gmail.com'
@@ -168,7 +168,7 @@ exports.sendActivationMail = (req,res) =>{
 				console.log("Activation code updated successfully");
 				var host = config.host;
 				//var host = "www.easytaxin.com";
-				var link = "api/users/verifyUser?id="+activationCode+"&uid="+userid;
+				var link = host+"api/users/verifyUser?id="+activationCode+"&uid="+userid;
 				mailOptions={
 					to : email, //'sg.viv09@gmail.com'
 					from: 'Easytaxin Admin<usha.tanna@easytaxin.com>',
@@ -217,7 +217,8 @@ exports.sendActivationMail = (req,res) =>{
 /* Input Parms: verficationCode,uid
 ***Response Json : statuscode and message
 */
-exports.verifyUser = (req,res) =>{
+exports.activateUser = (req,res) =>{
+	console.log("Input params sdfds ");
 	let userParam = req.query;
 	console.log("Input params "+JSON.stringify(userParam));
 	let id = userParam.id;
@@ -239,7 +240,7 @@ exports.verifyUser = (req,res) =>{
 			let rand = user.activationCode;
 			let email = user.EmailId;
 			if( rand == id){
-				console.log("email is verified");
+				console.log("user is verified");
 
 				//update last login timestamp to et_userinfo table */
 				sequelize.query("UPDATE `et_userinfo` SET Status = ? ,activationCode = ?, UpdatedAt = ? WHERE  UserId = ? ",{
@@ -247,20 +248,21 @@ exports.verifyUser = (req,res) =>{
 					type: sequelize.QueryTypes.UPDATE 
 				}).then(result => {		
 					console.log("User status updated successfully");
-					let redirectURL = confog.host+"/login";
+					let redirectURL = config.host+"/login";
 					console.log("Redirect URL "+redirectURL)
-					res.end("<h1>Email "+email+" is been Successfully verified. Click on <a href = '"+redirectURL+"'> Login");
+					res.end("<h3>Your Email is been Successfully verified. Click on <a href = '"+redirectURL+"'> Login</h3>");
 					//res.redirect(redirectURL);
 				})
 				.catch(function (err) {
+					console.log("Error "+err);
 					console.log("user status updatation failed");
 				});
 			}else{
-				console.log("email is not verified");
-				res.end("<h1>Bad Request</h1>");
+				console.log("Activation Code is not verified");
+				res.end("<h1>Activation code is expired</h1>");
 			}
 		}else{
-			console.log("email is not verified");
+			console.log("Invalid User");
 			res.end("<h1>Bad Request</h1>");
 		}
 	})
