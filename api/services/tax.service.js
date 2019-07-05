@@ -3,13 +3,17 @@ const path          = require('path');
 const multer        = require('multer');
 const bodyParser    = require('body-parser');
 var Q               = require('q');
-//var xml2js          = require('xml2js');
+//var xml2js        = require('xml2js');
+var https           = require('https');
+var http           = require('http');
+const sgMail        = require('@sendgrid/mail');
 
 
 const db        = require('../config/dbConfig');
 var dateTime    = require('node-datetime');
 //var parser      = new xml2js.Parser({ attrkey: "ATTR" });
 
+const ConfigMaster = db.ConfigMaster;
 const ApplicationMain = db.ApplicationMain;
 
 const PersonalDetails = db.PersonalDetails;
@@ -2233,7 +2237,7 @@ exports.doPayment = (req,res)=>{
     }).then(result => {		
         console.log("Result AppId  "+result[0]);
         //update flags to et_applicationsmain table */
-        updateAppMainFinalStatus(appid,userid,'Complete',res);
+        updateAppMainPaymentStatus(appid,userid,'Complete',res);
     })
     .catch(function (err) {
         console.log("Error "+err);
@@ -2326,9 +2330,9 @@ function updateApplicationMain(appid,userid,appStage){
     });
 };
 
-function updateAppMainFinalStatus(appid,userid,appPayStatus,res){
-    sequelize.query("UPDATE `et_applicationsmain` SET AppPaymentStatus=?, updatedAt=?,ApplicationStatus=? WHERE ApplicationId = ? AND UserId = ? ",{
-        replacements: [appPayStatus,formattedDT,'Complete',appid,userid],
+function updateAppMainPaymentStatus(appid,userid,appPayStatus,res){
+    sequelize.query("UPDATE `et_applicationsmain` SET AppPaymentStatus=?,updatedAt=? WHERE ApplicationId = ? AND UserId = ? ",{
+        replacements: [appPayStatus,formattedDT,appid,userid],
         type: sequelize.QueryTypes.UPDATE 
     }).then(result => {		
         console.log("Result AppId  "+result);
@@ -2341,9 +2345,142 @@ function updateAppMainFinalStatus(appid,userid,appPayStatus,res){
 };
 
 exports.generateITRReport = (req,res)=>{
-    console.log("Request "+JSON.stringify(req.body));
+    console.log("Request for ITR report "+JSON.stringify(req.body));
     let userid = req.body.userid;
     let appid = req.body.appid;
-    res.json({"statusCode": 200,"Message": "Successful Request"});
+
+    var optionsget = {
+        host : 'easytaxinadmin.ap-south-1.elasticbeanstalk.com', // here only the domain name
+        // (no http/https !)
+        port : 80, //443
+        path : '/admin/api/getExcelReport/'+userid+'/'+appid, // the rest of the url with parameters if needed
+        method : 'GET' // do GET
+    };
+
+    console.info('Options prepared:');
+    console.info(optionsget);
+    console.info('Do the get call to generate ITR report');
+
+    // do the GET request
+    var reqGet = http.request(optionsget, function(resp) {
+        console.log("statusCode: ", resp.statusCode);
+        // uncomment it for header details
+        console.log("headers: ", resp.headers);
+        resp.on('data', function(d) {
+            console.info('GET result:\n');
+            process.stdout.write(d);
+            if(d.status == 200){
+                console.info('\n\nCall completed');
+                updateAppMainFinalStatus(appid,userid,'Yes',res)
+                .then(function(message){
+                    if(message){
+                        res.json({"statusCode": 200,"Message": "Successful Request"});
+                    }
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    res.status(400).send(err);
+                });
+            }else{
+                console.info('\n\nCall completed with error');
+                updateAppMainFinalStatus(appid,userid,'No',res)
+                .then(function(message){
+                    if(message){
+                        res.json({"statusCode": 200,"Message": "Successful Request"});
+                    }
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    res.status(400).send(err);
+                });
+            }
+        });
+    });
+    reqGet.end();
+    reqGet.on('error', function(e) {
+        console.error(e);
+        res.status(500).send(e);
+    });
+}
+
+function updateAppMainFinalStatus(appid,userid,ITRStatus,res){
+    var deferred = Q.defer();
+    sequelize.query("UPDATE `et_applicationsmain` SET ApplicationCompletionDate = ?,updatedAt=?,ApplicationStatus=?,AppITRUploadStatus=?,AppITRUploadDate=? WHERE ApplicationId = ? AND UserId = ? ",{
+        replacements: [formattedDT,formattedDT,'Complete',ITRStatus,formattedDT,appid,userid],
+        type: sequelize.QueryTypes.UPDATE 
+    }).then(result => {		
+        console.log("Result AppId  "+result);
+        var link;
+        if(ITRStatus == 'Yes'){
+            var filename = userid+'_'+appid+'_ITRExclOutput.xls';
+            link = "http://easytaxinadmin.ap-south-1.elasticbeanstalk.com//admin/api/downloadFile/"+filename;
+            mailOptions={
+                to :  'usha.tanna@easytaxin.com', //'sg.viv09@gmail.com',
+                from: 'no-reply@easytaxin.com',
+                subject : "EasyTaxin - ITR Application Submitted successfully",
+                text: 'Hello Admin, This is to notify you that new ITR application has submitted. Please login to Admin panel to check details or click on below link to view ITR report generated(Excel) '+link,
+                html : "Hello Admin,<br> This is to notify you that new ITR application has submitted.<br> Please login to Admin panel to check details or click on below link to view ITR report generated(Excel) <br><a href="+link+">Click here to download report</a>" 
+            }
+        }else{
+            mailOptions={
+                to :  'usha.tanna@easytaxin.com', //'sg.viv09@gmail.com',
+                from: 'no-reply@easytaxin.com',
+                subject : "EasyTaxin - ITR Application Submitted successfully",
+                text: 'Hello Admin, This is to notify you that new ITR application has submitted. Please login to Admin panel to check details',
+                html : "Hello Admin,<br> This is to notify you that new ITR application has submitted.<br> Please login to Admin panel to check details." 
+            }
+        }
+        console.log(mailOptions);
+        /* console.log("Regsiteration successful and activation mail sent to user"+mailresult);
+        res.json({"statusCode": 200,"Message": "Successful Request"}); */
+        fetchMailKeyValue()
+        .then(function(keyvalue){
+            console.log("Api key "+keyvalue);
+            sgMail.setApiKey(keyvalue);
+            sgMail.send(mailOptions, (error, mailresult) => {
+                if (error) {
+                    console.log("Application submitted successfully and failed to sent activation mail to admin \n"+ JSON.stringify(error));
+                    //res.status(200).send("Application submitted successfully and failed to sent activation mail to admin");
+                    var msg = "Application submitted successfully and failed to sent activation mail to admin";
+                    //res.json({"statusCode": 200,"Message": "Successful Request"});
+                    deferred.resolve(msg);
+                }
+                if (mailresult) { 
+                    console.log("Application submitted successfully and mail sent to admin");
+                    var msg = "Application submitted successfully and mail sent to admin";
+                    //res.json({"statusCode": 200,"Message": "Successful Request"});
+                    deferred.resolve(msg);
+                }
+            });
+        })
+        .catch(function (err) {
+            console.log("Error "+err);
+            deferred.reject(err);
+        });
+    })
+    .catch(function (err) {
+        console.log("Error in app main update "+err);
+        deferred.reject(err);
+    });
+
+    return deferred.promise;
+}
+
+function fetchMailKeyValue(){
+	var deferred = Q.defer();
+	ConfigMaster.findOne(
+		{ where: {KeyName:'SGMAIL'} }
+	)
+	.then(function (result) {
+		if (result) {
+			console.log("Result Key  "+JSON.stringify(result.KeyValue));
+			deferred.resolve(result.KeyValue);
+    }
+	})
+	.catch(function (err) {
+		console.log("Error "+err);
+		deferred.reject(err);
+  });
+  return deferred.promise;
 }
 

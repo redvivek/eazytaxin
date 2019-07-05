@@ -74,7 +74,7 @@ export class TransactionComponent implements OnInit,AfterViewInit {
               //localStorage.removeItem('currentUserApp');
               this.appService.setCurrApplicationValue(null);
               this.router.navigate(['/dashboard']);
-            }                
+            }              
         },
     error => {
       console.log("Response Error" + JSON.stringify(error));

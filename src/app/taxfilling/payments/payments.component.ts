@@ -151,7 +151,8 @@ export class PaymentsComponent implements OnInit,AfterViewInit {
      let options = {
       "key": environment.razorAPIKey,
       "name": environment.razorMerchantNm,
-      "amount": this.appDetails.PlanAmount+0+0, /// The amount is shown in currency subunits. Actual amount is ₹599.
+      "amount": this.appDetails.PlanAmount+"00", /// The amount is shown in currency subunits. Actual amount is ₹599.
+      //"amount": 19900,
       //"order_id": "<YOUR_ORDER_ID>", // Pass the order ID if you are using Razorpay Orders.
       "currency": "INR", // Optional. Same as the Order currency
       "description": "Easytaxin ITR filling payyment",
