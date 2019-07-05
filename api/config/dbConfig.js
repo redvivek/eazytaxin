@@ -17,7 +17,7 @@ const sequelize = new Sequelize(env.database, env.username, env.password, {
     freezeTableName: true
   },
   // disable logging; default: console.log
-  logging: true
+  logging: false
 });
 
 sequelize.sync();
