@@ -31,12 +31,7 @@ app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Headers', 'application/json');
   next();
 });
-app.enable("trust proxy");
-app.use(function(request, response){
-  if(request.protocol === "http"){
-    response.redirect("https://" + request.headers.host + request.url);
-  }
-});
+
 app.use(express.static(path.join(__dirname, 'dist/eazytaxin')));
 app.use('/', express.static(path.join(__dirname, 'dist/eazytaxin')));
 app.use('/api', apiRouter);
