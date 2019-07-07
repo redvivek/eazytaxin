@@ -32,6 +32,11 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(function(request, response){
+  if(!request.secure){
+    response.redirect("https://" + request.headers.host + request.url);
+  }
+});
 app.use(express.static(path.join(__dirname, 'dist/eazytaxin')));
 app.use('/', express.static(path.join(__dirname, 'dist/eazytaxin')));
 app.use('/api', apiRouter);
