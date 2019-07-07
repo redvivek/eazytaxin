@@ -31,9 +31,9 @@ app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Headers', 'application/json');
   next();
 });
-
+app.enable("trust proxy");
 app.use(function(request, response){
-  if(!request.secure){
+  if(request.protocol === "http"){
     response.redirect("https://" + request.headers.host + request.url);
   }
 });
