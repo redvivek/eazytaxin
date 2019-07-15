@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { handleInsideHeaderBackground,handleFloatingLabels } from '../app.helpers';
+
 @Component({
   selector: 'app-contactus',
   templateUrl: './contactus.component.html',
@@ -10,6 +12,10 @@ export class ContactusComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit(){
+    handleInsideHeaderBackground();
   }
 
 }
