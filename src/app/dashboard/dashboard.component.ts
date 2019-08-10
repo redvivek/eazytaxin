@@ -2,7 +2,7 @@ import { Component, OnInit,OnDestroy,AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { ApplicationMain} from '@app/_models';
-import { ApplicationService, AuthenticationService,AlertService } from '@app/_services';
+import { ApplicationService, AuthenticationService,AlertService,ModalService } from '@app/_services';
 import { handleInsideHeaderBackground } from '../app.helpers';
 
 @Component({
@@ -15,6 +15,15 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   selectedAssYear:any;
   showCurrAssYear:boolean;
   showComplete:boolean;
+  usrApprovalStatus:boolean = false;
+  taxliabilityStatus:boolean = false;
+
+  //initilize & activate flag to by default active salaryIncome tab
+  step1:boolean = true;
+  step2:boolean = false;
+
+  step3:boolean = true;
+  step4:boolean = false;
 
   userId : number;
   ApplicationId : number;
@@ -29,11 +38,25 @@ export class DashboardComponent implements OnInit,AfterViewInit {
       'MobileNo':'NA'
   };
 
+  dashboardTaxInfo = {
+    'ApplicationId':'NA',
+    'UserId':'NA',
+    'GrandTotalIncome':'NA',
+    'Deductions':'NA',
+    'NetTaxIncome':'NA',
+    'TaxLiability':'NA',
+    'TaxCredit':'NA',
+    'TaxPaid':'NA',
+    'Interest':'NA',
+    'Balance':'NA'
+};
+
   constructor(
         private router: Router,
         private authenticationService: AuthenticationService,
         private appService : ApplicationService,
-        private alertService : AlertService
+        private alertService : AlertService,
+        private modalService: ModalService
   ) {
         // redirect to login if not logged in
         if (!this.authenticationService.currentUserValue) { 
@@ -81,6 +104,18 @@ export class DashboardComponent implements OnInit,AfterViewInit {
                     this.showCurrAssYear = false;                  
                     this.alertService.success('Application - Dashboard Info data fetched successfully');
                     var res = data['Result'][0];
+                    this.dashboardTaxInfo = {
+                        'ApplicationId':res['ApplicationId'],
+                        'UserId':res['UserId'],
+                        'GrandTotalIncome':res['GrandTotalIncome'],
+                        'Deductions':res['TotalDeductions'],
+                        'NetTaxIncome':res['NetTaxIncome'],
+                        'TaxLiability':res['TotalTaxLiability'],
+                        'TaxCredit':res['TaxCredit'],
+                        'TaxPaid':res['TaxesPaid'],
+                        'Interest':res['TotalInterestAmount'],
+                        'Balance':res['TotalBalance']
+                    }
                     this.fetchAppDetailsAppDataByUserID(res['ApplicationId'],res['UserId']);
                     this.inProgressApps = this.fetchInProgressAppDataByUserID(res['AssesmentYear'],res['UserId']);
 
@@ -88,6 +123,11 @@ export class DashboardComponent implements OnInit,AfterViewInit {
                         this.showComplete = true;
                     else
                         this.showComplete = false;
+
+                    if(res['TotalTaxLiability'] == '0.00')
+                        this.taxliabilityStatus = true;
+                    else
+                        this.taxliabilityStatus = false;
                     
                 }else{
                     this.showCurrAssYear = true;
@@ -133,6 +173,14 @@ export class DashboardComponent implements OnInit,AfterViewInit {
             this.router.navigate(['/taxfilling/review']);
         else
             this.router.navigate(['/taxfilling/review']);
+    }
+
+    openModal(id: string) {
+        //this.modalService.open(id);
+    }
+
+    closeModal(id: string) {
+        //this.modalService.close(id);
     }
 
     getCurrentAssesmentYear() {
@@ -227,4 +275,22 @@ export class DashboardComponent implements OnInit,AfterViewInit {
             });
         return resultArray;
     }
+
+    //Function Called on next button click
+    on_next_click(){
+        this.step1 = false;
+        this.step2 = true;
+    }
+
+    //Function to enable forms from naviagtion icons
+  select_form_step(a){
+    if(a == 'step1'){
+      this.step1 = true;
+      this.step2 = false;
+    }
+    if(a == 'step2'){
+      this.step1 = false;
+      this.step2 = true;
+    }
+  }
 }

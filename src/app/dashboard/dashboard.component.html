@@ -34,57 +34,57 @@
 							<div class="stats-col">
 								<div class="key">Grand Total Income</div>
 								<div class="value">
-									<!-- <span class="inr">₹</span> -->
-									<span>NA</span>
+									<span class="inr">₹</span>
+									<span>{{dashboardTaxInfo.GrandTotalIncome}}</span>
 								</div>
 							</div>
 							<div class="stats-col">
 								<div class="key">Deductions</div>
 								<div class="value">
-									<!-- <span class="inr">₹</span> -->
-									<span>NA</span>
+									<span class="inr">₹</span>
+									<span>{{dashboardTaxInfo.Deductions}}</span>
 								</div>
 							</div>
 							<div class="stats-col">
 								<div class="key">Net Tax Income</div>
 								<div class="value">
-									<!-- <span class="inr">₹</span> -->
-									<span>NA</span>
+									<span class="inr">₹</span>
+									<span>{{dashboardTaxInfo.NetTaxIncome}}</span>
 								</div>
 							</div>
 							<div class="stats-col">
 								<div class="key">Tax Liability</div>
 								<div class="value">
-									<!-- <span class="inr">₹</span> -->
-									<span>NA</span>
+									<span class="inr">₹</span>
+									<span>{{dashboardTaxInfo.TaxLiability}}</span>
 								</div>
 							</div>
 							<div class="stats-col">
 								<div class="key">Tax Credit</div>
 								<div class="value">
-									<!-- <span class="inr">₹</span> -->
-									<span>NA</span>
+									<span class="inr">₹</span>
+									<span>{{dashboardTaxInfo.TaxCredit}}</span>
 								</div>
 							</div>
 							<div class="stats-col">
 								<div class="key">Taxes Paid</div>
 								<div class="value">
-									<!-- <span class="inr">₹</span> -->
-									<span>NA</span>
+									<span class="inr">₹</span>
+									<span>{{dashboardTaxInfo.TaxPaid}}</span>
 								</div>
 							</div>
 							<div class="stats-col">
 								<div class="key">Interest</div>
 								<div class="value">
-									<!-- <span class="inr">₹</span> -->
-									<span>NA</span>
+									<span class="inr">₹</span>
+									<span>{{dashboardTaxInfo.Interest}}</span>
 								</div>
 							</div>
 							<div class="stats-col">
 								<div class="key">Balance</div>
 								<div class="value">
-									<!-- <span class="inr">₹</span> -->
-									<span>NA</span>
+									<span class="inr">₹</span>
+									<span>{{dashboardTaxInfo.Balance}}</span>
 								</div>
 							</div>
 	    				</div>
@@ -114,7 +114,7 @@
 									<h5 class="mt-0 user-name" *ngIf="dashboardInfo.Firstname == 'NA'">New User</h5>
 	    						    <div class="row mx-0">
 	    						    	<span class="key">PAN No.</span>
-	    						    	<span class="value">: {{dashboardInfo.PanNumber}}</span>
+	    						    	<span class="value">: {{dashboardInfo.PanNumber | uppercase}}</span>
 	    						    </div>
 	    						    <div class="row mx-0">
 	    						    	<span class="key">D.O.B</span>
@@ -141,13 +141,13 @@
 	    					</div>
 	    				</div>
 					</div>
-					<div class="col-md-12">
+					<!-- <div class="col-md-12">
 	    				<div class="card cardShadow">
 		    				<div class="card-header d-flex align-items-center no-block">
 		    					<h5 class="card-title ">Notifications</h5>
 		    				</div>
 	    					<div class="card-body">
-	    						<!-- <table class="table px-0 mb-0">
+	    						<table class="table px-0 mb-0">
 	    							<tbody>
 	    								<tr>
 	    									<th><span class="badge badge-primary"></span> Deluxe Plan purchased.</th>
@@ -165,10 +165,10 @@
 	    									<td>10:23</td>
 	    								</tr>
 	    							</tbody>
-	    						</table> -->
+	    						</table>
 	    					</div>
 	    				</div>
-	    			</div>
+	    			</div> -->
 	    		</div>
 	    	</div>
     	</div>
@@ -178,7 +178,7 @@
 					<div class="col-md-12">
 						<div class="card cardShadow">
 							<div class="card-header d-flex align-items-center no-block">
-								<h5 class="card-title ">Application Status</h5>
+								<h5 class="card-title ">Tax Filling Status</h5>
 							</div>
 							<div class="card-body" *ngIf="inProgressApps.length > 0">
 								<table class="table px-0 mb-0 yearlySumTable">
@@ -201,13 +201,74 @@
 												<button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" disabled >Approve to File ITR</button>
 											</th>
 										</tr>
-										<tr *ngIf="showComplete">
-											<th style="width:70%;">Application already filled for selected year. Review Tax Summary once available and provide approval to submit your ITR to Income TAX Dept.</th>
-											<!-- <th>
-												<button type="button" class="btn btn-success btn-lg" >Approve to File ITR</button>
-											</th> -->
-											<th>
-												<button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" disabled >Approve to File ITR</button>
+										<tr *ngIf = "showComplete">
+											<th *ngIf = "taxliabilityStatus">
+												<div>Congratulations!! You have no Tax Liabilities. Please review your tax summary and proceed to File ITR.</div>
+												<div>
+													<button type="button" class="btn btn-success btn-lg" >File ITR</button>
+												</div>
+											</th>
+											<th *ngIf = "!taxliabilityStatus">
+												<div class="row">
+													<div class="col-md-12">
+														<h3>You have tax due of <span class="inr">₹</span><span>{{dashboardTaxInfo.TaxLiability}}</span>.</h3>
+													</div>
+													<div class="col-md-12"> 
+														Please review your tax summary and Complete your tax filing just in 2 steps.
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-12">
+														<div class="card cardShadow">
+															<div class="card-header d-flex align-items-center no-block">
+																<ul class="nav nav-tabs blue" id="myTab" role="tablist">
+																	<li class="nav-item">
+																	<a class="nav-link active" [class.active]="step1 == true" (click)="select_form_step('step1')" id="step1-tab" data-toggle="tab" href="#step1" role="tab"><h5 class="card-title ">Step 1</h5></a>
+																	</li>
+																	<li class="nav-item">
+																	<a class="nav-link" [class.active]="step2 == true" (click)="select_form_step('step2')" id="step2-tab" data-toggle="tab" href="#step2" role="tab"><h5 class="card-title ">Step 2</h5></a>
+																	</li>
+																</ul>
+															</div>
+															<div class="card-body tab-content">
+																<div class="tab-pane active" id="step1" role="tabpanel" aria-labelledby="step1-tab" [ngClass]="{ 'show': step1 == true , 'active': step1 == true }">
+																	<table>
+																		<tbody>
+																			<tr>
+																				<td>
+																					<a href="https://onlineservices.tin.egov-nsdl.com/etaxnew/tdsnontds.jsp" target="_blank">
+																						Click here
+																					</a> to go to the government website and pay your tax by selecting challan 280.
+																				</td>
+																			</tr>
+																			<tr>
+																				<td>
+																					<button type="button" class="btn btn-primary btn-lg btn-save" (click)="on_next_click()">Click Here Once Tax Dues Are Paid</button>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
+																<div class="tab-pane fade" id="step2" role="tabpanel" aria-labelledby="step2-tab" [ngClass]="{ 'show': step2 == true , 'active': step2 == true }">
+																	<table>
+																		<tbody>
+																			<tr>
+																				<td>
+																					Use your tax receipt (Challan 280) details from the previous step and enter your payment details in the Self Assessment Taxes paid section.
+																				</td>
+																			</tr>
+																			<tr>
+																				<td>
+																					<button type="button" class="btn btn-primary btn-lg btn-save" (click)="openModal('custom-modal-1')">Add Tax Paid Details</button>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
 											</th>
 										</tr>
 									</tbody>
@@ -322,19 +383,19 @@
 	    	<div class="col-lg-4 col-md-12">
   				<div class="card cardShadow yearlySumCard">
     				<div class="card-header d-flex align-items-center no-block">
-    					<h5 class="card-title ">Yearly Summary</h5>
+    					<h5 class="card-title ">Application Summary</h5>
     				</div>
   					<div class="card-body" *ngIf="inProgressApps.length > 0">
   						<table class="table px-0 mb-0 yearlySumTable">
   							<tbody>
 								<tr *ngFor="let items of inProgressApps">
   									<th><span class="badge badge-primary"></span>{{items.AssYear}}</th>
-  									<td align ="right"><button type="button" (click)="continueApp(items)" class="btn btn-primary">Continue</button></td>
+  									<td align = "right"><button type="button" (click)="continueApp(items)" class="btn btn-primary">Continue</button></td>
   								</tr>
   							</tbody>
   						</table>
 					</div>
-					<!-- <div class="card-body" *ngIf="inProgressApps.length == 0">
+					<div class="card-body" *ngIf="inProgressApps.length == 0">
 						<table class="table px-0 mb-0 yearlySumTable">
 							<tbody>
 								<tr *ngIf="!showComplete">
@@ -345,10 +406,16 @@
 								</tr>
 							</tbody>
 						</table>
-					</div> -->
+					</div>
   				</div>
 	    	</div>
     	</div>
     </div>
 	</div>
 </div>
+
+<!-- <jw-modal id="custom-modal-1">
+	<h1>A Custom Modal!</h1>
+	<p>Home page text: <input type="text" [(ngModel)]="bodyText" /></p>
+	<button (click)="closeModal('custom-modal-1');">Close</button>
+</jw-modal> -->

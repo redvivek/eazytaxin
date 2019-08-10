@@ -2285,12 +2285,12 @@ exports.fetchDashboardInfo = (req,res)=>{
     let assYear = req.body.assYear;
     let userid = req.body.userid;
     //console.log("Input Data  "+appid+"-"+userid);
-    sequelize.query("SELECT ApplicationId, UserId, AssesmentYear,Plantype,ApplicationStatus FROM `et_applicationsmain` where UserId = ? AND AssesmentYear = ?",{
-    //sequelize.query("SELECT main.ApplicationId, main.UserId,main.Plantype, pp.PlanName,pp.PlanAmount,per.PersonalDetailsId, per.Firstname, per.Lastname,per.MobileNo,per.EmailId,per.PanNumber,per.DateOfBirth FROM `et_applicationsmain` as main, `et_personaldetails` as per,`et_pricingplans` as pp where main.UserId = ? AND main.AssesmentYear = ? AND main.ApplicationId = per.ApplicationId AND pp.PlanId = main.Plantype",{
+    //sequelize.query("SELECT ApplicationId, UserId, AssesmentYear,Plantype,ApplicationStatus FROM `et_applicationsmain` where UserId = ? AND AssesmentYear = ?",{
+    sequelize.query("SELECT a.ApplicationId, a.UserId, a.AssesmentYear,a.Plantype,a.ApplicationStatus,b.GrandTotalIncome,b.TotalDeductions,b.NetTaxIncome,b.TotalTaxLiability,b.TaxCredit,b.TaxesPaid,b.TotalInterestAmount,b.TotalBalance,b.UserApproval FROM `et_applicationsmain` a, et_taxsummary b where a.UserId = ? AND a.AssesmentYear = ? AND a.ApplicationId = b.ApplicationId",{
         replacements: [userid,assYear],
         type: sequelize.QueryTypes.SELECT 
     }).then(result => {		
-        //console.log("Result App details  "+JSON.stringify(result));
+        console.log("Result App details  "+JSON.stringify(result));
         res.json({"statusCode": 200,"Message": "Successful Request","Result":result});
     })
     .catch(function (err) {
@@ -2349,58 +2349,17 @@ exports.generateITRReport = (req,res)=>{
     let userid = req.body.userid;
     let appid = req.body.appid;
 
-    var optionsget = {
-        host : 'easytaxinadmin.ap-south-1.elasticbeanstalk.com', // here only the domain name
-        // (no http/https !)
-        port : 80, //443
-        path : '/admin/api/getExcelReport/'+userid+'/'+appid, // the rest of the url with parameters if needed
-        method : 'GET' // do GET
-    };
-
-    console.info('Options prepared:');
-    console.info(optionsget);
-    console.info('Do the get call to generate ITR report');
-
-    // do the GET request
-    var reqGet = http.request(optionsget, function(resp) {
-        console.log("statusCode: ", resp.statusCode);
-        // uncomment it for header details
-        console.log("headers: ", resp.headers);
-        resp.on('data', function(d) {
-            console.info('GET result:\n');
-            process.stdout.write(d);
-            if(d.status == 200){
-                console.info('\n\nCall completed');
-                updateAppMainFinalStatus(appid,userid,'Yes',res)
-                .then(function(message){
-                    if(message){
-                        res.json({"statusCode": 200,"Message": "Successful Request"});
-                    }
-                })
-                .catch(function (err) {
-                    console.log("Error "+err);
-                    res.status(400).send(err);
-                });
-            }else{
-                console.info('\n\nCall completed with error');
-                updateAppMainFinalStatus(appid,userid,'No',res)
-                .then(function(message){
-                    if(message){
-                        res.json({"statusCode": 200,"Message": "Successful Request"});
-                    }
-                })
-                .catch(function (err) {
-                    console.log("Error "+err);
-                    res.status(400).send(err);
-                });
-            }
-        });
+    updateAppMainFinalStatus(appid,userid,'No',res)
+    .then(function(message){
+        if(message){
+            res.json({"statusCode": 200,"Message": "Successful Request"});
+        }
+    })
+    .catch(function (err) {
+        console.log("Error "+err);
+        res.status(400).send(err);
     });
-    reqGet.end();
-    reqGet.on('error', function(e) {
-        console.error(e);
-        res.status(500).send(e);
-    });
+    
 }
 
 function updateAppMainFinalStatus(appid,userid,ITRStatus,res){
@@ -2410,26 +2369,14 @@ function updateAppMainFinalStatus(appid,userid,ITRStatus,res){
         type: sequelize.QueryTypes.UPDATE 
     }).then(result => {		
         console.log("Result AppId  "+result);
-        var link;
-        if(ITRStatus == 'Yes'){
-            var filename = userid+'_'+appid+'_ITRExclOutput.xls';
-            link = "http://easytaxinadmin.ap-south-1.elasticbeanstalk.com//admin/api/downloadFile/"+filename;
-            mailOptions={
-                to :  'usha.tanna@easytaxin.com', //'sg.viv09@gmail.com',
-                from: 'no-reply@easytaxin.com',
-                subject : "EasyTaxin - ITR Application Submitted successfully",
-                text: 'Hello Admin, This is to notify you that new ITR application has submitted. Please login to Admin panel to check details or click on below link to view ITR report generated(Excel) '+link,
-                html : "Hello Admin,<br> This is to notify you that new ITR application has submitted.<br> Please login to Admin panel to check details or click on below link to view ITR report generated(Excel) <br><a href="+link+">Click here to download report</a>" 
-            }
-        }else{
-            mailOptions={
-                to :  'usha.tanna@easytaxin.com', //'sg.viv09@gmail.com',
-                from: 'no-reply@easytaxin.com',
-                subject : "EasyTaxin - ITR Application Submitted successfully",
-                text: 'Hello Admin, This is to notify you that new ITR application has submitted. Please login to Admin panel to check details',
-                html : "Hello Admin,<br> This is to notify you that new ITR application has submitted.<br> Please login to Admin panel to check details." 
-            }
+        mailOptions={
+            to :  'usha.tanna@easytaxin.com', //'sg.viv09@gmail.com',
+            from: 'no-reply@easytaxin.com',
+            subject : "EasyTaxin - ITR Application Submitted successfully",
+            text: 'Hello Admin, This is to notify you that new ITR application has submitted. Please login to Admin panel to check details',
+            html : "Hello Admin,<br> This is to notify you that new ITR application has submitted.<br> Please login to Admin panel to check details." 
         }
+
         console.log(mailOptions);
         /* console.log("Regsiteration successful and activation mail sent to user"+mailresult);
         res.json({"statusCode": 200,"Message": "Successful Request"}); */
