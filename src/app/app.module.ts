@@ -31,6 +31,8 @@ import { FaqComponent } from './faq/faq.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { TermscondnComponent } from './termscondn/termscondn.component';
 
+
+
 @NgModule({
     imports: [
         BrowserModule,

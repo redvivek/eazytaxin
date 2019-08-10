@@ -2,7 +2,7 @@ import { Component, OnInit,OnDestroy,AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { ApplicationMain} from '@app/_models';
-import { ApplicationService, AuthenticationService,AlertService,ModalService } from '@app/_services';
+import { ApplicationService, AuthenticationService,AlertService } from '@app/_services';
 import { handleInsideHeaderBackground } from '../app.helpers';
 
 @Component({
@@ -55,8 +55,7 @@ export class DashboardComponent implements OnInit,AfterViewInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private appService : ApplicationService,
-        private alertService : AlertService,
-        private modalService: ModalService
+        private alertService : AlertService
   ) {
         // redirect to login if not logged in
         if (!this.authenticationService.currentUserValue) { 
