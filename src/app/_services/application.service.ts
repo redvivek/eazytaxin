@@ -42,6 +42,22 @@ export class ApplicationService {
         return this.http.post(`${environment.apiUrl}/tax/fetchAppInfo`, inputdata);
     }
 
+    fetchTaxSummaryByAppidAndUserId(appId:number,userId:number){
+        var inputdata = {
+            "appId" : appId,
+            "userId" : userId
+        };
+        return this.http.post(`${environment.apiUrl}/tax/fetchAppTaxSummary`, inputdata);
+    }
+
+    updateTaxSummaryData(appId:number,userId:number){
+        var inputdata = {
+            "appId" : appId,
+            "userId" : userId
+        };
+        return this.http.post(`${environment.apiUrl}/tax/updateAppTaxSummary`, inputdata);
+    }
+
     fetchInProgAppDataByUserid(userid:number,selYear:string){
         return this.http.post(`${environment.apiUrl}/tax/fetchInProgApps`,{"userid":userid,"selYear":selYear})
         .pipe(map(data => {

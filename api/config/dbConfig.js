@@ -52,5 +52,6 @@ db.IncomeTaxPaidDetails     =   require('../model/et_incometaxpaiddetails')(sequ
 db.PaymentDetails       =   require('../model/et_paymentdetails')(sequelize, Sequelize);
 db.DocumentUpload       =   require('../model/et_documentupload')(sequelize, Sequelize);
 db.ConfigMaster         =   require('../model/et_configmaster')(sequelize, Sequelize);
+db.TaxSummary         =   require('../model/et_taxsummary')(sequelize, Sequelize);
  
 module.exports = db;

@@ -34,56 +34,56 @@
 							<div class="stats-col">
 								<div class="key">Grand Total Income</div>
 								<div class="value">
-									<span class="inr">₹</span>
+									<span class="inr" *ngIf="dashboardTaxInfo.GrandTotalIncome !== 'NA'">₹</span>
 									<span>{{dashboardTaxInfo.GrandTotalIncome}}</span>
 								</div>
 							</div>
 							<div class="stats-col">
 								<div class="key">Deductions</div>
 								<div class="value">
-									<span class="inr">₹</span>
+									<span class="inr" *ngIf="dashboardTaxInfo.Deductions !== 'NA'">₹</span>
 									<span>{{dashboardTaxInfo.Deductions}}</span>
 								</div>
 							</div>
 							<div class="stats-col">
 								<div class="key">Net Tax Income</div>
 								<div class="value">
-									<span class="inr">₹</span>
+									<span class="inr" *ngIf="dashboardTaxInfo.NetTaxIncome !== 'NA'">₹</span>
 									<span>{{dashboardTaxInfo.NetTaxIncome}}</span>
 								</div>
 							</div>
 							<div class="stats-col">
 								<div class="key">Tax Liability</div>
 								<div class="value">
-									<span class="inr">₹</span>
+									<span class="inr" *ngIf="dashboardTaxInfo.TaxLiability !== 'NA'">₹</span>
 									<span>{{dashboardTaxInfo.TaxLiability}}</span>
 								</div>
 							</div>
 							<div class="stats-col">
 								<div class="key">Tax Credit</div>
 								<div class="value">
-									<span class="inr">₹</span>
+									<span class="inr" *ngIf="dashboardTaxInfo.TaxCredit !== 'NA'">₹</span>
 									<span>{{dashboardTaxInfo.TaxCredit}}</span>
 								</div>
 							</div>
 							<div class="stats-col">
 								<div class="key">Taxes Paid</div>
 								<div class="value">
-									<span class="inr">₹</span>
+									<span class="inr" *ngIf="dashboardTaxInfo.TaxPaid !== 'NA'">₹</span>
 									<span>{{dashboardTaxInfo.TaxPaid}}</span>
 								</div>
 							</div>
 							<div class="stats-col">
 								<div class="key">Interest</div>
 								<div class="value">
-									<span class="inr">₹</span>
+									<span class="inr" *ngIf="dashboardTaxInfo.Interest !== 'NA'">₹</span>
 									<span>{{dashboardTaxInfo.Interest}}</span>
 								</div>
 							</div>
 							<div class="stats-col">
 								<div class="key">Balance</div>
 								<div class="value">
-									<span class="inr">₹</span>
+									<span class="inr" *ngIf="dashboardTaxInfo.Balance !== 'NA'">₹</span>
 									<span>{{dashboardTaxInfo.Balance}}</span>
 								</div>
 							</div>
@@ -201,11 +201,14 @@
 												<button type="button" class="btn btn-secondary btn-lg btn-reset btnLink" disabled >Approve to File ITR</button>
 											</th>
 										</tr>
-										<tr *ngIf = "showComplete">
+										<tr *ngIf="!itrUploadStatus">
+											<th style="width:70%;">Your Tax Summary is not ready yet and is current under assisted CA review. </th>
+										</tr>
+										<tr *ngIf = "itrUploadStatus">
 											<th *ngIf = "taxliabilityStatus">
-												<div>Congratulations!! You have no Tax Liabilities. Please review your tax summary and proceed to File ITR.</div>
+												<div>Congratulations!! You have no Tax Liabilities. Please review your tax summary and provide your approval to file ITR.</div>
 												<div>
-													<button type="button" class="btn btn-success btn-lg" >File ITR</button>
+													<button type="button" class="btn btn-success btn-lg" (click)="approveITR(dashboardTaxInfo.ApplicationId,dashboardTaxInfo.UserId)" >Approve to File ITR</button>
 												</div>
 											</th>
 											<th *ngIf = "!taxliabilityStatus">
@@ -395,14 +398,14 @@
   							</tbody>
   						</table>
 					</div>
-					<div class="card-body" *ngIf="inProgressApps.length == 0">
+					<div class="card-body" >
 						<table class="table px-0 mb-0 yearlySumTable">
 							<tbody>
 								<tr *ngIf="!showComplete">
-									<th>No application available for selected year.</th>
+									<th>No application available for selected year.Click on Start Filling button for self assessment.</th>
 								</tr>
 								<tr *ngIf="showComplete">
-									<th>Application already filled for selected year</th>
+									<th>Your Self Assessment data is already submitted for ITR filling.</th>
 								</tr>
 							</tbody>
 						</table>

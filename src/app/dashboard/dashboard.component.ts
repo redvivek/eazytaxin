@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   selectedAssYear:any;
   showCurrAssYear:boolean;
   showComplete:boolean;
+  itrUploadStatus:boolean = false;
   usrApprovalStatus:boolean = false;
   taxliabilityStatus:boolean = false;
 
@@ -86,7 +87,7 @@ export class DashboardComponent implements OnInit,AfterViewInit {
 	}
 
     onChange(newValue) {
-        console.log(newValue);
+        //console.log(newValue);
         this.selectedAssYear = newValue;
         this.fetchDashboardInfoByAssYrAndUser(this.selectedAssYear,this.userId);
     }
@@ -103,18 +104,6 @@ export class DashboardComponent implements OnInit,AfterViewInit {
                     this.showCurrAssYear = false;                  
                     this.alertService.success('Application - Dashboard Info data fetched successfully');
                     var res = data['Result'][0];
-                    this.dashboardTaxInfo = {
-                        'ApplicationId':res['ApplicationId'],
-                        'UserId':res['UserId'],
-                        'GrandTotalIncome':res['GrandTotalIncome'],
-                        'Deductions':res['TotalDeductions'],
-                        'NetTaxIncome':res['NetTaxIncome'],
-                        'TaxLiability':res['TotalTaxLiability'],
-                        'TaxCredit':res['TaxCredit'],
-                        'TaxPaid':res['TaxesPaid'],
-                        'Interest':res['TotalInterestAmount'],
-                        'Balance':res['TotalBalance']
-                    }
                     this.fetchAppDetailsAppDataByUserID(res['ApplicationId'],res['UserId']);
                     this.inProgressApps = this.fetchInProgressAppDataByUserID(res['AssesmentYear'],res['UserId']);
 
@@ -122,14 +111,40 @@ export class DashboardComponent implements OnInit,AfterViewInit {
                         this.showComplete = true;
                     else
                         this.showComplete = false;
-
-                    if(res['TotalTaxLiability'] == '0.00')
-                        this.taxliabilityStatus = true;
+                    
+                    if(res['AppITRUploadStatus'] == 'Yes')
+                        this.itrUploadStatus = true;
                     else
-                        this.taxliabilityStatus = false;
+                        this.itrUploadStatus = false;
+
+                    this.fetchTaxSummaryDataByUserID(res['ApplicationId'],res['UserId']);
                     
                 }else{
                     this.showCurrAssYear = true;
+                    this.itrUploadStatus = false;
+                    this.showComplete = false;
+                    this.dashboardInfo = {
+                        'Firstname':'NA',
+                        'Lastname':'NA',
+                        'PanNumber':'NA',
+                        'DateOfBirth':'NA',
+                        'Type':'NA',
+                        'PlanName':'NA',
+                        'MobileNo':'NA'
+                    };
+
+                    this.dashboardTaxInfo = {
+                        'ApplicationId':'NA',
+                        'UserId':'NA',
+                        'GrandTotalIncome':'NA',
+                        'Deductions':'NA',
+                        'NetTaxIncome':'NA',
+                        'TaxLiability':'NA',
+                        'TaxCredit':'NA',
+                        'TaxPaid':'NA',
+                        'Interest':'NA',
+                        'Balance':'NA'
+                    };
                 }
             },
         error => {
@@ -275,6 +290,68 @@ export class DashboardComponent implements OnInit,AfterViewInit {
         return resultArray;
     }
 
+    fetchTaxSummaryDataByUserID(appid:number,userid:number){
+        // start storing application data in database
+        this.appService.fetchTaxSummaryByAppidAndUserId(appid,userid)
+        .pipe(first())
+        .subscribe(
+            data => {
+                //console.log("Response" + JSON.stringify(data));
+                if(data['statusCode'] == 200){                  
+                    if(data['Result'].length > 0){
+                        var res = data['Result'][0];
+                        this.dashboardTaxInfo = {
+                            'ApplicationId':res['ApplicationId'],
+                            'UserId':res['UserId'],
+                            'GrandTotalIncome':res['GrandTotalIncome'],
+                            'Deductions':res['TotalDeductions'],
+                            'NetTaxIncome':res['NetTaxIncome'],
+                            'TaxLiability':res['TotalTaxLiability'],
+                            'TaxCredit':res['TaxCredit'],
+                            'TaxPaid':res['TaxesPaid'],
+                            'Interest':res['TotalInterestAmount'],
+                            'Balance':res['TotalBalance']
+                        }
+
+                        if(res['TotalTaxLiability'] == '0.00'){
+                            this.taxliabilityStatus = true;
+                        }else{
+                            this.taxliabilityStatus = false;
+                        }
+
+                        if(res['UserAproval'] == 'Yes'){
+                            this.usrApprovalStatus = true;
+                        }else {
+                            this.usrApprovalStatus = false;
+                        }
+                        
+                        
+                        
+                        
+                    }
+                }
+            },
+        error => {
+            console.log("Error "+error);
+        });
+    }
+
+    approveITR(appid:number,userid:number){
+        this.appService.updateTaxSummaryData(appid,userid)
+        .pipe(first())
+        .subscribe(
+        data => {
+            console.log("Response" + JSON.stringify(data));
+            //successfully updated
+            if(data['statusCode'] == 200){
+                alert("Thank You for approving your tax summary. Our assited CA will connect with you soon to complete the last step of tax filling.");
+            }
+        },
+        error => {
+            alert("Sorry Your Approval is not submitted yet. Please try after sometime or contact admin if problem persists.");
+        });
+    }
+
     //Function Called on next button click
     on_next_click(){
         this.step1 = false;
@@ -282,14 +359,14 @@ export class DashboardComponent implements OnInit,AfterViewInit {
     }
 
     //Function to enable forms from naviagtion icons
-  select_form_step(a){
-    if(a == 'step1'){
-      this.step1 = true;
-      this.step2 = false;
+    select_form_step(a){
+        if(a == 'step1'){
+        this.step1 = true;
+        this.step2 = false;
+        }
+        if(a == 'step2'){
+        this.step1 = false;
+        this.step2 = true;
+        }
     }
-    if(a == 'step2'){
-      this.step1 = false;
-      this.step2 = true;
-    }
-  }
 }

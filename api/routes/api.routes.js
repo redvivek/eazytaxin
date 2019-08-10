@@ -83,6 +83,8 @@ route.get('/tax/fetchDocPreview', taxService.fetchDocPreview);*/
 route.post('/tax/fetchDashboardInfo', taxService.fetchDashboardInfo);
 route.post('/tax/fetchInProgApps', taxService.fetchInProgressAppsByUserid);
 route.post('/tax/fetchAppInfo',taxService.fetchAppInfo);
+route.post('/tax/fetchAppTaxSummary',taxService.fetchTaxSummaryData);
+route.post('/tax/updateAppTaxSummary',taxService.updateTaxSummary);
 
 
 route.post('/tax/getInfoFromXML',parseService.getInfoFromXML);

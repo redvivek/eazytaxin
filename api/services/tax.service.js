@@ -34,6 +34,7 @@ const DocumentUpload = db.DocumentUpload;
 const ChallanDetails = db.ChallanDetails;
 const OthIncomeTaxPaidDetails = db.OthIncomeTaxPaidDetails;
 const IncomeTaxPaidDetails = db.IncomeTaxPaidDetails;
+const TaxSummary = db.TaxSummary;
 
 const sequelize = db.sequelize;
 
@@ -2284,13 +2285,13 @@ exports.fetchInProgressAppsByUserid = (req,res)=>{
 exports.fetchDashboardInfo = (req,res)=>{
     let assYear = req.body.assYear;
     let userid = req.body.userid;
-    //console.log("Input Data  "+appid+"-"+userid);
-    //sequelize.query("SELECT ApplicationId, UserId, AssesmentYear,Plantype,ApplicationStatus FROM `et_applicationsmain` where UserId = ? AND AssesmentYear = ?",{
-    sequelize.query("SELECT a.ApplicationId, a.UserId, a.AssesmentYear,a.Plantype,a.ApplicationStatus,b.GrandTotalIncome,b.TotalDeductions,b.NetTaxIncome,b.TotalTaxLiability,b.TaxCredit,b.TaxesPaid,b.TotalInterestAmount,b.TotalBalance,b.UserApproval FROM `et_applicationsmain` a, et_taxsummary b where a.UserId = ? AND a.AssesmentYear = ? AND a.ApplicationId = b.ApplicationId",{
+    //console.log("Input Data  "+assYear+"-"+userid);
+    sequelize.query("SELECT ApplicationId, UserId, AssesmentYear,Plantype,ApplicationStatus,AppITRUploadStatus FROM `et_applicationsmain` where UserId = ? AND AssesmentYear = ?",{
+    //sequelize.query("SELECT a.ApplicationId, a.UserId, a.AssesmentYear,a.Plantype,a.ApplicationStatus,b.GrandTotalIncome,b.TotalDeductions,b.NetTaxIncome,b.TotalTaxLiability,b.TaxCredit,b.TaxesPaid,b.TotalInterestAmount,b.TotalBalance,b.UserApproval FROM `et_applicationsmain` a, et_taxsummary b where a.UserId = ? AND a.AssesmentYear = ? AND a.ApplicationId = b.ApplicationId",{
         replacements: [userid,assYear],
         type: sequelize.QueryTypes.SELECT 
     }).then(result => {		
-        console.log("Result App details  "+JSON.stringify(result));
+        //console.log("Result App details  "+JSON.stringify(result));
         res.json({"statusCode": 200,"Message": "Successful Request","Result":result});
     })
     .catch(function (err) {
@@ -2316,9 +2317,90 @@ exports.fetchAppInfo = (req,res)=>{
     });
 }
 
+exports.fetchTaxSummaryData = (req,res)=>{
+    let appid = req.body.appId;
+    let userid = req.body.userId;
+    //console.log("Input Data  "+appid+"-"+userid);
+    var query = "select * From et_taxsummary Where ApplicationId = ? AND UserId = ?";
+    sequelize.query(query,{
+        replacements: [appid,userid],
+        type: sequelize.QueryTypes.SELECT 
+    }).then(result => {		
+        //console.log("Result App details  "+JSON.stringify(result));
+        res.json({"statusCode": 200,"Message": "Successful Request","Result":result});
+    })
+    .catch(function (err) {
+        console.log("Error "+err);
+        res.status(400).send(err);
+    });
+}
+
+exports.updateTaxSummary = (req,res)=>{
+    console.log("Tax summary data "+JSON.stringify(req.body));
+
+    var appId = req.body.appId;
+    var userId = req.body.userId;
+
+    TaxSummary.findOne(
+        { where: {UserId:userId,ApplicationId: appId} }
+    )
+    .then(function (resultData) {
+        if (resultData) {
+            //console.log("Result Doc Details  "+JSON.stringify(resultData));
+            //update
+            sequelize.query("UPDATE `et_taxsummary` SET UserApproval=?,updatedAt=? WHERE SummaryId=?",{
+                replacements: ['Yes',formattedDT,resultData.SummaryId],
+                type: sequelize.QueryTypes.UPDATE 
+            }).then(result => {		
+                //console.log("Result AppId  "+result[0]);
+                mailOptions={
+                    to :  'sg.viv09@gmail.com',//'usha.tanna@easytaxin.com',
+                    from: 'no-reply@easytaxin.com',
+                    subject : "EasyTaxin - Tax Summary Approved By User",
+                    text: 'Hello Admin, This is to notify you user has approved its tax summary. Please login to Admin panel to check details',
+                    html : "Hello Admin,<br> This is to notify you user has approved its tax summary.<br> Please login to Admin panel to check details." 
+                }
+
+                console.log(mailOptions);
+                /* console.log("Regsiteration successful and activation mail sent to user"+mailresult);
+                res.json({"statusCode": 200,"Message": "Successful Request"}); */
+                fetchMailKeyValue()
+                .then(function(keyvalue){
+                    //console.log("Api key "+keyvalue);
+                    sgMail.setApiKey(keyvalue);
+                    sgMail.send(mailOptions, (error, mailresult) => {
+                        if (error) {
+                            console.log("Application submitted successfully and failed to sent activation mail to admin \n"+ JSON.stringify(error));
+                            var msg = "Application submitted successfully and failed to sent activation mail to admin";
+                            res.json({"statusCode": 200,"Message": msg});
+                        }
+                        if (mailresult) { 
+                            console.log("Application submitted successfully and mail sent to admin");
+                            var msg = "Application submitted successfully and mail sent to admin";
+                            res.json({"statusCode": 200,"Message": msg});
+                        }
+                    });
+                })
+                .catch(function (err) {
+                    console.log("Error "+err);
+                    res.status(400).send(err);
+                });
+                //res.json({"statusCode": 200,"Message": "Successful Request"});
+            })
+            .catch(function (err) {
+                console.log("Error "+err);
+                res.status(400).send(err);
+            });
+        }
+    })
+    .catch(function (err) {
+        console.log("Error "+err);
+        res.status(400).send(err);
+    });
+}
+
 //update flags to et_applicationsmain table */
 function updateApplicationMain(appid,userid,appStage){
-    
     sequelize.query("UPDATE `et_applicationsmain` SET updatedAt=?,ApplicationStage=? WHERE ApplicationId = ? AND UserId = ? ",{
         replacements: [formattedDT,appStage,appid,userid],
         type: sequelize.QueryTypes.UPDATE 
@@ -2364,8 +2446,8 @@ exports.generateITRReport = (req,res)=>{
 
 function updateAppMainFinalStatus(appid,userid,ITRStatus,res){
     var deferred = Q.defer();
-    sequelize.query("UPDATE `et_applicationsmain` SET ApplicationCompletionDate = ?,updatedAt=?,ApplicationStatus=?,AppITRUploadStatus=?,AppITRUploadDate=? WHERE ApplicationId = ? AND UserId = ? ",{
-        replacements: [formattedDT,formattedDT,'Complete',ITRStatus,formattedDT,appid,userid],
+    sequelize.query("UPDATE `et_applicationsmain` SET ApplicationCompletionDate = ?,updatedAt=?,ApplicationStatus=?,AppITRUploadStatus=? WHERE ApplicationId = ? AND UserId = ? ",{
+        replacements: [formattedDT,formattedDT,'Complete',ITRStatus,appid,userid],
         type: sequelize.QueryTypes.UPDATE 
     }).then(result => {		
         console.log("Result AppId  "+result);
