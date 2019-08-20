@@ -14,6 +14,8 @@ import { ReviewdetailsComponent } from './reviewdetails';
 import { PaymentsComponent } from './payments';
 import { TransactionComponent } from './transaction';
 import{ SharedModule } from '../shared.module';
+//import { MyDateRangePickerModule } from 'mydaterangepicker';
+import { MyDatePickerModule } from 'mydatepicker';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import{ SharedModule } from '../shared.module';
     ReactiveFormsModule,
     TaxfillingRoutingModule,
     SharedModule,
-    FileUploadModule
+    FileUploadModule,
+    //MyDateRangePickerModule
+    MyDatePickerModule
   ]
 })
 export class TaxfillingModule { }

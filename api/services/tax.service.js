@@ -637,6 +637,8 @@ exports.savePersonalInfoByAppId = (req,res)=>{
     let aadharNumber = req.body.AadharNumber;
     let updateAt = formattedDT;
 
+    //console.log("Input - Personal Details  "+dob.formatted);
+
     PersonalDetails.findOne(
 		{ where: {UserId:userid,ApplicationId: appid} }
 	)
@@ -648,7 +650,7 @@ exports.savePersonalInfoByAppId = (req,res)=>{
             }).then(() => {
                 console.log('deleted successfully with id = ' + resultData.PersonalDetailsId);
                 sequelize.query("INSERT INTO `et_personaldetails`(ApplicationId,UserId,Firstname,Middlename,Lastname,EmailId,Fathername,MobileNo,AltMobileNo,DateOfBirth,PanNumber,AadharNumber,updatedAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                    replacements: [appid,userid,firstName,middleName,lastName,emailId,fatherName,mob,altMob,dob,panNumber,aadharNumber,updateAt,'Yes'],
+                    replacements: [appid,userid,firstName,middleName,lastName,emailId,fatherName,mob,altMob,dob.formatted,panNumber,aadharNumber,updateAt,'Yes'],
                     type: sequelize.QueryTypes.INSERT 
                 }).then(result => {		
                     console.log("Result AppId  "+result[0]);
@@ -666,7 +668,7 @@ exports.savePersonalInfoByAppId = (req,res)=>{
 			//res.status(200);
 			//Save to et_personaldetails table */
 			sequelize.query("INSERT INTO `et_personaldetails`(ApplicationId,UserId,Firstname,Middlename,Lastname,EmailId,Fathername,MobileNo,AltMobileNo,DateOfBirth,PanNumber,AadharNumber,createdAt,CompletionStatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{
-                replacements: [appid,userid,firstName,middleName,lastName,emailId,fatherName,mob,altMob,dob,panNumber,aadharNumber,updateAt,'Yes'],
+                replacements: [appid,userid,firstName,middleName,lastName,emailId,fatherName,mob,altMob,dob.formatted,panNumber,aadharNumber,updateAt,'Yes'],
                 type: sequelize.QueryTypes.INSERT 
             }).then(result => {		
                 console.log("Result AppId  "+result[0]);
@@ -1720,10 +1722,10 @@ exports.saveCapitalIncomeInfoByAppId = (req,res) => {
     let userid = req.body.userId;
     let inpSaleType = req.body.inpSaleType;
     let inputSalesProceed = req.body.inputSalesProceed!= "" ? parseFloat(req.body.inputSalesProceed) : 0.00;
-    let inputSalesDate = req.body.inputSalesDate;
+    let inputSalesDate = req.body.inputSalesDate.formatted != null ? req.body.inputSalesDate.formatted : '';
     let inpSTTPaid = req.body.inpSTTPaid;
     let inputCostBasis = req.body.inputCostBasis!= "" ? parseFloat(req.body.inputCostBasis) : 0.00;
-    let inputPurDate = req.body.inputPurDate;
+    let inputPurDate = req.body.inputPurDate.formatted != null ? req.body.inputPurDate.formatted : '';;
 
     CapitalGainsIncome.findOne(
 		{ where: {UserId:userid,ApplicationId: appid} }
@@ -1988,7 +1990,7 @@ exports.saveTaxPaidInfoByAppId = (req,res)=>{
                 if(details.length > 0){
                     for(var i=0;i < details.length;i++){
                         let inpBSRCode = details[i].bsrcode;
-                        let inpChallanPaymentDate = details[i].challanpaydate;
+                        let inpChallanPaymentDate = details[i].challanpaydate.formatted != null ? details[i].challanpaydate.formatted : '';
                         let inpChallanNumber = details[i].challannum;
                         let inpChallanAmount = details[i].challanamt!= "" ? parseFloat(details[i].challanamt) : 0.00;
                         console.log("Result cnt  "+ i);

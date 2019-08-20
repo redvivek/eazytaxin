@@ -279,8 +279,10 @@
                             </div>
                           </div>
                           <div class="col-md-6 col-sm-12">
-                            <div class="form-group floating-label">
-                              <input type="text" class="form-control" id="DateOfBirth" formControlName="DateOfBirth" [ngClass]="{ 'is-invalid': perSubmitted && f.DateOfBirth.errors}">
+                            <div class="form-group">
+                              <!-- <input type="text" class="form-control" id="DateOfBirth" formControlName="DateOfBirth" [ngClass]="{ 'is-invalid': perSubmitted && f.DateOfBirth.errors}"> -->
+                              <!-- <my-date-range-picker class="form-control" name="DateOfBirth" [options]="myDateRangePickerOptions" formControlName="DateOfBirth" [ngClass]="{ 'is-invalid': perSubmitted && f.DateOfBirth.errors}"></my-date-range-picker> -->
+                              <my-date-picker class="form-control" name="DateOfBirth" [options]="myDatePickerOptions" formControlName="DateOfBirth" [ngClass]="{ 'is-invalid': perSubmitted && f.DateOfBirth.errors}"></my-date-picker>
                               <div *ngIf="perSubmitted && f.DateOfBirth.errors" class="invalid-feedback">
                                   <div *ngIf="f.DateOfBirth.errors.required">Date of Birth is required</div>
                               </div>

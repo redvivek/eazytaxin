@@ -7,6 +7,7 @@ import { environment } from '@environments/environment';
 import { handleInsideHeaderBackground,handleFloatingLabels,formSticky,getFileSizeNameAndType } from '../../app.helpers';
 import { AuthenticationService,ApplicationService, AlertService } from '@app/_services';
 import * as Waves from 'node-waves';
+import {IMyDpOptions} from 'mydatepicker';
 
 const URL = `${environment.apiUrl}/tax/uploadproofDocuments`;
 
@@ -82,6 +83,11 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
 
   //Read localstorage in progress application values
   localStoreg = JSON.parse(localStorage.getItem("currentUserApp"));
+
+  public myDatePickerOptions: IMyDpOptions = {
+      // other options...
+      dateFormat: 'yyyy-mm-dd',
+  };
 
 
   constructor( 
@@ -495,8 +501,45 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
       }else{
         this.alertService.error('File Uploading Failed');
       }
-};
+    };
     /*File Uploader with form data ends here */
+  }
+
+  setSDate(sd = ''): void {
+    // Set date range (today) using the patchValue function
+    let date;
+      if(sd != ''){
+        date = new Date(sd);
+      }else
+        date = new Date();
+    this.captialIncomeForm.patchValue({inputSalesDate: {
+    date: {
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        day: date.getDate()}
+    }});
+  }
+
+  setPDate(pd = ''): void {
+    // Set date range (today) using the patchValue function
+    let date;
+      if(pd != ''){
+        date = new Date(pd);
+      }else
+        date = new Date();
+
+    this.captialIncomeForm.patchValue({inputPurDate: {
+    date: {
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        day: date.getDate()}
+    }});
+  }
+
+  clearDateRange(): void {
+      // Clear the date range using the patchValue function
+      this.captialIncomeForm.patchValue({inputSalesDate: ''});
+      this.captialIncomeForm.patchValue({inputPurDate: ''});
   }
 
   ngAfterViewInit(){
@@ -801,14 +844,14 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
           if(data !== null ){
               //Preload form with existing or default values
               var maindata = data;
-              //console.log("Existing perInfo "+ JSON.stringify(maindata));
+              console.log("Existing perInfo "+ JSON.stringify(maindata));
               this.captialIncomeUploadForm.get('uploadShareIncomeProofFlag').setValue(maindata.DocUploadFlag);
               this.captialIncomeForm.get('inpSaleType').setValue(maindata.SaleType);
               this.captialIncomeForm.get('inputSalesProceed').setValue(maindata.SalesProceedAmt);
-              this.captialIncomeForm.get('inputSalesDate').setValue(maindata.SalesDate);
+              this.setSDate(maindata.SalesDate);
               this.captialIncomeForm.get('inpSTTPaid').setValue(maindata.SalesTaxPaid);
               this.captialIncomeForm.get('inputCostBasis').setValue(maindata.CostBasis);
-              this.captialIncomeForm.get('inputPurDate').setValue(maindata.PurchaseDate);
+              this.setPDate(maindata.PurchaseDate);
 
               if(maindata.DocUploadFlag == 1){
                 this.ifCapitalSalFlagTrue = true;
@@ -1339,7 +1382,7 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
                   //console.log("Response" + JSON.stringify(data));
                   //successfully inserted
                   if(data['statusCode'] == 200){
-                        this.alertService.error('Application - Captial Gains data saved successfully');
+                        this.alertService.success('Application - Captial Gains data saved successfully');
                         this.localStoreg['applicationStage'] = 13;
                         //console.log("LocalStore" + JSON.stringify(this.localStoreg));
                         localStorage.removeItem("currentUserApp");
@@ -1381,7 +1424,7 @@ export class IncomeSourceComponent implements OnInit,AfterViewInit {
                 //console.log("Response" + JSON.stringify(data));
                 //successfully inserted
                 if(data['statusCode'] == 200){
-                      this.alertService.error('Application - Captial Gains data saved successfully');
+                      this.alertService.success('Application - Captial Gains data saved successfully');
                       this.localStoreg['applicationStage'] = 13;
                       //console.log("LocalStore" + JSON.stringify(this.localStoreg));
                       localStorage.removeItem("currentUserApp");

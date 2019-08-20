@@ -142,12 +142,10 @@
                                     </div>
                                   </div>
                                   <div class="col-md-6">
-                                    <div class="form-group floating-label">
+                                    <div class="form-group">
                                       <div class="input-group append">
-                                        <input type="text" class="form-control" id="inpChallanPaymentDate" formControlName="inpChallanPaymentDate" >
-                                        <div class="input-group-append">
-                                          <div class="input-group-text"><i class="far fa-calendar"></i></div>
-                                        </div>
+                                        <!-- <input type="text" class="form-control" id="inpChallanPaymentDate" formControlName="inpChallanPaymentDate" > -->
+                                        <my-date-picker class="form-control" name="inpChallanPaymentDate" [options]="myDatePickerOptions" formControlName="inpChallanPaymentDate"></my-date-picker>
                                         <label for="">Date of Payment</label>
                                       </div>
                                     </div>

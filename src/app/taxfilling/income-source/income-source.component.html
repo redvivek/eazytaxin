@@ -1805,8 +1805,9 @@
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="form-group floating-label">
-                                                <input type="text" class="form-control" id="inputSalesDate" formControlName="inputSalesDate">
+                                            <div class="form-group">
+                                                <!-- <input type="text" class="form-control" id="inputSalesDate" formControlName="inputSalesDate"> -->
+                                                <my-date-picker class="form-control" name="inputSalesDate" [options]="myDatePickerOptions" formControlName="inputSalesDate"></my-date-picker>
                                                 <label for="inputSalesDate">Date Of Sale</label>
                                             </div>
                                         </div>
@@ -1829,8 +1830,9 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-group floating-label">
-                                                <input type="text" class="form-control" id="inputPurDate" formControlName="inputPurDate">
+                                            <div class="form-group">
+                                                <!-- <input type="text" class="form-control" id="inputPurDate" formControlName="inputPurDate"> -->
+                                                <my-date-picker class="form-control" name="inputPurDate" [options]="myDatePickerOptions" formControlName="inputPurDate"></my-date-picker>
                                                 <label for="inputPurDate">Date Of Purchase</label>
                                             </div>
                                         </div>

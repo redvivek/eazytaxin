@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+//import { MyDateRangePickerModule } from 'mydaterangepicker';
 // used to create fake backend
 //import { fakeBackendProvider } from './_helpers';
 
@@ -42,7 +43,8 @@ import { TermscondnComponent } from './termscondn/termscondn.component';
         BaseModule,
         routing,
         TaxfillingModule,
-        SharedModule
+        SharedModule,
+        //MyDateRangePickerModule
     ],
     declarations: [
         AppComponent,

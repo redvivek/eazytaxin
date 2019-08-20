@@ -7,6 +7,8 @@ import { ScriptService,AuthenticationService,ApplicationService, AlertService } 
 import { environment } from '@environments/environment';
 import { handleInsideHeaderBackground,handleFloatingLabels,formSticky,getFileSizeNameAndType } from '../../app.helpers';
 import * as Waves from 'node-waves';
+//import {IMyDrpOptions} from 'mydaterangepicker';
+import {IMyDpOptions} from 'mydatepicker';
 
 const URL = `${environment.apiUrl}/tax/uploadproofDocuments`;
 
@@ -61,6 +63,11 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
   assYear:string;
 
   localStoreg = JSON.parse(localStorage.getItem("currentUserApp"));
+
+  public myDatePickerOptions: IMyDpOptions = {
+      // other options...
+      dateFormat: 'yyyy-mm-dd',
+  };
   
   constructor(
     private formBuilder: FormBuilder,
@@ -74,6 +81,7 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
       if (!this.authenticationService.currentUserValue) { 
         this.router.navigate(['/login']);
       }else{
+        //this.options      = new DatepickerOptions();
         //console.log("Current user value "+ JSON.stringify(this.authenticationService.currentUserValue));
         this.userId         = this.authenticationService.currentUserValue.userid;
         
@@ -353,6 +361,28 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
     /*File Uploader with form data ends here */
   }
 
+  setDate(d = ''): void {
+      // Set date range (today) using the patchValue function
+      let date;
+      if(d != ''){
+        date = new Date(d);
+      }else
+        date = new Date();
+      
+
+      this.personalDetailsForm.patchValue({DateOfBirth: {
+      date: {
+          year: date.getFullYear(),
+          month: date.getMonth() + 1,
+          day: date.getDate()}
+      }});
+  }
+
+  clearDateRange(): void {
+      // Clear the date range using the patchValue function
+      this.personalDetailsForm.patchValue({DateOfBirth: ''});
+  }
+
   ngAfterViewInit(){
     handleInsideHeaderBackground();
     handleFloatingLabels(Waves);
@@ -584,7 +614,7 @@ export class PersonalDetailsComponent implements OnInit,AfterViewInit {
               this.personalDetailsForm.get('Fathername').setValue(data.Fathername);
               this.personalDetailsForm.get('MobileNo').setValue(data.MobileNo);
               this.personalDetailsForm.get('AltMobileNo').setValue(data.AltMobileNo);
-              this.personalDetailsForm.get('DateOfBirth').setValue(data.DateOfBirth);
+              this.setDate(data.DateOfBirth);
               //this.personalDetailsForm.get('Gender').setValue(data.Gender);
               //this.personalDetailsForm.get('EmployerType').setValue(data.EmployerType);
               this.personalDetailsForm.get('PanNumber').setValue(data.PanNumber);

@@ -7,6 +7,7 @@ import { first } from 'rxjs/operators';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { environment } from '@environments/environment';
 import { AuthenticationService,ApplicationService, AlertService } from '@app/_services';
+import {IMyDpOptions} from 'mydatepicker';
 
 
 const URL = `${environment.apiUrl}/tax/uploadproofDocuments`;
@@ -48,6 +49,11 @@ export class TaxesPaidComponent implements OnInit,AfterViewInit {
 
   //Read localstorage in progress application values
   localStoreg = JSON.parse(localStorage.getItem("currentUserApp"));
+
+  public myDatePickerOptions: IMyDpOptions = {
+      // other options...
+      dateFormat: 'yyyy-mm-dd',
+  };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -181,6 +187,27 @@ export class TaxesPaidComponent implements OnInit,AfterViewInit {
             this.alertService.error('File Uploading Failed');
           }
     };
+  }
+
+  setDate(pd = ''): void {
+    // Set date range (today) using the patchValue function
+    let date;
+      if(pd != ''){
+        date = new Date(pd);
+      }else
+        date = new Date();
+
+    this.otherTaxesPaidChallanForm.patchValue({inpChallanPaymentDate: {
+    date: {
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        day: date.getDate()}
+    }});
+  }
+
+  clearDateRange(): void {
+      // Clear the date range using the patchValue function
+      this.otherTaxesPaidChallanForm.patchValue({inpChallanPaymentDate: ''});
   }
 
   ngAfterViewInit(){
